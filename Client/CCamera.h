@@ -47,7 +47,7 @@ public:
 	void SetLookAt(Vec2 _look)
 	{
 		m_lookAt = _look;
-		m_currentLookAt = m_lookAt;
+		m_currentLookAt = Vec2(0,0);
 		float moveDist = (m_lookAt - m_prevLookAt).Distance();
 		m_moveSpeed = moveDist / m_moveTime;
 		m_minMoveSpeed = moveDist / m_moveTime * 0.5f;

@@ -25,7 +25,7 @@ public:
 
 	CLONE(CPanelUI);
 private:
-
+	CUI* m_prevChildUI;
 	Vec2 m_curMousePos;
 	Vec2 m_dragStart;
 };

@@ -7,6 +7,7 @@
 
 CUIManager::CUIManager()
 	:m_focusedUI(nullptr)
+	, m_prevTargetUI(nullptr)
 {
 
 }
@@ -41,11 +42,19 @@ void CUIManager::Update()
 			targetUI->MouseLButtonUp();
 			if (targetUI->IsLButtonDown())
 			{
+				targetUI->m_select = true;
+				if (nullptr != m_prevTargetUI && m_prevTargetUI != targetUI)
+				{
+					m_prevTargetUI->m_select = false;
+				}
 				targetUI->MouseLButtonClicked();
 			}
 			targetUI->m_lButtonDown = false;
+			m_prevTargetUI = targetUI;
 		}
+		
 	}
+	
 
 }
 
@@ -135,7 +144,7 @@ CUI* CUIManager::GetFocusedUI()
 	}
 
 	focusUI = (CUI*)*targetIter;
-	curScene->ChageFocusUI(targetIter, focusUI);
+	curScene->ChangeFocus(targetIter, focusUI, GROUP_TYPE::UI);
 
 	return focusUI;
 }
@@ -160,7 +169,5 @@ void CUIManager::SetFocusedUI(CUI* _ui)
 		return;
 	}
 
-	curScene->ChageFocusUI(targetIter, m_focusedUI);
-
-	
+	curScene->ChangeFocus(targetIter, m_focusedUI, GROUP_TYPE::UI);
 }

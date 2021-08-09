@@ -6,8 +6,8 @@
 #include "CCamera.h"
 CTileButtonUI::CTileButtonUI(bool _cameraAffected)
 	:CButtonUI(_cameraAffected)
-	,m_callBackFuction(nullptr)
-	,m_sceneInst(nullptr)
+	, m_callBackFuction(nullptr)
+	, m_sceneInst(nullptr)
 	,m_idx(0)
 {
 	SetScale(Vec2(64.f, 64.f));
@@ -45,21 +45,7 @@ void CTileButtonUI::Render(HDC _dc)
 	{
 		pos = CCamera::GetInst()->GetRenderPos(pos);
 	}
-	if (IsLButtonDown())
-	{
-		SelectGDI select(_dc, PEN_TYPE::GREEN);
-
-		BitBlt(
-			_dc,
-			(int)pos.x-1,
-			(int)pos.y-1,
-			(int)scale.x+1,
-			(int)scale.y+1,
-			m_tex->GetDC(),
-			curCol * TILE_SIZE,
-			curRow * TILE_SIZE,
-			SRCCOPY);
-	}
+	
 	BitBlt(
 		_dc,
 		(int)pos.x,
@@ -70,6 +56,32 @@ void CTileButtonUI::Render(HDC _dc)
 		curCol * TILE_SIZE,
 		curRow * TILE_SIZE,
 		SRCCOPY);
+	if (IsLButtonDown())
+	{
+		
+		BitBlt(
+			_dc,
+			(int)pos.x - 1,
+			(int)pos.y - 1,
+			(int)scale.x + 1,
+			(int)scale.y + 1,
+			m_tex->GetDC(),
+			curCol * TILE_SIZE,
+			curRow * TILE_SIZE,
+			SRCCOPY);
+	}
+	if (IsSelect())
+	{
+		SelectGDI select(_dc, PEN_TYPE::GREEN_BOLD);
+		SelectGDI select1(_dc, BRUSH_TYPE::HOLLOW);
+		Rectangle(
+			_dc,
+			(int)pos.x,
+			(int)pos.y,
+			(int)(pos.x + scale.x),
+			(int)(pos.y + scale.y)
+		);
+	}
 }
 
 void CTileButtonUI::MouseOn()

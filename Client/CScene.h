@@ -34,12 +34,11 @@ public:
 	{
 		m_arrObj[(UINT)_state].push_back(_obj);
 	}
-	void ChageFocusUI(vector<CObject*>::const_iterator iter, CObject* _focusUI)
+	void ChangeFocus(vector<CObject*>::const_iterator iter, CObject* _focusUI, GROUP_TYPE _group)
 	{
-		m_arrObj[TYPE_NUMBER(GROUP_TYPE::UI)].erase(iter);
-		m_arrObj[TYPE_NUMBER(GROUP_TYPE::UI)].push_back(_focusUI);
+		m_arrObj[TYPE_NUMBER(_group)].erase(iter);
+		m_arrObj[TYPE_NUMBER(_group)].push_back(_focusUI);
 	}
-
 	CPlayer* GetPlayer()
 	{
 		return (CPlayer*)m_arrObj[TYPE_NUMBER(GROUP_TYPE::PLAYER)][0];

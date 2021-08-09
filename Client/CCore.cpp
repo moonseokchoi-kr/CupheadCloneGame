@@ -10,6 +10,7 @@
 #include "CUIManager.h"
 #include "CCamera.h"
 #include "CResourceManager.h"
+#include "CBackGroundManager.h"
 #include "CTexture.h"
 
 #include "resource.h"
@@ -70,6 +71,7 @@ void CCore::Progress()
 	CTimeManager::GetInst()->Update();
 	CKeyManager::GetInst()->Update();
 	CCamera::GetInst()->Update();
+	CBackGroundManager::GetInst()->Update();
 	CUIManager::GetInst()->Update();
 
 
@@ -105,6 +107,7 @@ void CCore::CreateBrushPen()
 
 	m_pens[(UINT)PEN_TYPE::RED] = CreatePen(PS_SOLID, 1, RGB(255, 0, 0));
 	m_pens[(UINT)PEN_TYPE::GREEN] = CreatePen(PS_SOLID, 1, RGB(0,255, 0));
+	m_pens[TYPE_NUMBER(PEN_TYPE::GREEN_BOLD)] = CreatePen(PS_SOLID, 3, RGB(0, 255, 0));
 	m_pens[(UINT)PEN_TYPE::BLUE] = CreatePen(PS_SOLID, 1, RGB(0, 0, 255));
 	m_pens[(UINT)PEN_TYPE::BLACK] = CreatePen(PS_SOLID, 1, RGB(0, 0, 0));
 	m_pens[(UINT)PEN_TYPE::WHITE] = CreatePen(PS_SOLID, 1, RGB(255, 255, 255));

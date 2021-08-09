@@ -4,6 +4,8 @@
 #include "CPanelUI.h"
 #include "CButtonUI.h"
 #include "CTileButtonUI.h"
+#include "CBackGround.h"
+
 #include "CKeyManager.h"
 #include "CPathManager.h"
 #include "CCore.h"
@@ -52,7 +54,7 @@ void CScene_Tool::Enter()
 	CCore::GetInst()->DockMenu();
 	Vec2 resolution = RESOLUTION;
 
-	CreateTile(5, 5);
+	/*CreateTile(5, 5);*/
 
 	CUI* parentUI = new CPanelUI(false);
 	parentUI->SetScale(Vec2(400.f, 700.f));
@@ -93,6 +95,13 @@ void CScene_Tool::Enter()
 	((CButtonUI*)backArrowButton)->SetClickedCallBack(this, (SCENE_MEM_FUNC_VOID)&CScene_Tool::GoBackTable);
 	parentUI->AddChild(backArrowButton);
 	AddObject(parentUI, GROUP_TYPE::UI);
+
+	CBackGround* back_obj = new CBackGround;
+
+	
+	back_obj->SetScale(Vec2(400, 300));
+	back_obj->SetPos(resolution/2.f-Vec2(300.f,100.f));
+	AddObject(back_obj, GROUP_TYPE::BACK_GROUND);
 
 
 

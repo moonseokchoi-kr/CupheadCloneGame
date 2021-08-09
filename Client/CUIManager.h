@@ -22,5 +22,6 @@ public:
 	void SetFocusedUI(CUI* _ui);
 private:
 	CUI* m_focusedUI;
-};
+	CUI* m_prevTargetUI;
+};	
 

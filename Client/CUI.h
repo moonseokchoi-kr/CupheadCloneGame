@@ -26,7 +26,7 @@ public:
     bool IsCameraAffed() { return m_cameraAffected; }
     bool IsMouseOn() { return m_mouseOn; }
     bool IsLButtonDown() { return m_lButtonDown; }
-    
+    bool IsSelect() { return m_select; }
     void MouseOnCheck();
     void AddChild(CUI* _childUI) { m_childUIs.push_back(_childUI); _childUI->m_parentUI = this; }
 
@@ -43,7 +43,7 @@ private:
     bool m_cameraAffected;          //카메라 영향을 받는지
     bool m_mouseOn;                 //마우스가 올라가있는지
     bool m_lButtonDown;             //마우스왼쪽버튼을 클릭했는지
-
+    bool m_select;                  //선택이 되었는지
 
     friend class CUIManager;
 };

@@ -144,6 +144,12 @@
     <Filter Include="Engine\Component\RigidBody">
       <UniqueIdentifier>{e2b4d4ac-1a4f-4f24-9dd4-60bb63af87fa}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Object\BackGround">
+      <UniqueIdentifier>{1c84429a-a9c4-4b68-a656-f65c3f2378d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Manager\BackGoundManager">
+      <UniqueIdentifier>{fe79b3e2-e3ed-4f30-98bc-7392fd6ebffc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -294,6 +300,15 @@
     <ClInclude Include="CRigidBody.h">
       <Filter>Engine\Component\RigidBody</Filter>
     </ClInclude>
+    <ClInclude Include="CBackGround.h">
+      <Filter>Engine\Object\BackGround</Filter>
+    </ClInclude>
+    <ClInclude Include="CBackGroundManager.h">
+      <Filter>Engine\Manager\BackGoundManager</Filter>
+    </ClInclude>
+    <ClInclude Include="CAttachButtonUI.h">
+      <Filter>Engine\Object\UI\ButtonUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -436,6 +451,15 @@
     </ClCompile>
     <ClCompile Include="CRigidBody.cpp">
       <Filter>Engine\Component\RigidBody</Filter>
+    </ClCompile>
+    <ClCompile Include="CBackGround.cpp">
+      <Filter>Engine\Object\BackGround</Filter>
+    </ClCompile>
+    <ClCompile Include="CBackGroundManager.cpp">
+      <Filter>Engine\Manager\BackGoundManager</Filter>
+    </ClCompile>
+    <ClCompile Include="CAttachButtonUI.cpp">
+      <Filter>Engine\Object\UI\ButtonUI</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
