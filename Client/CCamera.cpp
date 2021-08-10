@@ -30,7 +30,7 @@ CCamera::~CCamera()
 void CCamera::Init()
 {
 	Vec2 resolution = CCore::GetInst()->GetResolution();
-	m_veilTexture = CResourceManager::GetInst()->CreateTexture(L"VeilTexture", resolution.x, resolution.y);
+	m_veilTexture = CResourceManager::GetInst()->CreateTexture(L"VeilTexture", (UINT)resolution.x, (UINT)resolution.y);
 }
 void CCamera::Update()
 {

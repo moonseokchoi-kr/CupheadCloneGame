@@ -12,11 +12,23 @@
 #include "CCamera.h"
 #include "CSceneManager.h"
 #include "CResourceManager.h"
+#include "CBackGroundManager.h"
 #include "CTexture.h"
 #include "CUIManager.h"
 #include "resource.h"
 
-
+///
+/// 현재 진행상황
+/// 
+/// 1. 배경오브젝트 드래그앤 드랍으로 옮길 수 있음
+/// 2. 버튼 UI로 필요한 Obejct 선택가능
+/// 
+/// 해야할것
+/// 1. 오브젝트 선택해서 배경 나타나게 하기
+/// 2. 각각에 항목 표시하는 글씨 적기
+/// 3. 게임 오브젝트(비, 플랫폼, 번개 제작)
+/// 4. 게임 오브젝트 드래그앤 드랍으로 배치하기
+/// 5. 구름 오브젝트 제작
 
 
 CScene_Tool::CScene_Tool()
@@ -35,6 +47,7 @@ void CScene_Tool::Update()
 	{
 		SetTileIdx();
 	}
+	
 	if (KEY_HOLD(KEY::LCTRL))
 	{
 		if (KEY_TAP(KEY::S))
@@ -47,7 +60,15 @@ void CScene_Tool::Update()
 		}
 		
 	}
-}
+	if (!CBackGroundManager::GetInst()->GetFocusBack())
+	{
+		if (KEY_TAP(KEY::MOUSE_LBUTTON))
+		{
+			CreateBackGround();
+		}
+	}
+	}
+	
 
 void CScene_Tool::Enter()
 {
@@ -57,43 +78,46 @@ void CScene_Tool::Enter()
 	/*CreateTile(5, 5);*/
 
 	CUI* parentUI = new CPanelUI(false);
-	parentUI->SetScale(Vec2(400.f, 700.f));
-	parentUI->SetPos(Vec2(resolution.x - parentUI->GetScale().x, 0.f));
+	parentUI->SetScale(Vec2(400.f, 550.f));
+	parentUI->SetPos(Vec2(resolution.x - parentUI->GetScale().x, 100.f));
 	parentUI->SetName(L"TilePanelUI");
 	//타일 UI설정
 	CTileButtonUI* tileUI = new CTileButtonUI(false);
 
 
-	float yTerm = (parentUI->GetScale().y - 60.f) / 8;
-	float xTerm = (parentUI->GetScale().x - 60.f) / 5;
+	
 	int row = 4;
-	int col = 6;
+	int col = 2;
+	float yTerm = (parentUI->GetScale().y - 60.f) / (col+2);
+	float xTerm = (parentUI->GetScale().x - 60.f) / (row+1);
 	for (int i = 0; i <col; ++i)
 	{
 		for (int j = 0; j < row; ++j)
 		{
 			CTileButtonUI* newChild = tileUI->Clone();
 			newChild->SetPos(Vec2(xTerm*(j+1), yTerm * (i + 1)));
-			newChild->SetTileidx(i * col + j * row);
+			newChild->SetTileidx(i+j*row);
 			newChild->SetName(L"TileButtonUI");
 			newChild->SetClickedCallBack(this, (SCENE_MEM_FUNC)&CScene_Tool::GetTileUIidx);
 			parentUI->AddChild(newChild);
 		}
 	}
-	//화살 설정
-	CUI* nextArrowButton = new CButtonUI(false);
-	nextArrowButton->SetScale(Vec2(64.f,64.f));
-	nextArrowButton->SetPos(Vec2(xTerm*4, yTerm * 8-30.f));
-	CTexture* tex= CResourceManager::GetInst()->LoadTexture(L"NextArrow", L"texture\\arrow\\next_arrow.bmp");
-	((CButtonUI*)nextArrowButton)->SetTex(tex);
-	((CButtonUI*)nextArrowButton)->SetClickedCallBack(this,(SCENE_MEM_FUNC_VOID)&CScene_Tool::GoNextTable);
-	parentUI->AddChild(nextArrowButton);
-	CUI* backArrowButton = nextArrowButton->Clone();
-	backArrowButton->SetPos(Vec2(xTerm, yTerm * 8- 30.f));
-	tex = CResourceManager::GetInst()->LoadTexture(L"BackArrow", L"texture\\arrow\\back_arrow.bmp");
-	((CButtonUI*)backArrowButton)->SetTex(tex);
-	((CButtonUI*)backArrowButton)->SetClickedCallBack(this, (SCENE_MEM_FUNC_VOID)&CScene_Tool::GoBackTable);
-	parentUI->AddChild(backArrowButton);
+	//탭 전환 버튼 설정
+	row = 3;
+	xTerm = (parentUI->GetScale().x - 60.f) / (row+2);
+	CButtonUI* tabButton = new CButtonUI(false);
+	
+	tabButton->SetScale(Vec2(100.f, 60.f));
+	
+	for (int j = 0; j < row; ++j)
+	{
+		CButtonUI* newTabButton = tabButton->Clone();
+		newTabButton->SetPos(Vec2(xTerm * (j + 1) + 30.f * j, 400.f));
+		newTabButton->SetName(L"TabButtonUI");
+		newTabButton->SetClickedCallBack(this, (SCENE_MEM_FUNC_INT)&CScene_Tool::GoIdxTable, (DWORD_PTR)j);
+		parentUI->AddChild(newTabButton);
+	}
+
 	AddObject(parentUI, GROUP_TYPE::UI);
 
 	CBackGround* back_obj = new CBackGround;
@@ -101,6 +125,7 @@ void CScene_Tool::Enter()
 	
 	back_obj->SetScale(Vec2(400, 300));
 	back_obj->SetPos(resolution/2.f-Vec2(300.f,100.f));
+	back_obj->SetType(BACKGROUND_TYPE::BLUE_SKY);
 	AddObject(back_obj, GROUP_TYPE::BACK_GROUND);
 
 
@@ -244,7 +269,7 @@ void CScene_Tool::LoadTileData()
 
 void CScene_Tool::GoNextTable()
 {
-	int idx = 24;
+	int idx = 16;
 
 	const vector<CObject*>& UIs = GetObjWithType(GROUP_TYPE::UI);
 	
@@ -288,9 +313,40 @@ void CScene_Tool::GoBackTable()
 	}
 }
 
+void CScene_Tool::GoIdxTable(int _idx)
+{
+	int idx = 16*_idx;
+
+	const vector<CObject*>& UIs = GetObjWithType(GROUP_TYPE::UI);
+
+	for (CObject* UI : UIs)
+	{
+		if (UI->GetName() == L"TilePanelUI")
+		{
+			const vector<CUI*>& children = ((CUI*)UI)->GetChilds();
+			for (CUI* child : children)
+			{
+				if (child->GetName() == L"TileButtonUI")
+				{
+					((CTileButtonUI*)child)->SetTileidx(idx++);
+				}
+			}
+			break;
+		}
+	}
+}
+
 void CScene_Tool::GetTileUIidx(int _idx)
 {
 	m_cilckedImageIdx = _idx;
+}
+
+void CScene_Tool::CreateBackGround()
+{
+	CBackGround* backObj = new CBackGround;
+	backObj->SetPos(MOUSE_POS);
+	backObj->SetType((BACKGROUND_TYPE)m_cilckedImageIdx);
+	AddObject(backObj, GROUP_TYPE::BACK_GROUND);
 }
 
 //

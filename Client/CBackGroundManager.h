@@ -10,11 +10,13 @@ class CBackGroundManager
 
 public:
 	void Update();
-
+public:
+	CBackGround* GetFocusBack() { return m_focusedBack; }
 private:
 	CBackGround* getFocusedObj();
 private:
 	CBackGround* m_focusedBack;
 	CBackGround* m_prevTargetBack;
+
 };
 

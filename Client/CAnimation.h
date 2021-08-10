@@ -24,7 +24,6 @@ class CAnimation
 {
 public:
 	CAnimation();
-	CAnimation(const CAnimation& _origin);
 	~CAnimation();
 public:
 	const wstring& GetName() { return m_name; }

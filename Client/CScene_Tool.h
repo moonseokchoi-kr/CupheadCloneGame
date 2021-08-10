@@ -36,7 +36,9 @@ public:
     void LoadTileData();
     void GoNextTable();
     void GoBackTable();
+    void GoIdxTable(int _idx);
     void GetTileUIidx(int _idx);
+    void CreateBackGround();
 private:
 
     int m_cilckedImageIdx;

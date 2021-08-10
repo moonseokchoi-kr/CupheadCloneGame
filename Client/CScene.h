@@ -62,7 +62,6 @@ public:
 	void DeleteAll();
 	void DeleteGroup(GROUP_TYPE _target);
 	void CreateTile(UINT _xCount, UINT _yCount);
-	
 	void LoadTile(const wstring& _relativePath);
 private:
 	void render_tile(HDC _dc);

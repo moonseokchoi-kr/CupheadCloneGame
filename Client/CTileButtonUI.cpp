@@ -11,7 +11,7 @@ CTileButtonUI::CTileButtonUI(bool _cameraAffected)
 	,m_idx(0)
 {
 	SetScale(Vec2(64.f, 64.f));
-	m_tex = CResourceManager::GetInst()->LoadTexture(L"Tile", L"texture\\tile\\TILE.bmp");
+	m_tex = CResourceManager::GetInst()->LoadTexture(L"Tile", L"texture\\cuphead\\tile\\tile_image.bmp");
 }
 
 CTileButtonUI::~CTileButtonUI()
@@ -45,7 +45,23 @@ void CTileButtonUI::Render(HDC _dc)
 	{
 		pos = CCamera::GetInst()->GetRenderPos(pos);
 	}
-	
+	BLENDFUNCTION bf = {};
+	bf.BlendOp = AC_SRC_OVER;
+	bf.BlendFlags = 0;
+	bf.AlphaFormat = AC_SRC_ALPHA;
+	bf.SourceConstantAlpha =255;
+
+// 	AlphaBlend(
+// 		_dc
+// 		, 0, 0
+// 		, (int)pos.x
+// 		, (int)pos.y
+// 		, m_tex->GetDC()
+// 		, 0, 0
+// 		, curCol * TILE_SIZE
+// 		, curRow * TILE_SIZE
+// 		, bf
+// 	);
 	BitBlt(
 		_dc,
 		(int)pos.x,
@@ -56,20 +72,7 @@ void CTileButtonUI::Render(HDC _dc)
 		curCol * TILE_SIZE,
 		curRow * TILE_SIZE,
 		SRCCOPY);
-	if (IsLButtonDown())
-	{
-		
-		BitBlt(
-			_dc,
-			(int)pos.x - 1,
-			(int)pos.y - 1,
-			(int)scale.x + 1,
-			(int)scale.y + 1,
-			m_tex->GetDC(),
-			curCol * TILE_SIZE,
-			curRow * TILE_SIZE,
-			SRCCOPY);
-	}
+
 	if (IsSelect())
 	{
 		SelectGDI select(_dc, PEN_TYPE::GREEN_BOLD);

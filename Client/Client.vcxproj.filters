@@ -150,6 +150,9 @@
     <Filter Include="Engine\Manager\BackGoundManager">
       <UniqueIdentifier>{fe79b3e2-e3ed-4f30-98bc-7392fd6ebffc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Object\UI\ButtonUI\TileButton">
+      <UniqueIdentifier>{707fc00d-b4c5-4101-8207-710419522f2d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -276,9 +279,6 @@
     <ClInclude Include="SelectGDI.h">
       <Filter>Engine\Module\GDI</Filter>
     </ClInclude>
-    <ClInclude Include="CTileButtonUI.h">
-      <Filter>Engine\Object\UI\ButtonUI</Filter>
-    </ClInclude>
     <ClInclude Include="FSMAI.h">
       <Filter>Engine\Module\AI</Filter>
     </ClInclude>
@@ -306,8 +306,8 @@
     <ClInclude Include="CBackGroundManager.h">
       <Filter>Engine\Manager\BackGoundManager</Filter>
     </ClInclude>
-    <ClInclude Include="CAttachButtonUI.h">
-      <Filter>Engine\Object\UI\ButtonUI</Filter>
+    <ClInclude Include="CTileButtonUI.h">
+      <Filter>Engine\Object\UI\ButtonUI\TileButton</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -428,9 +428,6 @@
     <ClCompile Include="SelectGDI.cpp">
       <Filter>Engine\Module\GDI</Filter>
     </ClCompile>
-    <ClCompile Include="CTileButtonUI.cpp">
-      <Filter>Engine\Object\UI\ButtonUI</Filter>
-    </ClCompile>
     <ClCompile Include="FSMAI.cpp">
       <Filter>Engine\Module\AI</Filter>
     </ClCompile>
@@ -458,8 +455,8 @@
     <ClCompile Include="CBackGroundManager.cpp">
       <Filter>Engine\Manager\BackGoundManager</Filter>
     </ClCompile>
-    <ClCompile Include="CAttachButtonUI.cpp">
-      <Filter>Engine\Object\UI\ButtonUI</Filter>
+    <ClCompile Include="CTileButtonUI.cpp">
+      <Filter>Engine\Object\UI\ButtonUI\TileButton</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

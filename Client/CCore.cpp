@@ -59,6 +59,7 @@ int CCore::InitCore(HWND _hwnd, POINT _resolution)
 	CPathManager::GetInst()->Init();
 	CCamera::GetInst()->Init();
 	CSceneManager::GetInst()->Init();
+	
 
 	CreateBrushPen();
 	

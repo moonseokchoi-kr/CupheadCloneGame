@@ -128,6 +128,7 @@
       <MinFilesInUnityFile>1</MinFilesInUnityFile>
       <MaxFilesInUnityFile>8</MaxFilesInUnityFile>
       <UnityFilesDirectory>$(ProjectDir)Uinity</UnityFilesDirectory>
+      <LanguageStandard>Default</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -147,6 +148,7 @@
       <MinFilesInUnityFile>1</MinFilesInUnityFile>
       <MaxFilesInUnityFile>8</MaxFilesInUnityFile>
       <UnityFilesDirectory>$(ProjectDir)Uinity</UnityFilesDirectory>
+      <LanguageStandard>Default</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -158,7 +160,6 @@
   <ItemGroup>
     <ClInclude Include="CAnimation.h" />
     <ClInclude Include="CAnimator.h" />
-    <ClInclude Include="CAttachButtonUI.h" />
     <ClInclude Include="CBackGround.h" />
     <ClInclude Include="CBackGroundManager.h" />
     <ClInclude Include="CBullet.h">
@@ -231,7 +232,6 @@
   <ItemGroup>
     <ClCompile Include="CAnimation.cpp" />
     <ClCompile Include="CAnimator.cpp" />
-    <ClCompile Include="CAttachButtonUI.cpp" />
     <ClCompile Include="CBackGround.cpp" />
     <ClCompile Include="CBackGroundManager.cpp" />
     <ClCompile Include="CBullet.cpp">

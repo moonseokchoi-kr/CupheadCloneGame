@@ -16,10 +16,6 @@ CAnimation::CAnimation()
 {
 }
 
-CAnimation::CAnimation(const CAnimation& _origin)
-{
-}
-
 CAnimation::~CAnimation()
 {
 }
