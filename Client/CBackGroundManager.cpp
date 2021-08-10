@@ -19,7 +19,8 @@ CBackGroundManager::CBackGroundManager()
 
 CBackGroundManager::~CBackGroundManager()
 {
-
+	delete m_focusedBack;
+	delete m_prevTargetBack;
 }
 
 void CBackGroundManager::Update()

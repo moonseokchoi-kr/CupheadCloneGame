@@ -41,6 +41,7 @@ enum class KEY
 	LSHIFT,
 	SPACE,
 	ENTER,
+	DELT,
 	ESC,
 
 	MOUSE_MOVE,

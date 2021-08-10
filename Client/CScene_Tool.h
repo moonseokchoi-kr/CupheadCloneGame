@@ -39,6 +39,7 @@ public:
     void GoIdxTable(int _idx);
     void GetTileUIidx(int _idx);
     void CreateBackGround();
+    void DeleteBackGround();
 private:
 
     int m_cilckedImageIdx;

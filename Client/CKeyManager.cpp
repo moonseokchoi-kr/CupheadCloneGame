@@ -35,6 +35,7 @@ int g_arrVK[(int)KEY::LAST] =
 	VK_LSHIFT,// 	LSHIFT,
 	VK_SPACE,// 	SPACE,
 	VK_RETURN,// 	ENTER,
+	VK_DELETE,//DELETE
 	VK_ESCAPE,// 	ESC,
 
 

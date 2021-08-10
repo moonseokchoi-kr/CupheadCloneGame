@@ -24,7 +24,7 @@
 /// 2. 버튼 UI로 필요한 Obejct 선택가능
 /// 
 /// 해야할것
-/// 1. 오브젝트 선택해서 배경 나타나게 하기
+/// 1. 만들어진 오브젝트 지울수 있게 하기
 /// 2. 각각에 항목 표시하는 글씨 적기
 /// 3. 게임 오브젝트(비, 플랫폼, 번개 제작)
 /// 4. 게임 오브젝트 드래그앤 드랍으로 배치하기
@@ -32,7 +32,7 @@
 
 
 CScene_Tool::CScene_Tool()
-	:m_cilckedImageIdx(0)
+	:m_cilckedImageIdx(-1)
 {
 }
 
@@ -43,11 +43,19 @@ CScene_Tool::~CScene_Tool()
 void CScene_Tool::Update()
 {
 	CScene::Update();
-	if (!CUIManager::GetInst()->GetFocusedUI())
+	
+	
+
+	if (!CUIManager::GetInst()->GetFocusedUI()  && !CBackGroundManager::GetInst()->GetFocusBack())
 	{
-		SetTileIdx();
+		if(m_cilckedImageIdx > -1)
+			CreateBackGround();
 	}
 	
+	if (KEY_TAP(KEY::DELT) && CBackGroundManager::GetInst()->GetFocusBack())
+		DeleteBackGround();
+
+
 	if (KEY_HOLD(KEY::LCTRL))
 	{
 		if (KEY_TAP(KEY::S))
@@ -60,14 +68,7 @@ void CScene_Tool::Update()
 		}
 		
 	}
-	if (!CBackGroundManager::GetInst()->GetFocusBack())
-	{
-		if (KEY_TAP(KEY::MOUSE_LBUTTON))
-		{
-			CreateBackGround();
-		}
-	}
-	}
+}
 	
 
 void CScene_Tool::Enter()
@@ -343,11 +344,35 @@ void CScene_Tool::GetTileUIidx(int _idx)
 
 void CScene_Tool::CreateBackGround()
 {
-	CBackGround* backObj = new CBackGround;
-	backObj->SetPos(MOUSE_POS);
-	backObj->SetType((BACKGROUND_TYPE)m_cilckedImageIdx);
-	AddObject(backObj, GROUP_TYPE::BACK_GROUND);
+	if (KEY_TAP(KEY::MOUSE_LBUTTON))
+	{
+		CBackGround* backObj = new CBackGround;
+		backObj->SetPos(MOUSE_POS);
+		backObj->SetType((BACKGROUND_TYPE)m_cilckedImageIdx);
+		AddObject(backObj, GROUP_TYPE::BACK_GROUND);
+		m_cilckedImageIdx = -1;
+	}
+
+
 }
+/// <summary>
+/// 배경을 삭제하는 함수, 현재 선택한 개체를 지우는 함수 delete키를 이용
+/// </summary>
+void CScene_Tool::DeleteBackGround()
+{
+
+	const vector<CObject*>& backObjs = GetObjWithType(GROUP_TYPE::BACK_GROUND);
+	
+	for (CObject* obj : backObjs)
+	{
+		if (obj == CBackGroundManager::GetInst()->GetFocusBack())
+		{
+			DeleteObject(obj);
+		}
+	}
+}
+
+
 
 //
 // Tile Count Window Proc
