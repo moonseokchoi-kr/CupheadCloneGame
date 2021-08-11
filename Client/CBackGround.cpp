@@ -12,10 +12,7 @@
 
 
 CBackGround::CBackGround()
-	:m_lbuttonDown(false)
-	,m_type(BACKGROUND_TYPE::END)
-	,m_mouseOn(false)
-	,m_lbuttonUp(false)
+	:m_type(BACKGROUND_TYPE::END)
 	,m_currentTex(nullptr)
 {
 	CResourceManager::GetInst()->LoadTexture(L"canetion_background_sky", L"texture\\cuphead\\background\\canetion_background.bmp");
@@ -54,7 +51,7 @@ void CBackGround::Render(HDC _dc)
 // 	TransparentBlt(
 // 		_dc,
 // 		pos.x,
-// 		pos.y,
+// 		pos.y, 
 // 		scale.x,
 // 		scale.y,
 // 		m_currentTex->GetDC(),
@@ -63,7 +60,7 @@ void CBackGround::Render(HDC _dc)
 // 		m_currentTex->Height(),
 // 		RGB(255, 0, 255)
 // 	);
-	if (m_lbuttonDown)
+	if (IsLButtonDown())
 	{
 		SelectGDI select(_dc, PEN_TYPE::GREEN_BOLD);
 		SelectGDI select1(_dc, BRUSH_TYPE::HOLLOW);
@@ -81,56 +78,11 @@ void CBackGround::Update()
 	
 }
 
-void CBackGround::FinalUpdate()
-{
-
-	CObject:: FinalUpdate();
-	MouseOnCheck();
-
-}
-void CBackGround::MouseOnCheck()
-{
-	Vec2 mousePos = MOUSE_POS;
-	Vec2 pos = CCamera::GetInst()->GetRenderPos(GetPos());
-	Vec2 scale = GetScale();
-	mousePos = CCamera::GetInst()->GetRenderPos(mousePos);
-
-	if (pos.x <= mousePos.x && mousePos.x <= pos.x + scale.x && pos.y <= mousePos.y && mousePos.y <= pos.y + scale.y)
-	{
-		m_mouseOn = true;
-	}
-	else
-	{
-		m_mouseOn = false;
-	}
-}
 void CBackGround::setTexture()
 {
 	m_currentTex = CResourceManager::GetInst()->FindTexture(m_backGroundArray[TYPE_NUMBER(m_type)]);
 	SetScale(Vec2((float)m_currentTex->Width(), (float)m_currentTex->Height()));
 }
-void CBackGround::MouseOn()
-{
-	if (IsLButtonDown())
-	{
-		Vec2 diff = MOUSE_POS - m_dragStart;
-		Vec2 curPos = GetPos();
 
-		curPos += diff;
-
-		SetPos(curPos);
-
-		m_dragStart = MOUSE_POS;
-	}
-}
-
-void CBackGround::MouseLButtonDown()
-{
-	m_dragStart = MOUSE_POS;
-}
-
-void CBackGround::MouseLButtonUp()
-{
-}
 
 

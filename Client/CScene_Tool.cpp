@@ -5,6 +5,9 @@
 #include "CButtonUI.h"
 #include "CTileButtonUI.h"
 #include "CBackGround.h"
+#include "CGameObject.h"
+#include "CGround.h"
+
 
 #include "CKeyManager.h"
 #include "CPathManager.h"
@@ -12,10 +15,11 @@
 #include "CCamera.h"
 #include "CSceneManager.h"
 #include "CResourceManager.h"
-#include "CBackGroundManager.h"
+#include "CGameObjectManager.h"
 #include "CTexture.h"
 #include "CUIManager.h"
 #include "resource.h"
+
 
 ///
 /// 현재 진행상황
@@ -44,16 +48,16 @@ void CScene_Tool::Update()
 {
 	CScene::Update();
 	
-	
 
-	if (!CUIManager::GetInst()->GetFocusedUI()  && !CBackGroundManager::GetInst()->GetFocusBack())
+
+	if (!CUIManager::GetInst()->GetFocusedUI())
 	{
-		if(m_cilckedImageIdx > -1)
-			CreateBackGround();
+		if(m_cilckedImageIdx > -1 && !CGameObjectManager::GetInst()->GetFocusObj())
+			CreateGameObject();
 	}
 	
-	if (KEY_TAP(KEY::DELT) && CBackGroundManager::GetInst()->GetFocusBack())
-		DeleteBackGround();
+	if (KEY_TAP(KEY::DELT) && CGameObjectManager::GetInst()->GetFocusObj())
+		DeleteGameObject();
 
 
 	if (KEY_HOLD(KEY::LCTRL))
@@ -141,56 +145,6 @@ void CScene_Tool::Exit()
 	DeleteAll();
 }
 
-void CScene_Tool::SetTileIdx()
-{
-	if (KEY_HOLD(KEY::MOUSE_LBUTTON))
-	{
-		Vec2 mousePos = MOUSE_POS;
-
-		mousePos = CCamera::GetInst()->GetRealPos(mousePos);
-
-		int tileX = GetTileX();
-		int tileY = GetTileY();
-
-		int col = (int)mousePos.x / TILE_SIZE;
-		int row = (int)mousePos.y / TILE_SIZE;
-
-		if (mousePos.x < 0 || tileX <= col || mousePos.y < 0 || tileY <= row)
-		{
-			return;
-		}
-
-		UINT idx = row * tileX + col;
-
-		const vector<CObject*>& tiles = GetObjWithType(GROUP_TYPE::TILE);
-
-		((CTile*)tiles[idx])->SetImageIdx(m_cilckedImageIdx);
-
-	}
-	if (KEY_HOLD(KEY::MOUSE_RBUTTON))
-	{
-		Vec2 mousePos = MOUSE_POS;
-
-		mousePos = CCamera::GetInst()->GetRealPos(mousePos);
-
-		int tileX = GetTileX();
-		int tileY = GetTileY();
-
-		int col = (int)mousePos.x / TILE_SIZE;
-		int row = (int)mousePos.y / TILE_SIZE;
-
-		if (mousePos.x < 0 || tileX <= col || mousePos.y < 0 || tileY <= row)
-		{
-			return;
-		}
-
-		UINT idx = row * tileX + col;
-
-		const vector<CObject*>& tiles = GetObjWithType(GROUP_TYPE::TILE);
-
-		((CTile*)tiles[idx])->SetImageIdx(-1);
-	}
-}
 
 void CScene_Tool::SaveTile(const wstring& _path)
 {
@@ -268,55 +222,24 @@ void CScene_Tool::LoadTileData()
 	}
 }
 
-void CScene_Tool::GoNextTable()
-{
-	int idx = 16;
-
-	const vector<CObject*>& UIs = GetObjWithType(GROUP_TYPE::UI);
-	
-	for (CObject* UI : UIs)
-	{
-		if (UI->GetName() == L"TilePanelUI")
-		{
-			const vector<CUI*>& children =  ((CUI*)UI)->GetChilds();
-			for (CUI* child : children)
-			{
-				if (child->GetName() == L"TileButtonUI")
-				{
-					((CTileButtonUI*)child)->SetTileidx(idx++);
-				}
-			}
-			break;
-		}
-	}
-}
-
-void CScene_Tool::GoBackTable()
-{
-	int idx = 0;
-
-	const vector<CObject*>& UIs = GetObjWithType(GROUP_TYPE::UI);
-
-	for (CObject* UI : UIs)
-	{
-		if (UI->GetName() == L"TilePanelUI")
-		{
-			const vector<CUI*>& children = ((CUI*)UI)->GetChilds();
-			for (CUI* child : children)
-			{
-				if (child->GetName() == L"TileButtonUI")
-				{
-					((CTileButtonUI*)child)->SetTileidx(idx++);
-				}
-			}
-			break;
-		}
-	}
-}
 
 void CScene_Tool::GoIdxTable(int _idx)
 {
-	int idx = 16*_idx;
+	int idx = 8*_idx;
+
+	switch (_idx)
+	{
+	case 0:
+		CGameObjectManager::GetInst()->SetCurrnetGroup(GROUP_TYPE::BACK_GROUND);
+		break;
+	case 1:
+		CGameObjectManager::GetInst()->SetCurrnetGroup(GROUP_TYPE::BACK_GROUND);
+		break;
+	case 2:
+		CGameObjectManager::GetInst()->SetCurrnetGroup(GROUP_TYPE::GAME_OBJECT);
+	default:
+		break;
+	}
 
 	const vector<CObject*>& UIs = GetObjWithType(GROUP_TYPE::UI);
 
@@ -342,15 +265,58 @@ void CScene_Tool::GetTileUIidx(int _idx)
 	m_cilckedImageIdx = _idx;
 }
 
-void CScene_Tool::CreateBackGround()
+void CScene_Tool::CreateGameObject()
 {
+	
 	if (KEY_TAP(KEY::MOUSE_LBUTTON))
 	{
-		CBackGround* backObj = new CBackGround;
-		backObj->SetPos(MOUSE_POS);
-		backObj->SetType((BACKGROUND_TYPE)m_cilckedImageIdx);
-		AddObject(backObj, GROUP_TYPE::BACK_GROUND);
-		m_cilckedImageIdx = -1;
+		CGameObject* gameObj = nullptr;
+		switch (CGameObjectManager::GetInst()->GetCurrentGroup())
+		{
+			
+		case GROUP_TYPE::BACK_GROUND:
+		{
+			gameObj = new CBackGround;
+			gameObj->SetPos(MOUSE_POS);
+			((CBackGround*)gameObj)->SetType((BACKGROUND_TYPE)m_cilckedImageIdx);
+			AddObject(gameObj, GROUP_TYPE::BACK_GROUND);
+			m_cilckedImageIdx = -1;
+		}
+		break;
+		case GROUP_TYPE::FORE_GROUND:
+		{
+		}
+		break;
+		case GROUP_TYPE::GAME_OBJECT:
+		{
+			
+			switch ((GAMEOBJECT_TYPE)m_cilckedImageIdx)
+			{
+			case GAMEOBJECT_TYPE::FLOWER_PLATFORM:
+				break;
+			case GAMEOBJECT_TYPE::DARK_TOWER:
+				break;
+			case GAMEOBJECT_TYPE::NOMAL_TOWER:
+				break;
+			case GAMEOBJECT_TYPE::GROUND:
+			{
+				gameObj = new CGround;
+				gameObj->SetPos(MOUSE_POS);
+				AddObject(gameObj, GROUP_TYPE::GAME_OBJECT);
+				m_cilckedImageIdx = -1;
+			}
+				break;
+			case GAMEOBJECT_TYPE::END:
+				break;
+			default:
+				break;
+			}
+		}
+		break;
+		default:
+			break;
+		}
+		CGameObjectManager::GetInst()->SetFocusedObj(gameObj);
 	}
 
 
@@ -358,14 +324,14 @@ void CScene_Tool::CreateBackGround()
 /// <summary>
 /// 배경을 삭제하는 함수, 현재 선택한 개체를 지우는 함수 delete키를 이용
 /// </summary>
-void CScene_Tool::DeleteBackGround()
+void CScene_Tool::DeleteGameObject()
 {
 
-	const vector<CObject*>& backObjs = GetObjWithType(GROUP_TYPE::BACK_GROUND);
+	const vector<CObject*>& backObjs = GetObjWithType(CGameObjectManager::GetInst()->GetCurrentGroup());
 	
 	for (CObject* obj : backObjs)
 	{
-		if (obj == CBackGroundManager::GetInst()->GetFocusBack())
+		if (obj == CGameObjectManager::GetInst()->GetFocusObj())
 		{
 			DeleteObject(obj);
 		}
@@ -391,13 +357,16 @@ INT_PTR CALLBACK TileCountProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lP
 			UINT iXCount = GetDlgItemInt(hDlg, IDC_EDIT1, nullptr, false);
 			UINT iYCount = GetDlgItemInt(hDlg, IDC_EDIT2, nullptr, false);
 
-			CScene* pCurScene = CSceneManager::GetInst()->GetCurrentScene();
-			CScene_Tool* pScene = dynamic_cast<CScene_Tool*>(pCurScene);
-			assert(pScene);
+			CGameObject* gameObj = CGameObjectManager::GetInst()->GetFocusObj();
+			if (nullptr == gameObj)
+			{
+				EndDialog(hDlg, LOWORD(wParam));
+				return (INT_PTR)TRUE;
+			}
+				
+			gameObj->ChangeSize(Vec2((float)iXCount, (float)iYCount));
 
-			pScene->DeleteGroup(GROUP_TYPE::TILE);
 
-			pScene->CreateTile(iXCount, iYCount);
 			EndDialog(hDlg, LOWORD(wParam));
 			return (INT_PTR)TRUE;
 		}

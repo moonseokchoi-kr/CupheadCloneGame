@@ -10,8 +10,9 @@
 #include "CUIManager.h"
 #include "CCamera.h"
 #include "CResourceManager.h"
-#include "CBackGroundManager.h"
+#include "CGameObjectManager.h"
 #include "CTexture.h"
+
 
 #include "resource.h"
 #include "SelectGDI.h"
@@ -38,10 +39,6 @@ CCore::~CCore()
 	DestroyMenu(m_menu);
 }
 
-
-
-HBRUSH color = CreateSolidBrush(RGB(0, 0, 255));
-float bulletTime;
 int CCore::InitCore(HWND _hwnd, POINT _resolution)
 {
 	m_hWnd = _hwnd;
@@ -72,7 +69,7 @@ void CCore::Progress()
 	CTimeManager::GetInst()->Update();
 	CKeyManager::GetInst()->Update();
 	CCamera::GetInst()->Update();
-	CBackGroundManager::GetInst()->Update();
+	CGameObjectManager::GetInst()->Update();
 	CUIManager::GetInst()->Update();
 
 
@@ -105,7 +102,7 @@ void CCore::CreateBrushPen()
 {
 	m_brushs[(UINT)BRUSH_TYPE::HOLLOW] = (HBRUSH)GetStockObject(HOLLOW_BRUSH);
 	m_brushs[TYPE_NUMBER(BRUSH_TYPE::BLACK)] = (HBRUSH)GetStockObject(BLACK_BRUSH);
-
+	m_pens[TYPE_NUMBER(PEN_TYPE::HOLLOW)] = (HPEN)GetStockObject(NULL_PEN);
 	m_pens[(UINT)PEN_TYPE::RED] = CreatePen(PS_SOLID, 1, RGB(255, 0, 0));
 	m_pens[(UINT)PEN_TYPE::GREEN] = CreatePen(PS_SOLID, 1, RGB(0,255, 0));
 	m_pens[TYPE_NUMBER(PEN_TYPE::GREEN_BOLD)] = CreatePen(PS_SOLID, 3, RGB(0, 255, 0));

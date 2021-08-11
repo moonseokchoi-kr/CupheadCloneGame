@@ -51,27 +51,29 @@ void CTileButtonUI::Render(HDC _dc)
 	bf.AlphaFormat = AC_SRC_ALPHA;
 	bf.SourceConstantAlpha =255;
 
-// 	AlphaBlend(
-// 		_dc
-// 		, 0, 0
-// 		, (int)pos.x
-// 		, (int)pos.y
-// 		, m_tex->GetDC()
-// 		, 0, 0
-// 		, curCol * TILE_SIZE
-// 		, curRow * TILE_SIZE
-// 		, bf
-// 	);
-	BitBlt(
-		_dc,
-		(int)pos.x,
-		(int)pos.y,
-		(int)scale.x,
-		(int)scale.y,
-		m_tex->GetDC(),
-		curCol * TILE_SIZE,
-		curRow * TILE_SIZE,
-		SRCCOPY);
+	AlphaBlend(
+		_dc
+		, (int)pos.x
+		, (int)pos.y
+		, TILE_SIZE
+		, TILE_SIZE
+		, m_tex->GetDC()
+		, curCol * TILE_SIZE
+		, curRow * TILE_SIZE
+		, TILE_SIZE
+		, TILE_SIZE
+		, bf
+	);
+// 	BitBlt(
+// 		_dc,
+// 		(int)pos.x,
+// 		(int)pos.y,
+// 		(int)scale.x,
+// 		(int)scale.y,
+// 		m_tex->GetDC(),
+// 		curCol * TILE_SIZE,
+// 		curRow * TILE_SIZE,
+// 		SRCCOPY);
 
 	if (IsSelect())
 	{

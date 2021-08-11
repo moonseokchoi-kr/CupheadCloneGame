@@ -4,14 +4,18 @@
 #include "CAnimator.h"
 #include "CCamera.h"
 #include "CRigidBody.h"
+#include "CKeyManager.h"
+#include "CSceneManager.h"
 
+#include "SelectGDI.h"
 CObject::CObject() 
 	:m_objPos(Vec2(0, 0))
 	, m_objScale(Vec2(10, 10))
 	,m_collider(nullptr)
 	,m_animator(nullptr)
 	,m_rigidBody(nullptr)
-	,m_dead(false)
+	, m_dead(false)
+
 {
 }
 
@@ -22,6 +26,7 @@ CObject::CObject(const CObject& _origin)
 	,m_animator(nullptr)
 	,m_rigidBody(nullptr)
 	,m_dead(false)
+
 {
 	if (_origin.m_collider)
 	{
@@ -77,6 +82,7 @@ void CObject::CreateRigidBody()
 void CObject::Render(HDC _dc)
 {
 	Vec2 renderPos = CCamera::GetInst()->GetRenderPos(m_objPos);
+	SelectGDI gdi(_dc, BRUSH_TYPE::HOLLOW);
 	Rectangle(_dc,
 		(int)(renderPos.x / 2 - renderPos.x / 2),
 		(int)(renderPos.y / 2 - renderPos.y / 2),
@@ -107,3 +113,4 @@ void CObject::ComponentRender(HDC _dc)
 		m_animator->Render(_dc);
 	}
 }
+

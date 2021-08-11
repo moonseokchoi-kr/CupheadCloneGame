@@ -46,9 +46,10 @@ public:
 	void CreateAnimator();
 	void CreateRigidBody();
 public:
+	virtual void Start() {};
 	virtual void Update() = 0;
 	virtual void Render(HDC _dc);
-	virtual void FinalUpdate() = 0;
+	virtual void FinalUpdate();
 
 	virtual CObject* Clone() = 0;
 	/// <summary>
@@ -60,6 +61,11 @@ public:
 	virtual void OnCollision(CCollider* _col) {}
 	virtual void OnCollisionEnter(CCollider* _col) {}
 	virtual void OnCollisionExit(CCollider* _col) {}
+
+	virtual void MouseOn() {}
+	virtual void MouseLButtonDown(){}
+	virtual void MouseLButtonUp(){}
+	virtual void MouseLButtonClicked(){}
 
 private:
 	void SetDead() { m_dead = true; }
@@ -74,6 +80,9 @@ private:
 	wstring m_objName;		//물체의 이름
 	bool m_dead;			//죽었는지 여부
 
+
+
 	friend class CEventManager;
+	
 };
 

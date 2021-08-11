@@ -4,6 +4,13 @@
 
 class CTexture;
 
+enum class TILE_TYPE
+{
+    NONE,
+    GROUND,
+    PLATFORM,
+    STOP,
+};
 /// <summary>
 /// 화면의 맵을 그리기 위해 사용하는 Tile클래스
 /// 
@@ -25,13 +32,11 @@ public:
     virtual void FinalUpdate();
     CLONE(CTile);
 public:
-    void SetTexture(CTexture* _tex) { m_tex = _tex; }
-    void SetImageIdx(int _idx) { m_imgIdx = _idx; }
-    void AddImgIndex() { ++m_imgIdx; }
+    void SetType(TILE_TYPE _type) { m_tileType = _type; }
+    TILE_TYPE GetType() { return m_tileType; }
     void Save(FILE* _file);
     void Load(FILE* _file);
 private:
-    CTexture* m_tex;
-    int m_imgIdx;
+    TILE_TYPE m_tileType;;
 };
 

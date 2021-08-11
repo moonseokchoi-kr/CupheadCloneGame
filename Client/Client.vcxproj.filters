@@ -90,9 +90,6 @@
     <Filter Include="Engine\Object\Tengai\Spawner">
       <UniqueIdentifier>{6944e095-e012-4d46-b909-c2e05834c05f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Object\Tengai\Wall">
-      <UniqueIdentifier>{5e2b44cc-106a-4a40-8d54-c6a9e1d1a8fe}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Object\Tile">
       <UniqueIdentifier>{5fe65cfe-1a4d-469e-8c47-279a1674d817}</UniqueIdentifier>
     </Filter>
@@ -144,14 +141,23 @@
     <Filter Include="Engine\Component\RigidBody">
       <UniqueIdentifier>{e2b4d4ac-1a4f-4f24-9dd4-60bb63af87fa}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Object\BackGround">
-      <UniqueIdentifier>{1c84429a-a9c4-4b68-a656-f65c3f2378d4}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Manager\BackGoundManager">
       <UniqueIdentifier>{fe79b3e2-e3ed-4f30-98bc-7392fd6ebffc}</UniqueIdentifier>
     </Filter>
     <Filter Include="Engine\Object\UI\ButtonUI\TileButton">
       <UniqueIdentifier>{707fc00d-b4c5-4101-8207-710419522f2d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Object\GameObject">
+      <UniqueIdentifier>{a3595fa1-c09e-42be-8882-19e98ce5a48d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Object\GameObject\Platform">
+      <UniqueIdentifier>{ec784805-5e3e-44a0-8b47-45ca39ec4b5e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Object\GameObject\Ground">
+      <UniqueIdentifier>{be5a2ea2-8e13-486c-8069-2b3430058b98}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Object\GameObject\BackGround">
+      <UniqueIdentifier>{1c84429a-a9c4-4b68-a656-f65c3f2378d4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -246,9 +252,6 @@
     <ClInclude Include="CNinja.h">
       <Filter>Engine\Object\Tengai\Monster</Filter>
     </ClInclude>
-    <ClInclude Include="CGround.h">
-      <Filter>Engine\Object\Tengai\Wall</Filter>
-    </ClInclude>
     <ClInclude Include="CDartBullet.h">
       <Filter>Engine\Object\Tengai\Bullet</Filter>
     </ClInclude>
@@ -301,13 +304,19 @@
       <Filter>Engine\Component\RigidBody</Filter>
     </ClInclude>
     <ClInclude Include="CBackGround.h">
-      <Filter>Engine\Object\BackGround</Filter>
+      <Filter>Engine\Object\GameObject\BackGround</Filter>
     </ClInclude>
-    <ClInclude Include="CBackGroundManager.h">
+    <ClInclude Include="CGameObjectManager.h">
       <Filter>Engine\Manager\BackGoundManager</Filter>
     </ClInclude>
     <ClInclude Include="CTileButtonUI.h">
       <Filter>Engine\Object\UI\ButtonUI\TileButton</Filter>
+    </ClInclude>
+    <ClInclude Include="CGameObject.h">
+      <Filter>Engine\Object\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="CGround.h">
+      <Filter>Engine\Object\GameObject\Ground</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -397,9 +406,6 @@
     <ClCompile Include="CNinja.cpp">
       <Filter>Engine\Object\Tengai\Monster</Filter>
     </ClCompile>
-    <ClCompile Include="CGround.cpp">
-      <Filter>Engine\Object\Tengai\Wall</Filter>
-    </ClCompile>
     <ClCompile Include="CDartBullet.cpp">
       <Filter>Engine\Object\Tengai\Bullet</Filter>
     </ClCompile>
@@ -450,13 +456,19 @@
       <Filter>Engine\Component\RigidBody</Filter>
     </ClCompile>
     <ClCompile Include="CBackGround.cpp">
-      <Filter>Engine\Object\BackGround</Filter>
+      <Filter>Engine\Object\GameObject\BackGround</Filter>
     </ClCompile>
-    <ClCompile Include="CBackGroundManager.cpp">
+    <ClCompile Include="CGameObjectManager.cpp">
       <Filter>Engine\Manager\BackGoundManager</Filter>
     </ClCompile>
     <ClCompile Include="CTileButtonUI.cpp">
       <Filter>Engine\Object\UI\ButtonUI\TileButton</Filter>
+    </ClCompile>
+    <ClCompile Include="CGameObject.cpp">
+      <Filter>Engine\Object\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="CGround.cpp">
+      <Filter>Engine\Object\GameObject\Ground</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

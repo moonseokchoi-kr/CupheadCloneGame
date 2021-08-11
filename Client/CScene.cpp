@@ -108,7 +108,6 @@ void CScene::CreateTile(UINT _xCount, UINT _yCount)
 		{
 			CTile* pTile = new CTile;
 			pTile->SetPos(Vec2((float)(j * TILE_SIZE), (float)(i * TILE_SIZE)));
-			pTile->SetTexture(tile);
 			AddObject(pTile, GROUP_TYPE::TILE);
 		}
 	}

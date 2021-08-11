@@ -30,16 +30,13 @@ public:
     virtual void Exit() override;
 
 public:
-    void SetTileIdx();
     void SaveTile(const wstring& _path);
     void SaveTileData();
     void LoadTileData();
-    void GoNextTable();
-    void GoBackTable();
     void GoIdxTable(int _idx);
     void GetTileUIidx(int _idx);
-    void CreateBackGround();
-    void DeleteBackGround();
+    void CreateGameObject();
+    void DeleteGameObject();
 private:
 
     int m_cilckedImageIdx;

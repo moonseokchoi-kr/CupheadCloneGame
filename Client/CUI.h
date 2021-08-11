@@ -27,7 +27,7 @@ public:
     bool IsMouseOn() { return m_mouseOn; }
     bool IsLButtonDown() { return m_lButtonDown; }
     bool IsSelect() { return m_select; }
-    void MouseOnCheck();
+    virtual void MouseOnCheck();
     void AddChild(CUI* _childUI) { m_childUIs.push_back(_childUI); _childUI->m_parentUI = this; }
 
     virtual CUI* Clone() = 0;
