@@ -151,7 +151,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 //
 //
 INT_PTR CALLBACK TileCountProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam);
-
+INT_PTR CALLBACK SetOffsetProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam);
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     switch (message)
@@ -169,7 +169,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                 DialogBox(hInst, MAKEINTRESOURCE(IDD_MAP_SIZE), hWnd, TileCountProc);
                 break;
             case ID_OBJ_OFFSET:
-                DialogBox(hInst, MAKEINTRESOURCE(IDD_OFFSET), hWnd, );
+                DialogBox(hInst, MAKEINTRESOURCE(IDD_OFFSET), hWnd, SetOffsetProc);
                 break;
             case IDM_EXIT:
                 DestroyWindow(hWnd);

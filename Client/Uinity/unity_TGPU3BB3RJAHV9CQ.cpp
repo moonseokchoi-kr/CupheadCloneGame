@@ -20,9 +20,3 @@
 
 #include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CButtonUI.cpp"
 
-
-#include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CCamera.cpp"
-
-
-#include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CCollider.cpp"
-

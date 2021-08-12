@@ -33,6 +33,7 @@ struct camEffect
 /// 1.1 - SMOOTH CAMERA기능추가
 /// 1.2 - FADEIN,FADEOUT 추가
 
+class CTexture;
 
 class CCamera
 {

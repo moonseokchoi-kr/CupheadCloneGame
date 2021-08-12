@@ -8,7 +8,7 @@
 #include "CResourceManager.h"
 #include "CCore.h"
 #include "CCamera.h"
-
+#include "CBackGround.h"
 
 CScene::CScene()
 	:m_TileXCount(0)
@@ -51,11 +51,6 @@ void CScene::Render(HDC _dc)
 {
 	for (int i = 0; i < m_arrObj.size(); ++i)
 	{
-		if (TYPE_NUMBER(GROUP_TYPE::TILE) == i)
-		{
-			render_tile(_dc);
-			continue;
-		}
 		vector<CObject*>::iterator iter = m_arrObj[i].begin();
 		for (;iter != m_arrObj[i].end();)
 		{
@@ -68,6 +63,11 @@ void CScene::Render(HDC _dc)
 			{
 				iter = m_arrObj[i].erase(iter);
 			}
+		}
+
+		if (TYPE_NUMBER(GROUP_TYPE::BACK_GROUND) == i)
+		{
+			offset_change();
 		}
 	}
 }
@@ -170,10 +170,22 @@ void CScene::render_tile(HDC _dc)
 	}
 }
 
+bool comp(CObject* a, CObject* b);
+
+/// <summary>
+/// 오프셋에 따라 렌더링 순서를 재정렬한다.
+/// </summary>
 void CScene::offset_change()
 {
-	vector<CObject*> tmp = m_arrObj[TYPE_NUMBER(GROUP_TYPE::BACK_GROUND)];
+	
 	//화면에 렌더링을 오프셋에 따라 순서를 결정하여 진행
 	//정렬 알고리즘을 이용해 진행
+	
+	sort(m_arrObj[TYPE_NUMBER(GROUP_TYPE::BACK_GROUND)].begin(), m_arrObj[TYPE_NUMBER(GROUP_TYPE::BACK_GROUND)].end(), comp);
+	
+}
 
+bool comp(CObject* a, CObject* b)
+{
+	return a->GetOffset()>b->GetOffset();
 }

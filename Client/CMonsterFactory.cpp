@@ -5,7 +5,7 @@
 #include "CIdleState.h"
 #include "CTraceState.h"
 
-CMonster* CMonsterFactory::CreateMonster(MON_TYPE _type, Vec2 _pos, Vec2 _scale)
+CMonster* CMonsterFactory::CreateMonster(MON_TYPE _type, Vec2 _pos)
 {
 	CMonster* monster = nullptr;
 	switch (_type)
@@ -14,7 +14,6 @@ CMonster* CMonsterFactory::CreateMonster(MON_TYPE _type, Vec2 _pos, Vec2 _scale)
 	{
 		monster = new CMonster;
 		monster->SetPos(_pos);
-		monster->SetScale(_scale);
 		monsterInfo info = {};
 		info.attackDamege = 10.f;
 		info.attackRange = 50.f;

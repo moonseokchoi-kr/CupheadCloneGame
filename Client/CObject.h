@@ -36,6 +36,8 @@ public:
 
 	bool IsDead() { return m_dead; }
 	
+	void SetOffset(int offset) { m_renderingOffSet = offset; }
+	int GetOffset() { return m_renderingOffSet; }
 
 	CAnimator* GetAnimator() { return m_animator; }
 	CCollider* GetCollider() { return m_collider; }
@@ -80,7 +82,7 @@ private:
 	wstring m_objName;		//물체의 이름
 	bool m_dead;			//죽었는지 여부
 
-
+	int m_renderingOffSet;
 
 	friend class CEventManager;
 	

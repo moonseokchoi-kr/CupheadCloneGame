@@ -8,6 +8,7 @@
 #include "CGameObject.h"
 #include "CGround.h"
 #include "CForeGround.h"
+#include "CSpawnObject.h"
 
 #include "CKeyManager.h"
 #include "CPathManager.h"
@@ -47,18 +48,24 @@ CScene_Tool::~CScene_Tool()
 void CScene_Tool::Update()
 {
 	CScene::Update();
-	
+	CGameObject* focusObj = CGameObjectManager::GetInst()->GetFocusObj();
 
 
 	if (!CUIManager::GetInst()->GetFocusedUI())
 	{
-		if(m_cilckedImageIdx > -1 && !CGameObjectManager::GetInst()->GetFocusObj())
+		if(m_cilckedImageIdx > -1 && !focusObj)
 			CreateGameObject();
 	}
 	
-	if (KEY_TAP(KEY::DELT) && CGameObjectManager::GetInst()->GetFocusObj())
+	if (KEY_TAP(KEY::DELT) && focusObj)
 		DeleteGameObject();
-
+	if (KEY_TAP(KEY::MOUSE_RBUTTON) && focusObj)
+	{
+		CSpawnObject* spawnObj = static_cast<CSpawnObject*>(focusObj);
+		if (nullptr == spawnObj)
+			return;
+		//spawnObj->Spawn();
+	}
 
 	if (KEY_HOLD(KEY::LCTRL))
 	{
@@ -92,7 +99,7 @@ void CScene_Tool::Enter()
 
 	
 	int row = 4;
-	int col = 2;
+	int col = 3;
 	float yTerm = (parentUI->GetScale().y - 60.f) / (col+2);
 	float xTerm = (parentUI->GetScale().x - 60.f) / (row+1);
 	for (int i = 0; i <col; ++i)
@@ -225,7 +232,7 @@ void CScene_Tool::LoadTileData()
 
 void CScene_Tool::GoIdxTable(int _idx)
 {
-	int idx = 8*_idx;
+	int idx = 12*_idx;
 
 	switch (_idx)
 	{
@@ -233,7 +240,7 @@ void CScene_Tool::GoIdxTable(int _idx)
 		CGameObjectManager::GetInst()->SetCurrnetGroup(GROUP_TYPE::BACK_GROUND);
 		break;
 	case 1:
-		CGameObjectManager::GetInst()->SetCurrnetGroup(GROUP_TYPE::BACK_GROUND);
+		CGameObjectManager::GetInst()->SetCurrnetGroup(GROUP_TYPE::FORE_GROUND);
 		break;
 	case 2:
 		CGameObjectManager::GetInst()->SetCurrnetGroup(GROUP_TYPE::GAME_OBJECT);
@@ -288,6 +295,7 @@ void CScene_Tool::CreateGameObject()
 			gameObj = new CForeGround;
 			gameObj->SetPos(MOUSE_POS);
 			((CForeGround*)gameObj)->SetType((FOREGROUND_TYPE)m_cilckedImageIdx);
+			AddObject(gameObj, GROUP_TYPE::FORE_GROUND);
 			m_cilckedImageIdx = -1;
 
 		}
@@ -315,7 +323,13 @@ void CScene_Tool::CreateGameObject()
 				m_cilckedImageIdx = -1;
 			}
 				break;
-			case GAMEOBJECT_TYPE::END:
+			case GAMEOBJECT_TYPE::SPAWN:
+			{
+				gameObj = new CSpawnObject;
+				gameObj->SetPos(MOUSE_POS);
+				AddObject(gameObj, GROUP_TYPE::GAME_OBJECT);
+				m_cilckedImageIdx = -1;
+			}
 				break;
 			default:
 				break;

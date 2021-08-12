@@ -9,7 +9,6 @@
 #include "SelectGDI.h"
 
 CGameObject::CGameObject()
-	:m_renderingOffSet(0)
 {
 	m_gameObjectArray[TYPE_NUMBER(GAMEOBJECT_TYPE::FLOWER_PLATFORM_A)] = L"FLOWER_PLATFORM_A";
 	m_gameObjectArray[TYPE_NUMBER(GAMEOBJECT_TYPE::FLOWER_PLATFORM_B)] = L"FLOWER_PLATFORM_B";
@@ -63,7 +62,8 @@ void CGameObject::MouseOnCheck()
 void CGameObject::ChangeSize(Vec2 _size)
 {
 	SetScale(_size);
-	GetCollider()->SetScale(_size);
+	if(nullptr != GetCollider())
+		GetCollider()->SetScale(_size);
 }
 
 void CGameObject::MouseOn()

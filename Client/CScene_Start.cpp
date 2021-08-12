@@ -32,7 +32,7 @@ void CScene_Start::Enter()
 	CObject* player = new CPlayer;
 	CreateObject(player, GROUP_TYPE::PLAYER, resolution / 2.f, Vec2(80.f, 40.f));
 
-	CMonster* monster = CMonsterFactory::CreateMonster(MON_TYPE::NORMAL, Vec2(resolution / 2.f - Vec2(0.f, 300.f)), Vec2(40.f, 40.f));
+	CMonster* monster = CMonsterFactory::CreateMonster(MON_TYPE::NORMAL, Vec2(resolution / 2.f - Vec2(0.f, 300.f)));
 	CreateObject(monster, GROUP_TYPE::MONSTER);
 	
 	

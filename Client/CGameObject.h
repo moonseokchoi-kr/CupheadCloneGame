@@ -26,7 +26,6 @@ public:
 	void SetMouseOn(bool _b) { m_mouseOn = _b; }
 	void SetLButtonDown(bool _b) { m_lButtonDown = _b; }
 	void SetSelect(bool _b) { m_select = _b; }
-	void SetOffset(int offset) { m_renderingOffSet = offset; }
 public:
 	virtual void MouseOn();
 	virtual void MouseLButtonDown();
@@ -42,7 +41,7 @@ private:
 	Vec2  m_dragStart;      //드래그를 시작한 포지션
 	Vec2 m_currentMousePos; //현재 마우스 포지션
 
-	int m_renderingOffSet;
+
 
 	friend class CGameObjectManager;
 };

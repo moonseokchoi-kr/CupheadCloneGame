@@ -162,6 +162,9 @@
     <Filter Include="Engine\Object\GameObject\ForeGround">
       <UniqueIdentifier>{a0e72590-b001-4550-8f54-1ca968ce4d7e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Object\GameObject\Spawn">
+      <UniqueIdentifier>{a7776f59-8c5f-4ee2-9f37-35c026adbe0a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -324,6 +327,9 @@
     <ClInclude Include="CForeGround.h">
       <Filter>Engine\Object\GameObject\ForeGround</Filter>
     </ClInclude>
+    <ClInclude Include="CSpawnObject.h">
+      <Filter>Engine\Object\GameObject\Spawn</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -478,6 +484,9 @@
     </ClCompile>
     <ClCompile Include="CForeGround.cpp">
       <Filter>Engine\Object\GameObject\ForeGround</Filter>
+    </ClCompile>
+    <ClCompile Include="CSpawnObject.cpp">
+      <Filter>Engine\Object\GameObject\Spawn</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

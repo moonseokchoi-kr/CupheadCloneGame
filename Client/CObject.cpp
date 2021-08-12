@@ -15,6 +15,7 @@ CObject::CObject()
 	,m_animator(nullptr)
 	,m_rigidBody(nullptr)
 	, m_dead(false)
+	,m_renderingOffSet(0)
 
 {
 }
@@ -26,6 +27,7 @@ CObject::CObject(const CObject& _origin)
 	,m_animator(nullptr)
 	,m_rigidBody(nullptr)
 	,m_dead(false)
+	, m_renderingOffSet(_origin.m_renderingOffSet)
 
 {
 	if (_origin.m_collider)

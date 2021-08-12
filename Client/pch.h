@@ -36,6 +36,7 @@ using std::wstring;
 
 using std::find;
 using std::reverse;
+using std::sort;
 
 //lib include
 
