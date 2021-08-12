@@ -65,6 +65,7 @@ public:
 	void LoadTile(const wstring& _relativePath);
 private:
 	void render_tile(HDC _dc);
+	void offset_change();
 private:
 	array<vector<CObject*>, (UINT)GROUP_TYPE::END> m_arrObj;
 	wstring m_strName;

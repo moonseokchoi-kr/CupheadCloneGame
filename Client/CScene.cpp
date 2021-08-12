@@ -169,3 +169,11 @@ void CScene::render_tile(HDC _dc)
 		}
 	}
 }
+
+void CScene::offset_change()
+{
+	vector<CObject*> tmp = m_arrObj[TYPE_NUMBER(GROUP_TYPE::BACK_GROUND)];
+	//화면에 렌더링을 오프셋에 따라 순서를 결정하여 진행
+	//정렬 알고리즘을 이용해 진행
+
+}

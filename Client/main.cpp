@@ -165,8 +165,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             case IDM_ABOUT:
                 DialogBox(hInst, MAKEINTRESOURCE(IDD_ABOUTBOX), hWnd, About);
                 break;
-            case ID_MAP_SIZE:
+            case ID_OBJ_SIZE:
                 DialogBox(hInst, MAKEINTRESOURCE(IDD_MAP_SIZE), hWnd, TileCountProc);
+                break;
+            case ID_OBJ_OFFSET:
+                DialogBox(hInst, MAKEINTRESOURCE(IDD_OFFSET), hWnd, );
                 break;
             case IDM_EXIT:
                 DestroyWindow(hWnd);

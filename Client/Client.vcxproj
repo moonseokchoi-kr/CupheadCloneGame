@@ -161,6 +161,7 @@
     <ClInclude Include="CAnimation.h" />
     <ClInclude Include="CAnimator.h" />
     <ClInclude Include="CBackGround.h" />
+    <ClInclude Include="CForeGround.h" />
     <ClInclude Include="CGround.h" />
     <ClInclude Include="CGameObjectManager.h" />
     <ClInclude Include="CBullet.h">
@@ -234,6 +235,7 @@
     <ClCompile Include="CAnimation.cpp" />
     <ClCompile Include="CAnimator.cpp" />
     <ClCompile Include="CBackGround.cpp" />
+    <ClCompile Include="CForeGround.cpp" />
     <ClCompile Include="CGround.cpp" />
     <ClCompile Include="CGameObjectManager.cpp" />
     <ClCompile Include="CBullet.cpp">

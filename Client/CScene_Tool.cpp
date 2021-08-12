@@ -7,7 +7,7 @@
 #include "CBackGround.h"
 #include "CGameObject.h"
 #include "CGround.h"
-
+#include "CForeGround.h"
 
 #include "CKeyManager.h"
 #include "CPathManager.h"
@@ -285,6 +285,11 @@ void CScene_Tool::CreateGameObject()
 		break;
 		case GROUP_TYPE::FORE_GROUND:
 		{
+			gameObj = new CForeGround;
+			gameObj->SetPos(MOUSE_POS);
+			((CForeGround*)gameObj)->SetType((FOREGROUND_TYPE)m_cilckedImageIdx);
+			m_cilckedImageIdx = -1;
+
 		}
 		break;
 		case GROUP_TYPE::GAME_OBJECT:
@@ -292,7 +297,11 @@ void CScene_Tool::CreateGameObject()
 			
 			switch ((GAMEOBJECT_TYPE)m_cilckedImageIdx)
 			{
-			case GAMEOBJECT_TYPE::FLOWER_PLATFORM:
+			case GAMEOBJECT_TYPE::FLOWER_PLATFORM_A:
+				break;
+			case GAMEOBJECT_TYPE::FLOWER_PLATFORM_B:
+				break;
+			case GAMEOBJECT_TYPE::FLOWER_PLATFORM_C:
 				break;
 			case GAMEOBJECT_TYPE::DARK_TOWER:
 				break;
@@ -334,6 +343,7 @@ void CScene_Tool::DeleteGameObject()
 		if (obj == CGameObjectManager::GetInst()->GetFocusObj())
 		{
 			DeleteObject(obj);
+			CGameObjectManager::GetInst()->SetFocusedObj(nullptr);
 		}
 	}
 }
@@ -366,6 +376,45 @@ INT_PTR CALLBACK TileCountProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lP
 				
 			gameObj->ChangeSize(Vec2((float)iXCount, (float)iYCount));
 
+
+			EndDialog(hDlg, LOWORD(wParam));
+			return (INT_PTR)TRUE;
+		}
+		if (LOWORD(wParam) == IDCANCEL)
+		{
+			EndDialog(hDlg, LOWORD(wParam));
+			return (INT_PTR)TRUE;
+		}
+		break;
+	}
+	return (INT_PTR)FALSE;
+}
+
+
+//
+// Offset Window Proc
+//
+INT_PTR CALLBACK SetOffsetProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
+{
+	UNREFERENCED_PARAMETER(lParam);
+	switch (message)
+	{
+	case WM_INITDIALOG:
+		return (INT_PTR)TRUE;
+
+	case WM_COMMAND:
+		if (LOWORD(wParam) == IDOK)
+		{
+			int Offset = GetDlgItemInt(hDlg, IDC_OFFSET_EDIT1, nullptr, false);
+
+			CGameObject* gameObj = CGameObjectManager::GetInst()->GetFocusObj();
+			if (nullptr == gameObj)
+			{
+				EndDialog(hDlg, LOWORD(wParam));
+				return (INT_PTR)TRUE;
+			}
+
+			gameObj->SetOffset(Offset);
 
 			EndDialog(hDlg, LOWORD(wParam));
 			return (INT_PTR)TRUE;

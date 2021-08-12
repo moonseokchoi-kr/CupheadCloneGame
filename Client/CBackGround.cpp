@@ -18,9 +18,31 @@ CBackGround::CBackGround()
 	CResourceManager::GetInst()->LoadTexture(L"canetion_background_sky", L"texture\\cuphead\\background\\canetion_background.bmp");
 	CResourceManager::GetInst()->LoadTexture(L"canetion_background_yard", L"texture\\cuphead\\background\\canetion_background_tree.bmp");
 	CResourceManager::GetInst()->LoadTexture(L"canetion_background_tree", L"texture\\cuphead\\background\\canetion_tree.bmp");
+	CResourceManager::GetInst()->LoadTexture(L"dragon_background_clouds_1", L"texture\\cuphead\\background\\dragon_background_clouds_1.bmp");
+	CResourceManager::GetInst()->LoadTexture(L"dragon_background_clouds_2", L"texture\\cuphead\\background\\dragon_background_clouds_2.bmp");
+	CResourceManager::GetInst()->LoadTexture(L"dragon_background_clouds_3", L"texture\\cuphead\\background\\dragon_background_clouds_3.bmp");
+	CResourceManager::GetInst()->LoadTexture(L"dragon_background_clouds_4", L"texture\\cuphead\\background\\dragon_background_clouds_4.bmp");
+	CResourceManager::GetInst()->LoadTexture(L"dragon_background_clouds_5", L"texture\\cuphead\\background\\dragon_background_clouds_5.bmp");
+	CResourceManager::GetInst()->LoadTexture(L"dragon_background_clouds_1_night", L"texture\\cuphead\\background\\dragon_background_clouds_1_night.bmp");
+	CResourceManager::GetInst()->LoadTexture(L"dragon_background_clouds_2_night", L"texture\\cuphead\\background\\dragon_background_clouds_2_night.bmp");
+	CResourceManager::GetInst()->LoadTexture(L"dragon_background_sky_night", L"texture\\cuphead\\background\\dragon_background_sky_night.bmp");
+	CResourceManager::GetInst()->LoadTexture(L"dragon_background_sky_normal", L"texture\\cuphead\\background\\dragon_background_sky_normal.bmp");
+	
+	
 	m_backGroundArray[TYPE_NUMBER(BACKGROUND_TYPE::BLUE_SKY)] = L"canetion_background_sky";
 	m_backGroundArray[TYPE_NUMBER(BACKGROUND_TYPE::TREE)] = L"canetion_background_tree";
 	m_backGroundArray[TYPE_NUMBER(BACKGROUND_TYPE::GREEN_YARD)] = L"canetion_background_yard";
+	m_backGroundArray[TYPE_NUMBER(BACKGROUND_TYPE::DARK_CLOUD_1)] = L"dragon_background_clouds_1_night";
+	m_backGroundArray[TYPE_NUMBER(BACKGROUND_TYPE::DARK_CLOUD_2)] = L"dragon_background_clouds_2_night";
+	m_backGroundArray[TYPE_NUMBER(BACKGROUND_TYPE::NOMAL_CLOUD_1)] = L"dragon_background_clouds_1";
+	m_backGroundArray[TYPE_NUMBER(BACKGROUND_TYPE::NOMAL_CLOUD_2)] = L"dragon_background_clouds_2";
+	m_backGroundArray[TYPE_NUMBER(BACKGROUND_TYPE::NOMAL_CLOUD_3)] = L"dragon_background_clouds_3";
+	m_backGroundArray[TYPE_NUMBER(BACKGROUND_TYPE::NOMAL_CLOUD_4)] = L"dragon_background_clouds_4";
+	m_backGroundArray[TYPE_NUMBER(BACKGROUND_TYPE::NOMAL_CLOUD_5)] = L"dragon_background_clouds_5";
+	m_backGroundArray[TYPE_NUMBER(BACKGROUND_TYPE::DARK_SKY)] = L"dragon_background_sky_night";
+	m_backGroundArray[TYPE_NUMBER(BACKGROUND_TYPE::NOMAL_SKY)] = L"dragon_background_sky_normal";
+
+
 }
 
 CBackGround::~CBackGround()
@@ -48,18 +70,7 @@ void CBackGround::Render(HDC _dc)
 		(int)m_currentTex->Height(),
 		bf
 	);
-// 	TransparentBlt(
-// 		_dc,
-// 		pos.x,
-// 		pos.y, 
-// 		scale.x,
-// 		scale.y,
-// 		m_currentTex->GetDC(),
-// 		0, 0,
-// 		m_currentTex->Width(),
-// 		m_currentTex->Height(),
-// 		RGB(255, 0, 255)
-// 	);
+
 	if (IsLButtonDown())
 	{
 		SelectGDI select(_dc, PEN_TYPE::GREEN_BOLD);

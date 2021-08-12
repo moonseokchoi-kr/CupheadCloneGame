@@ -102,7 +102,7 @@ CGameObject* CGameObjectManager::getFocusedObj()
 
 void CGameObjectManager::SetFocusedObj(CGameObject* _obj)
 {
-	if (nullptr == m_focusObj || _obj == m_focusObj)
+	if (nullptr == m_focusObj || _obj == m_focusObj || nullptr == _obj)
 	{
 		m_focusObj = _obj;
 		return;

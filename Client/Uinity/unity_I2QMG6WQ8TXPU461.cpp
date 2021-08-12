@@ -23,3 +23,6 @@
 
 #include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CMonsterFactory.cpp"
 
+
+#include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CPanelUI.cpp"
+

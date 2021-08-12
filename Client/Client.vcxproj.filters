@@ -159,6 +159,9 @@
     <Filter Include="Engine\Object\GameObject\BackGround">
       <UniqueIdentifier>{1c84429a-a9c4-4b68-a656-f65c3f2378d4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Object\GameObject\ForeGround">
+      <UniqueIdentifier>{a0e72590-b001-4550-8f54-1ca968ce4d7e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -318,6 +321,9 @@
     <ClInclude Include="CGround.h">
       <Filter>Engine\Object\GameObject\Ground</Filter>
     </ClInclude>
+    <ClInclude Include="CForeGround.h">
+      <Filter>Engine\Object\GameObject\ForeGround</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -469,6 +475,9 @@
     </ClCompile>
     <ClCompile Include="CGround.cpp">
       <Filter>Engine\Object\GameObject\Ground</Filter>
+    </ClCompile>
+    <ClCompile Include="CForeGround.cpp">
+      <Filter>Engine\Object\GameObject\ForeGround</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
