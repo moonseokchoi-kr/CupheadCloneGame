@@ -41,6 +41,8 @@ public:
 	}
 	CPlayer* GetPlayer()
 	{
+		if (m_arrObj[TYPE_NUMBER(GROUP_TYPE::PLAYER)].empty())
+			return nullptr;
 		return (CPlayer*)m_arrObj[TYPE_NUMBER(GROUP_TYPE::PLAYER)][0];
 	}
 	const vector<CObject*>& GetObjWithType(GROUP_TYPE _state)

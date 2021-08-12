@@ -24,6 +24,10 @@ void CIdleState::Exit()
 void CIdleState::Update()
 {
 	CPlayer* player = CSceneManager::GetInst()->GetCurrentScene()->GetPlayer();
+	if (nullptr == player)
+	{
+		return;
+	}
 	Vec2 playerPos = player->GetPos();
 
 	//범위내로 들어오면 추척상태 전환

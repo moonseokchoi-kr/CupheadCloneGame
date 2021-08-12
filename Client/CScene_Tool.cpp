@@ -64,7 +64,7 @@ void CScene_Tool::Update()
 		CSpawnObject* spawnObj = static_cast<CSpawnObject*>(focusObj);
 		if (nullptr == spawnObj)
 			return;
-		//spawnObj->Spawn();
+		spawnObj->Spawn();
 	}
 
 	if (KEY_HOLD(KEY::LCTRL))

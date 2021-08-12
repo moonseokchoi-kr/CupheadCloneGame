@@ -11,8 +11,8 @@
 
 
 CSpawnObject::CSpawnObject()
-	:m_groupType(GROUP_TYPE::PLAYER)
-	,m_monType(MON_TYPE::NONE)
+	:m_groupType(GROUP_TYPE::MONSTER)
+	,m_monType(MON_TYPE::NORMAL)
 {
 	SetScale(Vec2(50.f, 50.f));
 }
@@ -71,7 +71,7 @@ void CSpawnObject::Spawn()
 	}
 
 
-	if (MON_TYPE::NONE != m_monType && GROUP_TYPE::END != m_groupType)
+	if (MON_TYPE::NONE != m_monType && GROUP_TYPE::MONSTER == m_groupType)
 	{
 		CMonster* monObj = CMonsterFactory::CreateMonster(m_monType, pos);
 		CreateObject((CObject*)monObj, m_groupType);
