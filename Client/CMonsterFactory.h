@@ -6,6 +6,10 @@ enum class MON_TYPE
 {
 	NORMAL,
 	RANGE,
+	CANEGY,
+	OLLIE,
+	CHAUNCEY,
+	SAL,
 	NONE,
 };
 

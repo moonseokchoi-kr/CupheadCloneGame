@@ -1,6 +1,8 @@
 #pragma once
 #include "CGameObject.h"
 
+
+
 /// <summary>
 /// 게임내 땅역할을 수행하는 오브젝트 클래스
 /// 
@@ -23,5 +25,7 @@ public:
     virtual void OnCollisionEnter(CCollider* _col);
     virtual void OnCollision(CCollider* _col);
     virtual void OnCollisionExit(CCollider* _col);
+
+
 };
 

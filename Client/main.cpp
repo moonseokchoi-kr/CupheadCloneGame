@@ -150,8 +150,10 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 //  WM_DESTROY  - 종료 메시지를 게시하고 반환합니다.
 //
 //
-INT_PTR CALLBACK TileCountProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam);
+INT_PTR CALLBACK MapSizeProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam);
 INT_PTR CALLBACK SetOffsetProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam);
+INT_PTR CALLBACK ListBoxExampleProc(HWND hDlg, UINT message,
+    WPARAM wParam, LPARAM lParam);
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     switch (message)
@@ -166,10 +168,13 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                 DialogBox(hInst, MAKEINTRESOURCE(IDD_ABOUTBOX), hWnd, About);
                 break;
             case ID_OBJ_SIZE:
-                DialogBox(hInst, MAKEINTRESOURCE(IDD_MAP_SIZE), hWnd, TileCountProc);
+                DialogBox(hInst, MAKEINTRESOURCE(IDD_MAP_SIZE), hWnd, MapSizeProc);
                 break;
             case ID_OBJ_OFFSET:
                 DialogBox(hInst, MAKEINTRESOURCE(IDD_OFFSET), hWnd, SetOffsetProc);
+                break;
+            case ID_SET_SPAWN_OBJ:
+                DialogBox(hInst, MAKEINTRESOURCE(IDD_OBJ_TYPE_LIST), hWnd, ListBoxExampleProc);
                 break;
             case IDM_EXIT:
                 DestroyWindow(hWnd);

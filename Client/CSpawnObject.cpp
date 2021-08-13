@@ -11,8 +11,8 @@
 
 
 CSpawnObject::CSpawnObject()
-	:m_groupType(GROUP_TYPE::MONSTER)
-	,m_monType(MON_TYPE::NORMAL)
+	:m_groupType(GROUP_TYPE::END)
+	,m_monType(MON_TYPE::NONE)
 {
 	SetScale(Vec2(50.f, 50.f));
 }

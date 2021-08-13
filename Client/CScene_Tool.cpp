@@ -161,8 +161,17 @@ void CScene_Tool::SaveTile(const wstring& _path)
 	
 	assert(file);
 
+	fputs("[BackGround]\n", file);
+
+
+	const vector<CObject*> backgrounds = GetObjWithType(GROUP_TYPE::BACK_GROUND);
+	for (CObject* backGround : backgrounds)
+	{
+		
+	}
 	UINT xCount = GetTileX();
 	UINT yCount = GetTileY();
+	
 
 	fwrite(&xCount, sizeof(UINT), 1, file);
 	fwrite(&yCount, sizeof(UINT), 1, file);
@@ -367,7 +376,7 @@ void CScene_Tool::DeleteGameObject()
 //
 // Tile Count Window Proc
 //
-INT_PTR CALLBACK TileCountProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
+INT_PTR CALLBACK MapSizeProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	UNREFERENCED_PARAMETER(lParam);
 	switch (message)
@@ -441,4 +450,95 @@ INT_PTR CALLBACK SetOffsetProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lP
 		break;
 	}
 	return (INT_PTR)FALSE;
+}
+
+
+/// 
+/// ListBoxProc
+///
+int index = 0;
+SpawnObj spawnList[] =
+{
+	{TEXT("Player"),GROUP_TYPE::PLAYER,MON_TYPE::NONE},
+	{TEXT("Nomal"),GROUP_TYPE::MONSTER,MON_TYPE::NORMAL},
+	{TEXT("Cagney Carnation"),GROUP_TYPE::MONSTER,MON_TYPE::CANEGY},
+	{TEXT("Ollie Bulb"),GROUP_TYPE::MONSTER,MON_TYPE::OLLIE},
+	{TEXT("Chauncey Chantenay"),GROUP_TYPE::MONSTER,MON_TYPE::CHAUNCEY},
+	{TEXT("Sal Spudder"),GROUP_TYPE::MONSTER,MON_TYPE::SAL},
+
+};
+INT_PTR CALLBACK ListBoxExampleProc(HWND hDlg, UINT message,
+	WPARAM wParam, LPARAM lParam)
+{
+	
+
+	switch (message)
+	{
+	case WM_INITDIALOG:
+	{
+		// Add items to list. 
+		HWND hwndList = GetDlgItem(hDlg, IDC_SPAWN_OBJ_LIST);
+		for (int i = 0; i < ARRAYSIZE(spawnList); i++)
+		{
+			int pos = (int)SendMessage(hwndList, LB_ADDSTRING, 0,
+				(LPARAM)spawnList[i].objName);
+			// Set the array index of the player as item data.
+			// This enables us to retrieve the item from the array
+			// even after the items are sorted by the list box.
+			SendMessage(hwndList, LB_SETITEMDATA, pos, (LPARAM)i);
+		}
+		// Set input focus to the list box.
+		SetFocus(hwndList);
+		return TRUE;
+	}
+
+	case WM_COMMAND:
+		switch (LOWORD(wParam))
+		{
+		case IDOK:
+		{
+			CGameObject* gameObj = CGameObjectManager::GetInst()->GetFocusObj();
+
+			CSpawnObject* spawnObj = static_cast<CSpawnObject*>(gameObj);
+
+			if (nullptr == spawnObj)
+			{
+				EndDialog(hDlg, LOWORD(wParam));
+				return TRUE;
+			}
+				
+			spawnObj->SetMonType(spawnList[index].mon_type);
+			spawnObj->SetGroupType(spawnList[index].group);
+
+			EndDialog(hDlg, LOWORD(wParam));
+			return TRUE;
+		}
+		case IDCANCEL:
+			EndDialog(hDlg, LOWORD(wParam));
+			return TRUE;
+
+		case IDC_SPAWN_OBJ_LIST:
+		{
+			switch (HIWORD(wParam))
+			{
+			case LBN_SELCHANGE:
+			{
+				HWND hwndList = GetDlgItem(hDlg, IDC_SPAWN_OBJ_LIST);
+
+				// Get selected index.
+				int lbItem = (int)SendMessage(hwndList, LB_GETCURSEL, 0, 0);
+
+				// Get item data.
+				index = (int)SendMessage(hwndList, LB_GETITEMDATA, lbItem, 0);
+
+				
+				
+				return TRUE;
+			}
+			}
+		}
+		return TRUE;
+		}
+	}
+	return FALSE;
 }

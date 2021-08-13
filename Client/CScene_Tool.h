@@ -1,6 +1,15 @@
 #pragma once
 #include "CScene.h"
 
+
+struct SpawnObj
+{
+    TCHAR objName[255];
+    GROUP_TYPE group;
+    MON_TYPE mon_type;
+};
+
+
 /// <summary>
 /// 맵 제작을 하는 툴 화면 클래스
 /// 
