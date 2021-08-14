@@ -15,6 +15,8 @@ public:
 	virtual void Update();
 	virtual void Render(HDC _dc);
 
+	virtual void Save(FILE* _file);
+	virtual void Load(FILE* _file);
 public:
 	void SetType(FOREGROUND_TYPE _t) { m_type = _t; setTexture(); }
 

@@ -84,6 +84,21 @@ void CBackGround::Render(HDC _dc)
 		);
 	}
 }
+void CBackGround::Save(FILE* _file)
+{
+	CGameObject::Save(_file);
+	//현재 타입
+	int _type = TYPE_NUMBER(m_type);
+	fwrite(&_type, sizeof(int), 1, _file);
+}
+void CBackGround::Load(FILE* _file)
+{
+	CGameObject::Load(_file);
+	int _type = 0;
+	fread(&_type, sizeof(int), 1, _file);
+	m_type = (BACKGROUND_TYPE)_type;
+	setTexture();
+}
 void CBackGround::Update()
 {
 	

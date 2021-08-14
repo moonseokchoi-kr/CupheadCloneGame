@@ -78,3 +78,23 @@ void CSpawnObject::Spawn()
 	}
 	
 }
+
+void CSpawnObject::Save(FILE* _file)
+{
+	CGameObject::Save(_file);
+	int groupType = TYPE_NUMBER(m_groupType);
+	int monType = TYPE_NUMBER(m_monType);
+	fwrite(&groupType, sizeof(int), 1, _file);
+	fwrite(&monType, sizeof(int), 1, _file);
+}
+
+void CSpawnObject::Load(FILE* _file)
+{
+	CGameObject::Load(_file);
+	int groupType = 0;
+	int monType = 0;
+	fread(&groupType, sizeof(int), 1, _file);
+	fread(&monType, sizeof(int), 1, _file);
+	m_groupType = (GROUP_TYPE)groupType;
+	m_monType = (MON_TYPE)monType;
+}

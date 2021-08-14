@@ -161,27 +161,61 @@ void CScene_Tool::SaveTile(const wstring& _path)
 	
 	assert(file);
 
-	fputs("[BackGround]\n", file);
-
-
+	
 	const vector<CObject*> backgrounds = GetObjWithType(GROUP_TYPE::BACK_GROUND);
 	for (CObject* backGround : backgrounds)
 	{
+		fputs("B\n", file);
+		((CBackGround*)backGround)->Save(file);
+		fputs("\n", file);
+	}
+
+	
+	const vector<CObject*> gameObjs = GetObjWithType(GROUP_TYPE::GAME_OBJ);
+	for (CObject* gameObj : gameObjs)
+	{
+		switch (((CGameObject*)gameObj)->GetType())
+		{
+		case GAMEOBJECT_TYPE::SPAWN:
+		{
+			fputs("S\n", file);
+			((CSpawnObject*)gameObj)->Save(file);
+			fputs("\n", file);
+		}
+		break;
+		case GAMEOBJECT_TYPE::GROUND:
+		{
+			fputs("G\n", file);
+			((CGround*)gameObj)->Save(file);
+			fputs("\n", file);
+		}
+		break;
+		case GAMEOBJECT_TYPE::FLOWER_PLATFORM_A:
+		case GAMEOBJECT_TYPE::FLOWER_PLATFORM_B:
+		case GAMEOBJECT_TYPE::FLOWER_PLATFORM_C:
+		{
+			fputs("P\n", file);
+			((CGround*)gameObj)->Save(file);
+			fputs("\n", file);
+		}
+		break;
+		default:
+			break;
+		}
+		
+
+
 		
 	}
-	UINT xCount = GetTileX();
-	UINT yCount = GetTileY();
-	
-
-	fwrite(&xCount, sizeof(UINT), 1, file);
-	fwrite(&yCount, sizeof(UINT), 1, file);
-
-	const vector<CObject*> tiles = GetObjWithType(GROUP_TYPE::TILE);
-	for (CObject* tile : tiles)
+	const vector<CObject*> foreGrounds = GetObjWithType(GROUP_TYPE::FORE_GROUND);
+	for(CObject* foreGround:foreGrounds)
 	{
-		((CTile*)tile)->Save(file);
+		fputs("F\n", file);
+		((CForeGround*)foreGround)->Save(file);
+		fputs("\n", file);
 	}
 
+	fputs("E", file);
 	fclose(file);
 }
 
@@ -252,7 +286,7 @@ void CScene_Tool::GoIdxTable(int _idx)
 		CGameObjectManager::GetInst()->SetCurrnetGroup(GROUP_TYPE::FORE_GROUND);
 		break;
 	case 2:
-		CGameObjectManager::GetInst()->SetCurrnetGroup(GROUP_TYPE::GAME_OBJECT);
+		CGameObjectManager::GetInst()->SetCurrnetGroup(GROUP_TYPE::GAME_OBJ);
 	default:
 		break;
 	}
@@ -309,7 +343,7 @@ void CScene_Tool::CreateGameObject()
 
 		}
 		break;
-		case GROUP_TYPE::GAME_OBJECT:
+		case GROUP_TYPE::GAME_OBJ:
 		{
 			
 			switch ((GAMEOBJECT_TYPE)m_cilckedImageIdx)
@@ -328,7 +362,8 @@ void CScene_Tool::CreateGameObject()
 			{
 				gameObj = new CGround;
 				gameObj->SetPos(MOUSE_POS);
-				AddObject(gameObj, GROUP_TYPE::GAME_OBJECT);
+				gameObj->SetType(GAMEOBJECT_TYPE::GROUND);
+				AddObject(gameObj, GROUP_TYPE::GAME_OBJ);
 				m_cilckedImageIdx = -1;
 			}
 				break;
@@ -336,7 +371,8 @@ void CScene_Tool::CreateGameObject()
 			{
 				gameObj = new CSpawnObject;
 				gameObj->SetPos(MOUSE_POS);
-				AddObject(gameObj, GROUP_TYPE::GAME_OBJECT);
+				gameObj->SetType(GAMEOBJECT_TYPE::SPAWN);
+				AddObject(gameObj, GROUP_TYPE::GAME_OBJ);
 				m_cilckedImageIdx = -1;
 			}
 				break;

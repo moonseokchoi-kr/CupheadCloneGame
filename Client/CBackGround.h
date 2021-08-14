@@ -25,6 +25,9 @@ public:
 public:
     virtual void Update() override;
     virtual void Render(HDC _dc) override;
+
+    virtual void Save(FILE* _file);
+    virtual void Load(FILE* _file);
 public:
     void SetType(BACKGROUND_TYPE _type) { m_type = _type; setTexture(); }
 private:

@@ -90,3 +90,26 @@ void CGameObject::MouseLButtonDown()
 void CGameObject::MouseLButtonUp()
 {
 }
+
+void CGameObject::Save(FILE* _file)
+{
+	Vec2 pos = GetPos();
+	Vec2 scale = GetScale();
+	//현재 위치
+	fwrite(&pos, sizeof(Vec2), 1, _file);
+	//크기
+	fwrite(&scale, sizeof(Vec2), 1, _file);
+}
+
+void CGameObject::Load(FILE* _file)
+{
+	Vec2 pos = GetPos();
+	Vec2 scale = GetScale();
+	//현재 위치
+	fread(&pos, sizeof(Vec2), 1, _file);
+	//크기
+	fread(&scale, sizeof(Vec2), 1, _file);
+
+	SetPos(pos);
+	SetScale(scale);
+}

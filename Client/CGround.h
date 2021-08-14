@@ -26,6 +26,7 @@ public:
     virtual void OnCollision(CCollider* _col);
     virtual void OnCollisionExit(CCollider* _col);
 
-
+	virtual void Save(FILE* _file);
+	virtual void Load(FILE* _file);
 };
 

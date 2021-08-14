@@ -71,6 +71,22 @@ void CForeGround::Render(HDC _dc)
 	}
 }
 
+void CForeGround::Save(FILE* _file)
+{
+	CGameObject::Save(_file);
+	int _type = TYPE_NUMBER(m_type);
+	fwrite(&_type, sizeof(int), 1, _file);
+}
+
+void CForeGround::Load(FILE* _file)
+{
+	CGameObject::Load(_file);
+	int _type = 0;
+	fread(&_type, sizeof(int), 1, _file);
+	m_type = (FOREGROUND_TYPE)_type;
+	setTexture();
+}
+
 void CForeGround::setTexture()
 {
 	m_currentTex = CResourceManager::GetInst()->FindTexture(m_foreGroundArray[TYPE_NUMBER(m_type)]);

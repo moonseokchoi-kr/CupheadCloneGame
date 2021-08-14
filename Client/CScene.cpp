@@ -9,6 +9,11 @@
 #include "CCore.h"
 #include "CCamera.h"
 #include "CBackGround.h"
+#include "CSpawnObject.h"
+#include "CGround.h"
+#include "CForeGround.h"
+
+#include "CSceneManager.h"
 
 CScene::CScene()
 	:m_TileXCount(0)
@@ -122,18 +127,71 @@ void CScene::LoadTile(const wstring& _relativePath)
 	_wfopen_s(&file, path.c_str(), L"rb");
 	
 	assert(file);
+	char buffer[20] = { 0, };
 
-	UINT xCount = GetTileX();
-	UINT yCount = GetTileY();
-
-	fread(&xCount, sizeof(UINT), 1, file);
-	fread(&yCount, sizeof(UINT), 1, file);
-
-	const vector<CObject*> tiles = GetObjWithType(GROUP_TYPE::TILE);
-	for (CObject* tile : tiles)
+	CGameObject* gameObj = nullptr;
+	DeleteGroup(GROUP_TYPE::GAME_OBJ);
+	DeleteGroup(GROUP_TYPE::BACK_GROUND);
+	DeleteGroup(GROUP_TYPE::SPAWN_OBJ);
+	DeleteGroup(GROUP_TYPE::GROUND);
+	DeleteGroup(GROUP_TYPE::FORE_GROUND);
+	DeleteGroup(GROUP_TYPE::MONSTER);
+	DeleteGroup(GROUP_TYPE::PLAYER);
+	DeleteGroup(GROUP_TYPE::PLATFORM_OBJ);
+	while ('E' != buffer[0])
 	{
-		((CTile*)tile)->Load(file);
+		fgets(buffer,sizeof(buffer),file);
+		
+		if ('B' == buffer[0])
+		{
+			gameObj = new CBackGround;
+			((CBackGround*)gameObj)->Load(file);
+			AddObject(gameObj, GROUP_TYPE::BACK_GROUND);
+		}
+		
+		else if ('S' == buffer[0])
+		{
+			
+			gameObj = new CSpawnObject;
+			((CSpawnObject*)gameObj)->Load(file);
+			if (CSceneManager::GetInst()->GetCurrentScene()->GetSceneName() == L"Tool Scene")
+			{
+				AddObject(gameObj, GROUP_TYPE::GAME_OBJ);
+			}
+			AddObject(gameObj, GROUP_TYPE::SPAWN_OBJ);
+		}
+
+		else if ('G' == buffer[0])
+		{
+			gameObj = new CGround;
+			((CGround*)gameObj)->Load(file);
+			if (CSceneManager::GetInst()->GetCurrentScene()->GetSceneName() == L"Tool Scene")
+			{
+				AddObject(gameObj, GROUP_TYPE::GAME_OBJ);
+			}
+			AddObject(gameObj, GROUP_TYPE::GROUND);
+		}
+
+		else if ('P' == buffer[0])
+		{
+			gameObj = new CGround;
+			((CGround*)gameObj)->Load(file);
+			if (CSceneManager::GetInst()->GetCurrentScene()->GetSceneName() == L"Tool Scene")
+				AddObject(gameObj, GROUP_TYPE::GAME_OBJ);
+			AddObject(gameObj, GROUP_TYPE::PLATFORM_OBJ);
+		}
+		
+
+		else if ('F' == buffer[0])
+		{
+			gameObj = new CForeGround;
+			((CForeGround*)gameObj)->Load(file);
+			AddObject(gameObj, GROUP_TYPE::FORE_GROUND);
+		}
 	}
+		
+	
+
 
 	fclose(file);
 }

@@ -63,3 +63,13 @@ void CGround::OnCollision(CCollider* _col)
 void CGround::OnCollisionExit(CCollider* _col)
 {
 }
+
+void CGround::Save(FILE* _file)
+{
+	CGameObject::Save(_file);
+}
+
+void CGround::Load(FILE* _file)
+{
+	CGameObject::Load(_file);
+}
