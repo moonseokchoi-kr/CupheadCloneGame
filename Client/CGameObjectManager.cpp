@@ -95,6 +95,7 @@ CGameObject* CGameObjectManager::getFocusedObj()
 	}
 
 	focusBackObj = (CGameObject*)*targetIter;
+	m_foucusIter = targetIter;
 	curScene->ChangeFocus(targetIter, focusBackObj, m_currentType);
 
 	return focusBackObj;

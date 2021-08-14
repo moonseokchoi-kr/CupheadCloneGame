@@ -71,11 +71,11 @@ void CScene_Tool::Update()
 	{
 		if (KEY_TAP(KEY::S))
 		{
-			SaveTileData();
+			SaveMapData();
 		}
 		else if(KEY_TAP(KEY::O))
 		{
-			LoadTileData();
+			LoadMapData();
 		}
 		
 	}
@@ -88,7 +88,7 @@ void CScene_Tool::Update()
 
 void CScene_Tool::Enter()
 {
-	Vec2 resolution = Vec2(1280, 768);
+	Vec2 resolution = Vec2(1600, 960);
 	CCore::GetInst()->DockMenu(resolution);
 	
 
@@ -158,7 +158,7 @@ void CScene_Tool::Exit()
 }
 
 
-void CScene_Tool::SaveTile(const wstring& _path)
+void CScene_Tool::SaveMap(const wstring& _path)
 {
 	FILE* file = nullptr;
 
@@ -224,7 +224,7 @@ void CScene_Tool::SaveTile(const wstring& _path)
 	fclose(file);
 }
 
-void CScene_Tool::SaveTileData()
+void CScene_Tool::SaveMapData()
 {
 	OPENFILENAME ofn = {};
 	//file name
@@ -246,11 +246,11 @@ void CScene_Tool::SaveTileData()
 
 	if (GetSaveFileName(&ofn))
 	{
-		SaveTile(szFile);
+		SaveMap(szFile);
 	}
 }
 
-void CScene_Tool::LoadTileData()
+void CScene_Tool::LoadMapData()
 {
 	OPENFILENAME ofn = {};
 	//file name
@@ -273,7 +273,7 @@ void CScene_Tool::LoadTileData()
 	if (GetOpenFileName(&ofn))
 	{
 		wstring relativePath = CPathManager::GetInst()->GetRelativePath(szFile);
-		LoadTile(relativePath);
+		LoadMap(relativePath);
 	}
 }
 
@@ -603,4 +603,67 @@ INT_PTR CALLBACK ListBoxExampleProc(HWND hDlg, UINT message,
 		}
 	}
 	return FALSE;
+}
+
+
+void LoadMapData()
+{
+	OPENFILENAME ofn = {};
+	//file name
+	wchar_t szFile[256] = {};
+	wstring strTileFolder = CPathManager::GetInst()->GetContentPath();
+	strTileFolder += L"tile";
+	ofn.lStructSize = sizeof(ofn);
+	ofn.hwndOwner = CCore::GetInst()->GetMainHwnd();
+	ofn.lpstrFile = szFile;
+	ofn.lpstrFile[0] = '\0';
+	ofn.nMaxFile = sizeof(szFile);
+	ofn.lpstrFilter = L"All\0*.*\0Tile\0*.tile\0";
+	ofn.nFilterIndex = 1;
+	ofn.lpstrFileTitle = nullptr;
+	ofn.nMaxFileTitle = 0;
+	ofn.lpstrInitialDir = strTileFolder.c_str();
+	ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST;
+
+
+	if (GetOpenFileName(&ofn))
+	{
+		wstring relativePath = CPathManager::GetInst()->GetRelativePath(szFile);
+		CScene* curScene = CSceneManager::GetInst()->GetCurrentScene();
+		curScene->LoadMap(relativePath);
+		MessageBox(CCore::GetInst()->GetMainHwnd(), L"맵을 불러왔습니다.", L"불러오기 확인", MB_OK);
+	}
+}
+
+
+void SaveMapData()
+{
+	OPENFILENAME ofn = {};
+	//file name
+	wchar_t szFile[256] = {};
+	wstring strTileFolder = CPathManager::GetInst()->GetContentPath();
+	strTileFolder += L"tile";
+	ofn.lStructSize = sizeof(ofn);
+	ofn.hwndOwner = CCore::GetInst()->GetMainHwnd();
+	ofn.lpstrFile = szFile;
+	ofn.lpstrFile[0] = '\0';
+	ofn.nMaxFile = sizeof(szFile);
+	ofn.lpstrFilter = L"All\0*.*\0Tile\0*.tile\0";
+	ofn.nFilterIndex = 1;
+	ofn.lpstrFileTitle = nullptr;
+	ofn.nMaxFileTitle = 0;
+	ofn.lpstrInitialDir = strTileFolder.c_str();
+	ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST;
+
+
+	if (GetSaveFileName(&ofn))
+	{
+		CScene* curScene = CSceneManager::GetInst()->GetCurrentScene();
+		CScene_Tool* toolScene = static_cast<CScene_Tool*>(curScene);
+
+		toolScene->SaveMap(szFile);
+		MessageBox(CCore::GetInst()->GetMainHwnd(), L"맵을 저장했습니다.", L"저장 확인", MB_OK);
+	}
+
+
 }

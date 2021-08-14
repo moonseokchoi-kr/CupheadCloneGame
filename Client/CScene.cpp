@@ -14,7 +14,7 @@
 #include "CForeGround.h"
 
 #include "CSceneManager.h"
-
+#include "CGameObjectManager.h"
 CScene::CScene()
 	:m_TileXCount(0)
 	,m_TileYCount(0)
@@ -38,6 +38,10 @@ void CScene::Update()
 {
 	for (int i = 0; i < m_arrObj.size(); ++i)
 	{
+		if (TYPE_NUMBER(GROUP_TYPE::BACK_GROUND) == i)
+		{
+			offset_change();
+		}
 		for (int j = 0; j < m_arrObj[i].size(); ++j)
 		{
 			if (!m_arrObj[i][j]->IsDead())
@@ -70,10 +74,7 @@ void CScene::Render(HDC _dc)
 			}
 		}
 
-		if (TYPE_NUMBER(GROUP_TYPE::BACK_GROUND) == i)
-		{
-			offset_change();
-		}
+		
 	}
 }
 
@@ -85,6 +86,8 @@ void CScene::FinalUpdate()
 		{
 			m_arrObj[i][j]->FinalUpdate();
 		}
+
+
 	}
 }
 
@@ -101,24 +104,8 @@ void CScene::DeleteGroup(GROUP_TYPE _target)
 	Safe_Delete_Vec(m_arrObj[TYPE_NUMBER(_target)]);
 }
 
-void CScene::CreateTile(UINT _xCount, UINT _yCount)
-{
-	CTexture* tile = CResourceManager::GetInst()->LoadTexture(L"Tile", L"texture\\tile\\TILE.bmp");
-	m_TileXCount = _xCount;
-	m_TileYCount = _yCount;
 
-	for (int i = 0; i < _yCount; ++i)
-	{
-		for (int j = 0; j < _xCount; ++j)\
-		{
-			CTile* pTile = new CTile;
-			pTile->SetPos(Vec2((float)(j * TILE_SIZE), (float)(i * TILE_SIZE)));
-			AddObject(pTile, GROUP_TYPE::TILE);
-		}
-	}
-}
-
-void CScene::LoadTile(const wstring& _relativePath)
+void CScene::LoadMap(const wstring& _relativePath)
 {
 	FILE* file = nullptr;
 
@@ -238,9 +225,8 @@ void CScene::offset_change()
 	
 	//화면에 렌더링을 오프셋에 따라 순서를 결정하여 진행
 	//정렬 알고리즘을 이용해 진행
-	
 	sort(m_arrObj[TYPE_NUMBER(GROUP_TYPE::BACK_GROUND)].begin(), m_arrObj[TYPE_NUMBER(GROUP_TYPE::BACK_GROUND)].end(), comp);
-	
+
 }
 
 bool comp(CObject* a, CObject* b)

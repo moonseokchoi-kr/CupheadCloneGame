@@ -39,9 +39,9 @@ public:
     virtual void Exit() override;
 
 public:
-    void SaveTile(const wstring& _path);
-    void SaveTileData();
-    void LoadTileData();
+    void SaveMap(const wstring& _path);
+    void SaveMapData();
+    void LoadMapData();
     void GoIdxTable(int _idx);
     void GetTileUIidx(int _idx);
     void CreateGameObject();

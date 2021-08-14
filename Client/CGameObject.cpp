@@ -119,9 +119,8 @@ void CGameObject::Load(FILE* _file)
 	//크기
 	fread(&scale, sizeof(Vec2), 1, _file);
 	//렌더링 오프셋
-	fwrite(&offset, sizeof(int), 1, _file);
+	fread(&offset, sizeof(int), 1, _file);
 
-	fwrite(&offset, sizeof(int), 1, _file);
 
 	SetPos(pos);
 	SetScale(scale);

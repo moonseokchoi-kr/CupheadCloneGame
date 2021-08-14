@@ -119,7 +119,7 @@ void CCamera::CalDiff()
 	///
 	/// 부드럽게 움직이기
 	/// 
-	Vec2 resolution = RESOLUTION;
+	Vec2 resolution = CCore::GetInst()->GetResolution();
 	Vec2 center = resolution / 2;
 	if (m_cameraType == CAMERA_TYPE::DEFALT)
 	{

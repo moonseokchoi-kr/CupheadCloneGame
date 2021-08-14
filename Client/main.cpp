@@ -154,6 +154,8 @@ INT_PTR CALLBACK MapSizeProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lPar
 INT_PTR CALLBACK SetOffsetProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam);
 INT_PTR CALLBACK ListBoxExampleProc(HWND hDlg, UINT message,
     WPARAM wParam, LPARAM lParam);
+void SaveMapData();
+void LoadMapData();
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     switch (message)
@@ -176,6 +178,13 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             case ID_SET_SPAWN_OBJ:
                 DialogBox(hInst, MAKEINTRESOURCE(IDD_OBJ_TYPE_LIST), hWnd, ListBoxExampleProc);
                 break;
+            case ID_MAP_SAVE:
+                SaveMapData();
+                break;
+            case ID_MAP_LOAD:
+                LoadMapData();
+                break;
+
             case IDM_EXIT:
                 DestroyWindow(hWnd);
                 break;
