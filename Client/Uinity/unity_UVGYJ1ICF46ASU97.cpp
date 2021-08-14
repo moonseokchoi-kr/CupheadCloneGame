@@ -1,8 +1,5 @@
 #include "pch.h"
 
-#include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CObject.cpp"
-
-
 #include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CPathManager.cpp"
 
 
@@ -22,4 +19,7 @@
 
 
 #include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CScene_Start.cpp"
+
+
+#include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CTexture.cpp"
 

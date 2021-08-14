@@ -333,9 +333,6 @@
     <ClInclude Include="CPropeller.h">
       <Filter>Engine\Object\GameObject\Ground\PlatformChild</Filter>
     </ClInclude>
-    <ClInclude Include="CShadow.h">
-      <Filter>Engine\Object\GameObject\Ground\PlatformChild</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -495,9 +492,6 @@
       <Filter>Engine\Object\GameObject\Spawn</Filter>
     </ClCompile>
     <ClCompile Include="CPropeller.cpp">
-      <Filter>Engine\Object\GameObject\Ground\PlatformChild</Filter>
-    </ClCompile>
-    <ClCompile Include="CShadow.cpp">
       <Filter>Engine\Object\GameObject\Ground\PlatformChild</Filter>
     </ClCompile>
   </ItemGroup>

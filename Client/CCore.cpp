@@ -50,7 +50,7 @@ int CCore::InitCore(HWND _hwnd, POINT _resolution)
 	//DeviceContext¼³Á¤
 	m_hDc = GetDC(m_hWnd);
 	m_menu = LoadMenu(nullptr, MAKEINTRESOURCEW(IDC_CLIENT));
-	m_memTex = CResourceManager::GetInst()->CreateTexture(L"BackBuffer", m_ptResolution.x, m_ptResolution.y);
+	m_memTex = CResourceManager::GetInst()->CreateTexture(L"BackBuffer", m_ptToolResolution.x, m_ptToolResolution.y);
 	
 	CKeyManager::GetInst()->Init();
 	CTimeManager::GetInst()->Init();
@@ -125,6 +125,7 @@ void CCore::DockMenu()
 void CCore::DockMenu(Vec2 _resolution)
 {
 	SetMenu(m_hWnd, m_menu);
+	m_ptResolution = {(int)_resolution.x, (int)_resolution.y};
 	changeWindowSize(_resolution, true);
 }
 

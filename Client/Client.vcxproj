@@ -212,7 +212,6 @@
     <ClInclude Include="CSceneManager.h" />
     <ClInclude Include="CScene_Start.h" />
     <ClInclude Include="CScene_Tool.h" />
-    <ClInclude Include="CShadow.h" />
     <ClInclude Include="CSpawnObject.h" />
     <ClInclude Include="CState.h" />
     <ClInclude Include="CTexture.h" />
@@ -276,7 +275,6 @@
     <ClCompile Include="CPropeller.cpp" />
     <ClCompile Include="CRigidBody.cpp" />
     <ClCompile Include="CScene_Tool.cpp" />
-    <ClCompile Include="CShadow.cpp" />
     <ClCompile Include="CSpawnObject.cpp" />
     <ClCompile Include="CState.cpp" />
     <ClCompile Include="CTile.cpp" />

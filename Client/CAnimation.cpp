@@ -51,9 +51,29 @@ void CAnimation::Render(HDC _dc)
 	
 	pos += m_frames[m_currentFrame].offset;
 	pos = CCamera::GetInst()->GetRenderPos(pos);
-	TransparentBlt(_dc
-		, (int)(pos.x - m_frames[m_currentFrame].slice.x / 2.f)
-		, (int)(pos.y - m_frames[m_currentFrame].slice.y / 2.f)
+// 	TransparentBlt(_dc
+// 		, (int)(pos.x - m_frames[m_currentFrame].slice.x / 2.f)
+// 		, (int)(pos.y - m_frames[m_currentFrame].slice.y / 2.f)
+// 		, (int)(m_frames[m_currentFrame].slice.x)
+// 		, (int)(m_frames[m_currentFrame].slice.y)
+// 		, m_tex->GetDC()
+// 		, (int)(m_frames[m_currentFrame].lt.x)
+// 		, (int)(m_frames[m_currentFrame].lt.y)
+// 		, (int)(m_frames[m_currentFrame].slice.x)
+// 		, (int)(m_frames[m_currentFrame].slice.y)
+// 		, RGB(255, 0, 255)
+// 	);
+
+	BLENDFUNCTION bf = {};
+	bf.BlendOp = AC_SRC_OVER;
+	bf.BlendFlags = 0;
+	bf.AlphaFormat = AC_SRC_ALPHA;
+	bf.SourceConstantAlpha = 255;
+
+	AlphaBlend(
+		_dc
+		, (int)(pos.x)
+		, (int)(pos.y)
 		, (int)(m_frames[m_currentFrame].slice.x)
 		, (int)(m_frames[m_currentFrame].slice.y)
 		, m_tex->GetDC()
@@ -61,7 +81,7 @@ void CAnimation::Render(HDC _dc)
 		, (int)(m_frames[m_currentFrame].lt.y)
 		, (int)(m_frames[m_currentFrame].slice.x)
 		, (int)(m_frames[m_currentFrame].slice.y)
-		, RGB(255, 0, 255)
+		, bf
 	);
 }
 

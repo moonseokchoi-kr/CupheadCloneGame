@@ -15,7 +15,6 @@
 
 
 class CPropeller;
-class CShadow;
 
 class CGround :
     public CGameObject
@@ -40,7 +39,6 @@ public:
 private:
    
     CPropeller* m_propeller;
-    CShadow* m_shadow;
 
 };
 

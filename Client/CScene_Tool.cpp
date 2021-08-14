@@ -88,14 +88,15 @@ void CScene_Tool::Update()
 
 void CScene_Tool::Enter()
 {
-	CCore::GetInst()->DockMenu();
-	Vec2 resolution = Vec2(1600,960);
+	Vec2 resolution = Vec2(1280, 768);
+	CCore::GetInst()->DockMenu(resolution);
+	
 
 	/*CreateTile(5, 5);*/
 
 	CUI* parentUI = new CPanelUI(false);
 	parentUI->SetScale(Vec2(400.f, 550.f));
-	parentUI->SetPos(Vec2(resolution.x - parentUI->GetScale().x*1.85f, 100.f));
+	parentUI->SetPos(Vec2(resolution.x - parentUI->GetScale().x, 100.f));
 	parentUI->SetName(L"TilePanelUI");
 	//타일 UI설정
 	CTileButtonUI* tileUI = new CTileButtonUI(false);
@@ -353,20 +354,41 @@ void CScene_Tool::CreateGameObject()
 			switch ((GAMEOBJECT_TYPE)m_cilckedImageIdx)
 			{
 			case GAMEOBJECT_TYPE::FLOWER_PLATFORM_A:
+			{
+				gameObj = new CGround;
+				gameObj->SetType(GAMEOBJECT_TYPE::FLOWER_PLATFORM_A);
+				gameObj->SetPos(MOUSE_POS);
+				gameObj->Start();
+				AddObject(gameObj, GROUP_TYPE::GAME_OBJ);
+				m_cilckedImageIdx = -1;
+			}
 				break;
 			case GAMEOBJECT_TYPE::FLOWER_PLATFORM_B:
+			{
+				gameObj = new CGround;
+				gameObj->SetType(GAMEOBJECT_TYPE::FLOWER_PLATFORM_B);
+				gameObj->SetPos(MOUSE_POS);
+				gameObj->Start();
+				AddObject(gameObj, GROUP_TYPE::GAME_OBJ);
+				m_cilckedImageIdx = -1;
+			}
 				break;
 			case GAMEOBJECT_TYPE::FLOWER_PLATFORM_C:
-				break;
-			case GAMEOBJECT_TYPE::DARK_TOWER:
-				break;
-			case GAMEOBJECT_TYPE::NOMAL_TOWER:
+			{
+				gameObj = new CGround;
+				gameObj->SetType(GAMEOBJECT_TYPE::FLOWER_PLATFORM_C);
+				gameObj->SetPos(MOUSE_POS);
+				gameObj->Start();
+				AddObject(gameObj, GROUP_TYPE::GAME_OBJ);
+				m_cilckedImageIdx = -1;
+			}
 				break;
 			case GAMEOBJECT_TYPE::GROUND:
 			{
 				gameObj = new CGround;
 				gameObj->SetPos(MOUSE_POS);
 				gameObj->SetType(GAMEOBJECT_TYPE::GROUND);
+				gameObj->Start();
 				AddObject(gameObj, GROUP_TYPE::GAME_OBJ);
 				m_cilckedImageIdx = -1;
 			}
