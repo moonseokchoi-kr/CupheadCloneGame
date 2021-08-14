@@ -150,9 +150,6 @@
     <Filter Include="Engine\Object\GameObject">
       <UniqueIdentifier>{a3595fa1-c09e-42be-8882-19e98ce5a48d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Object\GameObject\Platform">
-      <UniqueIdentifier>{ec784805-5e3e-44a0-8b47-45ca39ec4b5e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Object\GameObject\Ground">
       <UniqueIdentifier>{be5a2ea2-8e13-486c-8069-2b3430058b98}</UniqueIdentifier>
     </Filter>
@@ -164,6 +161,9 @@
     </Filter>
     <Filter Include="Engine\Object\GameObject\Spawn">
       <UniqueIdentifier>{a7776f59-8c5f-4ee2-9f37-35c026adbe0a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Object\GameObject\Ground\PlatformChild">
+      <UniqueIdentifier>{18838f49-a27e-4771-92a3-b8c72d96fe30}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -330,6 +330,12 @@
     <ClInclude Include="CSpawnObject.h">
       <Filter>Engine\Object\GameObject\Spawn</Filter>
     </ClInclude>
+    <ClInclude Include="CPropeller.h">
+      <Filter>Engine\Object\GameObject\Ground\PlatformChild</Filter>
+    </ClInclude>
+    <ClInclude Include="CShadow.h">
+      <Filter>Engine\Object\GameObject\Ground\PlatformChild</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -487,6 +493,12 @@
     </ClCompile>
     <ClCompile Include="CSpawnObject.cpp">
       <Filter>Engine\Object\GameObject\Spawn</Filter>
+    </ClCompile>
+    <ClCompile Include="CPropeller.cpp">
+      <Filter>Engine\Object\GameObject\Ground\PlatformChild</Filter>
+    </ClCompile>
+    <ClCompile Include="CShadow.cpp">
+      <Filter>Engine\Object\GameObject\Ground\PlatformChild</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

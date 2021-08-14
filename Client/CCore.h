@@ -27,12 +27,13 @@ public:
 public:
 	HDC GetMainDC() { return m_hDc; }
 	HWND GetMainHwnd() { return m_hWnd; }
-	Vec2 GetResolution() { return Vec2((int)m_ptResolution.x,(int)m_ptResolution.y); }
+	Vec2 GetResolution(){return Vec2((float)m_ptResolution.x, (float)m_ptResolution.y);	}
 	HBRUSH GetBrush(BRUSH_TYPE _brushType) { return m_brushs[(UINT)_brushType]; }
 	HPEN GetPen(PEN_TYPE _penType) { return m_pens[(UINT)_penType]; }
 
 public:
 	void DockMenu();
+	void DockMenu(Vec2 _resolution);
 	void UnDockMenu();
 	void Clear();
 private:
@@ -41,6 +42,7 @@ private:
 private:
 	HWND	m_hWnd;//시스템 id
 	POINT	m_ptResolution;//창 해상도
+	POINT	m_ptToolResolution;//툴씬 해상도
 	POINT	m_ptMonitorResolution;//모니터해상도
 	HDC		m_hDc; //픽셀버퍼
 

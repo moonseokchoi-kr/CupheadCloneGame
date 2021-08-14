@@ -3,17 +3,17 @@
 
 
 class CGameObject :
-    public CObject
+	public CObject
 {
 public:
-    CGameObject();
-    ~CGameObject();
-    CLONE(CGameObject);
+	CGameObject();
+	~CGameObject();
+	CLONE(CGameObject);
 public:
-    virtual void Start();
-    virtual void Update();
+	virtual void Start();
+	virtual void Update();
 	virtual void FinalUpdate();
-    virtual void Render(HDC _dc);
+	virtual void Render(HDC _dc);
 
 public:
 	void MouseOnCheck();
@@ -27,6 +27,11 @@ public:
 	void SetMouseOn(bool _b) { m_mouseOn = _b; }
 	void SetLButtonDown(bool _b) { m_lButtonDown = _b; }
 	void SetSelect(bool _b) { m_select = _b; }
+
+	CGameObject* GetParent() { return m_parentObejct; }
+	const vector<CGameObject*>& GetChilds() { return m_childObejcts; }
+
+	void AddChild(CGameObject* _child) { _child->m_parentObejct = this;  m_childObejcts.push_back(_child); }
 public:
 	virtual void MouseOn();
 	virtual void MouseLButtonDown();
@@ -45,9 +50,13 @@ private:
 	Vec2  m_dragStart;      //드래그를 시작한 포지션
 	Vec2 m_currentMousePos; //현재 마우스 포지션
 
+
+	Vec2 m_finalPos;
+
 	GAMEOBJECT_TYPE m_type;
 
-
+	CGameObject* m_parentObejct;
+	vector<CGameObject*> m_childObejcts;
 	friend class CGameObjectManager;
 };
 

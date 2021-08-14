@@ -197,6 +197,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="CPanelUI.h" />
+    <ClInclude Include="CPropeller.h" />
     <ClInclude Include="CRedUfo.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
@@ -211,6 +212,7 @@
     <ClInclude Include="CSceneManager.h" />
     <ClInclude Include="CScene_Start.h" />
     <ClInclude Include="CScene_Tool.h" />
+    <ClInclude Include="CShadow.h" />
     <ClInclude Include="CSpawnObject.h" />
     <ClInclude Include="CState.h" />
     <ClInclude Include="CTexture.h" />
@@ -271,8 +273,10 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="CPanelUI.cpp" />
+    <ClCompile Include="CPropeller.cpp" />
     <ClCompile Include="CRigidBody.cpp" />
     <ClCompile Include="CScene_Tool.cpp" />
+    <ClCompile Include="CShadow.cpp" />
     <ClCompile Include="CSpawnObject.cpp" />
     <ClCompile Include="CState.cpp" />
     <ClCompile Include="CTile.cpp" />

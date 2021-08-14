@@ -79,19 +79,23 @@ void CScene_Tool::Update()
 		}
 		
 	}
+	if (KEY_TAP(KEY::ENTER))
+	{
+		ChangeScene(SCENE_TYPE::START);
+	}
 }
 	
 
 void CScene_Tool::Enter()
 {
 	CCore::GetInst()->DockMenu();
-	Vec2 resolution = RESOLUTION;
+	Vec2 resolution = Vec2(1600,960);
 
 	/*CreateTile(5, 5);*/
 
 	CUI* parentUI = new CPanelUI(false);
 	parentUI->SetScale(Vec2(400.f, 550.f));
-	parentUI->SetPos(Vec2(resolution.x - parentUI->GetScale().x, 100.f));
+	parentUI->SetPos(Vec2(resolution.x - parentUI->GetScale().x*1.85f, 100.f));
 	parentUI->SetName(L"TilePanelUI");
 	//타일 UI설정
 	CTileButtonUI* tileUI = new CTileButtonUI(false);

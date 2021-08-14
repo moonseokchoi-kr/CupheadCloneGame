@@ -6,11 +6,16 @@
 #include "CCamera.h"
 #include "SelectGDI.h"
 
+#include "CPropeller.h"
+#include "CShadow.h"
+
 CGround::CGround()
+	:m_propeller(nullptr)
+	,m_shadow(nullptr)
 {
 	SetScale(Vec2(100, 60));
 	CreateCollider();
-	GetCollider()->SetScale(GetScale());
+	
 
 }
 
@@ -20,6 +25,25 @@ CGround::~CGround()
 
 void CGround::Start()
 {
+	GetCollider()->SetScale(GetScale());
+	
+	switch (GetType())
+	{
+	case GAMEOBJECT_TYPE::FLOWER_PLATFORM_A:
+	case GAMEOBJECT_TYPE::FLOWER_PLATFORM_B:
+	case GAMEOBJECT_TYPE::FLOWER_PLATFORM_C:
+	{
+		m_propeller = new CPropeller;
+		m_shadow = new CShadow;
+	}
+		break;
+	case GAMEOBJECT_TYPE::GROUND:
+		break;
+	case GAMEOBJECT_TYPE::END:
+		break;
+	default:
+		break;
+	}
 }
 
 void CGround::Update()

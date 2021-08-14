@@ -43,6 +43,7 @@ int CCore::InitCore(HWND _hwnd, POINT _resolution)
 {
 	m_hWnd = _hwnd;
 	m_ptResolution = _resolution;
+	m_ptToolResolution = { 1600,900 };
 	m_ptMonitorResolution = { GetSystemMetrics(SM_CXSCREEN), GetSystemMetrics(SM_CYSCREEN) };
 
 	changeWindowSize(Vec2((float)m_ptResolution.x,(float)m_ptResolution.y), false);
@@ -113,10 +114,18 @@ void CCore::CreateBrushPen()
 	m_pens[(UINT)PEN_TYPE::WHITE] = CreatePen(PS_SOLID, 1, RGB(255, 255, 255));
 }
 
+
+
 void CCore::DockMenu()
 {
 	SetMenu(m_hWnd, m_menu);
 	changeWindowSize(GetResolution(), true);
+}
+
+void CCore::DockMenu(Vec2 _resolution)
+{
+	SetMenu(m_hWnd, m_menu);
+	changeWindowSize(_resolution, true);
 }
 
 void CCore::UnDockMenu()
@@ -131,7 +140,7 @@ void CCore::changeWindowSize(Vec2 _resolution, bool _isDock)
 	//윈도우크기 계산
 	AdjustWindowRect(&rt, WS_OVERLAPPEDWINDOW, _isDock);
 	//윈도우 창위치 설정, 크기설정
-	SetWindowPos(m_hWnd, nullptr, m_ptMonitorResolution.x / 2 - m_ptResolution.x / 2, m_ptMonitorResolution.y / 2 - m_ptResolution.y / 2, rt.right - rt.left, rt.bottom - rt.top, 0);
+	SetWindowPos(m_hWnd, nullptr, m_ptMonitorResolution.x / 2 - _resolution.x / 2, m_ptMonitorResolution.y / 2 - _resolution.y / 2, rt.right - rt.left, rt.bottom - rt.top, 0);
 }
 
 void CCore::Clear()
