@@ -53,3 +53,13 @@ void ChangeAIState(FSMAI* _ai, MON_STATE _nextState)
 
 	CEventManager::GetInst()->AddEvent(evn);
 }
+
+void ChangePlayerState(CPlayerStateMachine* _ai, PLAYER_STATE _nextState)
+{
+	event evn = {};
+	evn.event_type = EVENT_TYPE::PLAYER_STATE_CHANGE;
+	evn.lParam = (DWORD_PTR)_ai;
+	evn.wParam = (DWORD_PTR)_nextState;
+
+	CEventManager::GetInst()->AddEvent(evn);
+}

@@ -22,14 +22,14 @@
 
 struct playerInfo
 {
-	float m_moveSpeed;
-	float m_prevMoveDir;
-	float m_moveDir;
-    float m_attackSpeed;
+	float moveSpeed;
+	float prevMoveDir;
+	float moveDir;
+    float attackSpeed;
 
-    Vec2  m_shootDir;
+    Vec2  shootDir;
 
-    int m_health;
+    int health;
 };
 
 class CPlayerStateMachine;
@@ -42,6 +42,7 @@ public:
     CPlayer();
     ~CPlayer();
 public:
+    virtual void Start();
     // CObject을(를) 통해 상속됨
     virtual void Update() override;
 
@@ -56,11 +57,9 @@ public:
 
     playerInfo GetInfo() { return m_info; }
     void SetInfo(playerInfo _info) { m_info = _info; }
-
+    void SetAi(CPlayerStateMachine* _ai);
 private:
     void fire();
-    void updateState();
-    void updateAnimation();
 
 private:
 

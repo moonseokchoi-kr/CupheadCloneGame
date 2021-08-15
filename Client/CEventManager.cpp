@@ -7,6 +7,7 @@
 #include "CObject.h"
 
 #include "FSMAI.h"
+#include "CPlayerStateMachine.h"
 CEventManager::CEventManager()
 {
 
@@ -79,6 +80,14 @@ void CEventManager::excute(const event& _event)
 		MON_STATE nextState = (MON_STATE)_event.wParam;
 
 		ai->ChangeState(nextState);
+	}
+	case EVENT_TYPE::PLAYER_STATE_CHANGE:
+	{
+
+		//1Param: ai
+		//wParam: next state
+		CPlayerStateMachine* ai = (CPlayerStateMachine*)_event.lParam;
+		PLAYER_STATE nextState = (PLAYER_STATE)_event.wParam;
 	}
 	default:
 		break;

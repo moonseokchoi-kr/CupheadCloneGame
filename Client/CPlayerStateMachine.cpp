@@ -13,6 +13,7 @@ CPlayerStateMachine::~CPlayerStateMachine()
 	Safe_Delete_Map(m_stateMap);
 }
 
+
 void CPlayerStateMachine::Update()
 {
 	m_currentState->Update();

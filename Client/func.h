@@ -6,7 +6,7 @@
 
 class CObject;
 class FSMAI;
-
+class CPlayerStateMachine;
 
 void CreateObject(CObject* _object, GROUP_TYPE _group, Vec2 _pos, Vec2 _scale);
 void CreateObject(CObject* _object, GROUP_TYPE _group);
@@ -15,7 +15,7 @@ void DeleteObject(CObject* _object);
 void ChangeScene(SCENE_TYPE _type);
 
 void ChangeAIState(FSMAI* ai, MON_STATE _nextState);
-
+void ChangePlayerState(CPlayerStateMachine* _ai, PLAYER_STATE _nextState);
 template<typename T>
 void Safe_Delete_Vec(vector<T>& _vec)
 {

@@ -2,6 +2,7 @@
 
 class CPlayer;
 class CPlayerState;
+
 class CPlayerStateMachine
 {
 public:
@@ -20,5 +21,7 @@ private:
 	CPlayer* m_owner;
 	CPlayerState* m_currentState;
 	CPlayerState* m_prevState;
+
+	friend class CPlayer;
 };
 

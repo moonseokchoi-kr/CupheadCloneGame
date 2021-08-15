@@ -5,6 +5,7 @@
 CPlayerState::CPlayerState(PLAYER_STATE _state)
 	:m_state(_state)
 	,m_ai(nullptr)
+	,m_subState(PLAYER_STATE::IDLE)
 {
 }
 
