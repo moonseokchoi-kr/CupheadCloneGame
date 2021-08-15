@@ -197,6 +197,10 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="CPanelUI.h" />
+    <ClInclude Include="CPlayerAttackState.h" />
+    <ClInclude Include="CPlayerIdleState.h" />
+    <ClInclude Include="CPlayerState.h" />
+    <ClInclude Include="CPlayerStateMachine.h" />
     <ClInclude Include="CPropeller.h" />
     <ClInclude Include="CRedUfo.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
@@ -272,6 +276,10 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="CPanelUI.cpp" />
+    <ClCompile Include="CPlayerAttackState.cpp" />
+    <ClCompile Include="CPlayerIdleState.cpp" />
+    <ClCompile Include="CPlayerState.cpp" />
+    <ClCompile Include="CPlayerStateMachine.cpp" />
     <ClCompile Include="CPropeller.cpp" />
     <ClCompile Include="CRigidBody.cpp" />
     <ClCompile Include="CScene_Tool.cpp" />

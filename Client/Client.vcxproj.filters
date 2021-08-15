@@ -165,6 +165,18 @@
     <Filter Include="Engine\Object\GameObject\Ground\PlatformChild">
       <UniqueIdentifier>{18838f49-a27e-4771-92a3-b8c72d96fe30}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Object\Player\StateMachine">
+      <UniqueIdentifier>{e8f60c80-0fb0-4761-8302-57558a31084c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Object\Player\StateMachine\State">
+      <UniqueIdentifier>{651e04f1-6aee-47b3-b11c-e7abd6255962}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Object\Player\StateMachine\State\IdleState">
+      <UniqueIdentifier>{7f45d4f8-fcbf-4c0d-be57-b5a04764514f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Object\Player\StateMachine\State\AttackState">
+      <UniqueIdentifier>{8b001c80-21f7-4eef-a664-974ec04e8eeb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -333,6 +345,18 @@
     <ClInclude Include="CPropeller.h">
       <Filter>Engine\Object\GameObject\Ground\PlatformChild</Filter>
     </ClInclude>
+    <ClInclude Include="CPlayerStateMachine.h">
+      <Filter>Engine\Object\Player\StateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayerState.h">
+      <Filter>Engine\Object\Player\StateMachine\State</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayerIdleState.h">
+      <Filter>Engine\Object\Player\StateMachine\State\IdleState</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayerAttackState.h">
+      <Filter>Engine\Object\Player\StateMachine\State\AttackState</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -493,6 +517,18 @@
     </ClCompile>
     <ClCompile Include="CPropeller.cpp">
       <Filter>Engine\Object\GameObject\Ground\PlatformChild</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayerStateMachine.cpp">
+      <Filter>Engine\Object\Player\StateMachine</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayerState.cpp">
+      <Filter>Engine\Object\Player\StateMachine\State</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayerIdleState.cpp">
+      <Filter>Engine\Object\Player\StateMachine\State\IdleState</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayerAttackState.cpp">
+      <Filter>Engine\Object\Player\StateMachine\State\AttackState</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

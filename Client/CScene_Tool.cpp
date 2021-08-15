@@ -95,7 +95,7 @@ void CScene_Tool::Enter()
 	/*CreateTile(5, 5);*/
 
 	CUI* parentUI = new CPanelUI(false);
-	parentUI->SetScale(Vec2(400.f, 550.f));
+	parentUI->SetScale(Vec2(400.f, 750.f));
 	parentUI->SetPos(Vec2(resolution.x - parentUI->GetScale().x, 100.f));
 	parentUI->SetName(L"TilePanelUI");
 	//타일 UI설정
@@ -104,7 +104,7 @@ void CScene_Tool::Enter()
 
 	
 	int row = 4;
-	int col = 3;
+	int col = 6;
 	float yTerm = (parentUI->GetScale().y - 60.f) / (col+2);
 	float xTerm = (parentUI->GetScale().x - 60.f) / (row+1);
 	for (int i = 0; i <col; ++i)
@@ -129,7 +129,7 @@ void CScene_Tool::Enter()
 	for (int j = 0; j < row; ++j)
 	{
 		CButtonUI* newTabButton = tabButton->Clone();
-		newTabButton->SetPos(Vec2(xTerm * (j + 1) + 30.f * j, 400.f));
+		newTabButton->SetPos(Vec2(xTerm * (j + 1) + 30.f * j, 650.f));
 		newTabButton->SetName(L"TabButtonUI");
 		newTabButton->SetClickedCallBack(this, (SCENE_MEM_FUNC_INT)&CScene_Tool::GoIdxTable, (DWORD_PTR)j);
 		parentUI->AddChild(newTabButton);
@@ -142,7 +142,7 @@ void CScene_Tool::Enter()
 	
 	back_obj->SetScale(Vec2(400, 300));
 	back_obj->SetPos(resolution/2.f-Vec2(300.f,100.f));
-	back_obj->SetType(BACKGROUND_TYPE::BLUE_SKY);
+	back_obj->SetType(BACKGROUND_TYPE::CANEGY_SKY);
 	AddObject(back_obj, GROUP_TYPE::BACK_GROUND);
 
 
@@ -280,18 +280,31 @@ void CScene_Tool::LoadMapData()
 
 void CScene_Tool::GoIdxTable(int _idx)
 {
-	int idx = 12*_idx;
-
+	
+	int idx = 0;
+	int maxIdx = 0;
 	switch (_idx)
 	{
 	case 0:
+	{
 		CGameObjectManager::GetInst()->SetCurrnetGroup(GROUP_TYPE::BACK_GROUND);
+		maxIdx = 23;
+	}
 		break;
 	case 1:
+	{
 		CGameObjectManager::GetInst()->SetCurrnetGroup(GROUP_TYPE::FORE_GROUND);
-		break;
+		idx = 24;
+		maxIdx = 29;
+	}	
+	break;
 	case 2:
+	{
 		CGameObjectManager::GetInst()->SetCurrnetGroup(GROUP_TYPE::GAME_OBJ);
+		idx = 30;
+		maxIdx = 35;
+	}
+	break;
 	default:
 		break;
 	}
@@ -308,6 +321,8 @@ void CScene_Tool::GoIdxTable(int _idx)
 				if (child->GetName() == L"TileButtonUI")
 				{
 					((CTileButtonUI*)child)->SetTileidx(idx++);
+					if (idx > maxIdx)
+						((CTileButtonUI*)child)->SetTileidx(35);
 				}
 			}
 			break;

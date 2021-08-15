@@ -39,9 +39,7 @@ void CScene_Start::Enter()
 	
 	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::MONSTER, GROUP_TYPE::PLAYER);
 	//카메라 설정
-	CCamera::GetInst()->SetLookAt(resolution / 2.f);
-	CCamera::GetInst()->SetCamEffect(5.f, CAMERA_EFFECT::FADE_OUT);
-	CCamera::GetInst()->SetCamEffect(5.f, CAMERA_EFFECT::FADE_IN);
+	CCamera::GetInst()->SetTarget(player);
 	
 	
 	

@@ -2,7 +2,7 @@
 #include "CObject.h"
 #include "CTexture.h"
 
-class PlayerSubweapon;
+
 /// <summary>
 /// 게임 플레이어 캐릭터 클래스
 /// </summary>
@@ -13,11 +13,28 @@ class PlayerSubweapon;
 /// 1.0 - 기본 구조 작성
 /// 1.1 - 콜라이더 추가
 /// 1.2 - 애니메이션 추가
-/// 
+/// 1.3 - 상태 추가
 /// 
 ///
 // 2021-08-04
 // TODO : 플레이어 상태 머신 작성
+
+
+struct playerInfo
+{
+	float m_moveSpeed;
+	float m_prevMoveDir;
+	float m_moveDir;
+    float m_attackSpeed;
+
+    Vec2  m_shootDir;
+
+    int m_health;
+};
+
+class CPlayerStateMachine;
+
+
 class CPlayer :
     public CObject
 {
@@ -33,15 +50,31 @@ public:
     virtual void OnCollisionEnter(CCollider* _col);
     virtual void FinalUpdate();
     CLONE(CPlayer);
+
+public:
+    void UpdateMove();
+
+    playerInfo GetInfo() { return m_info; }
+    void SetInfo(playerInfo _info) { m_info = _info; }
+
 private:
     void fire();
-   
+    void updateState();
+    void updateAnimation();
+
 private:
-    PlayerSubweapon* m_subweapon;
-    float m_moveSpeed;
-    float m_moveDir;
-    Vec2  m_shootDir;
+
+
+    bool m_attack;
+
     UINT m_weaponMode;
-    float m_health;
-    friend class PlayerSubweapon;
+
+    Vec2 m_prevPos;
+
+    playerInfo m_info;
+
+    CPlayerStateMachine* m_ai;
+
+    PLAYER_STATE m_curState;
+    PLAYER_STATE m_prevState;
 };

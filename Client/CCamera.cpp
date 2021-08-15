@@ -10,7 +10,7 @@
 #include "CTimeManager.h"
 #include "CCore.h"
 #include "CResourceManager.h"
-
+#include "CSceneManager.h"
 CCamera::CCamera()
 	: m_targetObject(nullptr)
 	, m_moveSpeed(0)
@@ -45,22 +45,24 @@ void CCamera::Update()
 			m_lookAt = m_targetObject->GetPos();
 		}
 	}
-	
-	if (KEY_HOLD(KEY::LEFT))
+	if (CSceneManager::GetInst()->GetCurrentScene()->GetSceneName() == L"Tool Scene")\
 	{
-		m_lookAt.x -= 500.f * fDT;
-	}
-	if (KEY_HOLD(KEY::RIGHT))
-	{
-		m_lookAt.x += 500.f * fDT;
-	}
-	if (KEY_HOLD(KEY::UP))
-	{
-		m_lookAt.y -= 500.f * fDT;
-	}
-	if (KEY_HOLD(KEY::DOWN))
-	{
-		m_lookAt.y += 500.f * fDT;
+		if (KEY_HOLD(KEY::LEFT))
+		{
+			m_lookAt.x -= 500.f * fDT;
+		}
+		if (KEY_HOLD(KEY::RIGHT))
+		{
+			m_lookAt.x += 500.f * fDT;
+		}
+		if (KEY_HOLD(KEY::UP))
+		{
+			m_lookAt.y -= 500.f * fDT;
+		}
+		if (KEY_HOLD(KEY::DOWN))
+		{
+			m_lookAt.y += 500.f * fDT;
+		}
 	}
 	
 	CalDiff();

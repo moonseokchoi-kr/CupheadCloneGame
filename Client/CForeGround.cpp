@@ -8,20 +8,12 @@
 
 CForeGround::CForeGround()
 {
-	CResourceManager::GetInst()->LoadTexture(L"dragon_foreground_clouds_0001", L"texture\\cuphead\\foreground\\dragon_foreground_clouds_0001.bmp");
-	CResourceManager::GetInst()->LoadTexture(L"dragon_foreground_clouds_0002", L"texture\\cuphead\\foreground\\dragon_foreground_clouds_0002.bmp");
-	CResourceManager::GetInst()->LoadTexture(L"dragon_foreground_clouds_0003", L"texture\\cuphead\\foreground\\dragon_foreground_clouds_0003.bmp");
-	CResourceManager::GetInst()->LoadTexture(L"dragon_foreground_clouds_0001_night", L"texture\\cuphead\\foreground\\dragon_foreground_clouds_0001_night.bmp");
-	CResourceManager::GetInst()->LoadTexture(L"dragon_foreground_clouds_0002_night", L"texture\\cuphead\\foreground\\dragon_foreground_clouds_0002_night.bmp");
-	CResourceManager::GetInst()->LoadTexture(L"dragon_foreground_clouds_0003_night", L"texture\\cuphead\\foreground\\dragon_foreground_clouds_0003_night.bmp");
+	CResourceManager::GetInst()->LoadTexture(L"botanic_foreground_1", L"texture\\cuphead\\foreground\\botanic_foreground_1.bmp");
+	CResourceManager::GetInst()->LoadTexture(L"botanic_foreground_2", L"texture\\cuphead\\foreground\\botanic_foreground_2.bmp");
 	CResourceManager::GetInst()->LoadTexture(L"canetion_background_stone", L"texture\\cuphead\\foreground\\canetion_background_stone.bmp");
 
-	m_foreGroundArray[TYPE_NUMBER(FOREGROUND_TYPE::DARK_CLOUD_1)] = L"dragon_foreground_clouds_0001_night";
-	m_foreGroundArray[TYPE_NUMBER(FOREGROUND_TYPE::DARK_CLOUD_2)] = L"dragon_foreground_clouds_0002_night";
-	m_foreGroundArray[TYPE_NUMBER(FOREGROUND_TYPE::DARK_CLOUD_3)] = L"dragon_foreground_clouds_0003_night";
-	m_foreGroundArray[TYPE_NUMBER(FOREGROUND_TYPE::NOMAL_CLOUD_1)] = L"dragon_foreground_clouds_0001";
-	m_foreGroundArray[TYPE_NUMBER(FOREGROUND_TYPE::NOMAL_CLOUD_2)] = L"dragon_foreground_clouds_0002";
-	m_foreGroundArray[TYPE_NUMBER(FOREGROUND_TYPE::NOMAL_CLOUD_3)] = L"dragon_foreground_clouds_0003";
+	m_foreGroundArray[TYPE_NUMBER(FOREGROUND_TYPE::BOTANIC_PLANT)] = L"botanic_foreground_1";
+	m_foreGroundArray[TYPE_NUMBER(FOREGROUND_TYPE::BOTANIC_PENSE)] = L"botanic_foreground_2";
 	m_foreGroundArray[TYPE_NUMBER(FOREGROUND_TYPE::CANETION_STONE)] = L"canetion_background_stone";
 
 }
