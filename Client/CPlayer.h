@@ -27,6 +27,8 @@ struct playerInfo
 	float moveDir;
     float attackSpeed;
 
+    float dashtime = 0.15f;
+
     Vec2  shootDir;
 
     int health;

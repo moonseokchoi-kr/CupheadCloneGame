@@ -198,6 +198,7 @@
     </ClInclude>
     <ClInclude Include="CPanelUI.h" />
     <ClInclude Include="CPlayerAttackState.h" />
+    <ClInclude Include="CPlayerDashState.h" />
     <ClInclude Include="CPlayerIdleState.h" />
     <ClInclude Include="CPlayerState.h" />
     <ClInclude Include="CPlayerStateMachine.h" />
@@ -277,6 +278,7 @@
     </ClCompile>
     <ClCompile Include="CPanelUI.cpp" />
     <ClCompile Include="CPlayerAttackState.cpp" />
+    <ClCompile Include="CPlayerDashState.cpp" />
     <ClCompile Include="CPlayerIdleState.cpp" />
     <ClCompile Include="CPlayerState.cpp" />
     <ClCompile Include="CPlayerStateMachine.cpp" />

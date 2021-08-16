@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "CPlayerIdleState.h"
 #include "CPlayer.h"
+#include "CRigidBody.h"
 #include "CAnimator.h"
 
 #include "CKeyManager.h"
@@ -34,12 +35,13 @@ void CPlayerIdleState::Exit()
 void CPlayerIdleState::Update()
 {
 	CPlayer* owner = GetPlayer();
-	playerInfo info = owner->GetInfo();
+	
 
 	updateSubState();
 	updateAnimation();
 	owner->UpdateMove();
 
+	playerInfo info = owner->GetInfo();
 	info.prevMoveDir = info.moveDir;
 
 	owner->SetInfo(info);
@@ -64,13 +66,13 @@ void CPlayerIdleState::updateSubState()
 
 	if (KEY_HOLD(KEY::LEFT))
 	{
-		info.moveDir = -1;
+		
 		m_subState = PLAYER_STATE::RUN;
 
 	}
 	if (KEY_HOLD(KEY::RIGHT))
 	{
-		info.moveDir = 1;
+		
 		m_subState = PLAYER_STATE::RUN;
 	}
 	if (KEY_TAP(KEY::Z))
@@ -83,7 +85,11 @@ void CPlayerIdleState::updateSubState()
 	}
 	if (KEY_TAP(KEY::LSHIFT))
 	{
-
+		m_subState = PLAYER_STATE::DASH;
+	}
+	else if (0.f == GetPlayer()->GetRigidBody()->GetSpeed())
+	{
+		m_subState = PLAYER_STATE::IDLE;
 	}
 	GetPlayer()->SetInfo(info);
 }
@@ -106,9 +112,9 @@ void CPlayerIdleState::updateAnimation()
 	case PLAYER_STATE::TURN:
 	{
 		if (-1 == info.prevMoveDir)
-			owner->GetAnimator()->Play(L"PLAYER_RUN_TURN_RIGHT", true);
-		else
 			owner->GetAnimator()->Play(L"PLAYER_RUN_TURN_LEFT", true);
+		else
+			owner->GetAnimator()->Play(L"PLAYER_RUN_TURN_RIGHT", true);
 	}
 		break;
 	case PLAYER_STATE::RUN:
@@ -120,7 +126,14 @@ void CPlayerIdleState::updateAnimation()
 			owner->GetAnimator()->Play(L"PLAYER_NORMAL_RUN_RIGHT", true);
 
 	}
+	break;
 	case PLAYER_STATE::DASH:
+	{
+		if (-1 == info.moveDir)
+			owner->GetAnimator()->Play(L"PLAYER_DASH_GROUND_LEFT", true);
+		else
+			owner->GetAnimator()->Play(L"PLAYER_DASH_GROUND_RIGHT", true);
+	}
 		break;
 	case PLAYER_STATE::HIT:
 		break;

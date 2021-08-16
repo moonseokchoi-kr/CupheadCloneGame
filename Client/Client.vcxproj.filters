@@ -177,6 +177,9 @@
     <Filter Include="Engine\Object\Player\StateMachine\State\AttackState">
       <UniqueIdentifier>{8b001c80-21f7-4eef-a664-974ec04e8eeb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Object\Player\StateMachine\State\DashState">
+      <UniqueIdentifier>{a86bdac2-c5b9-4684-b85d-816781324654}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -357,6 +360,9 @@
     <ClInclude Include="CPlayerAttackState.h">
       <Filter>Engine\Object\Player\StateMachine\State\AttackState</Filter>
     </ClInclude>
+    <ClInclude Include="CPlayerDashState.h">
+      <Filter>Engine\Object\Player\StateMachine\State\DashState</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -529,6 +535,9 @@
     </ClCompile>
     <ClCompile Include="CGround.cpp">
       <Filter>Engine\Object\GameObject\Ground</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayerDashState.cpp">
+      <Filter>Engine\Object\Player\StateMachine\State\DashState</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
