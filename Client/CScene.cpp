@@ -152,6 +152,7 @@ void CScene::LoadMap(const wstring& _relativePath)
 		{
 			gameObj = new CGround;
 			((CGround*)gameObj)->Load(file);
+			((CGround*)gameObj)->Start();
 			if (CSceneManager::GetInst()->GetCurrentScene()->GetSceneName() == L"Tool Scene")
 			{
 				AddObject(gameObj, GROUP_TYPE::GAME_OBJ);
@@ -163,6 +164,7 @@ void CScene::LoadMap(const wstring& _relativePath)
 		{
 			gameObj = new CGround;
 			((CGround*)gameObj)->Load(file);
+			((CGround*)gameObj)->Start();
 			if (CSceneManager::GetInst()->GetCurrentScene()->GetSceneName() == L"Tool Scene")
 				AddObject(gameObj, GROUP_TYPE::GAME_OBJ);
 			AddObject(gameObj, GROUP_TYPE::PLATFORM_OBJ);

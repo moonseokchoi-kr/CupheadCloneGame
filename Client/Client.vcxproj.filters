@@ -506,9 +506,6 @@
     <ClCompile Include="CGameObject.cpp">
       <Filter>Engine\Object\GameObject</Filter>
     </ClCompile>
-    <ClCompile Include="CGround.cpp">
-      <Filter>Engine\Object\GameObject\Ground</Filter>
-    </ClCompile>
     <ClCompile Include="CForeGround.cpp">
       <Filter>Engine\Object\GameObject\ForeGround</Filter>
     </ClCompile>
@@ -529,6 +526,9 @@
     </ClCompile>
     <ClCompile Include="CPlayerAttackState.cpp">
       <Filter>Engine\Object\Player\StateMachine\State\AttackState</Filter>
+    </ClCompile>
+    <ClCompile Include="CGround.cpp">
+      <Filter>Engine\Object\GameObject\Ground</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

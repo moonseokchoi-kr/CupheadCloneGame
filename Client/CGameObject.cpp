@@ -73,11 +73,11 @@ void CGameObject::MouseOn()
 {
 	if (IsLButtonDown())
 	{
-		Vec2 diff = MOUSE_POS - m_dragStart;
+		Vec2 diff =MOUSE_POS - m_dragStart;
 		Vec2 curPos = GetPos();
 
 		curPos += diff;
-
+		
 		SetPos(curPos);
 
 		m_dragStart = MOUSE_POS;
@@ -99,6 +99,7 @@ void CGameObject::Save(FILE* _file)
 	Vec2 pos = GetPos();
 	Vec2 scale = GetScale();
 	int offset = GetOffset();
+
 	//현재 위치
 	fwrite(&pos, sizeof(Vec2), 1, _file);
 	//크기

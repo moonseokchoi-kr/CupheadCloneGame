@@ -16,6 +16,7 @@ CGround::CGround()
 	:m_propeller(nullptr)
 {
 	CreateCollider();
+	SetScale(Vec2(100, 60));
 }
 
 CGround::~CGround()
@@ -24,8 +25,7 @@ CGround::~CGround()
 
 void CGround::Start()
 {
-	SetScale(Vec2(100, 60));
-	
+
 	switch (GetType())
 	{
 	case GAMEOBJECT_TYPE::FLOWER_PLATFORM_A:
@@ -123,9 +123,20 @@ void CGround::OnCollisionExit(CCollider* _col)
 void CGround::Save(FILE* _file)
 {
 	CGameObject::Save(_file);
+	int objType = TYPE_NUMBER(GetType());
+
+	fwrite(&objType, sizeof(int), 1, _file);
+
+
 }
 
 void CGround::Load(FILE* _file)
 {
 	CGameObject::Load(_file);
+
+	int objType = TYPE_NUMBER(GetType());
+
+	fread(&objType, sizeof(int), 1, _file);
+
+	SetType((GAMEOBJECT_TYPE)objType);
 }

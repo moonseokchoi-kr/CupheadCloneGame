@@ -67,6 +67,7 @@ void CSpawnObject::Spawn()
 	{
 		CObject* playerObj = new CPlayer;
 		playerObj->SetPos(pos);
+		playerObj->Start();
 		CreateObject(playerObj, m_groupType);
 	}
 
