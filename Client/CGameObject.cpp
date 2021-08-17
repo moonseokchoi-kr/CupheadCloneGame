@@ -48,8 +48,8 @@ void CGameObject::Render(HDC _dc)
 
 void CGameObject::MouseOnCheck()
 {
-	Vec2 pos = CCamera::GetInst()->GetRenderPos(GetPos());
-	Vec2 mousePos = CCamera::GetInst()->GetRenderPos(MOUSE_POS);
+	Vec2 pos = GetPos();
+	Vec2 mousePos = CCamera::GetInst()->GetRealPos(MOUSE_POS);
 	Vec2 scale = GetScale();
 	
 	if ((pos.x - scale.x / 2.f) <= mousePos.x && mousePos.x <= (pos.x + scale.x / 2.f) && (pos.y - scale.y / 2.f) <= mousePos.y && mousePos.y <= (pos.y + scale.y / 2.f))

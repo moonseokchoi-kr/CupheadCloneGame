@@ -23,12 +23,11 @@
 struct playerInfo
 {
 	float moveSpeed;
-	float prevMoveDir;
-	float moveDir;
+	Vec2 prevMoveDir;
     float attackSpeed;
-
+    float jupAccTime = 0.15f;
     float dashtime = 0.15f;
-
+    float dashDist = 300.f;
     Vec2  shootDir;
 
     int health;
@@ -51,26 +50,28 @@ public:
     virtual void Render(HDC _dc);
 
     virtual void OnCollisionEnter(CCollider* _col);
+    virtual void OnCollision(CCollider* _col);
+    virtual void OnCollisionExit(CCollider* _col);
     virtual void FinalUpdate();
     CLONE(CPlayer);
 
 public:
     void UpdateMove();
 
+    bool IsAir() { return m_isAir; }
+    void SetAir(bool _b) { m_isAir = _b; }
     playerInfo GetInfo() { return m_info; }
     void SetInfo(playerInfo _info) { m_info = _info; }
     void SetAi(CPlayerStateMachine* _ai);
 private:
     void fire();
-
 private:
 
-
+    float m_animateTime;
     bool m_attack;
-
+    bool m_isAir;
     UINT m_weaponMode;
 
-    Vec2 m_prevPos;
 
     playerInfo m_info;
 

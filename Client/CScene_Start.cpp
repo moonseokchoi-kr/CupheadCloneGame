@@ -41,12 +41,16 @@ void CScene_Start::Enter()
 	// 	player->Start();
 	// 	CreateObject(player, GROUP_TYPE::PLAYER, resolution / 2.f, Vec2(80.f, 40.f));
 
-	CMonster* monster = CMonsterFactory::CreateMonster(MON_TYPE::NORMAL, Vec2(resolution / 2.f - Vec2(0.f, 300.f)));
+	CMonster* monster = CMonsterFactory::CreateMonster(MON_TYPE::NORMAL, spawners[0]->GetPos()-Vec2(200.f,0.f));
+	
 	CreateObject(monster, GROUP_TYPE::MONSTER);
 
 
 
 	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::GROUND, GROUP_TYPE::PLAYER);
+	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::GROUND, GROUP_TYPE::MONSTER);
+	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::MONSTER, GROUP_TYPE::PLAYER);
+	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::PLATFORM_OBJ, GROUP_TYPE::PLAYER);
 	//카메라 설정
 }
 
@@ -57,21 +61,20 @@ void CScene_Start::Exit()
 
 void CScene_Start::Update()
 {
+
 	CScene::Update();
 	if (!GetObjWithType(GROUP_TYPE::PLAYER).empty())
 	{
 		CObject* player = GetObjWithType(GROUP_TYPE::PLAYER)[0];
 		CCamera::GetInst()->SetTarget(player);
 	}
-	if (KEY_TAP(KEY::ENTER))
+	if (KEY_TAP(KEY::T))
 	{
 		ChangeScene(SCENE_TYPE::TOOL);
 	}
-	//ChanageScene();
 }
 
 void CScene_Start::Render(HDC _dc)
 {
 	CScene::Render(_dc);
-
 }

@@ -34,6 +34,7 @@ void CAnimation::Update()
 		{
 			m_currentFrame = -1;
 			m_finish = true;
+			m_accTime = 0.f;
 			return;
 		}
 		

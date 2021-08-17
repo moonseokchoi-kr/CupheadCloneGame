@@ -335,13 +335,14 @@ void CScene_Tool::CreateGameObject()
 	if (KEY_TAP(KEY::MOUSE_LBUTTON))
 	{
 		CGameObject* gameObj = nullptr;
+		Vec2 mousePos = CCamera::GetInst()->GetRealPos(MOUSE_POS);
 		switch (CGameObjectManager::GetInst()->GetCurrentGroup())
 		{
 			
 		case GROUP_TYPE::BACK_GROUND:
 		{
 			gameObj = new CBackGround;
-			gameObj->SetPos(MOUSE_POS);
+			gameObj->SetPos(mousePos);
 			((CBackGround*)gameObj)->SetType((BACKGROUND_TYPE)m_cilckedImageIdx);
 			AddObject(gameObj, GROUP_TYPE::BACK_GROUND);
 			m_cilckedImageIdx = -1;
@@ -350,7 +351,7 @@ void CScene_Tool::CreateGameObject()
 		case GROUP_TYPE::FORE_GROUND:
 		{
 			gameObj = new CForeGround;
-			gameObj->SetPos(MOUSE_POS);
+			gameObj->SetPos(mousePos);
 			((CForeGround*)gameObj)->SetType((FOREGROUND_TYPE)m_cilckedImageIdx);
 			AddObject(gameObj, GROUP_TYPE::FORE_GROUND);
 			m_cilckedImageIdx = -1;
@@ -366,7 +367,7 @@ void CScene_Tool::CreateGameObject()
 			{
 				gameObj = new CGround;
 				gameObj->SetType(GAMEOBJECT_TYPE::FLOWER_PLATFORM_A);
-				gameObj->SetPos(MOUSE_POS);
+				gameObj->SetPos(mousePos);
 				gameObj->Start();
 				AddObject(gameObj, GROUP_TYPE::GAME_OBJ);
 				m_cilckedImageIdx = -1;
@@ -376,7 +377,7 @@ void CScene_Tool::CreateGameObject()
 			{
 				gameObj = new CGround;
 				gameObj->SetType(GAMEOBJECT_TYPE::FLOWER_PLATFORM_B);
-				gameObj->SetPos(MOUSE_POS);
+				gameObj->SetPos(mousePos);
 				gameObj->Start();
 				AddObject(gameObj, GROUP_TYPE::GAME_OBJ);
 				m_cilckedImageIdx = -1;
@@ -386,7 +387,7 @@ void CScene_Tool::CreateGameObject()
 			{
 				gameObj = new CGround;
 				gameObj->SetType(GAMEOBJECT_TYPE::FLOWER_PLATFORM_C);
-				gameObj->SetPos(MOUSE_POS);
+				gameObj->SetPos(mousePos);
 				gameObj->Start();
 				AddObject(gameObj, GROUP_TYPE::GAME_OBJ);
 				m_cilckedImageIdx = -1;
@@ -395,7 +396,7 @@ void CScene_Tool::CreateGameObject()
 			case GAMEOBJECT_TYPE::GROUND:
 			{
 				gameObj = new CGround;
-				gameObj->SetPos(MOUSE_POS);
+				gameObj->SetPos(mousePos);
 				gameObj->SetType(GAMEOBJECT_TYPE::GROUND);
 				gameObj->Start();
 				AddObject(gameObj, GROUP_TYPE::GAME_OBJ);
@@ -405,7 +406,7 @@ void CScene_Tool::CreateGameObject()
 			case GAMEOBJECT_TYPE::SPAWN:
 			{
 				gameObj = new CSpawnObject;
-				gameObj->SetPos(MOUSE_POS);
+				gameObj->SetPos(mousePos);
 				gameObj->SetType(GAMEOBJECT_TYPE::SPAWN);
 				AddObject(gameObj, GROUP_TYPE::GAME_OBJ);
 				m_cilckedImageIdx = -1;

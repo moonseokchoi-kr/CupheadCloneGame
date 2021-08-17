@@ -31,10 +31,14 @@ public:
 	{
 		m_mass = _mass;
 	}
+	void SetVelocity(Vec2 _v)
+	{
+		m_velocity = _v;
+	}
 
 	void AddVelocity(Vec2 _v)
 	{
-		m_velocity = _v;
+		m_velocity += _v;
 	}
 
 	void SetMaxVelocity(float _maxVelocity)
@@ -50,6 +54,8 @@ public:
 
 	float GetMass() { return m_mass; }
 	float GetSpeed() { return m_velocity.Distance(); }
+
+	Vec2 GetVelocity() { return m_velocity; }
 
 private:
 	void move();

@@ -25,7 +25,7 @@ CMonster* CMonsterFactory::CreateMonster(MON_TYPE _type, Vec2 _pos)
 
 		FSMAI* ai = new FSMAI;
 		ai->AddState(new CIdleState);
-		ai->AddState(new CTraceState);
+		//ai->AddState(new CTraceState);
 		ai->SetCurrentState(MON_STATE::IDLE);
 		monster->SetAi(ai);
 	}

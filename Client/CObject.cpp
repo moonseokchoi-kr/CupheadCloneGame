@@ -11,6 +11,7 @@
 CObject::CObject() 
 	:m_objPos(Vec2(0, 0))
 	, m_objScale(Vec2(10, 10))
+	,m_objPrevPos(m_objPos)
 	,m_collider(nullptr)
 	,m_animator(nullptr)
 	,m_rigidBody(nullptr)

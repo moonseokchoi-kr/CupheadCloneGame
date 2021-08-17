@@ -183,6 +183,9 @@
     <Filter Include="Engine\Component\RigidBody\Gravity">
       <UniqueIdentifier>{fe63d1c5-a60e-4c88-b43b-a85de7de5696}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Object\Player\StateMachine\State\JunpState">
+      <UniqueIdentifier>{0999fde3-22ca-4ec2-a3ba-5de6788700ce}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -369,6 +372,9 @@
     <ClInclude Include="CGravity.h">
       <Filter>Engine\Component\RigidBody\Gravity</Filter>
     </ClInclude>
+    <ClInclude Include="CPlayerJumpState.h">
+      <Filter>Engine\Object\Player\StateMachine\State\JunpState</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -408,9 +414,6 @@
     </ClCompile>
     <ClCompile Include="CBullet.cpp">
       <Filter>Engine\Object\Tengai\Bullet</Filter>
-    </ClCompile>
-    <ClCompile Include="CPlayer.cpp">
-      <Filter>Engine\Object\Player</Filter>
     </ClCompile>
     <ClCompile Include="CSceneManager.cpp">
       <Filter>Engine\Manager\SceneManager</Filter>
@@ -547,6 +550,12 @@
     </ClCompile>
     <ClCompile Include="CGravity.cpp">
       <Filter>Engine\Component\RigidBody\Gravity</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayerJumpState.cpp">
+      <Filter>Engine\Object\Player\StateMachine\State\JunpState</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayer.cpp">
+      <Filter>Engine\Object\Player</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -1,9 +1,10 @@
 #include "pch.h"
 #include "CPlayerIdleState.h"
 #include "CPlayer.h"
+#include "CGround.h"
 #include "CRigidBody.h"
 #include "CAnimator.h"
-
+#include "CGravity.h"
 #include "CKeyManager.h"
 CPlayerIdleState::CPlayerIdleState()
 	:CPlayerState(PLAYER_STATE::IDLE)
@@ -18,13 +19,17 @@ void CPlayerIdleState::Enter()
 {
 	CPlayer* owner = GetPlayer();
 
-	if (-1 == owner->GetInfo().moveDir)
+	if (-1 == owner->GetMoveDir().x)
 	{
-		owner->GetAnimator()->Play(L"PLAYER_IDLE_LEFT", true);
+		owner->GetAnimator()->Play(L"PLAYER_IDLE_LEFT", false);
 	}
 	else
 	{
-		owner->GetAnimator()->Play(L"PLAYER_IDLE_LEFT", true);
+		owner->GetAnimator()->Play(L"PLAYER_IDLE_LEFT", false);
+	}
+	if (KEY_NONE(KEY::LEFT) || KEY_NONE(KEY::RIGHT))
+	{
+		owner->GetRigidBody()->SetVelocity(Vec2(0.f, 0.f));
 	}
 }
 
@@ -42,7 +47,7 @@ void CPlayerIdleState::Update()
 	owner->UpdateMove();
 
 	playerInfo info = owner->GetInfo();
-	info.prevMoveDir = info.moveDir;
+	info.prevMoveDir = GetPlayer()->GetMoveDir();
 
 	owner->SetInfo(info);
 }
@@ -52,40 +57,43 @@ void CPlayerIdleState::updateSubState()
 	playerInfo info = GetPlayer()->GetInfo();
 	if (KEY_TAP(KEY::LEFT))
 	{
-		info.moveDir = -1;
-		if (info.moveDir != info.prevMoveDir)
+		GetPlayer()->SetMoveDir(-1, GetPlayer()->GetMoveDir().y);
+		if (GetPlayer()->GetMoveDir() != info.prevMoveDir)
 			m_subState = PLAYER_STATE::TURN;
 
 	}
 	if (KEY_TAP(KEY::RIGHT))
 	{
-		info.moveDir = 1;
-		if (info.moveDir != info.prevMoveDir)
+		GetPlayer()->SetMoveDir(1, GetPlayer()->GetMoveDir().y);
+		if (GetPlayer()->GetMoveDir() != info.prevMoveDir)
 			m_subState = PLAYER_STATE::TURN;
 	}
 
 	if (KEY_HOLD(KEY::LEFT))
 	{
-		
+		GetPlayer()->SetMoveDir(-1, GetPlayer()->GetMoveDir().y);
 		m_subState = PLAYER_STATE::RUN;
 
 	}
 	if (KEY_HOLD(KEY::RIGHT))
 	{
-		
+		GetPlayer()->SetMoveDir(1, GetPlayer()->GetMoveDir().y);
 		m_subState = PLAYER_STATE::RUN;
 	}
 	if (KEY_TAP(KEY::Z))
 	{
 		ChangePlayerState(GetAI(), PLAYER_STATE::ATTACK);
 	}
-	if (KEY_TAP(KEY::X))
+	if(GetPlayer()->GetGravity()->IsGround())
 	{
-	
+		if (KEY_TAP(KEY::X))
+		{
+			ChangePlayerState(GetAI(), PLAYER_STATE::JUMP);
+		}
 	}
 	if (KEY_TAP(KEY::LSHIFT))
 	{
-		m_subState = PLAYER_STATE::DASH;
+		ChangePlayerState(GetAI(), PLAYER_STATE::DASH);
 	}
 	else if (0.f == GetPlayer()->GetRigidBody()->GetSpeed())
 	{
@@ -103,7 +111,7 @@ void CPlayerIdleState::updateAnimation()
 	{
 	case PLAYER_STATE::IDLE:
 	{
-		if (-1 == info.moveDir)
+		if (-1 == owner->GetMoveDir().x)
 			owner->GetAnimator()->Play(L"PLAYER_IDLE_LEFT", true);
 		else
 			owner->GetAnimator()->Play(L"PLAYER_IDLE_RIGHT", true);
@@ -111,7 +119,7 @@ void CPlayerIdleState::updateAnimation()
 		break;
 	case PLAYER_STATE::TURN:
 	{
-		if (-1 == info.prevMoveDir)
+		if (-1 == info.prevMoveDir.x)
 			owner->GetAnimator()->Play(L"PLAYER_RUN_TURN_LEFT", true);
 		else
 			owner->GetAnimator()->Play(L"PLAYER_RUN_TURN_RIGHT", true);
@@ -120,7 +128,7 @@ void CPlayerIdleState::updateAnimation()
 	case PLAYER_STATE::RUN:
 	{
 
-		if (-1 == info.moveDir)
+		if (-1 == owner->GetMoveDir().x)
 			owner->GetAnimator()->Play(L"PLAYER_NORMAL_RUN_LEFT", true);
 		else
 			owner->GetAnimator()->Play(L"PLAYER_NORMAL_RUN_RIGHT", true);
@@ -129,7 +137,7 @@ void CPlayerIdleState::updateAnimation()
 	break;
 	case PLAYER_STATE::DASH:
 	{
-		if (-1 == info.moveDir)
+		if (-1 == owner->GetMoveDir().x)
 			owner->GetAnimator()->Play(L"PLAYER_DASH_GROUND_LEFT", true);
 		else
 			owner->GetAnimator()->Play(L"PLAYER_DASH_GROUND_RIGHT", true);

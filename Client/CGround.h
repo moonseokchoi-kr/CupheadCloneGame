@@ -35,10 +35,13 @@ public:
 
 	virtual void Save(FILE* _file);
 	virtual void Load(FILE* _file);
-
+private:
+    float calColliderDiff(float  _objPos, float _objScale, float _colPos, float _colScale);
 private:
    
     CPropeller* m_propeller;
-
+    bool isHigh;
+    bool isRight;
+    bool isNear;
 };
 

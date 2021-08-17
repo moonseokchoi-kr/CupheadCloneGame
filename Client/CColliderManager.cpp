@@ -169,7 +169,7 @@ bool CColliderManager::isCollision(CCollider* _leftCol, CCollider* _rightCol)
 	Vec2 rightPos = _rightCol->GetFinalPos();
 	Vec2 rightSize = _rightCol->GetScale();
 
-	if (abs(rightPos.x - leftPos.x) < (leftSize.x + rightSize.x) / 2.f && abs(rightPos.y - leftPos.y) < (leftSize.y + rightSize.y) / 2.f)
+	if (abs(rightPos.x - leftPos.x) <= (leftSize.x + rightSize.x) / 2.f && abs(rightPos.y - leftPos.y) <= (leftSize.y + rightSize.y) / 2.f)
 	{
 		return true;
 	}

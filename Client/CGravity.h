@@ -9,6 +9,7 @@ public:
 	void SetGround(bool _b) {
 		m_isGround = _b;
 	}
+	bool IsGround() { return m_isGround; }
 public:
 	void Finalupdate();
 

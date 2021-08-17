@@ -88,6 +88,7 @@ void CEventManager::excute(const event& _event)
 		//wParam: next state
 		CPlayerStateMachine* ai = (CPlayerStateMachine*)_event.lParam;
 		PLAYER_STATE nextState = (PLAYER_STATE)_event.wParam;
+		ai->ChangeState(nextState);
 	}
 	default:
 		break;

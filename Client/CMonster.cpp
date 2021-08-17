@@ -8,6 +8,9 @@ CMonster::CMonster()
 	,m_ai(nullptr)
 {
 	CreateCollider();
+	CreateRigidBody();
+	CreateGravity();
+	SetName(L"Monster");
 	SetScale(Vec2(40.f, 40.f));
 	GetCollider()->SetScale(Vec2(100.f, 100.f));
 }

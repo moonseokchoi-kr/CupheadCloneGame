@@ -1,11 +1,11 @@
 #pragma once
 #include "CPlayerState.h"
-class CPlayerDashState :
+class CPlayerJumpState :
     public CPlayerState
 {
 public:
-    CPlayerDashState();
-    ~CPlayerDashState();
+    CPlayerJumpState();
+    ~CPlayerJumpState();
 public:
     // CPlayerState을(를) 통해 상속됨
     virtual void Enter() override;
@@ -13,9 +13,10 @@ public:
     virtual void Exit() override;
 
     virtual void Update() override;
+
 protected:
-    virtual void updateAnimation() override;
-    virtual void updateSubState() override;
+    virtual void updateAnimation();
+    virtual void updateSubState();
 
 private:
     float m_accTime;

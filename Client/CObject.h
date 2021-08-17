@@ -27,6 +27,16 @@ public:
 	virtual ~CObject();
 public:
 	Vec2 GetPos() { return m_objPos; }
+	Vec2 GetPrevPos() { return m_objPrevPos; }
+	void SetPrevPos(Vec2 _v) { m_objPrevPos = _v; }
+	Vec2 GetMoveDir()
+	{
+		return m_moveDir;
+	}
+	void SetMoveDir(float x, float y)
+	{
+		m_moveDir = Vec2(x, y);
+	}
 	Vec2 GetScale() { return m_objScale; }
 	void SetPos(const Vec2& v) { m_objPos = v; }
 	void SetScale(const Vec2& v) { m_objScale = v; }
@@ -73,11 +83,22 @@ public:
 	virtual void MouseLButtonUp(){}
 	virtual void MouseLButtonClicked(){}
 
+protected:
+	void calMoveDir() 
+	{ 
+		if (m_objPos == m_objPrevPos)
+			return;
+		m_moveDir = m_objPos - m_objPrevPos; 
+		m_moveDir.Normalize(); 
+	}
 private:
 	void SetDead() { m_dead = true; }
 private:
 	Vec2 m_objPos;			//물체의 위치
+	Vec2 m_objPrevPos;		//물체의 이전 위치
 	Vec2 m_objScale;		//물체의 크기
+
+	Vec2 m_moveDir;			//이동방향
 
 	CCollider* m_collider;	//충돌체
 	CAnimator* m_animator;	//애니메이터

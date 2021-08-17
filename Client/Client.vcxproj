@@ -201,6 +201,7 @@
     <ClInclude Include="CPlayerAttackState.h" />
     <ClInclude Include="CPlayerDashState.h" />
     <ClInclude Include="CPlayerIdleState.h" />
+    <ClInclude Include="CPlayerJumpState.h" />
     <ClInclude Include="CPlayerState.h" />
     <ClInclude Include="CPlayerStateMachine.h" />
     <ClInclude Include="CPropeller.h" />
@@ -282,6 +283,7 @@
     <ClCompile Include="CPlayerAttackState.cpp" />
     <ClCompile Include="CPlayerDashState.cpp" />
     <ClCompile Include="CPlayerIdleState.cpp" />
+    <ClCompile Include="CPlayerJumpState.cpp" />
     <ClCompile Include="CPlayerState.cpp" />
     <ClCompile Include="CPlayerStateMachine.cpp" />
     <ClCompile Include="CPropeller.cpp" />
