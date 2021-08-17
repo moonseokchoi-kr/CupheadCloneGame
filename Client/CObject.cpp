@@ -6,7 +6,7 @@
 #include "CRigidBody.h"
 #include "CKeyManager.h"
 #include "CSceneManager.h"
-
+#include "CGravity.h"
 #include "SelectGDI.h"
 CObject::CObject() 
 	:m_objPos(Vec2(0, 0))
@@ -14,6 +14,7 @@ CObject::CObject()
 	,m_collider(nullptr)
 	,m_animator(nullptr)
 	,m_rigidBody(nullptr)
+	,m_gravity(nullptr)
 	, m_dead(false)
 	,m_renderingOffSet(0)
 
@@ -61,6 +62,10 @@ CObject::~CObject()
 	{
 		delete m_rigidBody;
 	}
+	if (nullptr != m_gravity)
+	{
+		delete m_gravity;
+	}
 }
 void CObject::CreateCollider()
 {
@@ -77,6 +82,11 @@ void CObject::CreateRigidBody()
 	m_rigidBody = new CRigidBody;
 	m_rigidBody->m_owner = this;
 }
+void CObject::CreateGravity()
+{
+	m_gravity = new CGravity;
+	m_gravity->m_owner = this;
+}
 /// <summary>
 /// 오브젝트의 렌더링을 진행하는 함수
 /// </summary>
@@ -86,16 +96,18 @@ void CObject::Render(HDC _dc)
 	Vec2 renderPos = CCamera::GetInst()->GetRenderPos(m_objPos);
 	SelectGDI gdi(_dc, BRUSH_TYPE::HOLLOW);
 	Rectangle(_dc,
-		(int)(renderPos.x / 2 - renderPos.x / 2),
-		(int)(renderPos.y / 2 - renderPos.y / 2),
-		(int)(renderPos.x / 2 + renderPos.x / 2),
-		(int)(renderPos.y / 2 + renderPos.y / 2)
+		(int)(renderPos.x / 2 - m_objScale.x / 2),
+		(int)(renderPos.y / 2 - m_objScale.y / 2),
+		(int)(renderPos.x / 2 + m_objScale.x / 2),
+		(int)(renderPos.y / 2 + m_objScale.y / 2)
 		);
 	ComponentRender(_dc);
 }
 
 void CObject::FinalUpdate()
 {
+	if (m_gravity)
+		m_gravity->Finalupdate();
 	if (m_collider)
 		m_collider->FinalUpdate();
 	if (m_animator)

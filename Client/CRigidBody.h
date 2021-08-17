@@ -26,7 +26,7 @@ public:
 	{
 		m_force = _f;
 	}
-	
+
 	void SetMass(float _mass)
 	{
 		m_mass = _mass;
@@ -46,6 +46,8 @@ public:
 		m_fricCoef = _fric;
 	}
 
+	void SetAddAccel(Vec2 _accel) { m_accelAdd = _accel; }
+
 	float GetMass() { return m_mass; }
 	float GetSpeed() { return m_velocity.Distance(); }
 
@@ -58,7 +60,7 @@ private:
 	Vec2	m_force;		//힘의 크기,방
 	Vec2	m_accel;		//힘의 따른 가속도
 	Vec2	m_velocity;		//힘의 따른 속도
-
+	Vec2	m_accelAdd;
 
 	float	m_mass;			//물체의 질량
 	float	m_maxVelocity;	//물체의 최대속력

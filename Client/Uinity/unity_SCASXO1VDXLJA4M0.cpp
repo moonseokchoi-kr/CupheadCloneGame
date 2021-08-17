@@ -1,8 +1,5 @@
 #include "pch.h"
 
-#include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CScene_Tool.cpp"
-
-
 #include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CSpawnObject.cpp"
 
 
@@ -22,4 +19,10 @@
 
 
 #include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CUIManager.cpp"
+
+
+#include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\FSMAI.cpp"
+
+
+#include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\func.cpp"
 

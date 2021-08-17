@@ -26,10 +26,11 @@ CPlayer::CPlayer()
 	, m_weaponMode(1)
 	, m_curState(PLAYER_STATE::IDLE)
 	, m_prevState(PLAYER_STATE::IDLE)
+	, m_ai(nullptr)
 {
 	
 	CreateCollider();
-	SetName(L"Player");
+
 	GetCollider()->SetScale(Vec2(80.f,155.f));
 	GetCollider()->SetOffsetPos(Vec2(10.f, 0.f));
 	CTexture* idle_tex = CResourceManager::GetInst()->LoadTexture(L"PlayerIdleTex", L"texture\\cuphead\\player\\idle_sheet.bmp");
@@ -48,7 +49,9 @@ CPlayer::CPlayer()
 
 	CreateAnimator();
 	CreateRigidBody();
-	
+	CreateGravity();
+
+
 	GetAnimator()->CreateAnimation(L"PLAYER_IDLE_RIGHT", idle_tex, Vec2(0.f, 0.f), Vec2(98.f, 155.f), Vec2(98.f, 0.f), 0.15f, 5, false);
 	GetAnimator()->CreateAnimation(L"PLAYER_IDLE_LEFT", idle_tex, Vec2(0.f, 155.f), Vec2(98.f, 155.f), Vec2(98.f, 0.f), 0.15f, 5, true);
 
@@ -87,6 +90,7 @@ CPlayer::~CPlayer()
 
 void CPlayer::Start()
 {
+	SetName(L"Player");
 	CPlayerStateMachine* ai = new CPlayerStateMachine;
 	CPlayerState* state = new CPlayerIdleState;
 	ai->AddState(state);

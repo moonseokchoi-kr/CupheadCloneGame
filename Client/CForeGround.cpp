@@ -38,8 +38,8 @@ void CForeGround::Render(HDC _dc)
 
 	AlphaBlend(
 		_dc,
-		(int)pos.x,
-		(int)pos.y,
+		(int)(pos.x - scale.x / 2.f),
+		(int)(pos.y - scale.y / 2.f),
 		(int)scale.x,
 		(int)scale.y,
 		m_currentTex->GetDC(),
@@ -55,10 +55,10 @@ void CForeGround::Render(HDC _dc)
 		SelectGDI select1(_dc, BRUSH_TYPE::HOLLOW);
 		Rectangle(
 			_dc,
-			int(pos.x),
-			int(pos.y),
-			int(pos.x + scale.x),
-			int(pos.y + scale.y)
+			(int)(pos.x - scale.x / 2.f),
+			(int)(pos.y - scale.y / 2.f),
+			(int)(pos.x + scale.x / 2.f),
+			(int)(pos.y + scale.y / 2.f)
 		);
 	}
 }

@@ -169,3 +169,14 @@ enum class PLAYER_STATE
 	ATTACKTURN,
 	DEAD
 };
+
+enum class MON_TYPE
+{
+	NORMAL,
+	RANGE,
+	CANEGY,
+	OLLIE,
+	CHAUNCEY,
+	SAL,
+	NONE,
+};

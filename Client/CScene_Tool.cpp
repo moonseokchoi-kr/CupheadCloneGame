@@ -113,7 +113,7 @@ void CScene_Tool::Enter()
 		{
 			CTileButtonUI* newChild = tileUI->Clone();
 			newChild->SetPos(Vec2(xTerm*(j+1), yTerm * (i + 1)));
-			newChild->SetTileidx(i+j*row);
+			newChild->SetTileidx(i+j*col);
 			newChild->SetName(L"TileButtonUI");
 			newChild->SetClickedCallBack(this, (SCENE_MEM_FUNC)&CScene_Tool::GetTileUIidx);
 			parentUI->AddChild(newChild);
@@ -139,16 +139,8 @@ void CScene_Tool::Enter()
 
 	CBackGround* back_obj = new CBackGround;
 
-	
-	back_obj->SetScale(Vec2(400, 300));
-	back_obj->SetPos(resolution/2.f-Vec2(300.f,100.f));
-	back_obj->SetType(BACKGROUND_TYPE::CANEGY_SKY);
-	AddObject(back_obj, GROUP_TYPE::BACK_GROUND);
-
-
 
 	CCamera::GetInst()->SetLookAt(resolution / 2.f);
-	CCamera::GetInst()->SetType(CAMERA_TYPE::DEFALT);
 }
 
 void CScene_Tool::Exit()
@@ -269,12 +261,14 @@ void CScene_Tool::LoadMapData()
 	ofn.lpstrInitialDir = strTileFolder.c_str();
 	ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST;
 
+	CGameObjectManager::GetInst()->SetFocusedObj(nullptr);
 
 	if (GetOpenFileName(&ofn))
 	{
 		wstring relativePath = CPathManager::GetInst()->GetRelativePath(szFile);
 		LoadMap(relativePath);
 	}
+	
 }
 
 

@@ -47,10 +47,10 @@ void CCollider::Render(HDC _dc)
 	Vec2 renderPos = CCamera::GetInst()->GetRenderPos(m_finalPos);
 
 	Rectangle(_dc,
-		(int)(renderPos.x),
-		(int)(renderPos.y),
-		(int)(renderPos.x + m_scale.x),
-		(int)(renderPos.y + m_scale.y)
+		(int)(renderPos.x - m_scale.x / 2.f),
+		(int)(renderPos.y - m_scale.y / 2.f),
+		(int)(renderPos.x + m_scale.x / 2.f),
+		(int)(renderPos.y + m_scale.y / 2.f)
 	);
 
 }

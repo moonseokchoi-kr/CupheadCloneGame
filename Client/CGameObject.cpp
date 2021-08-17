@@ -51,8 +51,8 @@ void CGameObject::MouseOnCheck()
 	Vec2 pos = CCamera::GetInst()->GetRenderPos(GetPos());
 	Vec2 mousePos = CCamera::GetInst()->GetRenderPos(MOUSE_POS);
 	Vec2 scale = GetScale();
-
-	if (pos.x <= mousePos.x && mousePos.x <= pos.x + scale.x && pos.y <= mousePos.y && mousePos.y <= pos.y + scale.y)
+	
+	if ((pos.x - scale.x / 2.f) <= mousePos.x && mousePos.x <= (pos.x + scale.x / 2.f) && (pos.y - scale.y / 2.f) <= mousePos.y && mousePos.y <= (pos.y + scale.y / 2.f))
 	{
 		m_mouseOn = true;
 	}
@@ -60,6 +60,9 @@ void CGameObject::MouseOnCheck()
 	{
 		m_mouseOn = false;
 	}
+
+
+
 }
 
 void CGameObject::ChangeSize(Vec2 _size)

@@ -23,8 +23,11 @@ void CRigidBody::FinalUpdate()
 	{
 		m_accel = m_force / m_mass;
 
-		m_velocity += m_accel * fDT;
+		
 	}
+	m_accel += m_accelAdd;
+
+	m_velocity += m_accel * fDT;
 	if (!m_velocity.isZero())
 	{
 		Vec2 fricDir = -m_velocity;
@@ -46,6 +49,8 @@ void CRigidBody::FinalUpdate()
 	move();
 
 	m_force = Vec2(0.f, 0.f);
+	m_accel = Vec2(0.f, 0.f);
+	m_accelAdd = Vec2(0.f, 0.f);
 }
 
 void CRigidBody::move()

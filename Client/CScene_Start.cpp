@@ -33,25 +33,21 @@ CScene_Start::~CScene_Start()
 void CScene_Start::Enter()
 {
 	Vec2 resolution = CCore::GetInst()->GetResolution();
-	
+
 	CScene::LoadMap(L"tile\\test_player.tile");
 	const vector<CObject*>& spawners = GetObjWithType(GROUP_TYPE::SPAWN_OBJ);
 	((CSpawnObject*)spawners[0])->Spawn();
-	
-// 	player->Start();
-// 	CreateObject(player, GROUP_TYPE::PLAYER, resolution / 2.f, Vec2(80.f, 40.f));
+
+	// 	player->Start();
+	// 	CreateObject(player, GROUP_TYPE::PLAYER, resolution / 2.f, Vec2(80.f, 40.f));
 
 	CMonster* monster = CMonsterFactory::CreateMonster(MON_TYPE::NORMAL, Vec2(resolution / 2.f - Vec2(0.f, 300.f)));
 	CreateObject(monster, GROUP_TYPE::MONSTER);
-	
-	
-	
-	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::MONSTER, GROUP_TYPE::PLAYER);
+
+
+
+	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::GROUND, GROUP_TYPE::PLAYER);
 	//카메라 설정
-	
-	
-	
-	
 }
 
 void CScene_Start::Exit()

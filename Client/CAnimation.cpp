@@ -72,15 +72,15 @@ void CAnimation::Render(HDC _dc)
 
 	AlphaBlend(
 		_dc
-		, (int)(pos.x)
-		, (int)(pos.y)
-		, (int)(m_frames[m_currentFrame].slice.x)
-		, (int)(m_frames[m_currentFrame].slice.y)
-		, m_tex->GetDC()
-		, (int)(m_frames[m_currentFrame].lt.x)
-		, (int)(m_frames[m_currentFrame].lt.y)
-		, (int)(m_frames[m_currentFrame].slice.x)
-		, (int)(m_frames[m_currentFrame].slice.y)
+		, (int)(pos.x - m_frames[m_currentFrame].slice.x / 2.f)
+ 		, (int)(pos.y - m_frames[m_currentFrame].slice.y / 2.f)
+ 		, (int)(m_frames[m_currentFrame].slice.x)
+ 		, (int)(m_frames[m_currentFrame].slice.y)
+ 		, m_tex->GetDC()
+ 		, (int)(m_frames[m_currentFrame].lt.x)
+ 		, (int)(m_frames[m_currentFrame].lt.y)
+ 		, (int)(m_frames[m_currentFrame].slice.x)
+ 		, (int)(m_frames[m_currentFrame].slice.y)
 		, bf
 	);
 }

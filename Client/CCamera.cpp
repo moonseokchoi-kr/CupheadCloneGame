@@ -121,8 +121,15 @@ void CCamera::CalDiff()
 	///
 	/// 부드럽게 움직이기
 	/// 
-	Vec2 resolution = CCore::GetInst()->GetResolution();
-	Vec2 center = resolution / 2;
+	if (CSceneManager::GetInst()->GetCurrentScene()->GetSceneName() == L"Tool Scene")
+	{
+		m_currentLookAt = m_lookAt;
+		Vec2 resolution = CCore::GetInst()->GetResolution();
+		Vec2 center = resolution / 2;
+
+		m_difference = m_currentLookAt - center;
+		return;
+	}
 	if (m_cameraType == CAMERA_TYPE::DEFALT)
 	{
 		defaultCameraMove();
@@ -132,10 +139,7 @@ void CCamera::CalDiff()
 		m_moveSpeed = 0;
 		smoothCameraMove();
 	}
-
-	m_difference = m_currentLookAt - center;
-
-	m_prevLookAt = m_currentLookAt;
+	
 }
 
 void CCamera::defaultCameraMove()
@@ -153,6 +157,13 @@ void CCamera::defaultCameraMove()
 		Vec2 dir = m_lookAt - m_prevLookAt;
 		m_currentLookAt = m_prevLookAt + dir.Normalize() * m_moveSpeed * fDT;
 	}
+
+	Vec2 resolution = CCore::GetInst()->GetResolution();
+	Vec2 center = resolution / 2;
+
+	m_difference = m_currentLookAt - center;
+
+	m_prevLookAt = m_currentLookAt;
 }
 
 void CCamera::smoothCameraMove()
@@ -176,4 +187,11 @@ void CCamera::smoothCameraMove()
 		}
 		m_currentLookAt = m_prevLookAt + dir.Normalize() * m_moveSpeed * fDT;
 	}
+
+	Vec2 resolution = CCore::GetInst()->GetResolution();
+	Vec2 center = resolution / 2;
+
+	m_difference = m_currentLookAt - center;
+
+	m_prevLookAt = m_currentLookAt;
 }

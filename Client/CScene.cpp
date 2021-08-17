@@ -145,7 +145,8 @@ void CScene::LoadMap(const wstring& _relativePath)
 			{
 				AddObject(gameObj, GROUP_TYPE::GAME_OBJ);
 			}
-			AddObject(gameObj, GROUP_TYPE::SPAWN_OBJ);
+			else
+				AddObject(gameObj, GROUP_TYPE::SPAWN_OBJ);
 		}
 
 		else if ('G' == buffer[0])
@@ -157,7 +158,8 @@ void CScene::LoadMap(const wstring& _relativePath)
 			{
 				AddObject(gameObj, GROUP_TYPE::GAME_OBJ);
 			}
-			AddObject(gameObj, GROUP_TYPE::GROUND);
+			else
+				AddObject(gameObj, GROUP_TYPE::GROUND);
 		}
 
 		else if ('P' == buffer[0])
@@ -167,7 +169,8 @@ void CScene::LoadMap(const wstring& _relativePath)
 			((CGround*)gameObj)->Start();
 			if (CSceneManager::GetInst()->GetCurrentScene()->GetSceneName() == L"Tool Scene")
 				AddObject(gameObj, GROUP_TYPE::GAME_OBJ);
-			AddObject(gameObj, GROUP_TYPE::PLATFORM_OBJ);
+			else
+				AddObject(gameObj, GROUP_TYPE::PLATFORM_OBJ);
 		}
 		
 

@@ -70,7 +70,6 @@ void CCore::Progress()
 	CTimeManager::GetInst()->Update();
 	CKeyManager::GetInst()->Update();
 	CCamera::GetInst()->Update();
-	CGameObjectManager::GetInst()->Update();
 	CUIManager::GetInst()->Update();
 
 
@@ -83,6 +82,11 @@ void CCore::Progress()
 	/// 충돌체크
 	/// ===========
 	CColliderManager::GetInst()->Update();
+
+	//이벤트 체크
+
+	CGameObjectManager::GetInst()->Update();
+
 	///	============
 	///	 Rendering	
 	/// ============
@@ -132,7 +136,7 @@ void CCore::DockMenu(Vec2 _resolution)
 void CCore::UnDockMenu()
 {
 	SetMenu(m_hWnd, nullptr);
-	changeWindowSize(GetResolution(), false);
+	changeWindowSize(Vec2(1280,768), false);
 }
 
 void CCore::changeWindowSize(Vec2 _resolution, bool _isDock)

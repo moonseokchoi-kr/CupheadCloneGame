@@ -5,7 +5,7 @@
 #include "CAnimator.h"
 #include "CTexture.h"
 #include "CPropeller.h"
-
+#include "CGravity.h"
 #include "CResourceManager.h";
 #include "CSceneManager.h"
 #include "CCamera.h"
@@ -41,7 +41,7 @@ void CGround::Start()
 		SetScale(Vec2(160, 93));
 		m_propeller = new CPropeller;
 		m_propeller->SetParent(this);
-		m_propeller->SetPosOffset(Vec2(30.5f, 75.f));
+		m_propeller->SetPosOffset(Vec2(5.f, 60.f));
 	}
 		break;
 	case GAMEOBJECT_TYPE::GROUND:
@@ -51,8 +51,8 @@ void CGround::Start()
 	default:
 		break;
 	}
-
-	GetCollider()->SetScale(GetScale());
+	if(nullptr != GetCollider())
+		GetCollider()->SetScale(GetScale());
 }
 
 void CGround::Update()
@@ -92,11 +92,12 @@ void CGround::Render(HDC _dc)
 	default:
 	{
 		SelectGDI gdi(_dc, BRUSH_TYPE::HOLLOW);
+		SelectGDI gdi1(_dc, PEN_TYPE::WHITE);
 		Rectangle(_dc,
-			(int)(renderPos.x),
-			(int)(renderPos.y),
-			(int)(renderPos.x + scale.x),
-			(int)(renderPos.y + scale.y)
+			(int)(renderPos.x - scale.x / 2.f),
+			(int)(renderPos.y - scale.y / 2.f),
+			(int)(renderPos.x + scale.x / 2.f),
+			(int)(renderPos.y + scale.y / 2.f)
 		);
 	}
 	break;
@@ -110,14 +111,53 @@ void CGround::Render(HDC _dc)
 
 void CGround::OnCollisionEnter(CCollider* _col)
 {
+	CObject* obj = _col->GetOwner();
+	if (obj->GetName() == L"Player")
+	{
+		obj->GetGravity()->SetGround(true);
+
+		Vec2 objPos = obj->GetCollider()->GetFinalPos();
+		Vec2 objScale = obj->GetCollider()->GetScale();
+
+		Vec2 pos = GetCollider()->GetFinalPos();
+		Vec2 scale = GetCollider()->GetScale();
+
+		float fLen = abs(objPos.y - pos.y);
+		float fDiff = (objScale.y / 2.f + scale.y / 2.f) - fLen;
+
+		objPos = obj->GetPos();
+		objPos.y -= (fDiff - 1.f);
+		obj->SetPos(objPos);
+	}
 }
 
 void CGround::OnCollision(CCollider* _col)
 {
+	CObject* obj = _col->GetOwner();
+	if (obj->GetName() == L"Player")
+	{
+		Vec2 objPos = obj->GetCollider()->GetFinalPos();
+		Vec2 objScale = obj->GetCollider()->GetScale();
+
+		Vec2 pos = GetCollider()->GetFinalPos();
+		Vec2 scale = GetCollider()->GetScale();
+
+		float fLen = abs(objPos.y - pos.y);
+		float fDiff = (objScale.y / 2.f + scale.y / 2.f) - fLen;
+
+		objPos = obj->GetPos();
+		objPos.y -= (fDiff - 1.f);
+		obj->SetPos(objPos);
+	}
 }
 
 void CGround::OnCollisionExit(CCollider* _col)
 {
+	CObject* obj = _col->GetOwner();
+	if (obj->GetName() == L"Player")
+	{
+		obj->GetGravity()->SetGround(false);
+	}
 }
 
 void CGround::Save(FILE* _file)

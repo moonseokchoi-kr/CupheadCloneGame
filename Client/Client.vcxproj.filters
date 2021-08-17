@@ -180,6 +180,9 @@
     <Filter Include="Engine\Object\Player\StateMachine\State\DashState">
       <UniqueIdentifier>{a86bdac2-c5b9-4684-b85d-816781324654}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Component\RigidBody\Gravity">
+      <UniqueIdentifier>{fe63d1c5-a60e-4c88-b43b-a85de7de5696}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -363,6 +366,9 @@
     <ClInclude Include="CPlayerDashState.h">
       <Filter>Engine\Object\Player\StateMachine\State\DashState</Filter>
     </ClInclude>
+    <ClInclude Include="CGravity.h">
+      <Filter>Engine\Component\RigidBody\Gravity</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -538,6 +544,9 @@
     </ClCompile>
     <ClCompile Include="CPlayerDashState.cpp">
       <Filter>Engine\Object\Player\StateMachine\State\DashState</Filter>
+    </ClCompile>
+    <ClCompile Include="CGravity.cpp">
+      <Filter>Engine\Component\RigidBody\Gravity</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

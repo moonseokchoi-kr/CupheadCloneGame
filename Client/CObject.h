@@ -1,5 +1,5 @@
 #pragma once
-#include "UpdateInterface.h"
+#include "CCamera.h"
 /// <summary>
 /// 앞으로 만들어질 모든 오브젝트의 부모클래스로 상속을 받아서 이용한다.
 /// </summary>
@@ -12,10 +12,12 @@
 /// 1.2- 애니메이터 추가				2021-07-11
 /// 1.3- Clone함수 추가 복사생성자 추가 2021-07-17
 /// 1.4- rigidbody 추가					2021-08-03
+/// 1.5- 중력 추가						2021-08-16
 class CCollider;
 class CAnimator;
 class CEventManager;
 class CRigidBody;
+class CGravity;
 
 class CObject
 {
@@ -42,11 +44,13 @@ public:
 	CAnimator* GetAnimator() { return m_animator; }
 	CCollider* GetCollider() { return m_collider; }
 	CRigidBody* GetRigidBody() { return m_rigidBody; }
+	CGravity* GetGravity() { return m_gravity; }
 
 public:
 	void CreateCollider();
 	void CreateAnimator();
 	void CreateRigidBody();
+	void CreateGravity();
 public:
 	virtual void Start() {};
 	virtual void Update() = 0;
@@ -78,6 +82,7 @@ private:
 	CCollider* m_collider;	//충돌체
 	CAnimator* m_animator;	//애니메이터
 	CRigidBody* m_rigidBody; //강체
+	CGravity* m_gravity;
 
 	wstring m_objName;		//물체의 이름
 	bool m_dead;			//죽었는지 여부
