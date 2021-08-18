@@ -1,5 +1,8 @@
 #include "pch.h"
 
+#include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CUIManager.cpp"
+
+
 #include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\FSMAI.cpp"
 
 
@@ -19,4 +22,7 @@
 
 
 #include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CResource.cpp"
+
+
+#include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CResourceManager.cpp"
 

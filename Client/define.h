@@ -178,3 +178,12 @@ enum class MON_TYPE
 	SAL,
 	NONE,
 };
+
+enum class BULLET_TYPE
+{
+	PEASHOOT,
+	SPREAD,
+	ROUNDABOUT,
+
+	END,
+};

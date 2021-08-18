@@ -11,6 +11,7 @@
 #include "CTimeManager.h"
 CPlayerDashState::CPlayerDashState()
 	:CPlayerState(PLAYER_STATE::DASH)
+	,m_accTime(0.0f)
 {
 }
 

@@ -6,7 +6,13 @@
 #include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CAnimator.cpp"
 
 
+#include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CAttackBox.cpp"
+
+
 #include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CBackGround.cpp"
+
+
+#include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CBullet.cpp"
 
 
 #include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CForeGround.cpp"

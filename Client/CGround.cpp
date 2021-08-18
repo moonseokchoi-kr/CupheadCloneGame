@@ -35,6 +35,7 @@ void CGround::Start()
 	case GAMEOBJECT_TYPE::FLOWER_PLATFORM_B:
 	case GAMEOBJECT_TYPE::FLOWER_PLATFORM_C:
 	{
+		SetName(L"Platform");
 		CreateAnimator();
 		CTexture* tex = CResourceManager::GetInst()->LoadTexture(L"platform", L"texture\\cuphead\\obj\\PlatformSprite.bmp");
 		GetAnimator()->CreateAnimation(L"platform_A_anim", tex, Vec2(0, 0), Vec2(160, 93), Vec2(160, 0), 0.15f, 3, false);
@@ -42,12 +43,17 @@ void CGround::Start()
 		GetAnimator()->CreateAnimation(L"platform_C_anim", tex, Vec2(960, 0), Vec2(160, 93), Vec2(160, 0), 0.15f, 3, false);
 
 		SetScale(Vec2(160, 93));
+		GetCollider()->SetScale(GetScale()-Vec2(15.f,20.f));
 		m_propeller = new CPropeller;
 		m_propeller->SetParent(this);
 		m_propeller->SetPosOffset(Vec2(5.f, 60.f));
+		return;
 	}
 		break;
 	case GAMEOBJECT_TYPE::GROUND:
+	{
+		SetName(L"Ground");
+	}
 		break;
 	case GAMEOBJECT_TYPE::END:
 		break;

@@ -78,18 +78,6 @@
     <Filter Include="Engine\Manager\Camera">
       <UniqueIdentifier>{4d0e00ac-7d11-4d8a-a565-6ab3e1285b05}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Object\Tengai">
-      <UniqueIdentifier>{37aea882-a523-48be-ae05-06f4e72e9b34}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Object\Tengai\Bullet">
-      <UniqueIdentifier>{859608a9-656d-4854-8da5-c27d478a607f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Object\Tengai\Monster">
-      <UniqueIdentifier>{61b8ef62-d03c-45a3-8071-4a0c4bbae3df}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Object\Tengai\Spawner">
-      <UniqueIdentifier>{6944e095-e012-4d46-b909-c2e05834c05f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Object\Tile">
       <UniqueIdentifier>{5fe65cfe-1a4d-469e-8c47-279a1674d817}</UniqueIdentifier>
     </Filter>
@@ -128,9 +116,6 @@
     </Filter>
     <Filter Include="Engine\Object\Player">
       <UniqueIdentifier>{2a571dff-9e81-4cbd-8643-428357e161e2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Object\Player\Subweapon">
-      <UniqueIdentifier>{5e0f65f0-9227-4049-86b9-831eda719ab2}</UniqueIdentifier>
     </Filter>
     <Filter Include="Engine\Factory">
       <UniqueIdentifier>{842ad8c0-b5bf-4bd8-b6c8-4fff42576f4b}</UniqueIdentifier>
@@ -186,6 +171,18 @@
     <Filter Include="Engine\Object\Player\StateMachine\State\JunpState">
       <UniqueIdentifier>{0999fde3-22ca-4ec2-a3ba-5de6788700ce}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Object\Bullet">
+      <UniqueIdentifier>{68d8b783-0d75-466d-a017-5f96f7f50f73}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Object\AttackBox">
+      <UniqueIdentifier>{5e0f65f0-9227-4049-86b9-831eda719ab2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Object\Bullet\Monster">
+      <UniqueIdentifier>{1fa8f1d9-1fd7-44e1-8d43-9e1ecf0a0187}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Object\Bullet\Player">
+      <UniqueIdentifier>{43ac853d-3fe1-4e3b-becb-38112d35ea10}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -225,12 +222,6 @@
     <ClInclude Include="CScene_Start.h">
       <Filter>Engine\Scene\Start Scene</Filter>
     </ClInclude>
-    <ClInclude Include="CRedUfo.h">
-      <Filter>Engine\Object\Tengai\Monster</Filter>
-    </ClInclude>
-    <ClInclude Include="CBullet.h">
-      <Filter>Engine\Object\Tengai\Bullet</Filter>
-    </ClInclude>
     <ClInclude Include="CPlayer.h">
       <Filter>Engine\Object\Player</Filter>
     </ClInclude>
@@ -266,24 +257,6 @@
     </ClInclude>
     <ClInclude Include="CAnimation.h">
       <Filter>Engine\Component\Animator\Animation</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerSubweapon.h">
-      <Filter>Engine\Object\Player\Subweapon</Filter>
-    </ClInclude>
-    <ClInclude Include="CGreenUfo.h">
-      <Filter>Engine\Object\Tengai\Monster</Filter>
-    </ClInclude>
-    <ClInclude Include="CHomingBullet.h">
-      <Filter>Engine\Object\Tengai\Bullet</Filter>
-    </ClInclude>
-    <ClInclude Include="CNinja.h">
-      <Filter>Engine\Object\Tengai\Monster</Filter>
-    </ClInclude>
-    <ClInclude Include="CDartBullet.h">
-      <Filter>Engine\Object\Tengai\Bullet</Filter>
-    </ClInclude>
-    <ClInclude Include="CCamera.h">
-      <Filter>Engine\Manager\Camera</Filter>
     </ClInclude>
     <ClInclude Include="CTile.h">
       <Filter>Engine\Object\Tile</Filter>
@@ -375,6 +348,15 @@
     <ClInclude Include="CPlayerJumpState.h">
       <Filter>Engine\Object\Player\StateMachine\State\JunpState</Filter>
     </ClInclude>
+    <ClInclude Include="CBullet.h">
+      <Filter>Engine\Object\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="CAttackBox.h">
+      <Filter>Engine\Object\AttackBox</Filter>
+    </ClInclude>
+    <ClInclude Include="CCamera.h">
+      <Filter>Engine\Manager\Camera</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -409,12 +391,6 @@
     <ClCompile Include="CScene_Start.cpp">
       <Filter>Engine\Scene\Start Scene</Filter>
     </ClCompile>
-    <ClCompile Include="CRedUfo.cpp">
-      <Filter>Engine\Object\Tengai\Monster</Filter>
-    </ClCompile>
-    <ClCompile Include="CBullet.cpp">
-      <Filter>Engine\Object\Tengai\Bullet</Filter>
-    </ClCompile>
     <ClCompile Include="CSceneManager.cpp">
       <Filter>Engine\Manager\SceneManager</Filter>
     </ClCompile>
@@ -447,21 +423,6 @@
     </ClCompile>
     <ClCompile Include="CAnimation.cpp">
       <Filter>Engine\Component\Animator\Animation</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerSubweapon.cpp">
-      <Filter>Engine\Object\Player\Subweapon</Filter>
-    </ClCompile>
-    <ClCompile Include="CGreenUfo.cpp">
-      <Filter>Engine\Object\Tengai\Monster</Filter>
-    </ClCompile>
-    <ClCompile Include="CHomingBullet.cpp">
-      <Filter>Engine\Object\Tengai\Bullet</Filter>
-    </ClCompile>
-    <ClCompile Include="CNinja.cpp">
-      <Filter>Engine\Object\Tengai\Monster</Filter>
-    </ClCompile>
-    <ClCompile Include="CDartBullet.cpp">
-      <Filter>Engine\Object\Tengai\Bullet</Filter>
     </ClCompile>
     <ClCompile Include="CCamera.cpp">
       <Filter>Engine\Manager\Camera</Filter>
@@ -556,6 +517,12 @@
     </ClCompile>
     <ClCompile Include="CPlayer.cpp">
       <Filter>Engine\Object\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="CBullet.cpp">
+      <Filter>Engine\Object\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="CAttackBox.cpp">
+      <Filter>Engine\Object\AttackBox</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

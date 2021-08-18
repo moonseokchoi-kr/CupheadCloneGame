@@ -34,7 +34,7 @@ struct playerInfo
 };
 
 class CPlayerStateMachine;
-
+class CAttackBox;
 
 class CPlayer :
     public CObject
@@ -63,6 +63,10 @@ public:
     playerInfo GetInfo() { return m_info; }
     void SetInfo(playerInfo _info) { m_info = _info; }
     void SetAi(CPlayerStateMachine* _ai);
+    CAttackBox* GetAttackBox() { return m_attackBox; }
+
+
+    void CreateAttackBox();
 private:
     void fire();
 private:
@@ -72,7 +76,7 @@ private:
     bool m_isAir;
     UINT m_weaponMode;
 
-
+    CAttackBox* m_attackBox;
     playerInfo m_info;
 
     CPlayerStateMachine* m_ai;

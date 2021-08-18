@@ -2,6 +2,7 @@
 #include "CPlayerJumpState.h"
 #include "CPlayer.h"
 #include "CRigidBody.h"
+#include "CCollider.h"
 #include "CGravity.h"
 #include "CAnimation.h"
 #include "CAnimator.h"
@@ -20,17 +21,20 @@ CPlayerJumpState::~CPlayerJumpState()
 
 void CPlayerJumpState::Enter()
 {
-	
+	GetPlayer()->GetCollider()->SetScale(Vec2(70.f, 100.f));
 }
 
 void CPlayerJumpState::Exit()
 {
+	GetPlayer()->GetCollider()->SetScale(Vec2(80.f, 150.f));
+	GetPlayer()->GetRigidBody()->SetVelocity(Vec2(1000.f, 0.f));
 }
 
 void CPlayerJumpState::Update()
 {
 	m_accTime += fDT;
 	GetPlayer()->UpdateMove();
+	
 	updateSubState();
 	updateAnimation();
 	//다시 Idle로 돌아가는법

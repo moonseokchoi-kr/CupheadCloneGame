@@ -61,7 +61,6 @@ struct Vec2
 		return Vec2(x , y );
 	}
 
-
 	Vec2 operator *=(float f)
 	{
 		x *= f;

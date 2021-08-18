@@ -2,7 +2,7 @@
 #include "CPlayer.h"
 #include "CCollider.h"
 #include "CBullet.h"
-
+#include "CAttackBox.h"
 #include "CSceneManager.h"
 #include "CKeyManager.h"
 #include "CTimeManager.h"
@@ -11,7 +11,6 @@
 
 #include "CTexture.h"
 #include "CAnimator.h"
-#include "PlayerSubweapon.h"
 #include "CRigidBody.h"
 
 #include "CAnimation.h"
@@ -28,11 +27,10 @@
 
 
 CPlayer::CPlayer()
-	:m_info{500.f, Vec2(1,0),0.15f, 0.1f, 0.15f,300.f,Vec2(1,0), 3}
-	, m_weaponMode(1)
+	: m_weaponMode(1)
 	, m_curState(PLAYER_STATE::IDLE)
 	, m_prevState(PLAYER_STATE::IDLE)
-	,m_animateTime(1/30.f)
+	,m_animateTime(1/15.f)
 	, m_ai(nullptr)
 {
 	
@@ -47,11 +45,16 @@ CPlayer::CPlayer()
 	CTexture* run_tex = CResourceManager::GetInst()->LoadTexture(L"PlayerNormalRunTex", L"texture\\cuphead\\player\\run_sprite.bmp");
 
 	CTexture* run_shoot_tex = CResourceManager::GetInst()->LoadTexture(L"PlayerRunShootTex", L"texture\\cuphead\\player\\run_shoot.bmp");
-
+	CTexture* run_shoot_up_tex = CResourceManager::GetInst()->LoadTexture(L"PlayerRunShootUpTex", L"texture\\cuphead\\player\\direction_up_shoot_sprite.bmp");
+	
 	CTexture* run_shoot_turn_tex = CResourceManager::GetInst()->LoadTexture(L"PlayerRunShootTurnTex", L"texture\\cuphead\\player\\shoot_run_turn.bmp");
+	CTexture* run_shoot_up_turn_tex = CResourceManager::GetInst()->LoadTexture(L"PlayerRunShootUpTurnTex", L"texture\\cuphead\\player\\shoot_up_turn.bmp");
+
 
 	CTexture* shoot_tex = CResourceManager::GetInst()->LoadTexture(L"PlayerShootTex", L"texture\\cuphead\\player\\shoot_sprite.bmp");
 
+	
+	
 	CTexture* dash_tex = CResourceManager::GetInst()->LoadTexture(L"PlayerDashTex", L"texture\\cuphead\\player\\dash_sprite.bmp");
 
 	CTexture* jump_tex = CResourceManager::GetInst()->LoadTexture(L"PlayerJumpTex", L"texture\\cuphead\\player\\jump_sprite.bmp");
@@ -59,6 +62,7 @@ CPlayer::CPlayer()
 	CreateAnimator();
 	CreateRigidBody();
 	CreateGravity();
+
 
 
 	GetAnimator()->CreateAnimation(L"PLAYER_IDLE_RIGHT", idle_tex, Vec2(0.f, 0.f), Vec2(98.f, 155.f), Vec2(98.f, 0.f), 1/15.f, 5, false);
@@ -69,6 +73,13 @@ CPlayer::CPlayer()
 
 	GetAnimator()->CreateAnimation(L"PLAYER_SHOOT_RUN_TURN_LEFT", run_shoot_turn_tex, Vec2(0.f, 175.f), Vec2(143.f, 175.f), Vec2(143.f, 0.f), m_animateTime, 2, true);
 	GetAnimator()->CreateAnimation(L"PLAYER_SHOOT_RUN_TURN_RIGHT", run_shoot_turn_tex, Vec2(0.f, 0.f), Vec2(143.f, 175.f), Vec2(143.f, 0.f), m_animateTime, 2, false);
+
+	GetAnimator()->CreateAnimation(L"PLAYER_SHOOT_RUN_UP_RIGHT",run_shoot_up_tex,Vec2(0.f,0.f),Vec2(143.f,157.f),Vec2(143.f,0.f),m_animateTime, 16, false);
+	GetAnimator()->CreateAnimation(L"PLAYER_SHOOT_RUN_UP_LEFT",run_shoot_up_tex,Vec2(0.f,157.f),Vec2(143.f,157.f),Vec2(143.f,0.f),m_animateTime, 16, true);
+
+	GetAnimator()->CreateAnimation(L"PLAYER_SHOOT_RUN_UP_TURN_RIGHT", run_shoot_up_turn_tex, Vec2(0.f, 0.f), Vec2(187.f, 175.f), Vec2(187.f, 0.f), m_animateTime, 2, false);
+	GetAnimator()->CreateAnimation(L"PLAYER_SHOOT_RUN_UP_TURN_LEFT", run_shoot_up_turn_tex, Vec2(0.f, 175.f), Vec2(187.f, 175.f), Vec2(187.f, 0.f), m_animateTime, 2, true);
+
 
 	GetAnimator()->CreateAnimation(L"PLAYER_NORMAL_RUN_LEFT", run_tex, Vec2(0.f, 169.f), Vec2(137.f, 169.f), Vec2(137.f, 0.f), m_animateTime, 16, true);
 	GetAnimator()->CreateAnimation(L"PLAYER_NORMAL_RUN_RIGHT", run_tex, Vec2(0.f, 0.f), Vec2(137.f, 169.f), Vec2(137.f, 0.f), m_animateTime, 16, false);
@@ -94,6 +105,15 @@ CPlayer::CPlayer()
 	GetAnimator()->CreateAnimation(L"PLAYER_JUMP_LEFT", jump_tex, Vec2(0.f, 124.f), Vec2(93.f, 124.f), Vec2(93.f, 0.f), m_animateTime, 8, true);
 
 
+	m_info.attackSpeed = 0.15f;
+	m_info.dashDist = 300.f;
+	m_info.dashtime = 0.1f;
+	m_info.health = 3.f;
+	m_info.jupAccTime = 0.15f;
+	m_info.moveSpeed = 400.f;
+	m_info.prevMoveDir = Vec2(0, 0);
+	m_info.shootDir = Vec2(1, 0);
+
 	
 }
 
@@ -117,7 +137,15 @@ void CPlayer::Start()
 	ai->AddState(state);
 	ai->SetCurrentState(PLAYER_STATE::IDLE);
 	SetAi(ai);
-
+	CreateAttackBox();
+	if (nullptr != m_attackBox)
+	{
+		m_attackBox->SetPos(Vec2(50.f, -3.f));
+		CBullet* bullet = new CBullet(BULLET_TYPE::PEASHOOT);
+		m_attackBox->AddBullet(bullet);
+		m_attackBox->SetCurrentBullet(BULLET_TYPE::PEASHOOT);
+	}
+		
 	if (GetRigidBody())
 		GetRigidBody()->SetMaxVelocity(500.f);
 }
@@ -141,6 +169,10 @@ void CPlayer::Update()
 void CPlayer::Render(HDC _dc)
 {
 	ComponentRender(_dc);
+#ifdef _DEBUG
+	m_attackBox->Render(_dc);
+#endif
+	
 }
 void CPlayer::OnCollisionEnter(CCollider* _col)
 {
@@ -182,16 +214,17 @@ void CPlayer::SetAi(CPlayerStateMachine* _ai)
 	m_ai = _ai;
 	m_ai->m_owner = this;
 }
+void CPlayer::CreateAttackBox()
+{
+	m_attackBox = new CAttackBox;
+	m_attackBox->m_owner = this;
+}
 /// <summary>
 /// Bullet을 발사하는 함수
 /// </summary>
 void CPlayer::fire()
 {
-	Vec2 position = GetPos();
-	CBullet* bullet = new CBullet;
-	bullet->SetFirePos(Vec2(position.x, position.y - 10.f));
-	bullet->SetName(L"PlayerBullet");
-	CreateObject(bullet, GROUP_TYPE::PLAYER_BULLET, Vec2(position.x, position.y - 10.f), Vec2(25.f, 25.f));
+	
 }
 
 
@@ -207,48 +240,53 @@ void CPlayer::UpdateMove()
 		if (KEY_TAP(KEY::LEFT))
 		{
 
+			m_info.shootDir = Vec2(-1, 0);
 			rigidBody->SetVelocity(Vec2(moveDir.x * m_info.moveSpeed, rigidBody->GetVelocity().y));
 		}
 		if (KEY_TAP(KEY::RIGHT))
 		{
+			m_info.shootDir = Vec2(1, 0);
 			rigidBody->SetVelocity(Vec2(moveDir.x * m_info.moveSpeed, rigidBody->GetVelocity().y));
+			
 		}
 
 		if (KEY_AWAY(KEY::LEFT) || KEY_AWAY(KEY::RIGHT))
 		{
 			rigidBody->SetVelocity(Vec2(0.f, rigidBody->GetVelocity().y));
+			SetMoveDir(0, 0);
 		}
 
 		if (KEY_HOLD(KEY::UP))
 		{
-			m_info.shootDir = Vec2(0, 1);
+			m_info.shootDir = Vec2(0, -1);
 		}
 		if (KEY_HOLD(KEY::DOWN))
 		{
-			m_info.shootDir = Vec2(0, -1);
+			m_info.shootDir = Vec2(0, 1);
 		}
 		if (KEY_HOLD(KEY::LEFT))
 		{
-			m_info.shootDir = Vec2(1, 0);
+			m_info.shootDir = Vec2(-1, 0);
 			if (KEY_HOLD(KEY::UP))
 			{
-				m_info.shootDir = Vec2(-1, 1);
+				m_info.shootDir = Vec2(-1, -1);
 			}
 			if (KEY_HOLD(KEY::DOWN))
 			{
-				m_info.shootDir = Vec2(-1, -1);
+				m_info.shootDir = Vec2(-1, 1);
 			}
 			rigidBody->AddForce(Vec2(moveDir.x * m_info.moveSpeed, 0.f));
 		}
 		if (KEY_HOLD(KEY::RIGHT))
 		{
+			m_info.shootDir = Vec2(1, 0);
 			if (KEY_HOLD(KEY::UP))
 			{
-				m_info.shootDir = Vec2(1, 1);
+				m_info.shootDir = Vec2(1, -1);
 			}
 			if (KEY_HOLD(KEY::DOWN))
 			{
-				m_info.shootDir = Vec2(1, -1);
+				m_info.shootDir = Vec2(1, 1);
 			}
 			rigidBody->AddForce(Vec2(moveDir.x * m_info.moveSpeed, 0.f));
 		}

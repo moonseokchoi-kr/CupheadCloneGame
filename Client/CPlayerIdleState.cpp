@@ -30,6 +30,7 @@ void CPlayerIdleState::Enter()
 	if (KEY_NONE(KEY::LEFT) || KEY_NONE(KEY::RIGHT))
 	{
 		owner->GetRigidBody()->SetVelocity(Vec2(0.f, 0.f));
+		GetPlayer()->SetMoveDir(0, 0);
 	}
 }
 

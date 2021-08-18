@@ -20,3 +20,9 @@
 
 #include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CGameObject.cpp"
 
+
+#include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CIdleState.cpp"
+
+
+#include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CKeyManager.cpp"
+

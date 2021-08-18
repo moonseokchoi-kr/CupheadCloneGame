@@ -32,6 +32,7 @@ void CCamera::Init()
 	Vec2 resolution = CCore::GetInst()->GetResolution();
 	m_veilTexture = CResourceManager::GetInst()->CreateTexture(L"VeilTexture", (UINT)resolution.x, (UINT)resolution.y);
 }
+
 void CCamera::Update()
 {
 	if (m_targetObject)
@@ -43,6 +44,7 @@ void CCamera::Update()
 		else
 		{
 			m_lookAt = m_targetObject->GetPos();
+			m_initLookAt = m_lookAt;
 		}
 	}
 	if (CSceneManager::GetInst()->GetCurrentScene()->GetSceneName() == L"Tool Scene")\
@@ -65,15 +67,20 @@ void CCamera::Update()
 		}
 	}
 	
+	vibeCamera();
+
 	CalDiff();
 }
 
 void CCamera::Render(HDC _dc)
 {
+	//필요한 부분만 렌더링
+	
 	if (m_camEffects.empty())
 		return;
 	camEffect& ef = m_camEffects.front();
 	ef.currentTime += fDT;
+
 
 	float ratio = ef.currentTime / ef.duration;
 	if (ratio < 0.f)
@@ -91,7 +98,10 @@ void CCamera::Render(HDC _dc)
 	{
 		alpha = (int)(255.f * (1 - ratio));
 	}
-
+	if (CAMERA_EFFECT::VIBRATION == ef.effect)
+	{
+		return;
+	}
 	BLENDFUNCTION bf = {};
 	bf.BlendOp = AC_SRC_OVER;
 	bf.BlendFlags = 0;
@@ -194,4 +204,30 @@ void CCamera::smoothCameraMove()
 	m_difference = m_currentLookAt - center;
 
 	m_prevLookAt = m_currentLookAt;
+}
+
+void CCamera::vibeCamera()
+{
+	if (CSceneManager::GetInst()->GetCurrentScene()->GetObjWithType(GROUP_TYPE::PLAYER).empty())
+		return;
+	if (m_camEffects.empty())
+		return;
+	camEffect& ef = m_camEffects.front();
+	if (ef.effect != CAMERA_EFFECT::VIBRATION)
+		return;
+	random_device rd;
+	mt19937 gen(rd());
+	uniform_int_distribution<int> dis(-1, 1);
+	ef.currentTime += fDT;
+	m_lookAt = m_initLookAt;
+	float t = (ef.duration - ef.currentTime) * 0.01f;
+	m_lookAt.y += dis(gen)*(sin(2.0f * 3.14159f * t * 3) * 30.0f +
+		sin(2.0f * 3.14159f * t * 7 + 0.2f) * 10.1f +
+		sin(2.0f * 3.14159f * t * 15 + 0.5f) * 1.1f)* (0.05f - t) / 0.15f;
+	m_lookAt.x += dis(gen) * (sin(2.0f * 3.14159f * t * 3) * 30.0f +
+		sin(2.0f * 3.14159f * t * 7 + 0.2f) * 10.1f +
+		sin(2.0f * 3.14159f * t * 15 + 0.5f) * 1.1f) * (0.05f - t) / 0.15f;
+	if (ef.duration < ef.currentTime)
+		m_camEffects.pop_front();
+
 }
