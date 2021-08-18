@@ -199,6 +199,7 @@
     <ClInclude Include="CScene_Tool.h" />
     <ClInclude Include="CSpawnObject.h" />
     <ClInclude Include="CState.h" />
+    <ClInclude Include="CTextUI.h" />
     <ClInclude Include="CTexture.h" />
     <ClInclude Include="CTile.h" />
     <ClInclude Include="CTileButtonUI.h" />
@@ -250,6 +251,7 @@
     <ClCompile Include="CScene_Tool.cpp" />
     <ClCompile Include="CSpawnObject.cpp" />
     <ClCompile Include="CState.cpp" />
+    <ClCompile Include="CTextUI.cpp" />
     <ClCompile Include="CTile.cpp" />
     <ClCompile Include="CTileButtonUI.cpp" />
     <ClCompile Include="CTraceState.cpp" />

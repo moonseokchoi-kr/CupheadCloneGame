@@ -183,6 +183,9 @@
     <Filter Include="Engine\Object\Bullet\Player">
       <UniqueIdentifier>{43ac853d-3fe1-4e3b-becb-38112d35ea10}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Object\UI\TextUI">
+      <UniqueIdentifier>{2724d327-e8b4-4f29-9fa3-5b591306a388}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -357,6 +360,9 @@
     <ClInclude Include="CCamera.h">
       <Filter>Engine\Manager\Camera</Filter>
     </ClInclude>
+    <ClInclude Include="CTextUI.h">
+      <Filter>Engine\Object\UI\TextUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -523,6 +529,9 @@
     </ClCompile>
     <ClCompile Include="CAttackBox.cpp">
       <Filter>Engine\Object\AttackBox</Filter>
+    </ClCompile>
+    <ClCompile Include="CTextUI.cpp">
+      <Filter>Engine\Object\UI\TextUI</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

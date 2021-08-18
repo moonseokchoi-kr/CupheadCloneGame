@@ -33,7 +33,7 @@ using std::uniform_int_distribution;
 
 using std::string;
 using std::wstring;
-
+using std::to_wstring;
 using std::find;
 using std::reverse;
 using std::sort;

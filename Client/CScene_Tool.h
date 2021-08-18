@@ -26,6 +26,9 @@ struct SpawnObj
 /// 배경 배치
 /// 오브젝트 배치
 /// 
+/// 
+class CTextUI;
+
 class CScene_Tool :
     public CScene
 {
@@ -49,6 +52,10 @@ public:
 private:
 
     int m_cilckedImageIdx;
+
+    CTextUI* m_focusPos;
+    CTextUI* m_focusScale;
+    CTextUI* m_focusObjText;
 
 };
 

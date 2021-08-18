@@ -3,6 +3,7 @@
 #include "CTile.h"
 #include "CPanelUI.h"
 #include "CButtonUI.h"
+#include "CTextUI.h"
 #include "CTileButtonUI.h"
 #include "CBackGround.h"
 #include "CGameObject.h"
@@ -49,8 +50,16 @@ void CScene_Tool::Update()
 {
 	CScene::Update();
 	CGameObject* focusObj = CGameObjectManager::GetInst()->GetFocusObj();
-
-
+	CSpawnObject* spawnObj = static_cast<CSpawnObject*>(focusObj);
+	if(focusObj)
+	{
+		m_focusPos->SetText(L"Position:(" + to_wstring((int)focusObj->GetPos().x) + L" , " + to_wstring((int)focusObj->GetPos().y) + L")");
+		m_focusScale->SetText(L"Scale:(" + to_wstring((int)focusObj->GetScale().x) + L" , " + to_wstring((int)focusObj->GetScale().y) + L")");
+	}
+	if (spawnObj)
+	{
+		
+	}
 	if (!CUIManager::GetInst()->GetFocusedUI())
 	{
 		if(m_cilckedImageIdx > -1 && !focusObj)
@@ -61,7 +70,6 @@ void CScene_Tool::Update()
 		DeleteGameObject();
 	if (KEY_TAP(KEY::MOUSE_RBUTTON) && focusObj)
 	{
-		CSpawnObject* spawnObj = static_cast<CSpawnObject*>(focusObj);
 		if (nullptr == spawnObj)
 			return;
 		spawnObj->Spawn();
@@ -98,6 +106,30 @@ void CScene_Tool::Enter()
 	parentUI->SetScale(Vec2(400.f, 750.f));
 	parentUI->SetPos(Vec2(resolution.x - parentUI->GetScale().x, 100.f));
 	parentUI->SetName(L"TilePanelUI");
+	
+	CUI* textPanel = new CPanelUI(false);
+	textPanel->SetScale(Vec2(parentUI->GetScale().x, 100.f));
+	textPanel->SetPos(Vec2(resolution.x - parentUI->GetScale().x, 0.f ));
+	textPanel->SetName(L"TextPanelUI");
+	
+	m_focusPos = new CTextUI(false);
+	m_focusPos->SetPos(Vec2(10.f,10.f));
+	textPanel->AddChild(m_focusPos);
+
+	m_focusScale = new CTextUI(false);
+	m_focusScale->SetPos(Vec2(10.f, 30.f));
+	textPanel->AddChild(m_focusScale);
+
+	m_focusObjText = new CTextUI(false);
+	m_focusObjText->SetPos(Vec2(10.f, 50.f));
+	textPanel->AddChild(m_focusObjText);
+
+	CUI* textMouse = new CTextUI(false);
+	((CTextUI*)textMouse)->SetMouseFollow(true);
+	
+	AddObject(textPanel, GROUP_TYPE::UI);
+	AddObject(textMouse, GROUP_TYPE::UI);
+	
 	//타일 UI설정
 	CTileButtonUI* tileUI = new CTileButtonUI(false);
 
