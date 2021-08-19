@@ -1,10 +1,10 @@
 #include "pch.h"
 #include "CMonsterFactory.h"
-#include "CMonster.h"
+#include "CSalSpudder.h"
 #include "FSMAI.h"
 #include "CIdleState.h"
-#include "CTraceState.h"
-
+#include "CIntroState.h"
+#include "CSalAttackState.h"
 CMonster* CMonsterFactory::CreateMonster(MON_TYPE _type, Vec2 _pos)
 {
 	CMonster* monster = nullptr;
@@ -24,8 +24,28 @@ CMonster* CMonsterFactory::CreateMonster(MON_TYPE _type, Vec2 _pos)
 		monster->SetInfo(info);
 
 		FSMAI* ai = new FSMAI;
-		ai->AddState(new CIdleState);
+		ai->AddState(new CIdleState(L""));
 		//ai->AddState(new CTraceState);
+		ai->SetCurrentState(MON_STATE::IDLE);
+		monster->SetAi(ai);
+	}
+		break;
+	case MON_TYPE::SAL:
+	{
+		monster = new CSalSpudder;
+		monster->SetPos(_pos);
+		monsterInfo info = {};
+		info.attackDamege = 1;
+		info.attackRange = 0;
+		info.eyesightRange = 0;
+		info.hp = 300.f;
+		info.attackSpeed = 2.f;
+		info.moveSpeed = 100.f;
+		monster->SetInfo(info);
+		FSMAI* ai = new FSMAI;
+		ai->AddState(new CIdleState(L""));
+		ai->AddState(new CIntroState(L""));
+		ai->AddState(new CSalAttackState);
 		ai->SetCurrentState(MON_STATE::IDLE);
 		monster->SetAi(ai);
 	}

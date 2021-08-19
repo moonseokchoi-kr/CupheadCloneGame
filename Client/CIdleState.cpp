@@ -3,9 +3,12 @@
 #include "CPlayer.h"
 #include "CMonster.h"
 
+#include "CAnimator.h"
 #include "CSceneManager.h"
-CIdleState::CIdleState()
+#include "CTimeManager.h"
+CIdleState::CIdleState(wstring _anim)
 	:CState(MON_STATE::IDLE)
+	, m_animName(_anim)
 {
 }
 
@@ -15,30 +18,23 @@ CIdleState::~CIdleState()
 
 void CIdleState::Enter()
 {
+	if (m_animName.empty())
+		GetMonster()->GetAnimator()->Play(m_animName, false);
+	else
+		return;
 }
 
 void CIdleState::Exit()
 {
+	m_accTime = 0;
 }
 
 void CIdleState::Update()
 {
-// 	CPlayer* player = CSceneManager::GetInst()->GetCurrentScene()->GetPlayer();
-// 	if (nullptr == player)
-// 	{
-// 		return;
-// 	}
-// 	Vec2 playerPos = player->GetPos();
-// 
-// 	//범위내로 들어오면 추척상태 전환
-// 	CMonster* monster = GetMonster();
-// 	Vec2 monsterPos = monster->GetPos();
-// 
-// 	Vec2 diff = playerPos - monsterPos;
-// 
-// 	float len = diff.Distance();
-// 	if (len < monster->GetInfo().eyesightRange)
-// 	{
-// 		ChangeAIState(GetAI(), MON_STATE::TRACE);
-// 	}
+	m_accTime += fDT;
+
+	if (m_accTime >= GetMonster()->GetInfo().attackSpeed)
+	{
+		ChangeAIState(GetAI(), MON_STATE::ATTACK);
+	}
 }

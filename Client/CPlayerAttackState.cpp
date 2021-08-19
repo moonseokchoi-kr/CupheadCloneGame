@@ -91,7 +91,7 @@ void CPlayerAttackState::updateSubState()
 	if (KEY_HOLD(KEY::Z) || KEY_TAP(KEY::Z))
 	{
 		GetPlayer()->GetAttackBox()->Fire();
-		CCamera::GetInst()->SetCamEffect(0.1f, CAMERA_EFFECT::VIBRATION);
+		//CCamera::GetInst()->SetCamEffect(0.1f, CAMERA_EFFECT::VIBRATION);
 	}
 	if (GetPlayer()->GetGravity()->IsGround())
 	{

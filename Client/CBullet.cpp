@@ -19,12 +19,10 @@ CBullet::~CBullet()
 {
 }
 
-void CBullet::Update()
+
+void CBullet::Start()
 {
-	Vec2 pos = GetPos();
-	GetRigidBody()->SetVelocity(m_info.moveDir*1000.f);
-	GetRigidBody()->AddVelocity(Vec2(m_info.bulletSpeed * m_info.moveDir.x, m_info.bulletSpeed * m_info.moveDir.y));
-	
+	m_initPos = GetPos();
 }
 
 void CBullet::Render(HDC _dc)
@@ -65,4 +63,11 @@ void CBullet::OnCollision(CCollider* _col)
 void CBullet::OnCollisionExit(CCollider* _col)
 {
 
+}
+
+void CBullet::DeleteBullet()
+{
+	float dist = GetPos().Distance(m_initPos);
+	if (dist > m_info.range)
+		DeleteObject(this);
 }

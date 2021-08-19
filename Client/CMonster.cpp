@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "CMonster.h"
 #include "CCollider.h"
+#include "CAttackBox.h"
 #include "FSMAI.h"
 
 CMonster::CMonster()
@@ -21,9 +22,15 @@ CMonster::~CMonster()
 		delete m_ai;
 }
 
+void CMonster::Start()
+{
+	CreateAttackBox();
+}
+
 void CMonster::Update()
 {
 	m_ai->Update();
+	m_attackBox->Update();
 }
 
 void CMonster::FinalUpdate()
@@ -33,12 +40,15 @@ void CMonster::FinalUpdate()
 
 void CMonster::Render(HDC _dc)
 {
+
 	ComponentRender(_dc);
+	m_attackBox->Render(_dc);
 }
 
 void CMonster::OnCollisionEnter(CCollider* _col)
 {
 }
+
 
 void CMonster::SetAi(FSMAI* _ai)
 {

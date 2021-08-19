@@ -7,7 +7,7 @@ CMonster* CState::GetMonster()
 }
 
 CState::CState(MON_STATE _state)
-	:m_state(_state)
+	:m_stateAccTime(_state)
 	,m_ai(nullptr)
 {
 }

@@ -9,14 +9,17 @@
 #include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CAttackBox.cpp"
 
 
+#include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CAttackState.cpp"
+
+
 #include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CBackGround.cpp"
 
 
 #include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CBullet.cpp"
 
 
-#include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CForeGround.cpp"
+#include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CChauncey.cpp"
 
 
-#include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CGravity.cpp"
+#include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CDeathState.cpp"
 

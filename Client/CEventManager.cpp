@@ -81,6 +81,7 @@ void CEventManager::excute(const event& _event)
 
 		ai->ChangeState(nextState);
 	}
+	break;
 	case EVENT_TYPE::PLAYER_STATE_CHANGE:
 	{
 
@@ -90,6 +91,7 @@ void CEventManager::excute(const event& _event)
 		PLAYER_STATE nextState = (PLAYER_STATE)_event.wParam;
 		ai->ChangeState(nextState);
 	}
+	break;
 	default:
 		break;
 	}

@@ -32,7 +32,7 @@ void CAnimation::Update()
 
 		if (m_frames.size() <= m_currentFrame)
 		{
-			m_currentFrame = -1;
+			m_currentFrame = 0;
 			m_finish = true;
 			m_accTime = 0.f;
 			return;

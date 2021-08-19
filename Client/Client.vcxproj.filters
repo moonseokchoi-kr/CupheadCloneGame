@@ -186,6 +186,48 @@
     <Filter Include="Engine\Object\UI\TextUI">
       <UniqueIdentifier>{2724d327-e8b4-4f29-9fa3-5b591306a388}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Module\AI\State\IntroState">
+      <UniqueIdentifier>{927999c3-6f4f-435f-beb6-a6f84832cb22}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Module\AI\State\AttackState">
+      <UniqueIdentifier>{28cc5202-334c-46c4-afe6-ef5961a0f71b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Module\AI\State\DeathState">
+      <UniqueIdentifier>{3afa52bc-ec10-42d8-b39a-d567538bf3af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Object\Monster\OllieBulb">
+      <UniqueIdentifier>{e7e02f58-a69e-4862-9cb9-49d061bfbc5d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Object\Monster\Chauncey">
+      <UniqueIdentifier>{d616fa21-ddd9-42a8-a7a6-85a6cf084a69}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Object\Monster\Sal Spudder">
+      <UniqueIdentifier>{8e82dfb1-1f2b-46b0-842a-4688bfa718db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Object\Monster\CagneyCarnation">
+      <UniqueIdentifier>{c3505bb6-da28-4d88-9028-bc9473518324}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Module\AI\State\IdleState\Sal Spudder">
+      <UniqueIdentifier>{80396c95-ba69-4a4b-bf9b-23a97f7a2199}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Module\AI\State\IntroState\Sal Spudder">
+      <UniqueIdentifier>{7f2f7793-52aa-4ae2-bf0a-b442cb0947b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Module\AI\State\AttackState\Sal Spudder">
+      <UniqueIdentifier>{aa484264-79d1-41c9-b51e-081a44a0a1ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Module\AI\State\DeathState\Sal Spudder">
+      <UniqueIdentifier>{a6a6c92a-a673-4e46-9252-1866fa35899b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Object\Bullet\Monster\Sal Spudder">
+      <UniqueIdentifier>{63f5feaf-6e4b-4b00-806d-5072bc80f83b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Object\AttackBox\Monster">
+      <UniqueIdentifier>{c18e94c5-a55a-429d-8a53-379ff475eed3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Object\AttackBox\Player">
+      <UniqueIdentifier>{31a5175d-b2d1-454c-b668-c03e25fbc194}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -294,9 +336,6 @@
     <ClInclude Include="CMonster.h">
       <Filter>Engine\Object\Monster</Filter>
     </ClInclude>
-    <ClInclude Include="CIdleState.h">
-      <Filter>Engine\Module\AI\State\IdleState</Filter>
-    </ClInclude>
     <ClInclude Include="CTraceState.h">
       <Filter>Engine\Module\AI\State\TraceState</Filter>
     </ClInclude>
@@ -362,6 +401,39 @@
     </ClInclude>
     <ClInclude Include="CTextUI.h">
       <Filter>Engine\Object\UI\TextUI</Filter>
+    </ClInclude>
+    <ClInclude Include="CChauncey.h">
+      <Filter>Engine\Object\Monster\Chauncey</Filter>
+    </ClInclude>
+    <ClInclude Include="CIntroState.h">
+      <Filter>Engine\Module\AI\State\IntroState</Filter>
+    </ClInclude>
+    <ClInclude Include="CAttackState.h">
+      <Filter>Engine\Module\AI\State\AttackState</Filter>
+    </ClInclude>
+    <ClInclude Include="CDeathState.h">
+      <Filter>Engine\Module\AI\State\DeathState</Filter>
+    </ClInclude>
+    <ClInclude Include="CIdleState.h">
+      <Filter>Engine\Module\AI\State\IdleState</Filter>
+    </ClInclude>
+    <ClInclude Include="CSalAttackState.h">
+      <Filter>Engine\Module\AI\State\AttackState\Sal Spudder</Filter>
+    </ClInclude>
+    <ClInclude Include="CPeaShootBullet.h">
+      <Filter>Engine\Object\Bullet\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="CSalBullet.h">
+      <Filter>Engine\Object\Bullet\Monster\Sal Spudder</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayerAttackBox.h">
+      <Filter>Engine\Object\AttackBox\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="CSalAttackBox.h">
+      <Filter>Engine\Object\AttackBox\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="CSalSpudder.h">
+      <Filter>Engine\Object\Monster\Sal Spudder</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -464,9 +536,6 @@
     <ClCompile Include="CMonster.cpp">
       <Filter>Engine\Object\Monster</Filter>
     </ClCompile>
-    <ClCompile Include="CIdleState.cpp">
-      <Filter>Engine\Module\AI\State\IdleState</Filter>
-    </ClCompile>
     <ClCompile Include="CTraceState.cpp">
       <Filter>Engine\Module\AI\State\TraceState</Filter>
     </ClCompile>
@@ -532,6 +601,39 @@
     </ClCompile>
     <ClCompile Include="CTextUI.cpp">
       <Filter>Engine\Object\UI\TextUI</Filter>
+    </ClCompile>
+    <ClCompile Include="CChauncey.cpp">
+      <Filter>Engine\Object\Monster\Chauncey</Filter>
+    </ClCompile>
+    <ClCompile Include="CIntroState.cpp">
+      <Filter>Engine\Module\AI\State\IntroState</Filter>
+    </ClCompile>
+    <ClCompile Include="CAttackState.cpp">
+      <Filter>Engine\Module\AI\State\AttackState</Filter>
+    </ClCompile>
+    <ClCompile Include="CDeathState.cpp">
+      <Filter>Engine\Module\AI\State\DeathState</Filter>
+    </ClCompile>
+    <ClCompile Include="CIdleState.cpp">
+      <Filter>Engine\Module\AI\State\IdleState</Filter>
+    </ClCompile>
+    <ClCompile Include="CSalAttackState.cpp">
+      <Filter>Engine\Module\AI\State\AttackState\Sal Spudder</Filter>
+    </ClCompile>
+    <ClCompile Include="CPeaShootBullet.cpp">
+      <Filter>Engine\Object\Bullet\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="CSalBullet.cpp">
+      <Filter>Engine\Object\Bullet\Monster\Sal Spudder</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayerAttackBox.cpp">
+      <Filter>Engine\Object\AttackBox\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="CSalAttackBox.cpp">
+      <Filter>Engine\Object\AttackBox\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="CSalSpudder.cpp">
+      <Filter>Engine\Object\Monster\Sal Spudder</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

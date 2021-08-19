@@ -1,8 +1,8 @@
 #include "pch.h"
 #include "CPlayer.h"
 #include "CCollider.h"
-#include "CBullet.h"
-#include "CAttackBox.h"
+#include "CPeaShootBullet.h"
+#include "CPlayerAttackBox.h"
 #include "CSceneManager.h"
 #include "CKeyManager.h"
 #include "CTimeManager.h"
@@ -29,7 +29,7 @@
 CPlayer::CPlayer()
 	: m_weaponMode(1)
 	, m_curState(PLAYER_STATE::IDLE)
-	, m_prevState(PLAYER_STATE::IDLE)
+	, m_prevState(PLAYER_STATE::ATTACK)
 	,m_animateTime(1/15.f)
 	, m_ai(nullptr)
 {
@@ -121,6 +121,7 @@ CPlayer::CPlayer()
 
 CPlayer::~CPlayer()
 {
+	delete m_attackBox;
 }
 
 void CPlayer::Start()
@@ -141,7 +142,7 @@ void CPlayer::Start()
 	if (nullptr != m_attackBox)
 	{
 		m_attackBox->SetPos(Vec2(50.f, -3.f));
-		CBullet* bullet = new CBullet(BULLET_TYPE::PEASHOOT);
+		CBullet* bullet = new CPeaShootBullet;
 		m_attackBox->AddBullet(bullet);
 		m_attackBox->SetCurrentBullet(BULLET_TYPE::PEASHOOT);
 	}
@@ -216,7 +217,7 @@ void CPlayer::SetAi(CPlayerStateMachine* _ai)
 }
 void CPlayer::CreateAttackBox()
 {
-	m_attackBox = new CAttackBox;
+	m_attackBox = new CPlayerAttackBox;
 	m_attackBox->m_owner = this;
 }
 /// <summary>

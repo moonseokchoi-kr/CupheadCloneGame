@@ -147,6 +147,7 @@ enum class EVENT_TYPE
 
 enum class MON_STATE
 {
+	INTRO,		//등장
 	IDLE,		//대기
 	PATROL,		//순찰
 	TRACE,		//추격
@@ -182,8 +183,11 @@ enum class MON_TYPE
 enum class BULLET_TYPE
 {
 	PEASHOOT,
+	PEASHOOT_EX,
 	SPREAD,
+	SPREAD_EX,
 	ROUNDABOUT,
-
+	ROUNDABOUT_EX,
+	SAL_BULLET,
 	END,
 };

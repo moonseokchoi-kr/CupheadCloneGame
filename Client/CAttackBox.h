@@ -11,7 +11,6 @@ class CAttackBox :
 public:
     CAttackBox();
     ~CAttackBox();
-    CLONE(CAttackBox);
 public:
 
     virtual void Update() override;
@@ -19,12 +18,12 @@ public:
     BULLET_TYPE GetCurrentBullet() { return m_current_Bullet; }
     void SetCurrentBullet(BULLET_TYPE _type) { m_current_Bullet = _type; }
     void AddBullet(CBullet* _bullet);
-
+    CObject* GetOwner() { return m_owner; }
+    Vec2 GetFinalPos() { return m_finalPos; }
+    void SetFinalPos(Vec2 _v) { m_finalPos = _v; }
 public:
-    virtual void Fire();
-    void ChangeBullet();
-private:
-    void rotateCreateBulletPos();
+    virtual void Fire() = 0;
+    virtual void ChangeBullet() {};
     CBullet* GetBullet(BULLET_TYPE _type);
 private:
     CObject* m_owner;
@@ -34,6 +33,6 @@ private:
     float m_accTime;
 
     friend class CPlayer;
-    friend class CMonster;
+    friend class CSalSpudder;
 };
 

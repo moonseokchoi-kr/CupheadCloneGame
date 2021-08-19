@@ -41,7 +41,7 @@ void CScene_Start::Enter()
 	// 	player->Start();
 	// 	CreateObject(player, GROUP_TYPE::PLAYER, resolution / 2.f, Vec2(80.f, 40.f));
 
-	CMonster* monster = CMonsterFactory::CreateMonster(MON_TYPE::NORMAL, spawners[0]->GetPos()-Vec2(200.f,0.f));
+	CMonster* monster = CMonsterFactory::CreateMonster(MON_TYPE::SAL, spawners[0]->GetPos()-Vec2(200.f,0.f));
 	
 	CreateObject(monster, GROUP_TYPE::MONSTER);
 
