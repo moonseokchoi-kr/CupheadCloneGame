@@ -62,6 +62,7 @@ void CScene_Start::Enter()
 void CScene_Start::Exit()
 {
 	DeleteAll();
+	CCamera::GetInst()->SetTarget(nullptr);
 }
 
 void CScene_Start::Update()

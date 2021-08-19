@@ -14,6 +14,7 @@ public:
 	void AddState(CPlayerState* _state);
 	CPlayerState* GetState(PLAYER_STATE _state);
 	CPlayerState* GetPrevState() { return m_prevState; };
+	CPlayerState* GetCurrentState() { return m_currentState; }
 	CPlayer* GetOwner() { return m_owner; }
 	void SetCurrentState(PLAYER_STATE _state);
 	void ChangeState(PLAYER_STATE _nextState);

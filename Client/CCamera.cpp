@@ -20,7 +20,6 @@ CCamera::CCamera()
 	, m_cameramove(false)
 	, m_veilTexture(nullptr)
 {
- 
 }
 
 CCamera::~CCamera()
@@ -40,11 +39,6 @@ void CCamera::Update()
 		if (m_targetObject->IsDead())
 		{
 			m_targetObject = nullptr;
-		}
-		else
-		{
-			m_lookAt = m_targetObject->GetPos();
-			m_initLookAt = m_lookAt;
 		}
 	}
 	if (CSceneManager::GetInst()->GetCurrentScene()->GetSceneName() == L"Tool Scene")\
@@ -68,6 +62,10 @@ void CCamera::Update()
 	}
 	
 	vibeCamera();
+
+
+
+	calLookAt();
 
 	CalDiff();
 }
@@ -223,4 +221,72 @@ void CCamera::vibeCamera()
 	if (ef.duration < ef.currentTime)
 		m_camEffects.pop_front();
 
+}
+
+void CCamera::calLookAt()
+{
+	//맵 해상도 
+	//1450.960
+	m_mapResolution = Vec2(1450, 830);
+	//카메라 해상도
+	//1280,720
+	//타겟이 있으면 타겟의 현재위치로 카메라 m_lookAt계산
+	//현재 보는 위치에서 좌상단의 x좌표가 마이너스가 되거나 y좌표가 마이너스가 되면 카메라 이동 x
+
+	if (!m_targetObject)
+		return;
+
+	Vec2 resolution = CCore::GetInst()->GetResolution();
+
+	/// 타겟의 위치정보
+	Vec2 targetPos = m_targetObject->GetPos();
+	Vec2 targetScale = m_targetObject->GetScale();
+	float targetT = targetPos.y - targetScale.y / 2.f;
+	float targetR = targetPos.x + targetScale.x / 2.f;
+	float targetL = targetPos.x - targetScale.x / 2.f;
+	float targetB = targetPos.y + targetScale.y / 2.f;
+
+	/// 카메라의 위치정보
+	float cameraT = m_lookAt.y - resolution.y / 2.f;
+	float cameraR = m_lookAt.x + resolution.x / 2.f;
+	float cameraL = m_lookAt.x - resolution.x / 2.f;
+	float cameraB = m_lookAt.y + resolution.y / 2.f;
+
+
+	//여백공간
+	float leftArea = (m_mapResolution.x - resolution.x);
+	float topArea = (m_mapResolution.y - resolution.y);
+	float rightArea = m_mapResolution.x - leftArea;
+	float bottomArea = m_mapResolution.y - topArea;
+
+	if (targetL <= leftArea)
+	{
+		m_lookAt.x = 0;
+	}
+	else if (targetR >= m_mapResolution.x - rightArea)
+	{
+		m_lookAt.x = m_mapResolution.x - leftArea;
+	}
+	else
+		m_lookAt.x = targetPos.x;
+	if (targetT <= topArea)
+	{
+		m_lookAt.y = 0;
+	}
+	else if (targetB >= m_mapResolution.y - bottomArea)
+	{
+		m_lookAt.y = m_mapResolution.y - topArea;
+	}
+	else
+		m_lookAt.y = targetPos.y;
+
+	if (m_lookAt.x)
+	{
+		m_lookAt.x -= resolution.x / 2.f;
+	}
+	if (m_lookAt.y)
+	{
+		m_lookAt.y -= resolution.y / 2.f;
+	}
+	m_initLookAt = m_lookAt;
 }

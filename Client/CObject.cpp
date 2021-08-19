@@ -119,13 +119,14 @@ void CObject::FinalUpdate()
 
 void CObject::ComponentRender(HDC _dc)
 {
-	if (nullptr != m_collider)
-	{
-		m_collider->Render(_dc);
-	}
 	if (nullptr != m_animator)
 	{
 		m_animator->Render(_dc);
 	}
+	if (nullptr != m_collider)
+	{
+		m_collider->Render(_dc);
+	}
+	
 }
 

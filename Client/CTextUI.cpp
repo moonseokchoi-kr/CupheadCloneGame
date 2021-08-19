@@ -12,7 +12,7 @@ void CTextUI::Update()
 {
 	if (isMouseAttached)
 	{
-		Vec2 pos = CCamera::GetInst()->GetRealPos(MOUSE_POS);
+		Vec2 pos = MOUSE_POS;
 		pos += Vec2(20.f, 20.f);
 		SetPos(pos);
 		pos = GetPos();

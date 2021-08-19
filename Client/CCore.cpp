@@ -95,7 +95,8 @@ void CCore::Progress()
 
  	CSceneManager::GetInst()->Render(m_memTex->GetDC());
 	CCamera::GetInst()->Render(m_memTex->GetDC());
-	BitBlt(m_hDc, 0, 0, m_ptResolution.x, m_ptResolution.y, m_memTex->GetDC(), 0, 0, SRCCOPY);
+	Vec2 lookAt = CCamera::GetInst()->GetLookAt();
+	BitBlt(m_hDc, 0, 0, m_ptResolution.x, m_ptResolution.y, m_memTex->GetDC(), 0,0, SRCCOPY);
 
 	SetWindowText(m_hWnd, CTimeManager::GetInst()->GetTitle());
 
@@ -142,6 +143,7 @@ void CCore::UnDockMenu()
 void CCore::changeWindowSize(Vec2 _resolution, bool _isDock)
 {
 	RECT rt = { 0,0,_resolution.x, _resolution.y };
+	m_ptResolution = { (int)_resolution.x, (int)_resolution.y };
 	//윈도우크기 계산
 	AdjustWindowRect(&rt, WS_OVERLAPPEDWINDOW, _isDock);
 	//윈도우 창위치 설정, 크기설정

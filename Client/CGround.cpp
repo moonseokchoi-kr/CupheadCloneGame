@@ -43,7 +43,8 @@ void CGround::Start()
 		GetAnimator()->CreateAnimation(L"platform_C_anim", tex, Vec2(960, 0), Vec2(160, 93), Vec2(160, 0), 0.15f, 3, false);
 
 		SetScale(Vec2(160, 93));
-		GetCollider()->SetScale(GetScale()-Vec2(15.f,20.f));
+		GetCollider()->SetScale(GetScale()-Vec2(20.f,50.f));
+		GetCollider()->SetOffsetPos(Vec2(0.f, -10.f));
 		m_propeller = new CPropeller;
 		m_propeller->SetParent(this);
 		m_propeller->SetPosOffset(Vec2(5.f, 60.f));
@@ -123,8 +124,6 @@ void CGround::OnCollisionEnter(CCollider* _col)
 	CObject* obj = _col->GetOwner();
 	if (obj->GetName() == L"Player" || obj->GetName() == L"Monster")
 	{
-		
-		Vec2 moveDir = obj->GetMoveDir();
 		Vec2 objColPos = obj->GetCollider()->GetFinalPos();
 		Vec2 objColScale = obj->GetCollider()->GetScale();
 		Vec2 objPos = obj->GetPos();
@@ -136,6 +135,7 @@ void CGround::OnCollisionEnter(CCollider* _col)
 		Vec2 platRB = Vec2(pos.x + scale.x / 2.f, pos.y + scale.y / 2.f);
 		Vec2 objRBPos = Vec2(objColPos.x + objColScale.x / 2.f, objColPos.y + objColScale.y / 2.f);
 		Vec2 objLBPos = Vec2(objColPos.x - objColScale.x / 2.f, objColPos.y + objColScale.y / 2.f);
+		
 		switch (GetType())
 		{
 		case GAMEOBJECT_TYPE::FLOWER_PLATFORM_A:
@@ -163,7 +163,10 @@ void CGround::OnCollisionEnter(CCollider* _col)
 			break;
 		case GAMEOBJECT_TYPE::GROUND:
 		{
-
+			Vec2 moveDir = (obj->GetPos() - obj->GetPrevPos());
+			if (!moveDir.isZero())
+				moveDir.Normalize();
+			
 			//플렝이어의 현재 위치가 플랫폼 좌상단 우상단보다 높을경우
 			if ((int)objRBPos.y <= (int)platLT.y)
 			{
@@ -175,12 +178,12 @@ void CGround::OnCollisionEnter(CCollider* _col)
 			else if (platLT.y < objRBPos.y <= platRB.y)
 			{
 				isHigh = false;
-				if (platRB.x >= objLBPos.x && moveDir.x == -1)
+				if (platRB.x >= objLBPos.x && moveDir.x <0)
 				{
 					isRight = true;
 					isNear = true;
 				}
-				else if (objRBPos.x >= platLT.x && moveDir.x == 1)
+				else if (objRBPos.x >= platLT.x && moveDir.x>0)
 				{
 					isNear = true;
 					isRight = false;
@@ -240,15 +243,19 @@ void CGround::OnCollision(CCollider* _col)
 		break;
 		case GAMEOBJECT_TYPE::GROUND:
 		{
+			Vec2 moveDir = (obj->GetPos() - obj->GetPrevPos());
+			if (!moveDir.isZero())
+				moveDir.Normalize();
+
 			if (isRight&&isNear)
 			{
 				float fDiff = calColliderDiff(objColPos.x, objColScale.x, pos.x, scale.x);
-				objPos.x += (fDiff);
+				objPos.x -=moveDir.x* (fDiff+10);
 			}
 			else if (isNear^isRight)
 			{
 				float fDiff = calColliderDiff(objColPos.x, objColScale.x, pos.x, scale.x);
-				objPos.x -= (fDiff);
+				objPos.x -= moveDir.x*(fDiff+10);
 			}
 			if (isHigh)
 			{

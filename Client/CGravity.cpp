@@ -16,6 +16,6 @@ void CGravity::Finalupdate()
 {
 	if (!m_isGround)
 	{
-		m_owner->GetRigidBody()->SetAddAccel(Vec2(0.f, 500.f));
+		m_owner->GetRigidBody()->SetAddAccel(Vec2(0.f, 1400.f));
 	}
 }

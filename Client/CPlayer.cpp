@@ -148,7 +148,7 @@ void CPlayer::Start()
 	}
 		
 	if (GetRigidBody())
-		GetRigidBody()->SetMaxVelocity(500.f);
+		GetRigidBody()->SetMaxVelocity(400.f);
 }
 
 void CPlayer::Update()
@@ -200,6 +200,10 @@ void CPlayer::OnCollision(CCollider* _col)
 void CPlayer::OnCollisionExit(CCollider* _col)
 {
 	CObject* obj = _col->GetOwner();
+	if (obj->GetName() == L"Platform" && m_ai->GetCurrentState()->GetState() != PLAYER_STATE::JUMP)
+	{
+		ChangePlayerState(m_ai, PLAYER_STATE::JUMP);
+	}
 	if (obj->GetName() == L"Monster")
 	{
 		int a = 0;
@@ -276,6 +280,8 @@ void CPlayer::UpdateMove()
 			{
 				m_info.shootDir = Vec2(-1, 1);
 			}
+
+			rigidBody->SetVelocity(Vec2(moveDir.x * m_info.moveSpeed, rigidBody->GetVelocity().y));
 			rigidBody->AddForce(Vec2(moveDir.x * m_info.moveSpeed, 0.f));
 		}
 		if (KEY_HOLD(KEY::RIGHT))
@@ -289,13 +295,15 @@ void CPlayer::UpdateMove()
 			{
 				m_info.shootDir = Vec2(1, 1);
 			}
+			rigidBody->SetVelocity(Vec2(moveDir.x * m_info.moveSpeed, rigidBody->GetVelocity().y));
 			rigidBody->AddForce(Vec2(moveDir.x * m_info.moveSpeed, 0.f));
 		}
 
 		if (KEY_TAP(KEY::X))
 		{
 			m_isAir = true;
-			GetRigidBody()->SetVelocity(Vec2(GetRigidBody()->GetVelocity().x, -1000.f));
+			GetRigidBody()->SetMaxVelocity(800.f);
+			GetRigidBody()->SetVelocity(Vec2(GetRigidBody()->GetVelocity().x, -800.f));
 		}
 	}
 	

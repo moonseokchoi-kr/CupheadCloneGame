@@ -38,7 +38,7 @@ void CPlayerJumpState::Update()
 	updateSubState();
 	updateAnimation();
 	//다시 Idle로 돌아가는법
-	if (GetPlayer()->GetGravity()->IsGround() && m_accTime>=0.15f)
+	if (GetPlayer()->GetGravity()->IsGround() && m_accTime>=0.05f)
 	{
 		m_accTime = 0.f;
 		ChangePlayerState(GetAI(), PLAYER_STATE::IDLE);

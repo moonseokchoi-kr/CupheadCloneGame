@@ -56,10 +56,11 @@ public:
 		m_minMoveSpeed = moveDist / m_moveTime * 0.5f;
 		m_accTime = 0;
 	}
+	Vec2 GetLookAt() { return m_lookAt; }
 	void SetTarget(CObject* _target) { m_targetObject = _target; }
 	void SetType(CAMERA_TYPE _type) { m_cameraType = _type; }
 	void SetCameraMove(bool _b) { m_cameramove = _b; }
-	Vec2 GetLookAt() { return m_currentLookAt; }
+	Vec2 GetCurrentLookAt() { return m_currentLookAt; }
 	Vec2 GetRenderPos(Vec2 _objPos) { return _objPos - m_difference; }
 	Vec2 GetRealPos(Vec2 _renderPos) { return _renderPos + m_difference; }
 	CTexture* GetRenderTex() { return m_renderTex; }
@@ -77,11 +78,14 @@ private:
 	void smoothCameraMove();
 	void vibeCamera();
 private:
+	void calLookAt();
+private:
 	Vec2 m_lookAt; //카메라가 보는 위치
 	Vec2 m_initLookAt;
 	Vec2 m_prevLookAt; //이전프레임의 보는 위치
 	Vec2 m_currentLookAt; //현재 프레임의 보는 위치
-
+	Vec2 m_mapResolution; //맵크기
+	
 	CObject* m_targetObject; //카메라가 볼 오브젝트
 	Vec2 m_difference; //렌더좌표와 실제좌표 차이
 
