@@ -127,6 +127,7 @@ void CGround::OnCollisionEnter(CCollider* _col)
 		Vec2 objColPos = obj->GetCollider()->GetFinalPos();
 		Vec2 objColScale = obj->GetCollider()->GetScale();
 		Vec2 objPos = obj->GetPos();
+		Vec2 objPrevPos = obj->GetPos();
 		Vec2 pos = GetCollider()->GetFinalPos();
 		Vec2 scale = GetCollider()->GetScale();
 
@@ -135,7 +136,7 @@ void CGround::OnCollisionEnter(CCollider* _col)
 		Vec2 platRB = Vec2(pos.x + scale.x / 2.f, pos.y + scale.y / 2.f);
 		Vec2 objRBPos = Vec2(objColPos.x + objColScale.x / 2.f, objColPos.y + objColScale.y / 2.f);
 		Vec2 objLBPos = Vec2(objColPos.x - objColScale.x / 2.f, objColPos.y + objColScale.y / 2.f);
-		
+		Vec2 objRBPrevPos = Vec2(objPrevPos.x + objColScale.x / 2.f, objPrevPos.y + objColScale.y / 2.f);
 		switch (GetType())
 		{
 		case GAMEOBJECT_TYPE::FLOWER_PLATFORM_A:
@@ -146,7 +147,7 @@ void CGround::OnCollisionEnter(CCollider* _col)
 			//플레이어의 현재 위치가 플랫폼 좌상단과 좌하단의 사이일 경우
 			//플레이어의 현재 위치가 플랫폼 우하단 위치보다 클 경우
 			//플렝이어의 현재 위치가 플랫폼 좌상단 우상단보다 높을경우
-			if ((int)objRBPos.y <= (int)platLT.y)
+			if ((int)objRBPos.y <= (int)platLT.y || platLT.y>=objRBPrevPos.y)
 			{
 				obj->GetGravity()->SetGround(true);
 				isHigh = true;
@@ -196,12 +197,55 @@ void CGround::OnCollisionEnter(CCollider* _col)
 		}
 		
 	}
+	if (obj->GetName() == L"Monster")
+	{
+		Vec2 objColPos = obj->GetCollider()->GetFinalPos();
+		Vec2 objColScale = obj->GetCollider()->GetScale();
+		Vec2 objPos = obj->GetPos();
+		Vec2 pos = GetCollider()->GetFinalPos();
+		Vec2 scale = GetCollider()->GetScale();
+
+		Vec2 platLT = Vec2(pos.x - scale.x / 2.f, pos.y - scale.y / 2.f);
+		Vec2 platLB = Vec2(pos.x - scale.x / 2.f, pos.y + scale.y / 2.f);
+		Vec2 platRB = Vec2(pos.x + scale.x / 2.f, pos.y + scale.y / 2.f);
+		Vec2 objRBPos = Vec2(objColPos.x + objColScale.x / 2.f, objColPos.y + objColScale.y / 2.f);
+		Vec2 objLBPos = Vec2(objColPos.x - objColScale.x / 2.f, objColPos.y + objColScale.y / 2.f);
+		if (GetType() == GAMEOBJECT_TYPE::GROUND)
+		{
+			Vec2 moveDir = (obj->GetPos() - obj->GetPrevPos());
+			if (!moveDir.isZero())
+				moveDir.Normalize();
+
+			//플렝이어의 현재 위치가 플랫폼 좌상단 우상단보다 높을경우
+			if ((int)objRBPos.y <= (int)platLT.y)
+			{
+				obj->GetGravity()->SetGround(true);
+				isHigh = true;
+				isRight = false;
+				isNear = false;
+			}
+			else if (platLT.y < objRBPos.y <= platRB.y)
+			{
+				isHigh = false;
+				if (platRB.x >= objLBPos.x && moveDir.x < 0)
+				{
+					isRight = true;
+					isNear = true;
+				}
+				else if (objRBPos.x >= platLT.x && moveDir.x > 0)
+				{
+					isNear = true;
+					isRight = false;
+				}
+			}
+		}
+	}
 }
 
 void CGround::OnCollision(CCollider* _col)
 {
 	CObject* obj = _col->GetOwner();
-	if (obj->GetName() == L"Player" || obj->GetName() == L"Monster")
+	if (obj->GetName() == L"Player" )
 	{
 		
 		Vec2 moveDir = obj->GetMoveDir();
@@ -270,6 +314,41 @@ void CGround::OnCollision(CCollider* _col)
 		default:
 			break;
 		}
+	}
+	if (obj->GetName() == L"Monster")
+	{
+		if (GetType() == GAMEOBJECT_TYPE::GROUND)
+		{
+			Vec2 objColPos = obj->GetCollider()->GetFinalPos();
+			Vec2 objColScale = obj->GetCollider()->GetScale();
+			Vec2 objPos = obj->GetPos();
+			Vec2 pos = GetCollider()->GetFinalPos();
+			Vec2 scale = GetCollider()->GetScale();
+
+			Vec2 moveDir = (obj->GetPos() - obj->GetPrevPos());
+			if (!moveDir.isZero())
+				moveDir.Normalize();
+
+			if (isRight && isNear)
+			{
+				float fDiff = calColliderDiff(objColPos.x, objColScale.x, pos.x, scale.x);
+				objPos.x -= moveDir.x * (fDiff + 10);
+			}
+			else if (isNear ^ isRight)
+			{
+				float fDiff = calColliderDiff(objColPos.x, objColScale.x, pos.x, scale.x);
+				objPos.x -= moveDir.x * (fDiff + 10);
+			}
+			if (isHigh)
+			{
+				obj->GetGravity()->SetGround(true);
+				float fDiff = calColliderDiff(objColPos.y, objColScale.y, pos.y, scale.y);
+				objPos.y -= (fDiff);
+
+			}
+			obj->SetPos(objPos);
+		}
+		
 	}
 
 }

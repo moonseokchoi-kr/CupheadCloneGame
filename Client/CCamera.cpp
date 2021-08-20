@@ -45,6 +45,7 @@ void CCamera::Update()
 			m_lookAt = m_targetObject->GetPos();
 		}
 	}
+	calLookAt();
 	if (CSceneManager::GetInst()->GetCurrentScene()->GetSceneName() == L"Tool Scene")\
 	{
 		if (KEY_HOLD(KEY::LEFT))
@@ -69,7 +70,7 @@ void CCamera::Update()
 
 
 	
-	calLookAt();
+	
 	CalDiff();
 	
 }
@@ -236,11 +237,14 @@ void CCamera::calLookAt()
 	//타겟이 있으면 타겟의 현재위치로 카메라 m_lookAt계산
 	//현재 보는 위치에서 좌상단의 x좌표가 마이너스가 되거나 y좌표가 마이너스가 되면 카메라 이동 x
 
-	if (!m_targetObject)
-		return;
+
 
 	Vec2 resolution = CCore::GetInst()->GetResolution();
-
+	if (!m_targetObject)
+	{
+		m_lookAt = m_mapResolution / 2.f;
+		return;
+	}
 	/// 타겟의 위치정보
 	Vec2 targetPos = m_targetObject->GetPos();
 	Vec2 targetScale = m_targetObject->GetScale();
@@ -276,15 +280,15 @@ void CCamera::calLookAt()
 	}
 	if (cameraT <= 0)
 	{
-		m_lookAt.y = targetPos.y + targetScale.y - resolution.y / 2.f;
+		m_lookAt.y = targetPos.y + targetScale.y - resolution.y / 2.f+100.f;
 	}
 	else if (cameraB >= m_mapResolution.y)
 	{
-		m_lookAt.y = bottomArea - resolution.y / 2.f;
+		m_lookAt.y = bottomArea - resolution.y / 2.f+ 100.f;
 	}
 	else if (topArea <= targetT && targetB <= bottomArea)
 	{
-		m_lookAt.y = resolution.y / 2.f;
+		m_lookAt.y = resolution.y / 2.f+100.f;
 	}
 	
 	else

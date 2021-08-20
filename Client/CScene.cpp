@@ -31,6 +31,20 @@ CScene::~CScene()
 		}
 	}
 }
+void CScene::Start()
+{
+	for (int i = 0; i < m_arrObj.size(); ++i)
+	{
+		for (int j = 0; j < m_arrObj[i].size(); ++j)
+		{
+			if (!m_arrObj[i][j]->IsDead())
+			{
+				m_arrObj[i][j]->Start();
+			}
+
+		}
+	}
+}
 /// <summary>
 /// 씬안에 있는 오브젝트들의 update를 진행하는 함수
 /// </summary>

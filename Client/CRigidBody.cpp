@@ -22,8 +22,6 @@ void CRigidBody::FinalUpdate()
 	if (!m_force.isZero())
 	{
 		m_accel = m_force / m_mass;
-
-		
 	}
 	m_accel += m_accelAdd;
 

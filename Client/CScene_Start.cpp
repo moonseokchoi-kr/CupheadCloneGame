@@ -36,16 +36,16 @@ void CScene_Start::Enter()
 
 	CScene::LoadMap(L"tile\\test_player.tile");
 	const vector<CObject*>& spawners = GetObjWithType(GROUP_TYPE::SPAWN_OBJ);
-	((CSpawnObject*)spawners[0])->Spawn();
+	CObject* player = ((CSpawnObject*)spawners[0])->Spawn();
 
 	// 	player->Start();
 	// 	CreateObject(player, GROUP_TYPE::PLAYER, resolution / 2.f, Vec2(80.f, 40.f));
 
-	CMonster* monster = CMonsterFactory::CreateMonster(MON_TYPE::SAL, spawners[0]->GetPos()-Vec2(200.f,0.f));
+	CMonster* monster = CMonsterFactory::CreateMonster(MON_TYPE::CHAUNCEY, Vec2(resolution.x/2.f, 350.f));
 	
 	CreateObject(monster, GROUP_TYPE::MONSTER);
 
-
+	
 
 	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::GROUND, GROUP_TYPE::PLAYER);
 	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::GROUND, GROUP_TYPE::MONSTER);
@@ -56,7 +56,7 @@ void CScene_Start::Enter()
 	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::PLAYER_BULLET, GROUP_TYPE::PLATFORM_OBJ);
 
 	//CCamera::GetInst()->SetLookAt(resolution / 2.f);
-	
+	CCamera::GetInst()->SetTarget(player);
 }
 
 void CScene_Start::Exit()
@@ -69,12 +69,6 @@ void CScene_Start::Update()
 {
 
 	CScene::Update();
-	if (!GetObjWithType(GROUP_TYPE::PLAYER).empty())
-	{
-		CObject* player = GetObjWithType(GROUP_TYPE::PLAYER)[0];
-		//카메라 설정
-		CCamera::GetInst()->SetTarget(player);
-	}
 	if (KEY_TAP(KEY::T))
 	{
 		ChangeScene(SCENE_TYPE::TOOL);

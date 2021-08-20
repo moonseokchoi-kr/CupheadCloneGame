@@ -4,6 +4,7 @@
 #include "CCore.h"
 #include "CCarrotMissle.h"
 #include "CBeamMissile.h"
+#include "CMonster.h"
 CCarrotBossAttackBox::CCarrotBossAttackBox()
 
 {
@@ -24,20 +25,29 @@ CCarrotBossAttackBox::~CCarrotBossAttackBox()
 
 void CCarrotBossAttackBox::Update()
 {	
+	CAttackBox::Update();
 	Vec2 resolution = CCore::GetInst()->GetResolution();
 	if (ATTACK_PATT::PATT1 == m_currnetPatt)
 	{
-		SetPos(Vec2(0.f, 200.f));
+		SetPos(Vec2(0.f, -GetOwner()->GetPos().y -100));
+		
 	}
 	else
 	{
-		SetPos(Vec2(0.f, -GetOwner()->GetPos().y - 100.f));
+		SetPos(Vec2(0.f, -200.f));
 	}
-	changeAttack();
+	
 }
 
 void CCarrotBossAttackBox::Fire()
 {
+	if (!((CMonster*)GetOwner())->GetTarget())
+	{
+		return;
+	}
+	random_device rd;
+	mt19937 gen(rd());
+	uniform_int_distribution<int> dis(0, 5);
 	CBullet* bullet = nullptr;
 	CBullet* cloneBullet = nullptr;
 	switch (m_currnetPatt)
@@ -46,21 +56,19 @@ void CCarrotBossAttackBox::Fire()
 	{
 		bullet = new CCarrotMissle;
 		cloneBullet = ((CCarrotMissle*)bullet)->Clone();
+		cloneBullet->SetPos(Vec2(m_missieX[dis(gen)], GetFinalPos().y));
 	}
 		break;
 	case ATTACK_PATT::PATT2:
 	{
 		bullet = new CBeamMissile;
 		cloneBullet = ((CBeamMissile*)bullet)->Clone();
+		cloneBullet->SetPos(GetFinalPos());
 	}
 		break;
 	default:
 		break;
 	}
-	random_device rd;
-	mt19937 gen(rd());
-	uniform_int_distribution<int> dis(0, 5);
-	cloneBullet->SetPos(Vec2(m_missieX[dis(gen)], GetFinalPos().y));
 	cloneBullet->Start();
 	CreateObject(cloneBullet, GROUP_TYPE::MONSTER_BULLET);
 }

@@ -15,11 +15,11 @@
 #include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CBackGround.cpp"
 
 
+#include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CBeamMissile.cpp"
+
+
 #include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CBullet.cpp"
 
 
 #include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CCarrotBossAttackBox.cpp"
-
-
-#include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CCarrotBossAttackState.cpp"
 

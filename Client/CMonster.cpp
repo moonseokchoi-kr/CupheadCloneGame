@@ -29,13 +29,19 @@ CMonster::~CMonster()
 void CMonster::Start()
 {
 	CreateAttackBox();
-	m_target = CSceneManager::GetInst()->GetCurrentScene()->GetTarget(GROUP_TYPE::PLAYER, L"Player");
 }
 
 void CMonster::Update()
 {
-	m_ai->Update();
-	m_attackBox->Update();
+	m_target = CSceneManager::GetInst()->GetCurrentScene()->GetTarget(GROUP_TYPE::PLAYER, L"Player");
+	if (m_ai != nullptr)
+	{
+		m_ai->Update();
+	}
+	if (m_attackBox != nullptr)
+	{
+		m_attackBox->Update();
+	}
 }
 
 void CMonster::FinalUpdate()

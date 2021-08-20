@@ -60,15 +60,16 @@ void CSpawnObject::Render(HDC _dc)
 	);
 }
 
-void CSpawnObject::Spawn()
+CObject* CSpawnObject::Spawn()
 {
 	Vec2 pos = CCamera::GetInst()->GetRenderPos(GetPos());
+	CObject* Obj = nullptr;
 	if (GROUP_TYPE::PLAYER == m_groupType)
 	{
-		CObject* playerObj = new CPlayer;
-		playerObj->SetPos(pos);
-		playerObj->Start();
-		CreateObject(playerObj, m_groupType);
+		Obj = new CPlayer;
+		Obj->SetPos(pos);
+		Obj->Start();
+		CreateObject(Obj, m_groupType);
 	}
 
 
@@ -76,8 +77,9 @@ void CSpawnObject::Spawn()
 	{
 		CMonster* monObj = CMonsterFactory::CreateMonster(m_monType, pos);
 		CreateObject((CObject*)monObj, m_groupType);
+		return (CObject*)monObj;
 	}
-	
+	return Obj;
 }
 
 void CSpawnObject::Save(FILE* _file)

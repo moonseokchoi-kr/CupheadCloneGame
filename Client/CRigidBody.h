@@ -33,6 +33,10 @@ public:
 	}
 	void SetVelocity(Vec2 _v)
 	{
+		if (_v.Distance() > m_maxVelocity)
+		{
+			m_velocity = Vec2(m_maxVelocity/sqrtf(2), m_maxVelocity/sqrtf(2));
+		}
 		m_velocity = _v;
 	}
 

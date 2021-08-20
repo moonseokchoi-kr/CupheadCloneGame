@@ -15,7 +15,7 @@ public:
     virtual void Update();
     virtual void Render(HDC _dc);
 
-    void Spawn();
+    CObject* Spawn();
 public:
     void SetMonType(MON_TYPE _type) { m_monType = _type; }
     void SetGroupType(GROUP_TYPE _type) { m_groupType = _type; }

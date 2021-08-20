@@ -45,7 +45,7 @@ public:
 
 public:
     CAttackBox* GetAttackBox() { return m_attackBox; }
- 
+    CObject* GetTarget() { return m_target; }
     BULLET_TYPE GetType() { return m_bulletType; }
     bulletInfo GetInfo() { return m_info; }
     void SetInfo(bulletInfo _info) { m_info = _info; }

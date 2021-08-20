@@ -43,6 +43,7 @@
 enum class GROUP_TYPE
 {
 	BACK_GROUND,
+	GROUND,
 	GAME_OBJ, //부모그룹 사용하지 않음
 	SPAWN_OBJ,
 	PLATFORM_OBJ,
@@ -50,7 +51,8 @@ enum class GROUP_TYPE
 	PLAYER_BULLET,
 	MONSTER,
 	MONSTER_BULLET,
-	GROUND,
+
+
 	FORE_GROUND,
 	TILE,
 	UI = 31,

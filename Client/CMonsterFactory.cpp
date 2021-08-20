@@ -45,6 +45,7 @@ CMonster* CMonsterFactory::CreateMonster(MON_TYPE _type, Vec2 _pos)
 		info.attackSpeed = 2.f;
 		info.moveSpeed = 100.f;
 		monster->SetInfo(info);
+		monster->Start();
 		FSMAI* ai = new FSMAI;
 		ai->AddState(new CIdleState(L""));
 		ai->AddState(new CIntroState(L""));
@@ -65,6 +66,7 @@ CMonster* CMonsterFactory::CreateMonster(MON_TYPE _type, Vec2 _pos)
 		info.hp = 300.f;
 		info.attackSpeed = 0.15;
 		info.moveSpeed = 100.f;
+		monster->Start();
 		monster->SetInfo(info);
 		FSMAI* ai = new FSMAI;
 		ai->AddState(new CCarrotBossIntroState);
