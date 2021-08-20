@@ -95,8 +95,8 @@ void CCore::Progress()
 
  	CSceneManager::GetInst()->Render(m_memTex->GetDC());
 	CCamera::GetInst()->Render(m_memTex->GetDC());
-	Vec2 lookAt = CCamera::GetInst()->GetLookAt();
-	BitBlt(m_hDc, 0, 0, m_ptResolution.x, m_ptResolution.y, m_memTex->GetDC(), 0,0, SRCCOPY);
+
+	BitBlt(m_hDc, 0, 0, m_ptResolution.x, m_ptResolution.y, m_memTex->GetDC(), 0, 0, SRCCOPY);
 
 	SetWindowText(m_hWnd, CTimeManager::GetInst()->GetTitle());
 

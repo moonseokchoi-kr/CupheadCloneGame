@@ -40,6 +40,10 @@ void CCamera::Update()
 		{
 			m_targetObject = nullptr;
 		}
+		else
+		{
+			m_lookAt = m_targetObject->GetPos();
+		}
 	}
 	if (CSceneManager::GetInst()->GetCurrentScene()->GetSceneName() == L"Tool Scene")\
 	{
@@ -64,10 +68,10 @@ void CCamera::Update()
 	vibeCamera();
 
 
-
+	
 	calLookAt();
-
 	CalDiff();
+	
 }
 
 void CCamera::Render(HDC _dc)
@@ -149,7 +153,6 @@ void CCamera::CalDiff()
 		m_moveSpeed = 0;
 		smoothCameraMove();
 	}
-
 	m_difference = m_currentLookAt - center;
 
 	m_prevLookAt = m_currentLookAt;
@@ -247,46 +250,44 @@ void CCamera::calLookAt()
 	float targetB = targetPos.y + targetScale.y / 2.f;
 
 	/// 카메라의 위치정보
-	float cameraT = m_lookAt.y - resolution.y / 2.f;
 	float cameraR = m_lookAt.x + resolution.x / 2.f;
 	float cameraL = m_lookAt.x - resolution.x / 2.f;
+	float cameraT = m_lookAt.y - resolution.y / 2.f;
 	float cameraB = m_lookAt.y + resolution.y / 2.f;
 
 
 	//여백공간
-	float leftArea = (m_mapResolution.x - resolution.x);
-	float topArea = (m_mapResolution.y - resolution.y);
+	float leftArea = (m_mapResolution.x - resolution.x) / 2.f;
+	float topArea = (m_mapResolution.y - resolution.y) / 2.f;
 	float rightArea = m_mapResolution.x - leftArea;
 	float bottomArea = m_mapResolution.y - topArea;
 
-	if (targetL <= leftArea)
+	if (cameraL<= 0)
 	{
-		m_lookAt.x = 0;
+		m_lookAt.x = resolution.x/2.f;
 	}
-	else if (targetR >= m_mapResolution.x - rightArea)
+	else if (cameraR >= m_mapResolution.x)
 	{
-		m_lookAt.x = m_mapResolution.x - leftArea;
+		m_lookAt.x = m_mapResolution.x - resolution.x / 2.f;
 	}
-	else
+	else if (leftArea <= targetL && targetR <= rightArea)
+	{
 		m_lookAt.x = targetPos.x;
-	if (targetT <= topArea)
-	{
-		m_lookAt.y = 0;
 	}
-	else if (targetB >= m_mapResolution.y - bottomArea)
+	if (cameraT <= 0)
 	{
-		m_lookAt.y = m_mapResolution.y - topArea;
+		m_lookAt.y = targetPos.y + targetScale.y - resolution.y / 2.f;
 	}
+	else if (cameraB >= m_mapResolution.y)
+	{
+		m_lookAt.y = bottomArea - resolution.y / 2.f;
+	}
+	else if (topArea <= targetT && targetB <= bottomArea)
+	{
+		m_lookAt.y = resolution.y / 2.f;
+	}
+	
 	else
-		m_lookAt.y = targetPos.y;
-
-	if (m_lookAt.x)
-	{
-		m_lookAt.x -= resolution.x / 2.f;
-	}
-	if (m_lookAt.y)
-	{
-		m_lookAt.y -= resolution.y / 2.f;
-	}
+		m_lookAt.y= targetPos.y;
 	m_initLookAt = m_lookAt;
 }
