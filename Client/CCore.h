@@ -30,7 +30,8 @@ public:
 	Vec2 GetResolution(){return Vec2((float)m_ptResolution.x, (float)m_ptResolution.y);	}
 	HBRUSH GetBrush(BRUSH_TYPE _brushType) { return m_brushs[(UINT)_brushType]; }
 	HPEN GetPen(PEN_TYPE _penType) { return m_pens[(UINT)_penType]; }
-
+	bool IsDebug() { return m_isDebug; }
+	void SetDebug(bool _b) { m_isDebug = _b; }
 public:
 	void DockMenu();
 	void DockMenu(Vec2 _resolution);
@@ -53,6 +54,8 @@ private:
 	
 	CTexture* m_memTex;
 	HMENU	m_menu;
+	
+	bool m_isDebug;
 	
 
 };

@@ -93,6 +93,8 @@ void CColliderManager::collisionGroupUpdate(GROUP_TYPE _left, GROUP_TYPE _right)
 
 			CCollider* leftCol = vecLeft[i]->GetCollider();
 			CCollider* rightCol = vecRight[j]->GetCollider();
+			if (!leftCol->CanCollide() || !rightCol->CanCollide())
+				return;
 
 			COLLIDER_ID ID;
 	
@@ -107,7 +109,7 @@ void CColliderManager::collisionGroupUpdate(GROUP_TYPE _left, GROUP_TYPE _right)
 				m_mapCollInfo.insert(make_pair(ID.id, false));
 				iter = m_mapCollInfo.find(ID.id);
 			}
-
+			
 
 			if (isCollision(leftCol, rightCol))
 			{

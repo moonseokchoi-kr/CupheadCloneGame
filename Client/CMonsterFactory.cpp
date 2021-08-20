@@ -5,6 +5,9 @@
 #include "CIdleState.h"
 #include "CIntroState.h"
 #include "CSalAttackState.h"
+#include "CCarrotBossIntroState.h"
+#include "CCarrotBossAttackState.h"
+#include "CChauncey.h"
 CMonster* CMonsterFactory::CreateMonster(MON_TYPE _type, Vec2 _pos)
 {
 	CMonster* monster = nullptr;
@@ -50,6 +53,26 @@ CMonster* CMonsterFactory::CreateMonster(MON_TYPE _type, Vec2 _pos)
 		monster->SetAi(ai);
 	}
 		break;
+
+	case MON_TYPE::CHAUNCEY:
+	{
+		monster = new CChauncey;
+		monster->SetPos(_pos);
+		monsterInfo info = {};
+		info.attackDamege = 1;
+		info.attackRange = 0;
+		info.eyesightRange = 0;
+		info.hp = 300.f;
+		info.attackSpeed = 0.15;
+		info.moveSpeed = 100.f;
+		monster->SetInfo(info);
+		FSMAI* ai = new FSMAI;
+		ai->AddState(new CCarrotBossIntroState);
+		ai->AddState(new CCarrotBossAttackState);
+		ai->SetCurrentState(MON_STATE::INTRO);
+		monster->SetAi(ai);
+	}
+	break;
 	case MON_TYPE::RANGE:
 		break;
 	default:

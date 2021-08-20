@@ -98,7 +98,7 @@ void CScene_Tool::Enter()
 {
 	Vec2 resolution = Vec2(1600, 960);
 	CCore::GetInst()->DockMenu(resolution);
-	
+	CCore::GetInst()->SetDebug(true);
 
 	/*CreateTile(5, 5);*/
 

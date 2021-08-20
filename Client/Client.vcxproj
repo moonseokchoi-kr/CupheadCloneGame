@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -163,7 +163,12 @@
     <ClInclude Include="CAttackBox.h" />
     <ClInclude Include="CAttackState.h" />
     <ClInclude Include="CBackGround.h" />
+    <ClInclude Include="CBeamMissile.h" />
     <ClInclude Include="CBullet.h" />
+    <ClInclude Include="CCarrotBossAttackBox.h" />
+    <ClInclude Include="CCarrotBossAttackState.h" />
+    <ClInclude Include="CCarrotBossIntroState.h" />
+    <ClInclude Include="CCarrotMissle.h" />
     <ClInclude Include="CChauncey.h" />
     <ClInclude Include="CDeathState.h" />
     <ClInclude Include="CForeGround.h" />
@@ -234,7 +239,12 @@
     <ClCompile Include="CAttackBox.cpp" />
     <ClCompile Include="CAttackState.cpp" />
     <ClCompile Include="CBackGround.cpp" />
+    <ClCompile Include="CBeamMissile.cpp" />
     <ClCompile Include="CBullet.cpp" />
+    <ClCompile Include="CCarrotBossAttackBox.cpp" />
+    <ClCompile Include="CCarrotBossAttackState.cpp" />
+    <ClCompile Include="CCarrotBossIntroState.cpp" />
+    <ClCompile Include="CCarrotMissle.cpp" />
     <ClCompile Include="CChauncey.cpp" />
     <ClCompile Include="CDeathState.cpp" />
     <ClCompile Include="CForeGround.cpp" />

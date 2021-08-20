@@ -10,7 +10,7 @@ class CAttackBox :
 {
 public:
     CAttackBox();
-    ~CAttackBox();
+    virtual ~CAttackBox();
 public:
 
     virtual void Update() override;
@@ -34,5 +34,6 @@ private:
 
     friend class CPlayer;
     friend class CSalSpudder;
+    friend class CChauncey;
 };
 

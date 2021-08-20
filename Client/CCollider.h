@@ -27,7 +27,8 @@ public:
 public:
 	void SetOffsetPos(Vec2 offset) { m_offset = offset; }
 	void SetScale(Vec2 scale) { m_scale = scale; }
-
+	bool CanCollide() { return m_avaliableCollide; }
+	void SetAvaCollide(bool _b) { m_avaliableCollide = _b; }
 	Vec2 GetFinalPos() { return m_finalPos; }
 	Vec2 GetOffsetPos() { return m_offset; }
 	Vec2 GetScale() { return m_scale; }
@@ -51,7 +52,7 @@ private:
 	//현재 충돌중인 콜라이더 수
 	int m_col;
 
-
+	bool m_avaliableCollide;
 	CObject* m_owner;
 	Vec2 m_offset;
 	Vec2 m_finalPos;

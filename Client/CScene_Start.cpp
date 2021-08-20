@@ -79,6 +79,10 @@ void CScene_Start::Update()
 	{
 		ChangeScene(SCENE_TYPE::TOOL);
 	}
+	if (KEY_TAP(KEY::Y))
+	{
+		CCore::GetInst()->SetDebug(true);
+	}
 }
 
 void CScene_Start::Render(HDC _dc)

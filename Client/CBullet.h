@@ -6,7 +6,7 @@ struct bulletInfo
     float damege;
     float range;
     float bulletSpeed;
-    
+    int   health;
 };
 
 enum class BULLET_STATE
@@ -33,7 +33,7 @@ class CBullet :
 {
 public:
     CBullet(BULLET_TYPE _type);
-    ~CBullet();
+    virtual ~CBullet();
 public:
     // CObject을(를) 통해 상속됨
     virtual void Start() override;
@@ -54,6 +54,7 @@ public:
     Vec2 GetInitPos() { return m_initPos; }
     Vec2 GetMoveDir() { return m_moveDir; }
     void SetMoveDir(Vec2 _v) { m_moveDir = _v; }
+    void SetTarget(CObject* _target) { m_target = _target; }
 protected:
     void DeleteBullet();
 private:
@@ -65,7 +66,7 @@ private:
     CObject* m_deathFx;
     Vec2 m_moveDir;
     BULLET_TYPE m_bulletType;
-
+    CObject* m_target;
     friend class CAttackBox;
     friend class CMonster;
 };

@@ -27,7 +27,7 @@ class CMonster :
 {
 public:
     CMonster();
-    ~CMonster();
+    virtual ~CMonster();
 public:
     // CObject을(를) 통해 상속됨
     virtual void Start() override;
@@ -43,14 +43,12 @@ public:
     void SetInfo(monsterInfo _info) { m_info = _info; }
     void SetAi(FSMAI* _ai);
     CAttackBox* GetAttackBox() { return m_attackBox; }
-    void SetTarget(CObject* _target) { m_target = _target; }
     CObject* GetTarget() { return m_target; }
 protected:
     CAttackBox* m_attackBox;
 private:
-    CObject* m_target;
     monsterInfo m_info;
     FSMAI* m_ai;
-
+    CObject* m_target;
 };
 

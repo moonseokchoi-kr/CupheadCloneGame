@@ -50,7 +50,7 @@ void CPlayerAttackBox::Fire()
 			return;
 		if (nullptr == bullet)
 			return;
-		CPeaShootBullet* cloneBullet = ((CPeaShootBullet*)bullet)->Clone();
+		CBullet* cloneBullet = ((CPeaShootBullet*)bullet)->Clone();
 		cloneBullet->SetPos(finalPos);
 		cloneBullet->SetMoveDir(pInfo.shootDir);
 		cloneBullet->Start();

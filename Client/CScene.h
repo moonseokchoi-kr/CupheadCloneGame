@@ -64,6 +64,7 @@ public:
 	void DeleteAll();
 	void DeleteGroup(GROUP_TYPE _target);
 	void LoadMap(const wstring& _relativePath);
+	CObject* GetTarget(GROUP_TYPE _group, const wstring& _objName);
 private:
 	void render_tile(HDC _dc);
 	void offset_change();

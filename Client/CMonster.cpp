@@ -3,7 +3,8 @@
 #include "CCollider.h"
 #include "CAttackBox.h"
 #include "FSMAI.h"
-
+#include "CSceneManager.h"
+#include "CScene.h"
 CMonster::CMonster()
 	:m_info{}
 	,m_ai(nullptr)
@@ -14,17 +15,21 @@ CMonster::CMonster()
 	SetName(L"Monster");
 	SetScale(Vec2(40.f, 40.f));
 	GetCollider()->SetScale(Vec2(100.f, 100.f));
+
 }
 
 CMonster::~CMonster()
 {
 	if (nullptr != m_ai)
 		delete m_ai;
+	if (nullptr != m_attackBox)
+		delete m_attackBox;
 }
 
 void CMonster::Start()
 {
 	CreateAttackBox();
+	m_target = CSceneManager::GetInst()->GetCurrentScene()->GetTarget(GROUP_TYPE::PLAYER, L"Player");
 }
 
 void CMonster::Update()

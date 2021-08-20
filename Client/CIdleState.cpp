@@ -31,10 +31,14 @@ void CIdleState::Exit()
 
 void CIdleState::Update()
 {
+	
+	if (GetMonster()->GetTarget())
+		return;
 	m_accTime += fDT;
-
 	if (m_accTime >= GetMonster()->GetInfo().attackSpeed)
 	{
 		ChangeAIState(GetAI(), MON_STATE::ATTACK);
 	}
+	
+	
 }

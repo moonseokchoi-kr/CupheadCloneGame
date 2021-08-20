@@ -188,6 +188,16 @@ void CScene::LoadMap(const wstring& _relativePath)
 	fclose(file);
 }
 
+CObject* CScene::GetTarget(GROUP_TYPE _group, const wstring& _objName)
+{
+	for (CObject* _obj : m_arrObj[TYPE_NUMBER(_group)])
+	{
+		if (_obj->GetName() == _objName)
+			return _obj;
+	}
+	return nullptr;
+}
+
 void CScene::render_tile(HDC _dc)
 {
 	const vector<CObject*>& tiles = GetObjWithType(GROUP_TYPE::TILE);

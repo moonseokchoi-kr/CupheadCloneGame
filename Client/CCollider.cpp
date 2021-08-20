@@ -3,12 +3,14 @@
 #include "CObject.h"
 #include "SelectGDI.h"
 #include "CCamera.h"
+#include "CCore.h"
 UINT CCollider::g_nextId = 0;
 
 CCollider::CCollider()
 	:m_owner(nullptr)
-	,m_id(g_nextId++)
-	,m_col(0)
+	, m_id(g_nextId++)
+	, m_col(0)
+	, m_avaliableCollide(true)
 {
 }
 
@@ -18,6 +20,7 @@ CCollider::CCollider(const CCollider& _origin)
 	,m_col(0)
 	,m_offset(_origin.m_offset)
 	,m_scale(_origin.m_scale)
+	,m_avaliableCollide(_origin.m_avaliableCollide)
 {
 }
 
@@ -36,6 +39,8 @@ void CCollider::FinalUpdate()
 
 void CCollider::Render(HDC _dc)
 {
+	if (!CCore::GetInst()->IsDebug())
+		return;
 	PEN_TYPE pen = PEN_TYPE::GREEN;
 
 	if (m_col)

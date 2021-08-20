@@ -5,7 +5,7 @@ class CIntroState :
 {
 public:
     CIntroState(wstring _anim);
-    ~CIntroState();
+    virtual ~CIntroState();
 public:
     // CState을(를) 통해 상속됨
     virtual void Enter() override;

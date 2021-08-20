@@ -119,6 +119,9 @@ enum class BRUSH_TYPE
 {
 	HOLLOW,
 	BLACK,
+	RED,
+	BLUE,
+	GREEN,
 	END,
 };
 
@@ -189,5 +192,17 @@ enum class BULLET_TYPE
 	ROUNDABOUT,
 	ROUNDABOUT_EX,
 	SAL_BULLET,
+	CARROT_MISSILE,
+	BEAM_BULLET,
+	TEAR,BULLET,
+	END,
+};
+
+enum class ATTACK_PATT
+{
+	PATT1,
+	PATT2,
+	PATT3,
+	PATT4,
 	END,
 };

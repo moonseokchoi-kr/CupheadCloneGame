@@ -5,6 +5,6 @@ class CAttackState :
 {
 public:
     CAttackState();
-    ~CAttackState();
+    virtual ~CAttackState();
 };
 

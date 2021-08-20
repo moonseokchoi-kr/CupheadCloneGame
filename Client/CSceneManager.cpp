@@ -30,7 +30,7 @@ void CSceneManager::Init()
 	m_arrScene[TYPE_NUMBER(SCENE_TYPE::TOOL)] = new CScene_Tool;
 	m_arrScene[TYPE_NUMBER(SCENE_TYPE::TOOL)]->SetSceneName(L"Tool Scene");
 
-	m_currentScene = m_arrScene[TYPE_NUMBER(SCENE_TYPE::TOOL)];
+	m_currentScene = m_arrScene[TYPE_NUMBER(SCENE_TYPE::START)];
 	m_currentScene->Enter();
 }
 

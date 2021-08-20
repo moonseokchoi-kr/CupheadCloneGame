@@ -21,6 +21,9 @@ public:
     ~CChauncey();
     CLONE(CChauncey);
 public:
-
+    virtual void Update();
+    virtual void Render(HDC _dc);
+public:
+    void CreateAttackBox();
 };
 

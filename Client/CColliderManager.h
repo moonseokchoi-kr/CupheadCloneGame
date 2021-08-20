@@ -47,5 +47,7 @@ private:
 	unordered_map<ULONGLONG, bool> m_mapCollInfo;
 	//그룹간의 충돌을 체크
 	array<UINT, TYPE_NUMBER(GROUP_TYPE::END)> m_collCheckArray;
+
+	
 };
 
