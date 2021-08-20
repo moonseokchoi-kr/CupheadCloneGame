@@ -188,6 +188,10 @@
     <ClInclude Include="Client.h" />
     <ClInclude Include="CMonster.h" />
     <ClInclude Include="CMonsterFactory.h" />
+    <ClInclude Include="COllieBullb.h" />
+    <ClInclude Include="COnionBossAttackBox.h" />
+    <ClInclude Include="COnionBossAttackState.h" />
+    <ClInclude Include="COnionBossIdleState.h" />
     <ClInclude Include="CPanelUI.h" />
     <ClInclude Include="CPlayerAttackBox.h" />
     <ClInclude Include="CPlayerAttackState.h" />
@@ -214,6 +218,7 @@
     <ClInclude Include="CScene_Tool.h" />
     <ClInclude Include="CSpawnObject.h" />
     <ClInclude Include="CState.h" />
+    <ClInclude Include="CTearBullet.h" />
     <ClInclude Include="CTextUI.h" />
     <ClInclude Include="CTexture.h" />
     <ClInclude Include="CTile.h" />
@@ -263,6 +268,10 @@
     <ClCompile Include="CKeyManager.cpp" />
     <ClCompile Include="CMonster.cpp" />
     <ClCompile Include="CMonsterFactory.cpp" />
+    <ClCompile Include="COllieBullb.cpp" />
+    <ClCompile Include="COnionBossAttackBox.cpp" />
+    <ClCompile Include="COnionBossAttackState.cpp" />
+    <ClCompile Include="COnionBossIdleState.cpp" />
     <ClCompile Include="CPanelUI.cpp" />
     <ClCompile Include="CPlayerAttackBox.cpp" />
     <ClCompile Include="CPlayerAttackState.cpp" />
@@ -281,6 +290,7 @@
     <ClCompile Include="CScene_Tool.cpp" />
     <ClCompile Include="CSpawnObject.cpp" />
     <ClCompile Include="CState.cpp" />
+    <ClCompile Include="CTearBullet.cpp" />
     <ClCompile Include="CTextUI.cpp" />
     <ClCompile Include="CTile.cpp" />
     <ClCompile Include="CTileButtonUI.cpp" />

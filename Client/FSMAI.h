@@ -23,6 +23,7 @@ public:
 	void AddState(CState* _state);
 	CState* GetState(MON_STATE _state);
 	CMonster* GetOwner() { return m_owner; }
+	CState* GetCurrentState() { return m_currentState; }
 	void SetCurrentState(MON_STATE _state);
 	void ChangeState(MON_STATE _nextState);
 private:

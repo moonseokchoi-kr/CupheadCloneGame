@@ -41,6 +41,7 @@ public:
     
     monsterInfo GetInfo() { return m_info; }
     void SetInfo(monsterInfo _info) { m_info = _info; }
+    FSMAI* GetAi() { return m_ai; }
     void SetAi(FSMAI* _ai);
     CAttackBox* GetAttackBox() { return m_attackBox; }
     CObject* GetTarget() { return m_target; }

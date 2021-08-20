@@ -53,6 +53,7 @@ void CPlayerAttackBox::Fire()
 		CBullet* cloneBullet = ((CPeaShootBullet*)bullet)->Clone();
 		cloneBullet->SetPos(finalPos);
 		cloneBullet->SetMoveDir(pInfo.shootDir);
+		cloneBullet->SetName(L"Player_bullet");
 		cloneBullet->Start();
 		CreateObject(cloneBullet, GROUP_TYPE::PLAYER_BULLET);
 		m_accTime = 0.0f;

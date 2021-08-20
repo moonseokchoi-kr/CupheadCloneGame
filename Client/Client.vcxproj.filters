@@ -237,6 +237,15 @@
     <Filter Include="Engine\Object\Bullet\Monster\Chauncey">
       <UniqueIdentifier>{31bbf3e2-5551-4cbd-9b68-7b828b49b97b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Object\Bullet\Monster\Olle">
+      <UniqueIdentifier>{6ece5d8c-bd0f-4ecb-abda-54e93fdce421}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Module\AI\State\AttackState\Ollie">
+      <UniqueIdentifier>{fad54916-a9b3-4998-aea7-2efa0ad4e390}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Module\AI\State\IdleState\Ollie">
+      <UniqueIdentifier>{6026bba6-1eae-4e7a-9425-15669c5b7907}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -459,6 +468,21 @@
     <ClInclude Include="CBeamMissile.h">
       <Filter>Engine\Object\Bullet\Monster\Chauncey</Filter>
     </ClInclude>
+    <ClInclude Include="COllieBullb.h">
+      <Filter>Engine\Object\Monster\OllieBulb</Filter>
+    </ClInclude>
+    <ClInclude Include="COnionBossAttackBox.h">
+      <Filter>Engine\Object\AttackBox\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="CTearBullet.h">
+      <Filter>Engine\Object\Bullet\Monster\Olle</Filter>
+    </ClInclude>
+    <ClInclude Include="COnionBossAttackState.h">
+      <Filter>Engine\Module\AI\State\AttackState\Ollie</Filter>
+    </ClInclude>
+    <ClInclude Include="COnionBossIdleState.h">
+      <Filter>Engine\Module\AI\State\IdleState\Ollie</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -673,6 +697,21 @@
     </ClCompile>
     <ClCompile Include="CBeamMissile.cpp">
       <Filter>Engine\Object\Bullet\Monster\Chauncey</Filter>
+    </ClCompile>
+    <ClCompile Include="COllieBullb.cpp">
+      <Filter>Engine\Object\Monster\OllieBulb</Filter>
+    </ClCompile>
+    <ClCompile Include="COnionBossAttackBox.cpp">
+      <Filter>Engine\Object\AttackBox\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="CTearBullet.cpp">
+      <Filter>Engine\Object\Bullet\Monster\Olle</Filter>
+    </ClCompile>
+    <ClCompile Include="COnionBossAttackState.cpp">
+      <Filter>Engine\Module\AI\State\AttackState\Ollie</Filter>
+    </ClCompile>
+    <ClCompile Include="COnionBossIdleState.cpp">
+      <Filter>Engine\Module\AI\State\IdleState\Ollie</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

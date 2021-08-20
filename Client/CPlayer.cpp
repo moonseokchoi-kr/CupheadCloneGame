@@ -258,7 +258,6 @@ void CPlayer::UpdateMove()
 		if (KEY_AWAY(KEY::LEFT) || KEY_AWAY(KEY::RIGHT))
 		{
 			rigidBody->SetVelocity(Vec2(0.f, rigidBody->GetVelocity().y));
-			SetMoveDir(0, 0);
 		}
 
 		if (KEY_HOLD(KEY::UP))

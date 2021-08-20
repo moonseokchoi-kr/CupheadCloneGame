@@ -280,7 +280,7 @@ void CCamera::calLookAt()
 	}
 	if (cameraT <= 0)
 	{
-		m_lookAt.y = targetPos.y + targetScale.y - resolution.y / 2.f+100.f;
+		m_lookAt.y = targetPos.y + targetScale.y - resolution.y / +100.f;
 	}
 	else if (cameraB >= m_mapResolution.y)
 	{

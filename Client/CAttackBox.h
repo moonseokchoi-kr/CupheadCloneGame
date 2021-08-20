@@ -35,5 +35,6 @@ private:
     friend class CPlayer;
     friend class CSalSpudder;
     friend class CChauncey;
+    friend class COllieBullb;
 };
 

@@ -195,10 +195,6 @@ void CScene::LoadMap(const wstring& _relativePath)
 			AddObject(gameObj, GROUP_TYPE::FORE_GROUND);
 		}
 	}
-		
-	
-
-
 	fclose(file);
 }
 

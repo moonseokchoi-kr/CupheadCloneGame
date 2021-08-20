@@ -8,6 +8,7 @@
 CPeaShootBullet::CPeaShootBullet()
 	:CBullet(BULLET_TYPE::PEASHOOT)
 {
+	SetName(L"Player_bullet");
 	bulletInfo info = {};
 	info.bulletSpeed = 300.f;
 	info.damege = 5.f;
