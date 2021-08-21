@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "CMonster.h"
 #include "CCollider.h"
+#include "CRigidBody.h"
 #include "CAttackBox.h"
 #include "FSMAI.h"
 #include "CSceneManager.h"
@@ -57,6 +58,31 @@ void CMonster::Render(HDC _dc)
 }
 
 void CMonster::OnCollisionEnter(CCollider* _col)
+{
+	CObject* obj = _col->GetOwner();
+	Vec2 moveDir = _col->GetOwner()->GetMoveDir();
+	if (obj->GetName() == L"Player")
+	{
+		obj->GetRigidBody()->SetVelocity(Vec2(0, 0));
+		obj->GetRigidBody()->AddVelocity(-moveDir * 300.f);
+
+	}
+}
+
+void CMonster::OnCollision(CCollider* _col)
+{
+	CObject* obj = _col->GetOwner();
+	Vec2 moveDir = _col->GetOwner()->GetMoveDir();
+	if (obj->GetName() == L"Player")
+	{
+		obj->GetRigidBody()->SetVelocity(Vec2(0, 0));
+		obj->GetRigidBody()->AddVelocity(-moveDir * 300.f);
+
+	}
+}
+
+
+void CMonster::OnCollisionExit(CCollider* _col)
 {
 }
 

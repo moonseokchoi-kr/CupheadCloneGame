@@ -43,7 +43,7 @@ void CBullet::Render(HDC _dc)
 void CBullet::OnCollisionEnter(CCollider* _col)
 {
 	CObject* owner = _col->GetOwner();
-	if (owner->GetName() == L"Monster" || owner->GetName() == L"Ground")
+	if (owner->GetName() == L"Monster" || owner->GetName() == L"Ground" )
 	{
 		int a = 0;
 		DeleteObject(this);

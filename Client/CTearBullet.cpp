@@ -36,6 +36,14 @@ void CTearBullet::Update()
 	DeleteBullet();
 }
 
+void CTearBullet::OnCollisionEnter(CCollider* _col)
+{
+	if (_col->GetOwner()->GetName() == L"Player" || _col->GetOwner()->GetName() == L"Ground")
+	{
+		DeleteObject(this);
+	}
+}
+
 bool CTearBullet::randomPercent()
 {
 	random_device rd;

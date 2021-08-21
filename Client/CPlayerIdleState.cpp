@@ -112,7 +112,7 @@ void CPlayerIdleState::updateAnimation()
 	{
 	case PLAYER_STATE::IDLE:
 	{
-		if (-1 == owner->GetMoveDir().x)
+		if (0> owner->GetMoveDir().x)
 			owner->GetAnimator()->Play(L"PLAYER_IDLE_LEFT", true);
 		else
 			owner->GetAnimator()->Play(L"PLAYER_IDLE_RIGHT", true);
@@ -120,7 +120,7 @@ void CPlayerIdleState::updateAnimation()
 		break;
 	case PLAYER_STATE::TURN:
 	{
-		if (-1 == info.prevMoveDir.x)
+		if (0 > info.prevMoveDir.x)
 			owner->GetAnimator()->Play(L"PLAYER_RUN_TURN_LEFT", true);
 		else
 			owner->GetAnimator()->Play(L"PLAYER_RUN_TURN_RIGHT", true);
@@ -129,7 +129,7 @@ void CPlayerIdleState::updateAnimation()
 	case PLAYER_STATE::RUN:
 	{
 
-		if (-1 == owner->GetMoveDir().x)
+		if (0 > owner->GetMoveDir().x)
 			owner->GetAnimator()->Play(L"PLAYER_NORMAL_RUN_LEFT", true);
 		else
 			owner->GetAnimator()->Play(L"PLAYER_NORMAL_RUN_RIGHT", true);
@@ -138,7 +138,7 @@ void CPlayerIdleState::updateAnimation()
 	break;
 	case PLAYER_STATE::DASH:
 	{
-		if (-1 == owner->GetMoveDir().x)
+		if (0 > owner->GetMoveDir().x)
 			owner->GetAnimator()->Play(L"PLAYER_DASH_GROUND_LEFT", true);
 		else
 			owner->GetAnimator()->Play(L"PLAYER_DASH_GROUND_RIGHT", true);

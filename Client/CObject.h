@@ -84,15 +84,16 @@ public:
 	virtual void MouseLButtonClicked(){}
 
 protected:
-	void calMoveDir() 
-	{ 
+	void calMoveDir()
+	{
 		if (m_objPos == m_objPrevPos)
 			return;
-		m_moveDir = m_objPos - m_objPrevPos; 
-		m_moveDir.Normalize(); 
+		m_moveDir = m_objPos - m_objPrevPos;
+		m_moveDir.Normalize();
 	}
 private:
 	void SetDead() { m_dead = true; }
+
 private:
 	Vec2 m_objPos;			//물체의 위치
 	Vec2 m_objPrevPos;		//물체의 이전 위치

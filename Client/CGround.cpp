@@ -164,7 +164,7 @@ void CGround::OnCollisionEnter(CCollider* _col)
 			break;
 		case GAMEOBJECT_TYPE::GROUND:
 		{
-			Vec2 moveDir = (obj->GetPos() - obj->GetPrevPos());
+			Vec2 moveDir = obj->GetMoveDir();
 			if (!moveDir.isZero())
 				moveDir.Normalize();
 			
@@ -212,9 +212,7 @@ void CGround::OnCollisionEnter(CCollider* _col)
 		Vec2 objLBPos = Vec2(objColPos.x - objColScale.x / 2.f, objColPos.y + objColScale.y / 2.f);
 		if (GetType() == GAMEOBJECT_TYPE::GROUND)
 		{
-			Vec2 moveDir = (obj->GetPos() - obj->GetPrevPos());
-			if (!moveDir.isZero())
-				moveDir.Normalize();
+			Vec2 moveDir = obj->GetMoveDir();
 
 			//플렝이어의 현재 위치가 플랫폼 좌상단 우상단보다 높을경우
 			if ((int)objRBPos.y <= (int)platLT.y)
@@ -287,9 +285,7 @@ void CGround::OnCollision(CCollider* _col)
 		break;
 		case GAMEOBJECT_TYPE::GROUND:
 		{
-			Vec2 moveDir = (obj->GetPos() - obj->GetPrevPos());
-			if (!moveDir.isZero())
-				moveDir.Normalize();
+			Vec2 moveDir = obj->GetMoveDir();
 
 			if (isRight&&isNear)
 			{
@@ -325,9 +321,7 @@ void CGround::OnCollision(CCollider* _col)
 			Vec2 pos = GetCollider()->GetFinalPos();
 			Vec2 scale = GetCollider()->GetScale();
 
-			Vec2 moveDir = (obj->GetPos() - obj->GetPrevPos());
-			if (!moveDir.isZero())
-				moveDir.Normalize();
+			Vec2 moveDir = obj->GetMoveDir();
 
 			if (isRight && isNear)
 			{

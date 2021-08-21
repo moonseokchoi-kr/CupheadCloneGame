@@ -36,6 +36,8 @@ public:
     virtual void Render(HDC _dc);
     virtual void CreateAttackBox() {};
     virtual void OnCollisionEnter(CCollider* _col);
+    virtual void OnCollision(CCollider* _col);
+    virtual void OnCollisionExit(CCollider* _col);
     CLONE(CMonster);
 public:
     
