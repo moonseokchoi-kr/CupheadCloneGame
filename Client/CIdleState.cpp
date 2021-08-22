@@ -18,10 +18,10 @@ CIdleState::~CIdleState()
 
 void CIdleState::Enter()
 {
-	if (m_animName.empty())
-		GetMonster()->GetAnimator()->Play(m_animName, false);
-	else
-		return;
+// 	if (m_animName.empty())
+// 		GetMonster()->GetAnimator()->Play(m_animName, false);
+// 	else
+// 		return;
 }
 
 void CIdleState::Exit()
@@ -32,7 +32,7 @@ void CIdleState::Exit()
 void CIdleState::Update()
 {
 	
-	if (GetMonster()->GetTarget())
+	if (!GetMonster()->GetTarget())
 		return;
 	m_accTime += fDT;
 	if (m_accTime >= GetMonster()->GetInfo().attackSpeed)

@@ -42,22 +42,11 @@ void CCarrotMissle::Update()
 	Vec2 diff = targetPos - pos;
 	diff.Normalize();
 	
-	if (diff.Distance() > m_maxAngle.Distance())
-	{
-		if (diff.x < 0)
-			m_maxAngle.x *=-1;
 
-		if (diff.y < 0)
-			m_maxAngle.y *= -1;
+	
+	GetRigidBody()->SetVelocity(Vec2(diff.x * GetInfo().bulletSpeed, diff.y * GetInfo().bulletSpeed));
+	GetRigidBody()->AddVelocity(Vec2(diff.x * GetInfo().bulletSpeed, diff.y * GetInfo().bulletSpeed));
 
-		GetRigidBody()->SetVelocity(m_maxAngle*GetInfo().bulletSpeed);
-		GetRigidBody()->AddVelocity(m_maxAngle * GetInfo().bulletSpeed);
-	}
-	else
-	{
-		GetRigidBody()->SetVelocity(Vec2(diff.x * GetInfo().bulletSpeed, diff.y * GetInfo().bulletSpeed));
-		GetRigidBody()->AddVelocity(Vec2(diff.x * GetInfo().bulletSpeed, diff.y * GetInfo().bulletSpeed));
-	}
 	DeleteBullet();
 }
 
@@ -66,7 +55,7 @@ void CCarrotMissle::Render(HDC _dc)
 	Vec2 renderPos = CCamera::GetInst()->GetRenderPos(GetPos());
 	Vec2 scale = GetScale();
 	SelectGDI gdi(_dc, BRUSH_TYPE::RED);
-	Ellipse(
+	Rectangle(
 		_dc,
 		(int)(renderPos.x - scale.x / 2.f),
 		(int)(renderPos.y - scale.y / 2.f),

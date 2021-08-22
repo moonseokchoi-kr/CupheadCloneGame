@@ -52,18 +52,12 @@ void CAnimation::Render(HDC _dc)
 	
 	pos += m_frames[m_currentFrame].offset;
 	pos = CCamera::GetInst()->GetRenderPos(pos);
-// 	TransparentBlt(_dc
-// 		, (int)(pos.x - m_frames[m_currentFrame].slice.x / 2.f)
-// 		, (int)(pos.y - m_frames[m_currentFrame].slice.y / 2.f)
-// 		, (int)(m_frames[m_currentFrame].slice.x)
-// 		, (int)(m_frames[m_currentFrame].slice.y)
-// 		, m_tex->GetDC()
-// 		, (int)(m_frames[m_currentFrame].lt.x)
-// 		, (int)(m_frames[m_currentFrame].lt.y)
-// 		, (int)(m_frames[m_currentFrame].slice.x)
-// 		, (int)(m_frames[m_currentFrame].slice.y)
-// 		, RGB(255, 0, 255)
-// 	);
+
+	//회전을 통한 렌더링 유도탄 구현을 위해선 필수
+	//새로운 DC를 하나 만들고 그곳에 회전한 이미지를 그린뒤 (plgblt)
+	//알파블렌딩으로 출력하도록 제작
+
+
 
 	BLENDFUNCTION bf = {};
 	bf.BlendOp = AC_SRC_OVER;

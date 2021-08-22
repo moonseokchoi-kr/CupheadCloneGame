@@ -112,6 +112,7 @@ void CCore::CreateBrushPen()
 	m_brushs[TYPE_NUMBER(BRUSH_TYPE::RED)] = CreateSolidBrush(RGB(255, 0, 0));
 	m_brushs[TYPE_NUMBER(BRUSH_TYPE::GREEN)] = CreateSolidBrush(RGB(0, 255, 0));
 	m_brushs[TYPE_NUMBER(BRUSH_TYPE::BLUE)] = CreateSolidBrush(RGB(0, 0, 255));
+	m_brushs[TYPE_NUMBER(BRUSH_TYPE::PURPLE)] = CreateSolidBrush(RGB(255, 255, 0));
 	m_pens[TYPE_NUMBER(PEN_TYPE::HOLLOW)] = (HPEN)GetStockObject(NULL_PEN);
 	m_pens[(UINT)PEN_TYPE::RED] = CreatePen(PS_SOLID, 1, RGB(255, 0, 0));
 	m_pens[(UINT)PEN_TYPE::GREEN] = CreatePen(PS_SOLID, 1, RGB(0,255, 0));

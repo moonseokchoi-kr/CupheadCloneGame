@@ -54,7 +54,7 @@ void CMonster::Render(HDC _dc)
 {
 
 	ComponentRender(_dc);
-	m_attackBox->Render(_dc);
+
 }
 
 void CMonster::OnCollisionEnter(CCollider* _col)

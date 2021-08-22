@@ -21,6 +21,8 @@ public:
     CObject* GetOwner() { return m_owner; }
     Vec2 GetFinalPos() { return m_finalPos; }
     void SetFinalPos(Vec2 _v) { m_finalPos = _v; }
+    bool isFinish() { return m_isFinish; }
+    void SetFinish(bool _b) { m_isFinish = _b; }
 public:
     virtual void Fire() = 0;
     virtual void ChangeBullet() {};
@@ -32,9 +34,12 @@ private:
     unordered_map<BULLET_TYPE,CBullet*> m_bulletVec;
     float m_accTime;
 
+    bool m_isFinish;
+
     friend class CPlayer;
     friend class CSalSpudder;
     friend class CChauncey;
     friend class COllieBullb;
+    friend class CCagney;
 };
 

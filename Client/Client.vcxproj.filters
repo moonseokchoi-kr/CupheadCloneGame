@@ -207,12 +207,6 @@
     <Filter Include="Engine\Object\Monster\CagneyCarnation">
       <UniqueIdentifier>{c3505bb6-da28-4d88-9028-bc9473518324}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Module\AI\State\IdleState\Sal Spudder">
-      <UniqueIdentifier>{80396c95-ba69-4a4b-bf9b-23a97f7a2199}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Module\AI\State\IntroState\Sal Spudder">
-      <UniqueIdentifier>{7f2f7793-52aa-4ae2-bf0a-b442cb0947b6}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Module\AI\State\AttackState\Sal Spudder">
       <UniqueIdentifier>{aa484264-79d1-41c9-b51e-081a44a0a1ea}</UniqueIdentifier>
     </Filter>
@@ -245,6 +239,12 @@
     </Filter>
     <Filter Include="Engine\Module\AI\State\IdleState\Ollie">
       <UniqueIdentifier>{6026bba6-1eae-4e7a-9425-15669c5b7907}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Object\Bullet\Monster\Cagney">
+      <UniqueIdentifier>{4f7e4af0-f39f-49f1-8cd0-199e30797ab5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Module\AI\State\AttackState\Cagney">
+      <UniqueIdentifier>{900a98f6-9c2f-444f-a199-4e3b21258d73}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -474,14 +474,38 @@
     <ClInclude Include="COnionBossAttackBox.h">
       <Filter>Engine\Object\AttackBox\Monster</Filter>
     </ClInclude>
-    <ClInclude Include="CTearBullet.h">
-      <Filter>Engine\Object\Bullet\Monster\Olle</Filter>
-    </ClInclude>
     <ClInclude Include="COnionBossAttackState.h">
       <Filter>Engine\Module\AI\State\AttackState\Ollie</Filter>
     </ClInclude>
     <ClInclude Include="COnionBossIdleState.h">
       <Filter>Engine\Module\AI\State\IdleState\Ollie</Filter>
+    </ClInclude>
+    <ClInclude Include="CCagney.h">
+      <Filter>Engine\Object\Monster\CagneyCarnation</Filter>
+    </ClInclude>
+    <ClInclude Include="CCagneyAttackBox.h">
+      <Filter>Engine\Object\AttackBox\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="CSeedBullet.h">
+      <Filter>Engine\Object\Bullet\Monster\Cagney</Filter>
+    </ClInclude>
+    <ClInclude Include="CMonSeedBullet.h">
+      <Filter>Engine\Object\Bullet\Monster\Cagney</Filter>
+    </ClInclude>
+    <ClInclude Include="CTearBullet.h">
+      <Filter>Engine\Object\Bullet\Monster\Olle</Filter>
+    </ClInclude>
+    <ClInclude Include="CFlyFlower.h">
+      <Filter>Engine\Object\Monster\CagneyCarnation</Filter>
+    </ClInclude>
+    <ClInclude Include="CBlackFlower.h">
+      <Filter>Engine\Object\Monster\CagneyCarnation</Filter>
+    </ClInclude>
+    <ClInclude Include="CFaceAttack.h">
+      <Filter>Engine\Object\Bullet\Monster\Cagney</Filter>
+    </ClInclude>
+    <ClInclude Include="CCagneyAttackState.h">
+      <Filter>Engine\Module\AI\State\AttackState\Cagney</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -712,6 +736,30 @@
     </ClCompile>
     <ClCompile Include="COnionBossIdleState.cpp">
       <Filter>Engine\Module\AI\State\IdleState\Ollie</Filter>
+    </ClCompile>
+    <ClCompile Include="CCagney.cpp">
+      <Filter>Engine\Object\Monster\CagneyCarnation</Filter>
+    </ClCompile>
+    <ClCompile Include="CCagneyAttackBox.cpp">
+      <Filter>Engine\Object\AttackBox\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="CSeedBullet.cpp">
+      <Filter>Engine\Object\Bullet\Monster\Cagney</Filter>
+    </ClCompile>
+    <ClCompile Include="CMonSeedBullet.cpp">
+      <Filter>Engine\Object\Bullet\Monster\Cagney</Filter>
+    </ClCompile>
+    <ClCompile Include="CFlyFlower.cpp">
+      <Filter>Engine\Object\Monster\CagneyCarnation</Filter>
+    </ClCompile>
+    <ClCompile Include="CBlackFlower.cpp">
+      <Filter>Engine\Object\Monster\CagneyCarnation</Filter>
+    </ClCompile>
+    <ClCompile Include="CFaceAttack.cpp">
+      <Filter>Engine\Object\Bullet\Monster\Cagney</Filter>
+    </ClCompile>
+    <ClCompile Include="CCagneyAttackState.cpp">
+      <Filter>Engine\Module\AI\State\AttackState\Cagney</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

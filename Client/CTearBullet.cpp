@@ -4,7 +4,7 @@
 #include "CRigidBody.h"
 #include "SelectGDI.h"
 CTearBullet::CTearBullet()
-	:CBullet(BULLET_TYPE::TEAR)
+	:CBullet(BULLET_TYPE::TEAR_BULLET)
 	, m_redTearPercent(0.85f)
 {
 	CreateCollider();

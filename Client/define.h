@@ -123,6 +123,7 @@ enum class BRUSH_TYPE
 	RED,
 	BLUE,
 	GREEN,
+	PURPLE,
 	END,
 };
 
@@ -156,7 +157,6 @@ enum class MON_STATE
 	PATROL,		//¼øÂû
 	TRACE,		//Ãß°Ý
 	ATTACK,		//°ø°Ý
-	HIT,		//°ø°Ý¹ÞÀ½
 	MADE_OFF,	//µµ¸Á
 	DEAD,		//Á×À½
 };
@@ -177,7 +177,7 @@ enum class MON_TYPE
 {
 	NORMAL,
 	RANGE,
-	CANEGY,
+	CAGNEY,
 	OLLIE,
 	CHAUNCEY,
 	SAL,
@@ -195,7 +195,11 @@ enum class BULLET_TYPE
 	SAL_BULLET,
 	CARROT_MISSILE,
 	BEAM_BULLET,
-	TEAR,BULLET,
+	TEAR_BULLET,
+	FACE_ATTACK,
+	MON_SEED_BULLET,
+	SEED_BULLET,
+	BOOMERANG_BULLET,
 	END,
 };
 
