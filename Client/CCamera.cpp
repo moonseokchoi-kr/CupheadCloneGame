@@ -159,6 +159,12 @@ void CCamera::CalDiff()
 	m_prevLookAt = m_currentLookAt;
 }
 
+Vec2 CCamera::GetCameraLT()
+{
+	Vec2 resolution = CCore::GetInst()->GetResolution();
+	return m_lookAt - resolution / 2.f;
+}
+
 void CCamera::defaultCameraMove()
 {
 	m_accTime += fDT;

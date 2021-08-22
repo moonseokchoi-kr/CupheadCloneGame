@@ -246,6 +246,12 @@
     <Filter Include="Engine\Module\AI\State\AttackState\Cagney">
       <UniqueIdentifier>{900a98f6-9c2f-444f-a199-4e3b21258d73}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Object\Player\StateMachine\State\HitState">
+      <UniqueIdentifier>{49996d0e-6724-43b3-9095-2589ff7b4b71}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Object\Player\StateMachine\State\DeadState">
+      <UniqueIdentifier>{2cd34fab-09a1-4117-a6dc-77cd49795b3f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -507,6 +513,12 @@
     <ClInclude Include="CCagneyAttackState.h">
       <Filter>Engine\Module\AI\State\AttackState\Cagney</Filter>
     </ClInclude>
+    <ClInclude Include="CPlayerHitState.h">
+      <Filter>Engine\Object\Player\StateMachine\State\HitState</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayerDeathState.h">
+      <Filter>Engine\Object\Player\StateMachine\State\DeadState</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -760,6 +772,12 @@
     </ClCompile>
     <ClCompile Include="CCagneyAttackState.cpp">
       <Filter>Engine\Module\AI\State\AttackState\Cagney</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayerHitState.cpp">
+      <Filter>Engine\Object\Player\StateMachine\State\HitState</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayerDeathState.cpp">
+      <Filter>Engine\Object\Player\StateMachine\State\DeadState</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -69,6 +69,10 @@ void CFaceAttack::Render(HDC _dc)
 
 void CFaceAttack::OnCollisionEnter(CCollider* _col)
 {
+	if (_col->GetOwner()->GetName() == L"Grond" || _col->GetOwner()->GetName() == L"Player")
+	{
+		int a = 0;
+	}
 }
 
 void CFaceAttack::OnCollision(CCollider* _col)

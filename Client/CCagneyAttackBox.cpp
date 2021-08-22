@@ -35,15 +35,15 @@ void CCagneyAttackBox::Fire()
 		{
 		case ATTACK_PATT::PATT1:
 		{
-			SetPos(Vec2(-GetOwner()->GetScale().x / 2.f, -GetOwner()->GetScale().y / 4.f));
-			m_faceAttack->SetPos(Vec2(GetFinalPos().x, GetFinalPos().y));
+			//SetPos(Vec2(-GetOwner()->GetScale().x / 2.f, -GetOwner()->GetScale().y / 4.f));
+			//m_faceAttack->SetPos(Vec2(GetFinalPos().x, GetFinalPos().y));
 		}
 			break;
 		case ATTACK_PATT::PATT2:
 		{
 
-			SetPos(Vec2(-GetOwner()->GetScale().x / 2.f, GetOwner()->GetScale().y / 4.f));
-			m_faceAttack->SetPos(Vec2(GetFinalPos().x, GetFinalPos().y));
+			//SetPos(Vec2(-GetOwner()->GetScale().x / 2.f, GetOwner()->GetScale().y / 4.f));
+			//m_faceAttack->SetPos(Vec2(GetFinalPos().x, GetFinalPos().y));
 		}
 			break;
 		default:
@@ -55,13 +55,13 @@ void CCagneyAttackBox::Fire()
 	case ATTACK_PATT::PATT1:
 	{
 		
-		m_faceAttack->GetCollider()->SetAvaCollide(true);
+		//m_faceAttack->GetCollider()->SetAvaCollide(true);
 	}
 		break;
 	case ATTACK_PATT::PATT2:
 	{
 		
-		m_faceAttack->GetCollider()->SetAvaCollide(true);
+		//m_faceAttack->GetCollider()->SetAvaCollide(true);
 	}
 		break;
 	case ATTACK_PATT::PATT3:
@@ -70,6 +70,7 @@ void CCagneyAttackBox::Fire()
 		bullet = new CSeedBullet;
 		cloneBullet = ((CSeedBullet*)bullet)->Clone();
 		cloneBullet->SetPos(Vec2(GetFinalPos().x, GetFinalPos().y));
+		cloneBullet->SetName(L"MonsterBullet");
 		cloneBullet->Start();
 		CreateObject(cloneBullet, GROUP_TYPE::MONSTER_BULLET);
 		++m_seedBulletCount;
@@ -84,6 +85,7 @@ void CCagneyAttackBox::Fire()
 		bullet = new CMonSeedBullet;
 		cloneBullet = ((CMonSeedBullet*)bullet)->Clone();
 		cloneBullet->SetPos(Vec2(setXPos(), -100));
+		cloneBullet->SetName(L"MonsterBullet");
 		cloneBullet->Start();
 		CreateObject(cloneBullet, GROUP_TYPE::MONSTER_BULLET);
 	}

@@ -11,6 +11,7 @@ CMonSeedBullet::CMonSeedBullet()
 	:CBullet(BULLET_TYPE::MON_SEED_BULLET)
 	, m_purplePercent(0.9f)
 {
+	SetName(L"MonsterBullet");
 	CreateCollider();
 	CreateRigidBody();
 	SetScale(Vec2(Vec2(20.f,30.f)));
@@ -80,10 +81,15 @@ void CMonSeedBullet::Render(HDC _dc)
 			(int)(renderPos.y + scale.y / 2.f)
 		);
 	}
+	ComponentRender(_dc);
 }
 
 void CMonSeedBullet::OnCollisionEnter(CCollider* _col)
 {
+	if (_col->GetOwner()->GetName() == L"Player")
+	{
+		DeleteObject(this);
+	}
 	if (_col->GetOwner()->GetName() == L"Ground")
 	{
 		CreateObject(m_createMonster, GROUP_TYPE::MONSTER);

@@ -50,6 +50,7 @@ void CScene_Start::Enter()
 	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::GROUND, GROUP_TYPE::PLAYER);
 	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::GROUND, GROUP_TYPE::MONSTER);
 	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::MONSTER, GROUP_TYPE::PLAYER);
+	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::PLAYER, GROUP_TYPE::MONSTER_BULLET);
 	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::PLATFORM_OBJ, GROUP_TYPE::PLAYER);
 	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::PLAYER_BULLET, GROUP_TYPE::MONSTER);
 	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::PLAYER_BULLET, GROUP_TYPE::GROUND);
@@ -58,8 +59,11 @@ void CScene_Start::Enter()
 	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::MONSTER_BULLET, GROUP_TYPE::MONSTER);
 	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::MONSTER_BULLET, GROUP_TYPE::GROUND);
 	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::MONSTER_BULLET, GROUP_TYPE::PLATFORM_OBJ);
-	//CCamera::GetInst()->SetLookAt(resolution / 2.f);
+	
+
+	
 	CCamera::GetInst()->SetTarget(player);
+	CCamera::GetInst()->SetLookAt(resolution / 2.f);
 }
 
 void CScene_Start::Exit()
@@ -70,8 +74,8 @@ void CScene_Start::Exit()
 
 void CScene_Start::Update()
 {
-
-	CScene::Update();
+	if(CCamera::GetInst()->IsCurrentLookAt())
+		CScene::Update();
 	if (KEY_TAP(KEY::T))
 	{
 		ChangeScene(SCENE_TYPE::TOOL);

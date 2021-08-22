@@ -69,6 +69,7 @@ void CCarrotBossAttackBox::Fire()
 	default:
 		break;
 	}
+	cloneBullet->SetName(L"MonsterBullet");
 	cloneBullet->Start();
 	CreateObject(cloneBullet, GROUP_TYPE::MONSTER_BULLET);
 }

@@ -204,6 +204,8 @@
     <ClInclude Include="CPlayerAttackState.h" />
     <ClInclude Include="CPeaShootBullet.h" />
     <ClInclude Include="CPlayerDashState.h" />
+    <ClInclude Include="CPlayerDeathState.h" />
+    <ClInclude Include="CPlayerHitState.h" />
     <ClInclude Include="CPlayerIdleState.h" />
     <ClInclude Include="CPlayerJumpState.h" />
     <ClInclude Include="CPlayerState.h" />
@@ -292,6 +294,8 @@
     <ClCompile Include="CPlayerAttackState.cpp" />
     <ClCompile Include="CPeaShootBullet.cpp" />
     <ClCompile Include="CPlayerDashState.cpp" />
+    <ClCompile Include="CPlayerDeathState.cpp" />
+    <ClCompile Include="CPlayerHitState.cpp" />
     <ClCompile Include="CPlayerIdleState.cpp" />
     <ClCompile Include="CPlayerJumpState.cpp" />
     <ClCompile Include="CPlayerState.cpp" />

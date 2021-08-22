@@ -44,7 +44,7 @@ int CCore::InitCore(HWND _hwnd, POINT _resolution)
 {
 	m_hWnd = _hwnd;
 	m_ptResolution = _resolution;
-	m_ptToolResolution = { 1600,960 };
+	m_ptToolResolution = { 1450,960 };
 	m_ptMonitorResolution = { GetSystemMetrics(SM_CXSCREEN), GetSystemMetrics(SM_CYSCREEN) };
 
 	changeWindowSize(Vec2((float)m_ptResolution.x,(float)m_ptResolution.y), false);
@@ -96,7 +96,7 @@ void CCore::Progress()
 
  	CSceneManager::GetInst()->Render(m_memTex->GetDC());
 	CCamera::GetInst()->Render(m_memTex->GetDC());
-
+	CCamera::GetInst()->GetCameraLT();
 	BitBlt(m_hDc, 0, 0, m_ptResolution.x, m_ptResolution.y, m_memTex->GetDC(), 0, 0, SRCCOPY);
 
 	SetWindowText(m_hWnd, CTimeManager::GetInst()->GetTitle());

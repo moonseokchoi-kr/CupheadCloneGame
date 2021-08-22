@@ -21,7 +21,8 @@
 #include "CPlayerAttackState.h"
 #include "CPlayerDashState.h"
 #include "CPlayerJumpState.h"
-
+#include "CPlayerDeathState.h"
+#include "CPlayerHitState.h"
 
 #include "CPlayerStateMachine.h"
 
@@ -136,6 +137,10 @@ void CPlayer::Start()
 	ai->AddState(state);
 	state = new CPlayerDashState;
 	ai->AddState(state);
+	state = new CPlayerHitState;
+	ai->AddState(state);
+	state = new CPlayerDeathState;
+	ai->AddState(state);
 	ai->SetCurrentState(PLAYER_STATE::IDLE);
 	SetAi(ai);
 	CreateAttackBox();
@@ -157,14 +162,14 @@ void CPlayer::Update()
 	m_ai->Update();
 
 
-	if (m_info.health <= 0)
-	{
-		DeleteObject(this);
-	}
 	SetPrevPos(GetPos());
 	m_info.prevMoveDir = GetMoveDir();
 	calMoveDir();
 	
+	if (m_info.health <= 0 && m_ai->GetCurrentState()->GetState() != PLAYER_STATE::DEAD)
+	{
+		ChangePlayerState(m_ai, PLAYER_STATE::DEAD);
+	}
 }
 
 void CPlayer::Render(HDC _dc)
@@ -178,9 +183,10 @@ void CPlayer::Render(HDC _dc)
 void CPlayer::OnCollisionEnter(CCollider* _col)
 {
 	CObject* obj = _col->GetOwner();
-	if (obj->GetName() == L"Monster")
+	if ((obj->GetName() == L"Monster" || obj->GetName() == L"MonsterBullet")&& m_ai->GetCurrentState()->GetState() != PLAYER_STATE::HIT)
 	{
-		int a = 0;
+		m_info.health -= 1;
+		ChangePlayerState(m_ai, PLAYER_STATE::HIT);
 	}
 	if (obj->GetName() == L"Ground")
 	{
@@ -191,9 +197,9 @@ void CPlayer::OnCollisionEnter(CCollider* _col)
 void CPlayer::OnCollision(CCollider* _col)
 {
 	CObject* obj = _col->GetOwner();
-	if (obj->GetName() == L"Monster")
+	if (obj->GetName() == L"Monster" && m_ai->GetCurrentState()->GetState() != PLAYER_STATE::HIT)
 	{
-		int a = 0;
+		ChangePlayerState(m_ai, PLAYER_STATE::HIT);
 	}
 
 }

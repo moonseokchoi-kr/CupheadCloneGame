@@ -71,10 +71,15 @@ void CSeedBullet::Render(HDC _dc)
 		(int)(renderPos.x + scale.x / 2.f),
 		(int)(renderPos.y + scale.y / 2.f)
 	);
+	ComponentRender(_dc);
 }
 
 void CSeedBullet::OnCollisionEnter(CCollider* _col)
 {
+	if (_col->GetOwner()->GetName() == L"Ground" || _col->GetOwner()->GetName() == L"Player")
+	{
+		DeleteObject(this);
+	}
 }
 
 void CSeedBullet::OnCollision(CCollider* _col)

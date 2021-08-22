@@ -63,7 +63,9 @@ public:
 	Vec2 GetCurrentLookAt() { return m_currentLookAt; }
 	Vec2 GetRenderPos(Vec2 _objPos) { return _objPos - m_difference; }
 	Vec2 GetRealPos(Vec2 _renderPos) { return _renderPos + m_difference; }
+	Vec2 GetCameraLT();
 	CTexture* GetRenderTex() { return m_renderTex; }
+	bool IsCurrentLookAt() { return m_currentLookAt == m_lookAt; }
 public:
 	void SetCamEffect(float _time, CAMERA_EFFECT _effect)
 	{
