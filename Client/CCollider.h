@@ -30,6 +30,7 @@ public:
 	bool CanCollide() { return m_avaliableCollide; }
 	void SetAvaCollide(bool _b) { m_avaliableCollide = _b; }
 	Vec2 GetFinalPos() { return m_finalPos; }
+	Vec2 GetPrevFinalPos() { return m_prevFinalPos; }
 	Vec2 GetOffsetPos() { return m_offset; }
 	Vec2 GetScale() { return m_scale; }
 	CObject* GetOwner() { return m_owner; }
@@ -57,6 +58,6 @@ private:
 	Vec2 m_offset;
 	Vec2 m_finalPos;
 	Vec2 m_scale;
-	
+	Vec2 m_prevFinalPos;
 };
 

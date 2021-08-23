@@ -44,7 +44,7 @@ int CCore::InitCore(HWND _hwnd, POINT _resolution)
 {
 	m_hWnd = _hwnd;
 	m_ptResolution = _resolution;
-	m_ptToolResolution = { 1450,960 };
+	m_ptToolResolution = { 1600,960 };
 	m_ptMonitorResolution = { GetSystemMetrics(SM_CXSCREEN), GetSystemMetrics(SM_CYSCREEN) };
 
 	changeWindowSize(Vec2((float)m_ptResolution.x,(float)m_ptResolution.y), false);

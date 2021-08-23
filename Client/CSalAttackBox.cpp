@@ -9,6 +9,7 @@
 CSalAttackBox::CSalAttackBox()
 	:m_shootCount(0)
 {
+	SetPos(Vec2(-100.f, 0.f));
 }
 
 CSalAttackBox::~CSalAttackBox()
@@ -19,7 +20,7 @@ void CSalAttackBox::Fire()
 {
 	
 	Vec2 finalpos = GetFinalPos();
-	CSalBullet* salBullet = static_cast<CSalBullet*>(GetBullet(GetCurrentBullet()));
+	CSalBullet* salBullet = new CSalBullet;
 
 
 	CSalBullet* bullet = salBullet->Clone();

@@ -58,14 +58,12 @@ void CPlayerIdleState::updateSubState()
 	playerInfo info = GetPlayer()->GetInfo();
 	if (KEY_TAP(KEY::LEFT))
 	{
-		GetPlayer()->SetMoveDir(-1, GetPlayer()->GetMoveDir().y);
 		if (GetPlayer()->GetMoveDir() != info.prevMoveDir)
 			m_subState = PLAYER_STATE::TURN;
 
 	}
 	if (KEY_TAP(KEY::RIGHT))
 	{
-		GetPlayer()->SetMoveDir(1, GetPlayer()->GetMoveDir().y);
 		if (GetPlayer()->GetMoveDir() != info.prevMoveDir)
 			m_subState = PLAYER_STATE::TURN;
 	}

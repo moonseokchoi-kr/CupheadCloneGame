@@ -15,7 +15,6 @@ CCagneyAttackBox::CCagneyAttackBox()
 
 CCagneyAttackBox::~CCagneyAttackBox()
 {
-	delete m_faceAttack;
 }
 
 void CCagneyAttackBox::Update()

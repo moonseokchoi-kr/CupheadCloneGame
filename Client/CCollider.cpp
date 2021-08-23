@@ -30,6 +30,8 @@ CCollider::~CCollider()
 
 void CCollider::FinalUpdate()
 {
+	m_prevFinalPos = m_finalPos;
+
 	Vec2 objectPos = m_owner->GetPos();
 
 	m_finalPos = objectPos + m_offset;

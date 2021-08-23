@@ -10,15 +10,11 @@ CSalSpudder::CSalSpudder()
 {
 	CreateCollider();
 	CreateAnimator();
-	GetAttackBox()->SetPos(Vec2(-100.f, 0.f));
-	GetAttackBox()->AddBullet(new CSalBullet);
-	GetAttackBox()->SetCurrentBullet(BULLET_TYPE::SAL_BULLET);
 	GetCollider()->SetScale(Vec2(200.f, 200.f));
 }
 
 CSalSpudder::~CSalSpudder()
 {
-	delete m_attackBox;
 }
 void CSalSpudder::Update()
 {

@@ -35,28 +35,29 @@ void CScene_Start::Enter()
 	Vec2 resolution = CCore::GetInst()->GetResolution();
 
 	CScene::LoadMap(L"tile\\test_player.tile");
-	const vector<CObject*>& spawners = GetObjWithType(GROUP_TYPE::SPAWN_OBJ);
-	CObject* player = ((CSpawnObject*)spawners[0])->Spawn();
+/*	const vector<CObject*>& spawners = GetObjWithType(GROUP_TYPE::SPAWN_OBJ);*/
+	CObject* player = new CPlayer;
+	player->SetPos(Vec2(200.f, 100.f));
+	player->Start();
+	CreateObject(player, GROUP_TYPE::PLAYER);
 
-	// 	player->Start();
-	// 	CreateObject(player, GROUP_TYPE::PLAYER, resolution / 2.f, Vec2(80.f, 40.f));
-
-	CMonster* monster = CMonsterFactory::CreateMonster(MON_TYPE::CAGNEY, Vec2(resolution.x - 340.f, 300.f));
+	CMonster* monster = CMonsterFactory::CreateMonster(MON_TYPE::OLLIE, Vec2(resolution.x - 340.f, 300.f));
 	
-	CreateObject(monster, GROUP_TYPE::MONSTER);
+	CreateObject(monster, GROUP_TYPE::BOSS);
 
 	
 
 	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::GROUND, GROUP_TYPE::PLAYER);
 	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::GROUND, GROUP_TYPE::MONSTER);
+	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::GROUND, GROUP_TYPE::BOSS);
 	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::MONSTER, GROUP_TYPE::PLAYER);
-	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::PLAYER, GROUP_TYPE::MONSTER_BULLET);
 	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::PLATFORM_OBJ, GROUP_TYPE::PLAYER);
 	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::PLAYER_BULLET, GROUP_TYPE::MONSTER);
+	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::PLAYER_BULLET, GROUP_TYPE::BOSS);
 	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::PLAYER_BULLET, GROUP_TYPE::GROUND);
 	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::PLAYER_BULLET, GROUP_TYPE::PLATFORM_OBJ);
 	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::PLAYER_BULLET, GROUP_TYPE::MONSTER_BULLET);
-	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::MONSTER_BULLET, GROUP_TYPE::MONSTER);
+	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::PLAYER, GROUP_TYPE::MONSTER_BULLET);
 	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::MONSTER_BULLET, GROUP_TYPE::GROUND);
 	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::MONSTER_BULLET, GROUP_TYPE::PLATFORM_OBJ);
 	

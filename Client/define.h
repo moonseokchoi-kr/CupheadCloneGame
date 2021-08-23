@@ -47,6 +47,7 @@ enum class GROUP_TYPE
 	GAME_OBJ, //부모그룹 사용하지 않음
 	SPAWN_OBJ,
 	PLATFORM_OBJ,
+	BOSS,
 	MONSTER,
 	MONSTER_BULLET,
 	PLAYER,

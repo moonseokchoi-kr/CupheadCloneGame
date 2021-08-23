@@ -1,7 +1,14 @@
 #pragma once
 #include "CGameObject.h"
 
-
+enum class COLLIDE_TYPE
+{
+    COLLIDE_TOP,
+    COLLIDE_LEFT,
+    COLLIDE_RIGHT,
+    COLLIDE_BOTTOM,
+    COLLIDE_IDLE,
+};
 
 /// <summary>
 /// 게임내 땅역할을 수행하는 오브젝트 클래스
@@ -40,8 +47,7 @@ private:
 private:
    
     CPropeller* m_propeller;
-    bool isHigh;
-    bool isRight;
-    bool isNear;
+
+    COLLIDE_TYPE m_currentCollide;
 };
 

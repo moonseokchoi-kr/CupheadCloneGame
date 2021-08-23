@@ -43,6 +43,7 @@ void CCamera::Update()
 		else
 		{
 			m_lookAt = m_targetObject->GetPos();
+			m_currentLookAt = m_lookAt;
 		}
 	}
 	calLookAt();

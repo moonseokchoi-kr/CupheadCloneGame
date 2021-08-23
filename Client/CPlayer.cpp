@@ -37,8 +37,8 @@ CPlayer::CPlayer()
 	
 	CreateCollider();
 
-	GetCollider()->SetScale(Vec2(80.f,150.f));
-	GetCollider()->SetOffsetPos(Vec2(0.f, 0.f));
+	GetCollider()->SetScale(Vec2(80.f,100.f));
+	GetCollider()->SetOffsetPos(Vec2(0.f, 5.f));
 	CTexture* idle_tex = CResourceManager::GetInst()->LoadTexture(L"PlayerIdleTex", L"texture\\cuphead\\player\\idle_sheet.bmp");
 
 	CTexture* turn_tex = CResourceManager::GetInst()->LoadTexture(L"PlayerRunTurnTex", L"texture\\cuphead\\player\\normal_run_turn.bmp");
@@ -185,7 +185,7 @@ void CPlayer::OnCollisionEnter(CCollider* _col)
 	CObject* obj = _col->GetOwner();
 	if ((obj->GetName() == L"Monster" || obj->GetName() == L"MonsterBullet")&& m_ai->GetCurrentState()->GetState() != PLAYER_STATE::HIT)
 	{
-		m_info.health -= 1;
+		//m_info.health -= 1;
 		ChangePlayerState(m_ai, PLAYER_STATE::HIT);
 	}
 	if (obj->GetName() == L"Ground")
@@ -252,12 +252,12 @@ void CPlayer::UpdateMove()
 		{
 
 			m_info.shootDir = Vec2(-1, 0);
-			rigidBody->SetVelocity(Vec2(moveDir.x * m_info.moveSpeed, rigidBody->GetVelocity().y));
+			rigidBody->SetVelocity(Vec2(-m_info.moveSpeed, rigidBody->GetVelocity().y));
 		}
 		if (KEY_TAP(KEY::RIGHT))
 		{
 			m_info.shootDir = Vec2(1, 0);
-			rigidBody->SetVelocity(Vec2(moveDir.x * m_info.moveSpeed, rigidBody->GetVelocity().y));
+			rigidBody->SetVelocity(Vec2(m_info.moveSpeed, rigidBody->GetVelocity().y));
 			
 		}
 
@@ -286,8 +286,8 @@ void CPlayer::UpdateMove()
 				m_info.shootDir = Vec2(-1, 1);
 			}
 
-			rigidBody->SetVelocity(Vec2(moveDir.x * m_info.moveSpeed, rigidBody->GetVelocity().y));
-			rigidBody->AddForce(Vec2(moveDir.x * m_info.moveSpeed, 0.f));
+			rigidBody->SetVelocity(Vec2(-m_info.moveSpeed, rigidBody->GetVelocity().y));
+			rigidBody->AddForce(Vec2(-m_info.moveSpeed, 0.f));
 		}
 		if (KEY_HOLD(KEY::RIGHT))
 		{
@@ -300,8 +300,8 @@ void CPlayer::UpdateMove()
 			{
 				m_info.shootDir = Vec2(1, 1);
 			}
-			rigidBody->SetVelocity(Vec2(moveDir.x * m_info.moveSpeed, rigidBody->GetVelocity().y));
-			rigidBody->AddForce(Vec2(moveDir.x * m_info.moveSpeed, 0.f));
+			rigidBody->SetVelocity(Vec2(m_info.moveSpeed, rigidBody->GetVelocity().y));
+			rigidBody->AddForce(Vec2(m_info.moveSpeed, 0.f));
 		}
 
 		if (KEY_TAP(KEY::X))

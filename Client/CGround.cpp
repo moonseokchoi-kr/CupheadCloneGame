@@ -14,9 +14,7 @@
 
 CGround::CGround()
 	:m_propeller(nullptr)
-	,isNear(false)
-	,isHigh(false)
-	,isRight(false)
+	,m_currentCollide(COLLIDE_TYPE::COLLIDE_IDLE)
 {
 	CreateCollider();
 	SetScale(Vec2(100, 60));
@@ -122,21 +120,23 @@ void CGround::Render(HDC _dc)
 void CGround::OnCollisionEnter(CCollider* _col)
 {
 	CObject* obj = _col->GetOwner();
-	if (obj->GetName() == L"Player" || obj->GetName() == L"Monster")
-	{
-		Vec2 objColPos = obj->GetCollider()->GetFinalPos();
-		Vec2 objColScale = obj->GetCollider()->GetScale();
-		Vec2 objPos = obj->GetPos();
-		Vec2 objPrevPos = obj->GetPos();
-		Vec2 pos = GetCollider()->GetFinalPos();
-		Vec2 scale = GetCollider()->GetScale();
+	Vec2 objColPos = obj->GetCollider()->GetFinalPos();
+	Vec2 objColScale = obj->GetCollider()->GetScale();
+	Vec2 objPos = obj->GetPos();
+	Vec2 objPrevPos = obj->GetCollider()->GetPrevFinalPos();
+	Vec2 pos = GetCollider()->GetFinalPos();
+	Vec2 scale = GetCollider()->GetScale();
 
-		Vec2 platLT = Vec2(pos.x - scale.x / 2.f, pos.y - scale.y / 2.f);
-		Vec2 platLB = Vec2(pos.x - scale.x / 2.f, pos.y + scale.y / 2.f);
-		Vec2 platRB = Vec2(pos.x + scale.x / 2.f, pos.y + scale.y / 2.f);
-		Vec2 objRBPos = Vec2(objColPos.x + objColScale.x / 2.f, objColPos.y + objColScale.y / 2.f);
-		Vec2 objLBPos = Vec2(objColPos.x - objColScale.x / 2.f, objColPos.y + objColScale.y / 2.f);
-		Vec2 objRBPrevPos = Vec2(objPrevPos.x + objColScale.x / 2.f, objPrevPos.y + objColScale.y / 2.f);
+	Vec2 platLT = Vec2(pos.x - scale.x / 2.f, pos.y - scale.y / 2.f);
+	Vec2 platLB = Vec2(pos.x - scale.x / 2.f, pos.y + scale.y / 2.f);
+	Vec2 platRB = Vec2(pos.x + scale.x / 2.f, pos.y + scale.y / 2.f);
+	Vec2 objRBPos = Vec2(objColPos.x + objColScale.x / 2.f, objColPos.y + objColScale.y / 2.f);
+	Vec2 objLBPos = Vec2(objColPos.x - objColScale.x / 2.f, objColPos.y + objColScale.y / 2.f);
+	Vec2 objRBPrevPos = Vec2(objPrevPos.x + objColScale.x / 2.f, objPrevPos.y + objColScale.y / 2.f);
+	Vec2 objLBPrevPos = Vec2(objPrevPos.x - objColScale.x / 2.f, objPrevPos.y + objColScale.y / 2.f);
+	if (obj->GetName() == L"Player")
+	{
+		
 		switch (GetType())
 		{
 		case GAMEOBJECT_TYPE::FLOWER_PLATFORM_A:
@@ -147,17 +147,14 @@ void CGround::OnCollisionEnter(CCollider* _col)
 			//플레이어의 현재 위치가 플랫폼 좌상단과 좌하단의 사이일 경우
 			//플레이어의 현재 위치가 플랫폼 우하단 위치보다 클 경우
 			//플렝이어의 현재 위치가 플랫폼 좌상단 우상단보다 높을경우
-			if ((int)objRBPos.y <= (int)platLT.y || platLT.y>=objRBPrevPos.y)
+			if ((int)objRBPos.y <= (int)platLT.y && platLT.y>=objRBPrevPos.y)
 			{
 				obj->GetGravity()->SetGround(true);
-				isHigh = true;
-				isNear = false;
+				m_currentCollide = COLLIDE_TYPE::COLLIDE_TOP;
 			}
 			else if (platLT.y < objRBPos.y <= platRB.y)
 			{
-				isHigh = false;
-				if (platLT.x < objRBPos.x <= platRB.x)
-					isNear = true;
+				m_currentCollide = COLLIDE_TYPE::COLLIDE_IDLE;
 			}
 		}
 
@@ -165,29 +162,23 @@ void CGround::OnCollisionEnter(CCollider* _col)
 		case GAMEOBJECT_TYPE::GROUND:
 		{
 			Vec2 moveDir = obj->GetMoveDir();
-			if (!moveDir.isZero())
-				moveDir.Normalize();
 			
-			//플렝이어의 현재 위치가 플랫폼 좌상단 우상단보다 높을경우
-			if ((int)objRBPos.y <= (int)platLT.y)
+			//플렝이어의 이전 위치가 땅의 상단위치보다 작고 현재 위치가 플랫폼 좌상단 우상단보다 클경우
+			if ((int)objRBPos.y >= (int)platLT.y && (int)objRBPrevPos.y<=(int)platLT.y)
 			{
 				obj->GetGravity()->SetGround(true);
-				isHigh = true;
-				isRight = false;
-				isNear = false;
+				m_currentCollide = COLLIDE_TYPE::COLLIDE_TOP;
 			}
 			else if (platLT.y < objRBPos.y <= platRB.y)
 			{
-				isHigh = false;
-				if (platRB.x >= objLBPos.x && moveDir.x <0)
+				
+				if (platRB.x >= objLBPos.x && objLBPrevPos.x>= platRB.x)
 				{
-					isRight = true;
-					isNear = true;
+					m_currentCollide= COLLIDE_TYPE::COLLIDE_LEFT;
 				}
-				else if (objRBPos.x >= platLT.x && moveDir.x>0)
+				else if (objRBPos.x >= platLT.x && objRBPrevPos.x<=platLT.x)
 				{
-					isNear = true;
-					isRight = false;
+					m_currentCollide = COLLIDE_TYPE::COLLIDE_RIGHT;
 				}
 			}
 		}
@@ -199,41 +190,26 @@ void CGround::OnCollisionEnter(CCollider* _col)
 	}
 	if (obj->GetName() == L"Monster")
 	{
-		Vec2 objColPos = obj->GetCollider()->GetFinalPos();
-		Vec2 objColScale = obj->GetCollider()->GetScale();
-		Vec2 objPos = obj->GetPos();
-		Vec2 pos = GetCollider()->GetFinalPos();
-		Vec2 scale = GetCollider()->GetScale();
-
-		Vec2 platLT = Vec2(pos.x - scale.x / 2.f, pos.y - scale.y / 2.f);
-		Vec2 platLB = Vec2(pos.x - scale.x / 2.f, pos.y + scale.y / 2.f);
-		Vec2 platRB = Vec2(pos.x + scale.x / 2.f, pos.y + scale.y / 2.f);
-		Vec2 objRBPos = Vec2(objColPos.x + objColScale.x / 2.f, objColPos.y + objColScale.y / 2.f);
-		Vec2 objLBPos = Vec2(objColPos.x - objColScale.x / 2.f, objColPos.y + objColScale.y / 2.f);
 		if (GetType() == GAMEOBJECT_TYPE::GROUND)
 		{
-			Vec2 moveDir = obj->GetMoveDir();
+	
 
-			//플렝이어의 현재 위치가 플랫폼 좌상단 우상단보다 높을경우
-			if ((int)objRBPos.y <= (int)platLT.y)
+			//플렝이어의 이전 위치가 땅의 상단위치보다 작고 현재 위치가 플랫폼 좌상단 우상단보다 클경우
+			if ((int)objRBPos.y >= (int)platLT.y && (int)objRBPos.y <= (int)platLT.y)
 			{
 				obj->GetGravity()->SetGround(true);
-				isHigh = true;
-				isRight = false;
-				isNear = false;
+				m_currentCollide = COLLIDE_TYPE::COLLIDE_TOP;
 			}
 			else if (platLT.y < objRBPos.y <= platRB.y)
 			{
-				isHigh = false;
-				if (platRB.x >= objLBPos.x && moveDir.x < 0)
+
+				if (platRB.x >= objLBPos.x && objLBPrevPos.x >= platRB.x)
 				{
-					isRight = true;
-					isNear = true;
+					m_currentCollide = COLLIDE_TYPE::COLLIDE_RIGHT;
 				}
-				else if (objRBPos.x >= platLT.x && moveDir.x > 0)
+				else if (objRBPos.x >= platLT.x && objRBPos.x <= platLT.x)
 				{
-					isNear = true;
-					isRight = false;
+					m_currentCollide = COLLIDE_TYPE::COLLIDE_LEFT;
 				}
 			}
 		}
@@ -243,15 +219,16 @@ void CGround::OnCollisionEnter(CCollider* _col)
 void CGround::OnCollision(CCollider* _col)
 {
 	CObject* obj = _col->GetOwner();
+	Vec2 moveDir = obj->GetMoveDir();
+	Vec2 objColPos = obj->GetCollider()->GetFinalPos();
+	Vec2 objColScale = obj->GetCollider()->GetScale();
+	Vec2 objPos = obj->GetPos();
+	Vec2 pos = GetCollider()->GetFinalPos();
+	Vec2 scale = GetCollider()->GetScale();
 	if (obj->GetName() == L"Player" )
 	{
 		
-		Vec2 moveDir = obj->GetMoveDir();
-		Vec2 objColPos = obj->GetCollider()->GetFinalPos();
-		Vec2 objColScale = obj->GetCollider()->GetScale();
-		Vec2 objPos = obj->GetPos();
-		Vec2 pos = GetCollider()->GetFinalPos();
-		Vec2 scale = GetCollider()->GetScale();
+
 
 
 		switch (GetType())
@@ -263,20 +240,24 @@ void CGround::OnCollision(CCollider* _col)
 			
 			//
 			// 
-			//플레이어의 현재 위치가 플랫폼 좌상단과 좌하단의 사이일 경우
+			// 콜라이더 하단 충돌
+			// 콜라이더의 이전 위치가 콜라이더의 하단보다 크고 현재 하단보다 작을경우
+			// 콜라이더 상단 충돌
+			// 콜라이더의 이전 위치가 콜라이더의 상단보다 작고 현재 상단보다 클경우
 			//플레이어의 현재 위치가 플랫폼 우하단 위치보다 클 경우
 
 			//플렝이어의 현재 위치가 플랫폼 좌상단 우상단보다 높을경우
-			if (isNear)
-			{
-				obj->GetGravity()->SetGround(false);
-			}
-			if (isHigh)
+			
+			if (m_currentCollide == COLLIDE_TYPE::COLLIDE_TOP)
 			{
 				obj->GetGravity()->SetGround(true);
 				float fDiff = calColliderDiff(objColPos.y, objColScale.y, pos.y, scale.y);
 				objPos.y -= (fDiff);
 				obj->SetPos(objPos);
+			}
+			else
+			{
+				obj->GetGravity()->SetGround(false);
 			}
 		
 
@@ -286,23 +267,36 @@ void CGround::OnCollision(CCollider* _col)
 		case GAMEOBJECT_TYPE::GROUND:
 		{
 			Vec2 moveDir = obj->GetMoveDir();
-
-			if (isRight&&isNear)
+			switch (m_currentCollide)
 			{
-				float fDiff = calColliderDiff(objColPos.x, objColScale.x, pos.x, scale.x);
-				objPos.x -=moveDir.x* (fDiff+10);
-			}
-			else if (isNear^isRight)
-			{
-				float fDiff = calColliderDiff(objColPos.x, objColScale.x, pos.x, scale.x);
-				objPos.x -= moveDir.x*(fDiff+10);
-			}
-			if (isHigh)
+			case COLLIDE_TYPE::COLLIDE_TOP:
 			{
 				obj->GetGravity()->SetGround(true);
 				float fDiff = calColliderDiff(objColPos.y, objColScale.y, pos.y, scale.y);
 				objPos.y -= (fDiff);
-				
+			}
+				break;
+			case COLLIDE_TYPE::COLLIDE_LEFT:
+			{
+				float fDiff = calColliderDiff(objColPos.x, objColScale.x, pos.x, scale.x);
+				objPos.x += (fDiff);
+			}
+				break;
+			case COLLIDE_TYPE::COLLIDE_RIGHT:
+			{
+				float fDiff = calColliderDiff(objColPos.x, objColScale.x, pos.x, scale.x);
+				objPos.x -= (fDiff);
+			}
+				break;
+			case COLLIDE_TYPE::COLLIDE_BOTTOM:
+			{
+
+			}
+				break;
+			case COLLIDE_TYPE::COLLIDE_IDLE:
+				break;
+			default:
+				break;
 			}
 			obj->SetPos(objPos);
 		}
@@ -315,30 +309,37 @@ void CGround::OnCollision(CCollider* _col)
 	{
 		if (GetType() == GAMEOBJECT_TYPE::GROUND)
 		{
-			Vec2 objColPos = obj->GetCollider()->GetFinalPos();
-			Vec2 objColScale = obj->GetCollider()->GetScale();
-			Vec2 objPos = obj->GetPos();
-			Vec2 pos = GetCollider()->GetFinalPos();
-			Vec2 scale = GetCollider()->GetScale();
-
 			Vec2 moveDir = obj->GetMoveDir();
-
-			if (isRight && isNear)
+			switch (m_currentCollide)
 			{
-				float fDiff = calColliderDiff(objColPos.x, objColScale.x, pos.x, scale.x);
-				objPos.x -= moveDir.x * (fDiff + 10);
-			}
-			else if (isNear ^ isRight)
-			{
-				float fDiff = calColliderDiff(objColPos.x, objColScale.x, pos.x, scale.x);
-				objPos.x -= moveDir.x * (fDiff + 10);
-			}
-			if (isHigh)
+			case COLLIDE_TYPE::COLLIDE_TOP:
 			{
 				obj->GetGravity()->SetGround(true);
 				float fDiff = calColliderDiff(objColPos.y, objColScale.y, pos.y, scale.y);
 				objPos.y -= (fDiff);
+			}
+			break;
+			case COLLIDE_TYPE::COLLIDE_LEFT:
+			{
+				float fDiff = calColliderDiff(objColPos.x, objColScale.x, pos.x, scale.x);
+				objPos.x -= moveDir.x * fDiff;
+			}
+			break;
+			case COLLIDE_TYPE::COLLIDE_RIGHT:
+			{
+				float fDiff = calColliderDiff(objColPos.x, objColScale.x, pos.x, scale.x);
+				objPos.x += moveDir.x * fDiff;
+			}
+			break;
+			case COLLIDE_TYPE::COLLIDE_BOTTOM:
+			{
 
+			}
+			break;
+			case COLLIDE_TYPE::COLLIDE_IDLE:
+				break;
+			default:
+				break;
 			}
 			obj->SetPos(objPos);
 		}
@@ -353,9 +354,7 @@ void CGround::OnCollisionExit(CCollider* _col)
 	if (obj->GetName() == L"Player" || obj->GetName() == L"Monster")
 	{
 		obj->GetGravity()->SetGround(false);
-		isRight = false;
-		isHigh = true;
-		isNear = false;
+		m_currentCollide = COLLIDE_TYPE::COLLIDE_IDLE;
 	}
 }
 

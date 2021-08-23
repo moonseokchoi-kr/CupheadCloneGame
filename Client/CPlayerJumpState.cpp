@@ -65,12 +65,14 @@ void CPlayerJumpState::updateSubState()
 	//방향전환
 	if (KEY_TAP(KEY::LEFT))
 	{
-		GetPlayer()->SetMoveDir(-1, GetPlayer()->GetMoveDir().y);
+		//GetPlayer()->SetMoveDir(-1, GetPlayer()->GetMoveDir().y);
+		GetPlayer()->GetRigidBody()->AddForce(Vec2(-GetPlayer()->GetInfo().moveSpeed, 0.f));
 	}
 
 	if (KEY_TAP(KEY::RIGHT))
 	{
-		GetPlayer()->SetMoveDir(1, GetPlayer()->GetMoveDir().y);
+		//GetPlayer()->SetMoveDir(1, GetPlayer()->GetMoveDir().y);
+		GetPlayer()->GetRigidBody()->AddForce(Vec2(-GetPlayer()->GetInfo().moveSpeed, 0.f));
 	}
 	
 	//대시

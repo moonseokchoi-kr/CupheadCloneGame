@@ -29,7 +29,7 @@ struct playerInfo
     float dashtime = 0.15f;
     float dashDist = 300.f;
     Vec2  shootDir;
-
+    float infiniteTime = 0.3f;
     int health;
 };
 

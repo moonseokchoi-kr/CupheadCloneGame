@@ -100,6 +100,7 @@ CMonster* CMonsterFactory::CreateMonster(MON_TYPE _type, Vec2 _pos)
 		ai->SetCurrentState(MON_STATE::IDLE);
 		monster->SetAi(ai);
 	}
+	break;
 	case MON_TYPE::CAGNEY:
 	{
 		monster = new CCagney;
