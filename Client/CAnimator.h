@@ -21,6 +21,8 @@ public:
 	void Play(const wstring& _name, bool _repeat);
 	bool IsFinish();
 	CAnimation* GetCurrentAnim() { return m_curAnim; }
+	int GetAlpha() { return m_alpha; }
+	void SetAlpha(int _alpha) { m_alpha = _alpha; }
 public:
 	void FinalUpdate();
 	void Render(HDC _dc);
@@ -30,6 +32,7 @@ private:
 	CObject* m_owner;
 	CAnimation* m_curAnim;
 	int m_curFrame;
+	int m_alpha;
 	bool m_repeat;
 	friend class CObject;
 };

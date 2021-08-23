@@ -17,10 +17,8 @@ CTearBullet::CTearBullet()
 	info.bulletSpeed = 600.f;
 	info.damege = 1;
 	info.range = 1600;
-
+	info.isParring = m_toggle;
 	SetInfo(info);
-
-	m_toggle = randomPercent();
 }
 
 CTearBullet::~CTearBullet()

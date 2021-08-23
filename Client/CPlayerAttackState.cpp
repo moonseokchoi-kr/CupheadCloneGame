@@ -56,7 +56,6 @@ void CPlayerAttackState::Update()
 	}
 	playerInfo info = GetPlayer()->GetInfo();
 	info.prevMoveDir = GetPlayer()->GetMoveDir();
-	GetPlayer()->GetAttackBox()->Update();
 }
 
 void CPlayerAttackState::updateSubState()
@@ -64,14 +63,12 @@ void CPlayerAttackState::updateSubState()
 	playerInfo info = GetPlayer()->GetInfo();
 	if (KEY_TAP(KEY::LEFT))
 	{
-		GetPlayer()->SetMoveDir(-1, GetPlayer()->GetMoveDir().y);
 		if (GetPlayer()->GetMoveDir() != info.prevMoveDir)
 			m_subState = PLAYER_STATE::TURN;
 
 	}
 	if (KEY_TAP(KEY::RIGHT))
 	{
-		GetPlayer()->SetMoveDir(1, GetPlayer()->GetMoveDir().y);
 		if (GetPlayer()->GetMoveDir() != info.prevMoveDir)
 			m_subState = PLAYER_STATE::TURN;
 	}
@@ -79,19 +76,16 @@ void CPlayerAttackState::updateSubState()
 
 	if (KEY_HOLD(KEY::LEFT))
 	{
-		GetPlayer()->SetMoveDir(-1, GetPlayer()->GetMoveDir().y);
 		m_subState = PLAYER_STATE::RUN;
 
 	}
 	if (KEY_HOLD(KEY::RIGHT))
 	{
-		GetPlayer()->SetMoveDir(1, GetPlayer()->GetMoveDir().y);
 		m_subState = PLAYER_STATE::RUN;
 	}
 	if (KEY_HOLD(KEY::Z) || KEY_TAP(KEY::Z))
 	{
 		GetPlayer()->GetAttackBox()->Fire();
-		//CCamera::GetInst()->SetCamEffect(0.1f, CAMERA_EFFECT::VIBRATION);
 	}
 	if (GetPlayer()->GetGravity()->IsGround())
 	{
@@ -219,7 +213,15 @@ void CPlayerAttackState::updateAnimation()
 	break;
 	case PLAYER_STATE::JUMP:
 	{
-
+		Vec2 moveDir = GetPlayer()->GetMoveDir();
+		if (1 == moveDir.x)
+		{
+			GetPlayer()->GetAnimator()->Play(L"PLAYER_JUMP_RIGHT", true);
+		}
+		else
+		{
+			GetPlayer()->GetAnimator()->Play(L"PLAYER_JUMP_LEFT", true);
+		}
 	}
 	break;
 	default:

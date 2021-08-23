@@ -19,7 +19,7 @@ CSalBullet::CSalBullet()
 	info.range = 1600.f;
 	info.bulletSpeed = 800.f;
 	info.damege = 1;
-
+	info.health = 3;
 	GetRigidBody()->SetMaxVelocity(info.bulletSpeed);
 	SetInfo(info);
 }

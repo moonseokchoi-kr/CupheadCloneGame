@@ -144,12 +144,13 @@ void CGround::OnCollisionEnter(CCollider* _col)
 		case GAMEOBJECT_TYPE::FLOWER_PLATFORM_C:
 		{
 
-			//플레이어의 현재 위치가 플랫폼 좌상단과 좌하단의 사이일 경우
-			//플레이어의 현재 위치가 플랫폼 우하단 위치보다 클 경우
-			//플렝이어의 현재 위치가 플랫폼 좌상단 우상단보다 높을경우
+			// 콜라이더 하단 충돌
+			// 콜라이더의 이전 위치가 콜라이더의 하단보다 크고 현재 하단보다 작을경우
+			// 콜라이더 상단 충돌
+			// 콜라이더의 이전 위치가 콜라이더의 상단보다 작고 현재 상단보다 클경우
 			if ((int)objRBPos.y <= (int)platLT.y && platLT.y>=objRBPrevPos.y)
 			{
-				obj->GetGravity()->SetGround(true);
+				obj->GetGravity()->SetGround(true, GROUND_TYPE::PLATFORM);
 				m_currentCollide = COLLIDE_TYPE::COLLIDE_TOP;
 			}
 			else if (platLT.y < objRBPos.y <= platRB.y)
@@ -166,7 +167,7 @@ void CGround::OnCollisionEnter(CCollider* _col)
 			//플렝이어의 이전 위치가 땅의 상단위치보다 작고 현재 위치가 플랫폼 좌상단 우상단보다 클경우
 			if ((int)objRBPos.y >= (int)platLT.y && (int)objRBPrevPos.y<=(int)platLT.y)
 			{
-				obj->GetGravity()->SetGround(true);
+				obj->GetGravity()->SetGround(true, GROUND_TYPE::GROUND);
 				m_currentCollide = COLLIDE_TYPE::COLLIDE_TOP;
 			}
 			else if (platLT.y < objRBPos.y <= platRB.y)
@@ -197,7 +198,7 @@ void CGround::OnCollisionEnter(CCollider* _col)
 			//플렝이어의 이전 위치가 땅의 상단위치보다 작고 현재 위치가 플랫폼 좌상단 우상단보다 클경우
 			if ((int)objRBPos.y >= (int)platLT.y && (int)objRBPos.y <= (int)platLT.y)
 			{
-				obj->GetGravity()->SetGround(true);
+				obj->GetGravity()->SetGround(true, GROUND_TYPE::GROUND);
 				m_currentCollide = COLLIDE_TYPE::COLLIDE_TOP;
 			}
 			else if (platLT.y < objRBPos.y <= platRB.y)
@@ -227,10 +228,6 @@ void CGround::OnCollision(CCollider* _col)
 	Vec2 scale = GetCollider()->GetScale();
 	if (obj->GetName() == L"Player" )
 	{
-		
-
-
-
 		switch (GetType())
 		{
 		case GAMEOBJECT_TYPE::FLOWER_PLATFORM_A:
@@ -238,30 +235,21 @@ void CGround::OnCollision(CCollider* _col)
 		case GAMEOBJECT_TYPE::FLOWER_PLATFORM_C:
 		{
 			
-			//
-			// 
-			// 콜라이더 하단 충돌
-			// 콜라이더의 이전 위치가 콜라이더의 하단보다 크고 현재 하단보다 작을경우
-			// 콜라이더 상단 충돌
-			// 콜라이더의 이전 위치가 콜라이더의 상단보다 작고 현재 상단보다 클경우
-			//플레이어의 현재 위치가 플랫폼 우하단 위치보다 클 경우
 
-			//플렝이어의 현재 위치가 플랫폼 좌상단 우상단보다 높을경우
+			
 			
 			if (m_currentCollide == COLLIDE_TYPE::COLLIDE_TOP)
 			{
-				obj->GetGravity()->SetGround(true);
+				obj->GetGravity()->SetGround(true, GROUND_TYPE::GROUND);
 				float fDiff = calColliderDiff(objColPos.y, objColScale.y, pos.y, scale.y);
 				objPos.y -= (fDiff);
 				obj->SetPos(objPos);
 			}
 			else
 			{
-				obj->GetGravity()->SetGround(false);
+				obj->GetGravity()->SetGround(false, GROUND_TYPE::NONE);
 			}
-		
-
-			
+	
 		}
 		break;
 		case GAMEOBJECT_TYPE::GROUND:
@@ -271,7 +259,7 @@ void CGround::OnCollision(CCollider* _col)
 			{
 			case COLLIDE_TYPE::COLLIDE_TOP:
 			{
-				obj->GetGravity()->SetGround(true);
+				obj->GetGravity()->SetGround(true, GROUND_TYPE::GROUND);
 				float fDiff = calColliderDiff(objColPos.y, objColScale.y, pos.y, scale.y);
 				objPos.y -= (fDiff);
 			}
@@ -314,7 +302,7 @@ void CGround::OnCollision(CCollider* _col)
 			{
 			case COLLIDE_TYPE::COLLIDE_TOP:
 			{
-				obj->GetGravity()->SetGround(true);
+				obj->GetGravity()->SetGround(true,GROUND_TYPE::GROUND);
 				float fDiff = calColliderDiff(objColPos.y, objColScale.y, pos.y, scale.y);
 				objPos.y -= (fDiff);
 			}
@@ -353,7 +341,7 @@ void CGround::OnCollisionExit(CCollider* _col)
 	CObject* obj = _col->GetOwner();
 	if (obj->GetName() == L"Player" || obj->GetName() == L"Monster")
 	{
-		obj->GetGravity()->SetGround(false);
+		obj->GetGravity()->SetGround(false, GROUND_TYPE::NONE);
 		m_currentCollide = COLLIDE_TYPE::COLLIDE_IDLE;
 	}
 }

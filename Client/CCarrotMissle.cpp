@@ -28,6 +28,7 @@ CCarrotMissle::CCarrotMissle()
 	info.health = 24.f;
 	info.damege = 1.f;
 	info.range = 800.f;
+	info.health = 3.f;
 	SetInfo(info);
 }
 
@@ -47,6 +48,10 @@ void CCarrotMissle::Update()
 	GetRigidBody()->SetVelocity(Vec2(diff.x * GetInfo().bulletSpeed, diff.y * GetInfo().bulletSpeed));
 	GetRigidBody()->AddVelocity(Vec2(diff.x * GetInfo().bulletSpeed, diff.y * GetInfo().bulletSpeed));
 
+	if (GetInfo().health <= 0)
+	{
+		DeleteObject(this);
+	}
 	DeleteBullet();
 }
 
@@ -69,6 +74,12 @@ void CCarrotMissle::OnCollisionEnter(CCollider* _col)
 	if (_col->GetOwner()->GetName() == L"Grond" || _col->GetOwner()->GetName() == L"Player")
 	{
 		DeleteObject(this);
+	}
+	if (_col->GetOwner()->GetName() == L"PlayerBullet")
+	{
+		bulletInfo info = GetInfo();
+		info.health -= 1;
+		SetInfo(info);
 	}
 }
 

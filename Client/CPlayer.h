@@ -67,13 +67,14 @@ public:
 
 
     void CreateAttackBox();
-private:
-    void fire();
+
 private:
 
     float m_animateTime;
-    bool m_attack;
+    bool m_hit;
     bool m_isAir;
+    bool m_renderToggle;
+    float m_accTime;
     UINT m_weaponMode;
 
     CAttackBox* m_attackBox;

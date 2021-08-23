@@ -6,10 +6,11 @@
 #include "CGravity.h"
 #include "CAnimation.h"
 #include "CAnimator.h"
-
+#include "CPlayerAttackBox.h"
 
 #include "CKeyManager.h"
 #include "CTimeManager.h"
+
 CPlayerJumpState::CPlayerJumpState()
 	:CPlayerState(PLAYER_STATE::JUMP)
 {
@@ -27,7 +28,7 @@ void CPlayerJumpState::Enter()
 void CPlayerJumpState::Exit()
 {
 	GetPlayer()->GetCollider()->SetScale(Vec2(80.f, 150.f));
-	GetPlayer()->GetRigidBody()->SetVelocity(Vec2(1000.f, 0.f));
+	GetPlayer()->GetRigidBody()->SetVelocity(Vec2(GetPlayer()->GetInfo().moveSpeed, 0.f));
 }
 
 void CPlayerJumpState::Update()
@@ -66,13 +67,13 @@ void CPlayerJumpState::updateSubState()
 	if (KEY_TAP(KEY::LEFT))
 	{
 		//GetPlayer()->SetMoveDir(-1, GetPlayer()->GetMoveDir().y);
-		GetPlayer()->GetRigidBody()->AddForce(Vec2(-GetPlayer()->GetInfo().moveSpeed, 0.f));
+		//GetPlayer()->GetRigidBody()->AddForce(Vec2(-GetPlayer()->GetInfo().moveSpeed, 0.f));
 	}
 
 	if (KEY_TAP(KEY::RIGHT))
 	{
 		//GetPlayer()->SetMoveDir(1, GetPlayer()->GetMoveDir().y);
-		GetPlayer()->GetRigidBody()->AddForce(Vec2(-GetPlayer()->GetInfo().moveSpeed, 0.f));
+		//GetPlayer()->GetRigidBody()->AddForce(Vec2(-GetPlayer()->GetInfo().moveSpeed, 0.f));
 	}
 	
 	//대시
@@ -82,4 +83,14 @@ void CPlayerJumpState::updateSubState()
 	}
 	
 	//어택
+	if (KEY_HOLD(KEY::Z))
+	{
+		GetPlayer()->GetAttackBox()->Fire();
+	}
+	//패링
+
+	if (KEY_TAP(KEY::X))
+	{
+
+	}
 }

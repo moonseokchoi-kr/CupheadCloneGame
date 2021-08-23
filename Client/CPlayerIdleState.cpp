@@ -83,12 +83,31 @@ void CPlayerIdleState::updateSubState()
 	{
 		ChangePlayerState(GetAI(), PLAYER_STATE::ATTACK);
 	}
-	if(GetPlayer()->GetGravity()->IsGround())
+	if (KEY_HOLD(KEY::DOWN))
 	{
 		if (KEY_TAP(KEY::X))
 		{
-			ChangePlayerState(GetAI(), PLAYER_STATE::JUMP);
+			if (GetPlayer()->GetGravity()->IsGround() && GetPlayer()->GetGravity()->GetGroundType() == GROUND_TYPE::PLATFORM)
+			{
+				GetPlayer()->SetPos(Vec2(GetPlayer()->GetPos().x, GetPlayer()->GetPos().y + 10.f));
+				GetPlayer()->SetPrevPos(Vec2(GetPlayer()->GetPos().x, GetPlayer()->GetPos().y + 20.f));
+			}
+			else
+			{
+				ChangePlayerState(GetAI(), PLAYER_STATE::JUMP);
+			}
 		}
+	}
+	if(GetPlayer()->GetGravity()->IsGround())
+	{
+		if (GetPlayer()->GetGravity()->GetGroundType() == GROUND_TYPE::GROUND)
+		{
+			if (KEY_TAP(KEY::X))
+			{
+				ChangePlayerState(GetAI(), PLAYER_STATE::JUMP);
+			}
+		}
+		
 	}
 	if (KEY_TAP(KEY::LSHIFT))
 	{

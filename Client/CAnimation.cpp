@@ -63,7 +63,7 @@ void CAnimation::Render(HDC _dc)
 	bf.BlendOp = AC_SRC_OVER;
 	bf.BlendFlags = 0;
 	bf.AlphaFormat = AC_SRC_ALPHA;
-	bf.SourceConstantAlpha = 255;
+	bf.SourceConstantAlpha = m_animator->GetAlpha();
 
 	AlphaBlend(
 		_dc

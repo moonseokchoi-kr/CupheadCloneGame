@@ -17,6 +17,7 @@ CPlayerHitState::~CPlayerHitState()
 
 void CPlayerHitState::Enter()
 {
+	GetPlayer()->GetRigidBody()->SetVelocity(Vec2(0, 0));
 }
 
 void CPlayerHitState::Exit()

@@ -7,6 +7,7 @@ struct bulletInfo
     float range;
     float bulletSpeed;
     int   health;
+    bool isParring;
 };
 
 enum class BULLET_STATE

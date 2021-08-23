@@ -33,12 +33,15 @@ CPlayer::CPlayer()
 	, m_prevState(PLAYER_STATE::ATTACK)
 	,m_animateTime(1/15.f)
 	, m_ai(nullptr)
+	,m_hit(false)
+	,m_renderToggle(false)
+	,m_accTime(0.5f)
 {
 	
 	CreateCollider();
 
 	GetCollider()->SetScale(Vec2(80.f,100.f));
-	GetCollider()->SetOffsetPos(Vec2(0.f, 5.f));
+	GetCollider()->SetOffsetPos(Vec2(0.f, 0.f));
 	CTexture* idle_tex = CResourceManager::GetInst()->LoadTexture(L"PlayerIdleTex", L"texture\\cuphead\\player\\idle_sheet.bmp");
 
 	CTexture* turn_tex = CResourceManager::GetInst()->LoadTexture(L"PlayerRunTurnTex", L"texture\\cuphead\\player\\normal_run_turn.bmp");
@@ -158,7 +161,15 @@ void CPlayer::Start()
 
 void CPlayer::Update()
 {
-	
+	if (m_hit)
+	{
+		m_accTime += fDT;
+	}
+	if (m_accTime >= m_info.infiniteTime)
+	{
+		m_hit = false;
+	}
+	m_attackBox->Update();
 	m_ai->Update();
 
 
@@ -174,6 +185,23 @@ void CPlayer::Update()
 
 void CPlayer::Render(HDC _dc)
 {
+	if (m_hit)
+	{
+		if (m_renderToggle)
+		{
+			GetAnimator()->SetAlpha(127);
+			m_renderToggle = false;
+		}
+		else
+		{
+			GetAnimator()->SetAlpha(0);
+			m_renderToggle = true;
+		}
+	}
+	else
+	{
+		GetAnimator()->SetAlpha(255);
+	}
 	ComponentRender(_dc);
 #ifdef _DEBUG
 	m_attackBox->Render(_dc);
@@ -183,11 +211,14 @@ void CPlayer::Render(HDC _dc)
 void CPlayer::OnCollisionEnter(CCollider* _col)
 {
 	CObject* obj = _col->GetOwner();
-	if ((obj->GetName() == L"Monster" || obj->GetName() == L"MonsterBullet")&& m_ai->GetCurrentState()->GetState() != PLAYER_STATE::HIT)
+	if ((obj->GetName() == L"Monster" || obj->GetName() == L"MonsterBullet")&& m_ai->GetCurrentState()->GetState() != PLAYER_STATE::HIT && m_accTime >= m_info.infiniteTime)
 	{
 		//m_info.health -= 1;
+		m_hit = true;
+		m_accTime = 0;
 		ChangePlayerState(m_ai, PLAYER_STATE::HIT);
 	}
+	
 	if (obj->GetName() == L"Ground")
 	{
 		m_isAir = false;
@@ -201,6 +232,7 @@ void CPlayer::OnCollision(CCollider* _col)
 	{
 		ChangePlayerState(m_ai, PLAYER_STATE::HIT);
 	}
+
 
 }
 void CPlayer::OnCollisionExit(CCollider* _col)
@@ -230,80 +262,97 @@ void CPlayer::CreateAttackBox()
 	m_attackBox = new CPlayerAttackBox;
 	m_attackBox->m_owner = this;
 }
-/// <summary>
-/// Bullet을 발사하는 함수
-/// </summary>
-void CPlayer::fire()
-{
-	
-}
-
-
-
-
 void CPlayer::UpdateMove()
 {
 	CRigidBody* rigidBody = GetRigidBody();
 	Vec2 moveDir = GetMoveDir();
 
-	if (GetGravity()->IsGround())
+	
+	if (KEY_TAP(KEY::LEFT))
 	{
-		if (KEY_TAP(KEY::LEFT))
-		{
 
-			m_info.shootDir = Vec2(-1, 0);
+		m_info.shootDir = Vec2(-1, 0);
+		if (GetGravity()->IsGround())
+		{
 			rigidBody->SetVelocity(Vec2(-m_info.moveSpeed, rigidBody->GetVelocity().y));
 		}
-		if (KEY_TAP(KEY::RIGHT))
-		{
-			m_info.shootDir = Vec2(1, 0);
-			rigidBody->SetVelocity(Vec2(m_info.moveSpeed, rigidBody->GetVelocity().y));
-			
-		}
 
+	}
+	if (KEY_TAP(KEY::RIGHT))
+	{
+
+		m_info.shootDir = Vec2(-1, 0);
+		if (GetGravity()->IsGround())
+		{
+			rigidBody->SetVelocity(Vec2(m_info.moveSpeed, rigidBody->GetVelocity().y));
+		}
+	}
+
+	if (GetGravity()->IsGround())
+	{
 		if (KEY_AWAY(KEY::LEFT) || KEY_AWAY(KEY::RIGHT))
 		{
 			rigidBody->SetVelocity(Vec2(0.f, rigidBody->GetVelocity().y));
 		}
+	}
+	
 
+	if (KEY_HOLD(KEY::UP))
+	{
+		m_info.shootDir = Vec2(0, -1);
+	}
+	if (KEY_HOLD(KEY::DOWN))
+	{
+		m_info.shootDir = Vec2(0, 1);
+	}
+	if (KEY_HOLD(KEY::LEFT))
+	{
+		m_info.shootDir = Vec2(-1, 0);
 		if (KEY_HOLD(KEY::UP))
 		{
-			m_info.shootDir = Vec2(0, -1);
+			m_info.shootDir = Vec2(-1, -1);
 		}
-		if (KEY_HOLD(KEY::DOWN))
+	
+		if (GetGravity()->IsGround())
 		{
-			m_info.shootDir = Vec2(0, 1);
+			rigidBody->SetVelocity(Vec2(-m_info.moveSpeed, rigidBody->GetVelocity().y));
 		}
-		if (KEY_HOLD(KEY::LEFT))
+		else
 		{
-			m_info.shootDir = Vec2(-1, 0);
-			if (KEY_HOLD(KEY::UP))
-			{
-				m_info.shootDir = Vec2(-1, -1);
-			}
 			if (KEY_HOLD(KEY::DOWN))
 			{
 				m_info.shootDir = Vec2(-1, 1);
 			}
-
-			rigidBody->SetVelocity(Vec2(-m_info.moveSpeed, rigidBody->GetVelocity().y));
-			rigidBody->AddForce(Vec2(-m_info.moveSpeed, 0.f));
 		}
-		if (KEY_HOLD(KEY::RIGHT))
+
+
+
+	}
+	if (KEY_HOLD(KEY::RIGHT))
+	{
+		m_info.shootDir = Vec2(1, 0);
+		if (KEY_HOLD(KEY::UP))
 		{
-			m_info.shootDir = Vec2(1, 0);
-			if (KEY_HOLD(KEY::UP))
-			{
-				m_info.shootDir = Vec2(1, -1);
-			}
+			m_info.shootDir = Vec2(1, -1);
+		}
+		
+
+		if (GetGravity()->IsGround())
+		{
+			rigidBody->SetVelocity(Vec2(m_info.moveSpeed, rigidBody->GetVelocity().y));
+		}
+		else
+		{
 			if (KEY_HOLD(KEY::DOWN))
 			{
 				m_info.shootDir = Vec2(1, 1);
 			}
-			rigidBody->SetVelocity(Vec2(m_info.moveSpeed, rigidBody->GetVelocity().y));
-			rigidBody->AddForce(Vec2(m_info.moveSpeed, 0.f));
 		}
 
+	}
+
+	if (GetGravity()->IsGround())
+	{
 		if (KEY_TAP(KEY::X))
 		{
 			m_isAir = true;
@@ -311,6 +360,8 @@ void CPlayer::UpdateMove()
 			GetRigidBody()->SetVelocity(Vec2(GetRigidBody()->GetVelocity().x, -800.f));
 		}
 	}
+
+	
 	
 }
 
