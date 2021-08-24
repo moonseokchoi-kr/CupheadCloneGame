@@ -4,7 +4,7 @@ class CIntroState :
     public CState
 {
 public:
-    CIntroState(wstring _anim);
+    CIntroState();
     virtual ~CIntroState();
 public:
     // CState을(를) 통해 상속됨
@@ -15,6 +15,5 @@ public:
     virtual void Update() override;
 public:
 private:
-    wstring m_animName;
 };
 

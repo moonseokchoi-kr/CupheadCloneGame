@@ -4,6 +4,7 @@
 #include "CRigidBody.h"
 #include "CAttackBox.h"
 #include "FSMAI.h"
+#include "CMonsterHitBox.h"
 #include "CSceneManager.h"
 #include "CScene.h"
 CMonster::CMonster()
@@ -25,24 +26,34 @@ CMonster::~CMonster()
 		delete m_ai;
 	if (nullptr != m_attackBox)
 		delete m_attackBox;
+	if (nullptr != m_hitBox)
+		delete m_hitBox;
 }
 
 void CMonster::Start()
 {
 	CreateAttackBox();
+	CreateHitBox();
+
+	m_hitBox->SetScale(GetScale()-Vec2(10.f,10.f));
 }
 
 void CMonster::Update()
 {
+	if (m_attackBox != nullptr)
+	{
+		m_attackBox->Update();
+	}
+	if (m_hitBox != nullptr)
+	{
+		m_hitBox->Update();
+	}
 	m_target = CSceneManager::GetInst()->GetCurrentScene()->GetTarget(GROUP_TYPE::PLAYER, L"Player");
 	if (m_ai != nullptr)
 	{
 		m_ai->Update();
 	}
-	if (m_attackBox != nullptr)
-	{
-		m_attackBox->Update();
-	}
+
 }
 
 void CMonster::FinalUpdate()
@@ -54,7 +65,9 @@ void CMonster::Render(HDC _dc)
 {
 
 	ComponentRender(_dc);
-
+#ifdef _DEBUG
+	m_hitBox->Update();
+#endif
 }
 
 void CMonster::OnCollisionEnter(CCollider* _col)
@@ -84,6 +97,12 @@ void CMonster::OnCollision(CCollider* _col)
 
 void CMonster::OnCollisionExit(CCollider* _col)
 {
+}
+
+void CMonster::CreateHitBox()
+{
+	m_hitBox = new CMonsterHitBox;
+	m_hitBox->m_owner = this;
 }
 
 

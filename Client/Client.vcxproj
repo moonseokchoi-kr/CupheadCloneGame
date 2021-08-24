@@ -188,6 +188,7 @@
     <ClInclude Include="CCore.h" />
     <ClInclude Include="CEventManager.h" />
     <ClInclude Include="CGameObject.h" />
+    <ClInclude Include="CHitBox.h" />
     <ClInclude Include="CIdleState.h" />
     <ClInclude Include="CIntroState.h" />
     <ClInclude Include="CKeyManager.h" />
@@ -195,6 +196,7 @@
     <ClInclude Include="CMonSeedBullet.h" />
     <ClInclude Include="CMonster.h" />
     <ClInclude Include="CMonsterFactory.h" />
+    <ClInclude Include="CMonsterHitBox.h" />
     <ClInclude Include="COllieBullb.h" />
     <ClInclude Include="COnionBossAttackBox.h" />
     <ClInclude Include="COnionBossAttackState.h" />
@@ -205,6 +207,7 @@
     <ClInclude Include="CPeaShootBullet.h" />
     <ClInclude Include="CPlayerDashState.h" />
     <ClInclude Include="CPlayerDeathState.h" />
+    <ClInclude Include="CPlayerHitBox.h" />
     <ClInclude Include="CPlayerHitState.h" />
     <ClInclude Include="CPlayerIdleState.h" />
     <ClInclude Include="CPlayerJumpState.h" />
@@ -279,12 +282,14 @@
     <ClCompile Include="CCore.cpp" />
     <ClCompile Include="CEventManager.cpp" />
     <ClCompile Include="CGameObject.cpp" />
+    <ClCompile Include="CHitBox.cpp" />
     <ClCompile Include="CIdleState.cpp" />
     <ClCompile Include="CIntroState.cpp" />
     <ClCompile Include="CKeyManager.cpp" />
     <ClCompile Include="CMonSeedBullet.cpp" />
     <ClCompile Include="CMonster.cpp" />
     <ClCompile Include="CMonsterFactory.cpp" />
+    <ClCompile Include="CMonsterHitBox.cpp" />
     <ClCompile Include="COllieBullb.cpp" />
     <ClCompile Include="COnionBossAttackBox.cpp" />
     <ClCompile Include="COnionBossAttackState.cpp" />
@@ -295,6 +300,7 @@
     <ClCompile Include="CPeaShootBullet.cpp" />
     <ClCompile Include="CPlayerDashState.cpp" />
     <ClCompile Include="CPlayerDeathState.cpp" />
+    <ClCompile Include="CPlayerHitBox.cpp" />
     <ClCompile Include="CPlayerHitState.cpp" />
     <ClCompile Include="CPlayerIdleState.cpp" />
     <ClCompile Include="CPlayerJumpState.cpp" />

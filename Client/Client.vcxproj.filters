@@ -252,6 +252,15 @@
     <Filter Include="Engine\Object\Player\StateMachine\State\DeadState">
       <UniqueIdentifier>{2cd34fab-09a1-4117-a6dc-77cd49795b3f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Object\HitBox">
+      <UniqueIdentifier>{0cc09607-82ac-43d3-8d87-f906b6bcafe4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Object\HitBox\Player">
+      <UniqueIdentifier>{34ef836b-6f9d-422a-84a8-5a43bd917e74}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Object\HitBox\Monster">
+      <UniqueIdentifier>{e6e3d804-38cb-493e-99b8-9c9bc85f3323}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -519,6 +528,15 @@
     <ClInclude Include="CPlayerDeathState.h">
       <Filter>Engine\Object\Player\StateMachine\State\DeadState</Filter>
     </ClInclude>
+    <ClInclude Include="CHitBox.h">
+      <Filter>Engine\Object\HitBox</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayerHitBox.h">
+      <Filter>Engine\Object\HitBox\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="CMonsterHitBox.h">
+      <Filter>Engine\Object\HitBox\Monster</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -778,6 +796,15 @@
     </ClCompile>
     <ClCompile Include="CPlayerDeathState.cpp">
       <Filter>Engine\Object\Player\StateMachine\State\DeadState</Filter>
+    </ClCompile>
+    <ClCompile Include="CHitBox.cpp">
+      <Filter>Engine\Object\HitBox</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayerHitBox.cpp">
+      <Filter>Engine\Object\HitBox\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="CMonsterHitBox.cpp">
+      <Filter>Engine\Object\HitBox\Monster</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -39,6 +39,7 @@ CState* FSMAI::GetState(MON_STATE _state)
 void FSMAI::SetCurrentState(MON_STATE _state)
 {
 	m_currentState = GetState(_state);
+	m_currentState->Enter();
 	assert(m_currentState);
 }
 

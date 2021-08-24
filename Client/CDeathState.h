@@ -3,5 +3,16 @@
 class CDeathState :
     public CState
 {
+public:
+	CDeathState(const wstring& _anim);
+	virtual ~CDeathState();
+public:
+	// CState을(를) 통해 상속됨
+	virtual void Enter() override;
+	virtual void Exit() override;
+	virtual void Update() override;
+
+private:
+	wstring m_animName;//아이들에서 재생할 애니메이션 이름
 };
 

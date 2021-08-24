@@ -22,6 +22,7 @@ struct monsterInfo
 
 class FSMAI;
 class CAttackBox;
+class CMonsterHitBox;
 class CMonster :
     public CObject
 {
@@ -40,18 +41,21 @@ public:
     virtual void OnCollisionExit(CCollider* _col);
     CLONE(CMonster);
 public:
-    
+    virtual void CreateHitBox();
+public:
     monsterInfo GetInfo() { return m_info; }
     void SetInfo(monsterInfo _info) { m_info = _info; }
     FSMAI* GetAi() { return m_ai; }
     void SetAi(FSMAI* _ai);
     CAttackBox* GetAttackBox() { return m_attackBox; }
     CObject* GetTarget() { return m_target; }
+    CMonsterHitBox* GetHitBox() { return m_hitBox; }
 protected:
     CAttackBox* m_attackBox;
 private:
     monsterInfo m_info;
     FSMAI* m_ai;
     CObject* m_target;
+    CMonsterHitBox* m_hitBox;
 };
 

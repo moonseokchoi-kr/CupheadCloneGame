@@ -35,7 +35,7 @@ struct playerInfo
 
 class CPlayerStateMachine;
 class CAttackBox;
-
+class CPlayerHitBox;
 class CPlayer :
     public CObject
 {
@@ -59,14 +59,18 @@ public:
     void UpdateMove();
 
     bool IsAir() { return m_isAir; }
+    bool IsHit() { return m_hit; }
     void SetAir(bool _b) { m_isAir = _b; }
+    void SetHit(bool _b) { m_hit = _b; }
     playerInfo GetInfo() { return m_info; }
     void SetInfo(playerInfo _info) { m_info = _info; }
     void SetAi(CPlayerStateMachine* _ai);
+    CPlayerStateMachine* GetAi() { return m_ai; }
     CAttackBox* GetAttackBox() { return m_attackBox; }
-
+    CPlayerHitBox* GetHitBox() { return m_hitBox; }
 
     void CreateAttackBox();
+    void CreateHitBox();
 
 private:
 
@@ -78,10 +82,13 @@ private:
     UINT m_weaponMode;
 
     CAttackBox* m_attackBox;
+    CPlayerHitBox* m_hitBox;
     playerInfo m_info;
 
     CPlayerStateMachine* m_ai;
 
     PLAYER_STATE m_curState;
     PLAYER_STATE m_prevState;
+
+
 };

@@ -7,6 +7,7 @@ CAnimator::CAnimator()
 	, m_curFrame(-1)
 	, m_owner(nullptr)
 	,m_repeat(false)
+	,m_alpha(255)
 {
 }
 

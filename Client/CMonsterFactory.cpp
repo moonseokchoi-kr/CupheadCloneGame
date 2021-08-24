@@ -4,6 +4,7 @@
 #include "FSMAI.h"
 #include "CIdleState.h"
 #include "CIntroState.h"
+#include "CDeathState.h"
 #include "CSalAttackState.h"
 #include "CCarrotBossIntroState.h"
 #include "CCarrotBossAttackState.h"
@@ -52,10 +53,11 @@ CMonster* CMonsterFactory::CreateMonster(MON_TYPE _type, Vec2 _pos)
 		monster->SetInfo(info);
 		monster->Start();
 		FSMAI* ai = new FSMAI;
-		ai->AddState(new CIdleState(L""));
-		ai->AddState(new CIntroState(L""));
+		ai->AddState(new CIdleState(L"POTATO_IDLE"));
+		ai->AddState(new CIntroState);
 		ai->AddState(new CSalAttackState);
-		ai->SetCurrentState(MON_STATE::IDLE);
+		ai->AddState(new CDeathState(L"POTATO_DEATH"));
+		ai->SetCurrentState(MON_STATE::INTRO);
 		monster->SetAi(ai);
 	}
 		break;
@@ -94,7 +96,7 @@ CMonster* CMonsterFactory::CreateMonster(MON_TYPE _type, Vec2 _pos)
 		monster->Start();
 		monster->SetInfo(info);
 		FSMAI* ai = new FSMAI;
-		ai->AddState(new CIntroState(L""));
+		ai->AddState(new CIntroState);
 		ai->AddState(new COnionBossIdleState);
 		ai->AddState(new COnionBossAttackState);
 		ai->SetCurrentState(MON_STATE::IDLE);
@@ -115,7 +117,7 @@ CMonster* CMonsterFactory::CreateMonster(MON_TYPE _type, Vec2 _pos)
 		monster->Start();
 		monster->SetInfo(info);
 		FSMAI* ai = new FSMAI;
-		ai->AddState(new CIntroState(L""));
+		ai->AddState(new CIntroState);
 		ai->AddState(new CCagneyAttackState);
 		ai->AddState(new CIdleState(L""));
 		ai->SetCurrentState(MON_STATE::IDLE);

@@ -2,6 +2,7 @@
 #include "CSalAttackState.h"
 #include "CMonster.h"
 #include "CAnimator.h"
+#include "CAnimation.h"
 #include "CAttackBox.h"
 #include "CTimeManager.h"
 CSalAttackState::CSalAttackState()
@@ -10,7 +11,7 @@ CSalAttackState::CSalAttackState()
 	,m_attackCount(0)
 	,m_curAttackSpeed(0)
 	,m_initAttackSpeed(0)
-	,m_initInterval(0.2f)
+	,m_initInterval(2.f)
 {
 
 }
@@ -25,6 +26,7 @@ void CSalAttackState::Enter()
 	m_initInterval = m_initAttackSpeed / 4.f;
 	m_curAttackSpeed = m_initAttackSpeed * (1 - m_attackCount * 0.2f);
 	m_interval = m_initInterval * (1 - m_attackCount * 0.2f);
+
 }
 
 void CSalAttackState::Exit()
@@ -41,6 +43,9 @@ void CSalAttackState::Update()
 	
 	if (m_attackAccTime >= m_interval)
 	{
+		GetMonster()->GetAnimator()->Play(L"POTATO_SHOOT", false);
+		GetMonster()->GetAnimator()->GetCurrentAnim()->SetFrame(0);
+		GetMonster()->GetAnimator()->GetCurrentAnim()->SetDuration(m_interval);
 		GetMonster()->GetAttackBox()->Fire();
 		m_attackAccTime = 0;
 	}

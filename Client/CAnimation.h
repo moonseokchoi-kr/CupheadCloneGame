@@ -36,6 +36,14 @@ public:
 		m_currentFrame = _frame;
 		m_accTime = 0.f;
 	}
+	void SetDuration(float duration)
+	{
+		for (animFrame anim : m_frames)
+		{
+			anim.duration = duration;
+		}
+	}
+	int GetCurrentFrame() { return m_currentFrame; }
 public:
 	void Update();
 	void Render(HDC _dc);

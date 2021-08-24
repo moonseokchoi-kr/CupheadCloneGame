@@ -18,8 +18,8 @@
 #include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CGameObject.cpp"
 
 
+#include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CHitBox.cpp"
+
+
 #include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CIdleState.cpp"
-
-
-#include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CIntroState.cpp"
 

@@ -2,8 +2,10 @@
 #include "CIdleState.h"
 #include "CPlayer.h"
 #include "CMonster.h"
-
+#include "CMonsterHitBox.h"
+#include "CCollider.h"
 #include "CAnimator.h"
+#include "CAnimation.h"
 #include "CSceneManager.h"
 #include "CTimeManager.h"
 CIdleState::CIdleState(wstring _anim)
@@ -18,15 +20,20 @@ CIdleState::~CIdleState()
 
 void CIdleState::Enter()
 {
-// 	if (m_animName.empty())
-// 		GetMonster()->GetAnimator()->Play(m_animName, false);
-// 	else
-// 		return;
+	if (!m_animName.empty())
+	{
+		GetMonster()->GetAnimator()->Play(m_animName, true);
+		GetMonster()->GetHitBox()->GetCollider()->SetAvaCollide(false);
+	}
+		
+	else
+		return;
 }
 
 void CIdleState::Exit()
 {
 	m_accTime = 0;
+	GetMonster()->GetAnimator()->GetCurrentAnim()->SetFrame(0);
 }
 
 void CIdleState::Update()

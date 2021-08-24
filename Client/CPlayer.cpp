@@ -25,7 +25,7 @@
 #include "CPlayerHitState.h"
 
 #include "CPlayerStateMachine.h"
-
+#include "CPlayerHitBox.h"
 
 CPlayer::CPlayer()
 	: m_weaponMode(1)
@@ -147,12 +147,18 @@ void CPlayer::Start()
 	ai->SetCurrentState(PLAYER_STATE::IDLE);
 	SetAi(ai);
 	CreateAttackBox();
+	CreateHitBox();
 	if (nullptr != m_attackBox)
 	{
 		m_attackBox->SetPos(Vec2(50.f, -3.f));
 		CBullet* bullet = new CPeaShootBullet;
 		m_attackBox->AddBullet(bullet);
 		m_attackBox->SetCurrentBullet(BULLET_TYPE::PEASHOOT);
+	}
+	if (nullptr != m_hitBox)
+	{
+		m_hitBox->SetScale(Vec2(70.f, 90.f));
+
 	}
 		
 	if (GetRigidBody())
@@ -170,6 +176,7 @@ void CPlayer::Update()
 		m_hit = false;
 	}
 	m_attackBox->Update();
+	m_hitBox->Update();
 	m_ai->Update();
 
 
@@ -205,19 +212,14 @@ void CPlayer::Render(HDC _dc)
 	ComponentRender(_dc);
 #ifdef _DEBUG
 	m_attackBox->Render(_dc);
+	m_hitBox->Render(_dc);
 #endif
 	
 }
 void CPlayer::OnCollisionEnter(CCollider* _col)
 {
 	CObject* obj = _col->GetOwner();
-	if ((obj->GetName() == L"Monster" || obj->GetName() == L"MonsterBullet")&& m_ai->GetCurrentState()->GetState() != PLAYER_STATE::HIT && m_accTime >= m_info.infiniteTime)
-	{
-		//m_info.health -= 1;
-		m_hit = true;
-		m_accTime = 0;
-		ChangePlayerState(m_ai, PLAYER_STATE::HIT);
-	}
+
 	
 	if (obj->GetName() == L"Ground")
 	{
@@ -227,12 +229,6 @@ void CPlayer::OnCollisionEnter(CCollider* _col)
 }
 void CPlayer::OnCollision(CCollider* _col)
 {
-	CObject* obj = _col->GetOwner();
-	if (obj->GetName() == L"Monster" && m_ai->GetCurrentState()->GetState() != PLAYER_STATE::HIT)
-	{
-		ChangePlayerState(m_ai, PLAYER_STATE::HIT);
-	}
-
 
 }
 void CPlayer::OnCollisionExit(CCollider* _col)
@@ -241,10 +237,6 @@ void CPlayer::OnCollisionExit(CCollider* _col)
 	if (obj->GetName() == L"Platform" && m_ai->GetCurrentState()->GetState() != PLAYER_STATE::JUMP)
 	{
 		ChangePlayerState(m_ai, PLAYER_STATE::JUMP);
-	}
-	if (obj->GetName() == L"Monster")
-	{
-		int a = 0;
 	}
 
 }
@@ -261,6 +253,11 @@ void CPlayer::CreateAttackBox()
 {
 	m_attackBox = new CPlayerAttackBox;
 	m_attackBox->m_owner = this;
+}
+void CPlayer::CreateHitBox()
+{
+	m_hitBox = new CPlayerHitBox;
+	m_hitBox->m_owner = this;
 }
 void CPlayer::UpdateMove()
 {

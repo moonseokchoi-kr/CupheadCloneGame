@@ -14,6 +14,6 @@ public:
 public:
    
 private:
-
+    float m_animatedTime;
 };
 

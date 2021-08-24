@@ -1,12 +1,14 @@
 #include "pch.h"
 #include "CIntroState.h"
 #include "CMonster.h"
+#include "CMonsterHitBox.h"
 #include "CAnimator.h"
 #include "CAnimation.h"
-CIntroState::CIntroState(wstring _anim)
+#include "CCollider.h"
+CIntroState::CIntroState()
 	:CState(MON_STATE::INTRO)
-	, m_animName(_anim)
 {
+
 }
 
 CIntroState::~CIntroState()
@@ -15,10 +17,7 @@ CIntroState::~CIntroState()
 
 void CIntroState::Enter()
 {
-	if (m_animName.empty())
-		GetMonster()->GetAnimator()->Play(m_animName, false);
-	else
-		return;
+
 }
 
 void CIntroState::Exit()
@@ -27,6 +26,7 @@ void CIntroState::Exit()
 
 void CIntroState::Update()
 {
+	GetMonster()->GetHitBox()->GetCollider()->SetAvaCollide(false);
 	bool isFinish = GetMonster()->GetAnimator()->GetCurrentAnim()->IsFinish();
 	if (isFinish)
 		ChangeAIState(GetAI(), MON_STATE::IDLE);
