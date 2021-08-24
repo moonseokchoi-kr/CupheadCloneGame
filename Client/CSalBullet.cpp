@@ -22,6 +22,7 @@ CSalBullet::CSalBullet()
 	info.health = 3;
 	GetRigidBody()->SetMaxVelocity(info.bulletSpeed);
 	SetInfo(info);
+	SetName(L"MonsterBullet");
 }
 
 CSalBullet::~CSalBullet()
@@ -42,7 +43,7 @@ void CSalBullet::Render(HDC _dc)
 {
 	Vec2 renderPos = CCamera::GetInst()->GetRenderPos(GetPos());
 	Vec2 scale = GetScale();
-	if (GetName() == L"MUD")
+	if (m_currentBulletType == SAL_BULLET_TYPE::DUST)
 	{
 		Rectangle(
 			_dc,
@@ -54,7 +55,7 @@ void CSalBullet::Render(HDC _dc)
 	}
 	else
 	{
-		SelectGDI gdi(_dc, PEN_TYPE::BLUE_BOLD);
+		SelectGDI gdi(_dc, BRUSH_TYPE::PURPLE);
 		Ellipse(
 			_dc,
 			(int)(renderPos.x - scale.x / 2.f),

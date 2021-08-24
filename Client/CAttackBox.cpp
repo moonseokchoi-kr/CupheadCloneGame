@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "CAttackBox.h"
-#include "CCollider.h";
+#include "CCollider.h"
 #include "CPlayer.h"
 #include "CBullet.h"
 #include "CCamera.h"

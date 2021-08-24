@@ -11,7 +11,7 @@ CSalAttackState::CSalAttackState()
 	,m_attackCount(0)
 	,m_curAttackSpeed(0)
 	,m_initAttackSpeed(0)
-	,m_initInterval(2.f)
+	,m_initInterval(0)
 {
 
 }
@@ -26,7 +26,7 @@ void CSalAttackState::Enter()
 	m_initInterval = m_initAttackSpeed / 4.f;
 	m_curAttackSpeed = m_initAttackSpeed * (1 - m_attackCount * 0.2f);
 	m_interval = m_initInterval * (1 - m_attackCount * 0.2f);
-
+	m_attackAccTime = m_interval;
 }
 
 void CSalAttackState::Exit()
@@ -44,12 +44,23 @@ void CSalAttackState::Update()
 	if (m_attackAccTime >= m_interval)
 	{
 		GetMonster()->GetAnimator()->Play(L"POTATO_SHOOT", false);
-		GetMonster()->GetAnimator()->GetCurrentAnim()->SetFrame(0);
-		GetMonster()->GetAnimator()->GetCurrentAnim()->SetDuration(m_interval);
-		GetMonster()->GetAttackBox()->Fire();
-		m_attackAccTime = 0;
+		if (GetMonster()->GetAnimator()->GetCurrentAnim()->GetCurrentFrame() == 13)
+		{
+			GetMonster()->GetAttackBox()->Fire();
+			m_attackAccTime = 0;
+		}
+
 	}
-	if (m_stateAccTime >= m_curAttackSpeed)
+	else
+	{
+		if (GetMonster()->GetAnimator()->GetCurrentAnim()->IsFinish())
+		{
+			GetMonster()->GetAnimator()->GetCurrentAnim()->SetFrame(0);
+			GetMonster()->GetAnimator()->GetCurrentAnim()->SetDuration(m_interval);
+
+		}
+	}
+	if (m_stateAccTime >= m_curAttackSpeed && GetMonster()->GetAnimator()->GetCurrentAnim()->IsFinish())
 	{
 		ChangeAIState(GetAI(), MON_STATE::IDLE);
 		m_stateAccTime = 0;

@@ -5,11 +5,12 @@
 #include "CRigidBody.h"
 #include "CAnimator.h"
 #include "CResourceManager.h"
+#include "CMonsterHitBox.h"
 #include "CTexture.h"
 #include "SelectGDI.h"
 #include "CSalBullet.h"
 CSalSpudder::CSalSpudder()
-	:m_animatedTime(1/16.f)
+	:m_animatedTime(1/15.f)
 {
 	CreateCollider();
 	CreateAnimator();

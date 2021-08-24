@@ -7,6 +7,7 @@ CMonsterHitBox::CMonsterHitBox()
 	:m_owner(nullptr)
 {
 	CreateCollider();
+	SetName(L"MonsterHitBox");
 }
 
 CMonsterHitBox::~CMonsterHitBox()
@@ -15,7 +16,7 @@ CMonsterHitBox::~CMonsterHitBox()
 void CMonsterHitBox::Update()
 {
 	Vec2 pos = m_owner->GetPos();
-	SetFinalPos(pos + GetPos());
+	SetPos(pos + GetOffset());
 }
 void CMonsterHitBox::OnCollision(CCollider* _col)
 {

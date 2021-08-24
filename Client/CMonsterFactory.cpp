@@ -48,7 +48,7 @@ CMonster* CMonsterFactory::CreateMonster(MON_TYPE _type, Vec2 _pos)
 		info.attackRange = 0;
 		info.eyesightRange = 0;
 		info.hp = 300.f;
-		info.attackSpeed = 2.f;
+		info.attackSpeed = 4.f;
 		info.moveSpeed = 100.f;
 		monster->SetInfo(info);
 		monster->Start();

@@ -1,6 +1,11 @@
 #pragma once
 #include "CBullet.h"
 
+enum class SAL_BULLET_TYPE
+{
+    DUST,
+    WORM,
+};
 
 class CSalBullet :
     public CBullet
@@ -16,8 +21,11 @@ public:
     virtual void OnCollision(CCollider* _col);
     virtual void OnCollisionExit(CCollider* _col);
 public:
-    void SetAnim(wstring _anim) { m_animName = _anim; }
+    void SetBulletType(SAL_BULLET_TYPE _type) { m_currentBulletType = _type; }
+    SAL_BULLET_TYPE GetBulletType() { return m_currentBulletType; }
+
 private:
-    wstring m_animName;
+    SAL_BULLET_TYPE m_currentBulletType;
+
 };
 

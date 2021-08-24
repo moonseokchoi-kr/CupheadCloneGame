@@ -9,7 +9,7 @@
 CSalAttackBox::CSalAttackBox()
 	:m_shootCount(0)
 {
-	SetPos(Vec2(-100.f, 0.f));
+	SetPos(Vec2(-150.f, 150.f));
 }
 
 CSalAttackBox::~CSalAttackBox()
@@ -26,15 +26,16 @@ void CSalAttackBox::Fire()
 	CSalBullet* bullet = salBullet->Clone();
 	if (m_shootCount == 3)
 	{
-		bullet->SetName(L"WORM");
+		bullet->SetBulletType(SAL_BULLET_TYPE::WORM);
 	}
 	else
 	{
-		bullet->SetName(L"MUD");
+		bullet->SetBulletType(SAL_BULLET_TYPE::DUST);
 
 	}
 	bullet->SetPos(finalpos + Vec2(80 * m_shootCount, 0));
 	bullet->SetMoveDir(Vec2(-1, 0));
+	bullet->SetName(L"MonsterBullet");
 	bullet->Start();
 	CreateObject(bullet, GROUP_TYPE::MONSTER_BULLET);
 

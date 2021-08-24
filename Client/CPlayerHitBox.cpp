@@ -5,20 +5,33 @@
 #include "CPlayerStateMachine.h"
 #include "CPlayerState.h"
 CPlayerHitBox::CPlayerHitBox()
+	:m_owner(nullptr)
 {
 	CreateCollider();
+	SetName(L"PlayerHitBox");
 }
 
 CPlayerHitBox::~CPlayerHitBox()
 {
 }
 
+void CPlayerHitBox::Start()
+{
+	GetCollider()->SetScale(GetScale());
+	CreateObject(this, GROUP_TYPE::PLAYER_HITBOX);
+}
+
 void CPlayerHitBox::Update()
 {
 	Vec2 pos = m_owner->GetPos();
-	SetFinalPos(pos + GetPos());
+	SetPos(GetOffset() + pos);
 }
 void CPlayerHitBox::OnCollision(CCollider* _col)
+{
+
+}
+
+void CPlayerHitBox::OnCollisionEnter(CCollider* _col)
 {
 	CObject* obj = _col->GetOwner();
 	if ((obj->GetName() == L"Monster" || obj->GetName() == L"MonsterBullet") && m_owner->GetAi()->GetCurrentState()->GetState() != PLAYER_STATE::HIT && !m_owner->IsHit())
@@ -29,10 +42,6 @@ void CPlayerHitBox::OnCollision(CCollider* _col)
 		m_owner->SetHit(true);
 		ChangePlayerState(m_owner->GetAi(), PLAYER_STATE::HIT);
 	}
-}
-
-void CPlayerHitBox::OnCollisionEnter(CCollider* _col)
-{
 }
 
 void CPlayerHitBox::OnCollisionExit(CCollider* _col)

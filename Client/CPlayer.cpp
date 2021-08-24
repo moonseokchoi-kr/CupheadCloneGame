@@ -158,7 +158,8 @@ void CPlayer::Start()
 	if (nullptr != m_hitBox)
 	{
 		m_hitBox->SetScale(Vec2(70.f, 90.f));
-
+		m_hitBox->SetOffset(Vec2(30.f, 0.f));
+		m_hitBox->Start();
 	}
 		
 	if (GetRigidBody())
@@ -176,7 +177,7 @@ void CPlayer::Update()
 		m_hit = false;
 	}
 	m_attackBox->Update();
-	m_hitBox->Update();
+	//m_hitBox->Update();
 	m_ai->Update();
 
 
@@ -212,7 +213,7 @@ void CPlayer::Render(HDC _dc)
 	ComponentRender(_dc);
 #ifdef _DEBUG
 	m_attackBox->Render(_dc);
-	m_hitBox->Render(_dc);
+	//m_hitBox->Render(_dc);
 #endif
 	
 }
@@ -243,6 +244,7 @@ void CPlayer::OnCollisionExit(CCollider* _col)
 void CPlayer::FinalUpdate()
 {
 	CObject::FinalUpdate();
+	//m_hitBox->FinalUpdate();
 }
 void CPlayer::SetAi(CPlayerStateMachine* _ai)
 {

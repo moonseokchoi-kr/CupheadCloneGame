@@ -10,9 +10,10 @@ public:
     virtual void Start() override;
     virtual void Render(HDC _dc) override;
 public:
-    void SetFinalPos(Vec2 _v) { m_finalPos = _v; }
-    Vec2 GetFinalPos() { return m_finalPos; }
+
+    void SetOffset(Vec2 _v) { m_offset = _v; }
+    Vec2 GetOffset() { return m_offset; }
 private:
-    Vec2 m_finalPos;
+    Vec2 m_offset;
 };
 
