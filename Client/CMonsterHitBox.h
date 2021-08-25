@@ -10,6 +10,7 @@ public:
 	CLONE(CMonsterHitBox);
 public:
 		// CHitBox을(를) 통해 상속됨
+	virtual void Start() override;
 	virtual void Update() override;
 	virtual void OnCollision(CCollider* _col);
 	virtual void OnCollisionEnter(CCollider* _col);

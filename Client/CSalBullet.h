@@ -26,6 +26,6 @@ public:
 
 private:
     SAL_BULLET_TYPE m_currentBulletType;
-
+    bool isDead;
 };
 

@@ -14,5 +14,8 @@ public:
 
     virtual void Update() override;
 
+private:
+    wstring m_prevAnim;
 };
+
 

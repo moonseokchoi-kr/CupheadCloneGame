@@ -45,7 +45,7 @@ void CPeaShootBullet::Render(HDC _dc)
 
 void CPeaShootBullet::OnCollisionEnter(CCollider* _col)
 {
-	if (_col->GetOwner()->GetName() == L"Monster" || _col->GetOwner()->GetName() == L"Ground")
+	if (_col->GetOwner()->GetName() == L"MonsterHitBox" || _col->GetOwner()->GetName() == L"Ground")
 	{
 		DeleteObject(this);
 	}

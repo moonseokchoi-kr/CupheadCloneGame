@@ -16,8 +16,8 @@ public:
 private:
     float m_initAttackSpeed;
     float m_curAttackSpeed;
-    int m_attackCount;
-    float m_stateAccTime;
+    int m_bulletCount;
+    float m_attackCount;
     float m_attackAccTime;
     float m_interval;
     float m_initInterval;

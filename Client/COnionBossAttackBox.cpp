@@ -13,12 +13,11 @@ COnionBossAttackBox::~COnionBossAttackBox()
 
 void COnionBossAttackBox::Fire()
 {
-	CBullet* bullet = new CTearBullet;
-	CBullet* cloneBullet = ((CTearBullet*)bullet)->Clone();
-	cloneBullet->SetPos(Vec2(calRandomXPos(), GetFinalPos().y));
-	cloneBullet->SetName(L"MonsterBullet");
-	cloneBullet->Start();
-	CreateObject(cloneBullet, GROUP_TYPE::MONSTER_BULLET);
+	CTearBullet* bullet = new CTearBullet;
+	bullet->SetPos(Vec2(calRandomXPos(), GetFinalPos().y));
+	bullet->SetName(L"MonsterBullet");
+	bullet->Start();
+	CreateObject(bullet, GROUP_TYPE::MONSTER_BULLET);
 }
 
 void COnionBossAttackBox::Start()

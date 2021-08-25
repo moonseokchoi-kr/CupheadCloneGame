@@ -26,16 +26,14 @@ CMonster::~CMonster()
 		delete m_ai;
 	if (nullptr != m_attackBox)
 		delete m_attackBox;
-	if (nullptr != m_hitBox)
-		delete m_hitBox;
+	if(nullptr !=m_hitBox)
+		DeleteObject(m_hitBox);
 }
 
 void CMonster::Start()
 {
 	CreateAttackBox();
 	CreateHitBox();
-
-	m_hitBox->SetScale(GetScale()-Vec2(10.f,10.f));
 }
 
 void CMonster::Update()
@@ -74,7 +72,7 @@ void CMonster::OnCollisionEnter(CCollider* _col)
 {
 	CObject* obj = _col->GetOwner();
 	Vec2 moveDir = _col->GetOwner()->GetMoveDir();
-	if (obj->GetName() == L"Player")
+	if (obj->GetName() == L"PlayerHitBox")
 	{
 		obj->GetRigidBody()->SetVelocity(Vec2(0, 0));
 		obj->GetRigidBody()->AddVelocity(-moveDir * 300.f);
@@ -86,7 +84,7 @@ void CMonster::OnCollision(CCollider* _col)
 {
 	CObject* obj = _col->GetOwner();
 	Vec2 moveDir = _col->GetOwner()->GetMoveDir();
-	if (obj->GetName() == L"Player")
+	if (obj->GetName() == L"PlayerHitBox")
 	{
 		obj->GetRigidBody()->SetVelocity(Vec2(0, 0));
 		obj->GetRigidBody()->AddVelocity(-moveDir * 300.f);

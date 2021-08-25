@@ -48,7 +48,7 @@ CMonster* CMonsterFactory::CreateMonster(MON_TYPE _type, Vec2 _pos)
 		info.attackRange = 0;
 		info.eyesightRange = 0;
 		info.hp = 300.f;
-		info.attackSpeed = 4.f;
+		info.attackSpeed = 0.4f;
 		info.moveSpeed = 100.f;
 		monster->SetInfo(info);
 		monster->Start();
@@ -99,7 +99,8 @@ CMonster* CMonsterFactory::CreateMonster(MON_TYPE _type, Vec2 _pos)
 		ai->AddState(new CIntroState);
 		ai->AddState(new COnionBossIdleState);
 		ai->AddState(new COnionBossAttackState);
-		ai->SetCurrentState(MON_STATE::IDLE);
+		ai->AddState(new CDeathState(L"ONION_DEATH_1", L"ONION_DEATH_2"));
+		ai->SetCurrentState(MON_STATE::INTRO);
 		monster->SetAi(ai);
 	}
 	break;
@@ -120,7 +121,7 @@ CMonster* CMonsterFactory::CreateMonster(MON_TYPE _type, Vec2 _pos)
 		ai->AddState(new CIntroState);
 		ai->AddState(new CCagneyAttackState);
 		ai->AddState(new CIdleState(L""));
-		ai->SetCurrentState(MON_STATE::IDLE);
+		ai->SetCurrentState(MON_STATE::INTRO);
 		monster->SetAi(ai);
 	}
 	case MON_TYPE::RANGE:

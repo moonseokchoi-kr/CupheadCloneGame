@@ -35,7 +35,7 @@ public:
 	{
 		if (_v.Distance() > m_maxVelocity)
 		{
-			m_velocity = Vec2(m_maxVelocity/sqrtf(2), m_maxVelocity/sqrtf(2));
+			m_velocity = Vec2(m_maxVelocity / sqrtf(2), m_maxVelocity / sqrtf(2));
 		}
 		m_velocity = _v;
 	}
@@ -60,7 +60,8 @@ public:
 	float GetSpeed() { return m_velocity.Distance(); }
 
 	Vec2 GetVelocity() { return m_velocity; }
-
+	void SetActive(bool _b) { m_isActive = _b; }
+	bool isActive() { return m_isActive; }
 private:
 	void move();
 
@@ -76,6 +77,8 @@ private:
 	float	m_maxVelocity;	//물체의 최대속력
 
 	float	m_fricCoef;		//마찰계수
+
+	bool	m_isActive;
 
 	friend class CObject;
 };

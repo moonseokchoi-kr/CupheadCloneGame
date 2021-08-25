@@ -13,6 +13,11 @@ CMonsterHitBox::CMonsterHitBox()
 CMonsterHitBox::~CMonsterHitBox()
 {
 }
+void CMonsterHitBox::Start()
+{
+	GetCollider()->SetScale(GetScale());
+	CreateObject(this, GROUP_TYPE::MONSTER_HITBOX);
+}
 void CMonsterHitBox::Update()
 {
 	Vec2 pos = m_owner->GetPos();

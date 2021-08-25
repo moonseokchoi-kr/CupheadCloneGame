@@ -10,6 +10,7 @@ CRigidBody::CRigidBody()
 	,m_mass(1.f)
 	,m_maxVelocity(200.f)
 	,m_fricCoef(100.f)
+	,m_isActive(true)
 {
 }
 
@@ -19,6 +20,8 @@ CRigidBody::~CRigidBody()
 
 void CRigidBody::FinalUpdate()
 {
+	if (!m_isActive)
+		return;
 	if (!m_force.isZero())
 	{
 		m_accel = m_force / m_mass;

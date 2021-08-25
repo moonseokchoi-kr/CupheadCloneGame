@@ -9,6 +9,8 @@
 #include "CTexture.h"
 #include "SelectGDI.h"
 #include "CSalBullet.h"
+#include "FSMAI.h"
+#include "CState.h"
 CSalSpudder::CSalSpudder()
 	:m_animatedTime(1/15.f)
 {
@@ -24,15 +26,21 @@ CSalSpudder::CSalSpudder()
 	GetAnimator()->CreateAnimation(L"POTATO_DEATH", deathTex, Vec2(0.f, 0.f), Vec2(540, 456), Vec2(540.f, 0.f), m_animatedTime, 34, false);
 	GetAnimator()->CreateAnimation(L"POTATO_INTRO", introTex, Vec2(0.f, 0.f), Vec2(540, 456), Vec2(540.f, 0.f), m_animatedTime, 11, false);
 	GetAnimator()->CreateAnimation(L"POTATO_SHOOT", shootTex, Vec2(0.f, 0.f), Vec2(540, 456), Vec2(540.f, 0.f), m_animatedTime, 22, false);
-
-	GetAnimator()->Play(L"POTATO_INTRO", false);
 }
 
 CSalSpudder::~CSalSpudder()
 {
 }
+void CSalSpudder::Start()
+{
+	CMonster::Start();
+	GetHitBox()->SetScale(Vec2(400.f, 380.f));
+	GetHitBox()->Start();
+}
 void CSalSpudder::Update()
 {
+	if (GetAi()->GetCurrentState()->GetState() == MON_STATE::INTRO)
+		GetAnimator()->Play(L"POTATO_INTRO", false);
 	CMonster::Update();
 	if (GetInfo().hp <= 0)
 	{

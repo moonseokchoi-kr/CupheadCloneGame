@@ -8,6 +8,7 @@
 
 CSalAttackBox::CSalAttackBox()
 	:m_shootCount(0)
+	,m_bulletSpeed(600.f)
 {
 	SetPos(Vec2(-150.f, 150.f));
 }
@@ -21,27 +22,28 @@ void CSalAttackBox::Fire()
 	
 	Vec2 finalpos = GetFinalPos();
 	CSalBullet* salBullet = new CSalBullet;
-
-
-	CSalBullet* bullet = salBullet->Clone();
+	salBullet->SetPos(finalpos);
+	salBullet->SetMoveDir(Vec2(-1, 0));
+	salBullet->SetName(L"MonsterBullet");
+	bulletInfo info = salBullet->GetInfo();
+	info.bulletSpeed = m_bulletSpeed;
+	salBullet->SetInfo(info);
 	if (m_shootCount == 3)
 	{
-		bullet->SetBulletType(SAL_BULLET_TYPE::WORM);
+		salBullet->SetBulletType(SAL_BULLET_TYPE::WORM);
 	}
 	else
 	{
-		bullet->SetBulletType(SAL_BULLET_TYPE::DUST);
+		salBullet->SetBulletType(SAL_BULLET_TYPE::DUST);
 
 	}
-	bullet->SetPos(finalpos + Vec2(80 * m_shootCount, 0));
-	bullet->SetMoveDir(Vec2(-1, 0));
-	bullet->SetName(L"MonsterBullet");
-	bullet->Start();
-	CreateObject(bullet, GROUP_TYPE::MONSTER_BULLET);
+	
+	salBullet->Start();
+	CreateObject(salBullet, GROUP_TYPE::MONSTER_BULLET);
 
 	++m_shootCount;
 
-	if(m_shootCount <4)
+	if(m_shootCount >3)
 		m_shootCount = 0;
 	
 }

@@ -8,6 +8,8 @@ public:
     ~COllieBullb();
     CLONE(COllieBullb);
 public:
+    virtual void Start();
+    virtual void Update();
     virtual void Render(HDC _dc);
 
 public:

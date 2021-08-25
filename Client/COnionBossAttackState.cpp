@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "COnionBossAttackState.h"
 #include "CMonster.h"
+#include "CAnimator.h"
+#include "CAnimation.h"
 #include "COnionBossAttackBox.h"
 #include "CTimeManager.h"
 COnionBossAttackState::COnionBossAttackState()
@@ -16,6 +18,7 @@ COnionBossAttackState::~COnionBossAttackState()
 
 void COnionBossAttackState::Enter()
 {
+	GetMonster()->GetAnimator()->Play(L"ONION_CRYING", false);
 }
 
 void COnionBossAttackState::Exit()
@@ -29,6 +32,7 @@ void COnionBossAttackState::Update()
 	m_accTime += fDT;
 	if (m_accTime >= GetMonster()->GetInfo().attackSpeed)
 	{
+		GetMonster()->GetAnimator()->GetCurrentAnim()->SetFrame(14);
 		if (m_attackCount <= m_maxattackCount)
 		{
 			GetMonster()->GetAttackBox()->Fire();

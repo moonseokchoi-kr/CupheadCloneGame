@@ -41,7 +41,7 @@ void CScene_Start::Enter()
 	player->Start();
 	CreateObject(player, GROUP_TYPE::PLAYER);
 
-	CMonster* monster = CMonsterFactory::CreateMonster(MON_TYPE::SAL, Vec2(resolution.x - 340.f, 300.f));
+	CMonster* monster = CMonsterFactory::CreateMonster(MON_TYPE::OLLIE, Vec2(resolution.x - 340.f, 300.f));
 	
 	CreateObject(monster, GROUP_TYPE::BOSS);
 
@@ -74,6 +74,11 @@ void CScene_Start::Update()
 {
 	if(CCamera::GetInst()->IsCurrentLookAt())
 		CScene::Update();
+	if (KEY_TAP(KEY::U))
+	{
+		CObject* boss = GetTarget(GROUP_TYPE::BOSS, L"Monster");
+		ChangeAIState(((CMonster*)boss)->GetAi(), MON_STATE::DEAD);
+	}
 	if (KEY_TAP(KEY::T))
 	{
 		ChangeScene(SCENE_TYPE::TOOL);

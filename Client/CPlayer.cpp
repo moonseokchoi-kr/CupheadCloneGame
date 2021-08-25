@@ -126,6 +126,7 @@ CPlayer::CPlayer()
 CPlayer::~CPlayer()
 {
 	delete m_attackBox;
+	DeleteObject(m_hitBox);
 }
 
 void CPlayer::Start()

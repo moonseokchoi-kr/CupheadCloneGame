@@ -8,6 +8,7 @@ public:
     ~CSalSpudder();
     CLONE(CSalSpudder);
 public:
+    virtual void Start();
     virtual void Update();
     virtual void Render(HDC _dc);
     virtual void CreateAttackBox();
