@@ -29,5 +29,7 @@ private:
     float m_beamAccTime;
     float m_accTime;
     float m_changeAccTime;
+    float m_patternTime;
+    float m_patternAccTime;
 };
 

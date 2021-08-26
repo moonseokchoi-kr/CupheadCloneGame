@@ -28,12 +28,24 @@ void CPlayerAttackBox::Fire()
 	Vec2 finalPos = GetFinalPos();
 	m_accTime += fDT;
 	playerInfo pInfo = ((CPlayer*)GetOwner())->GetInfo();
-	CBullet* bullet = nullptr;
+	
 
 	switch (GetCurrentBullet())
 	{
 	case BULLET_TYPE::PEASHOOT:
-		bullet = static_cast<CPeaShootBullet*>(GetBullet(GetCurrentBullet()));
+	{
+		CPeaShootBullet* bullet = new CPeaShootBullet;
+		if (m_accTime >= pInfo.attackSpeed)
+		{
+			if (finalPos.isZero())
+				return;
+			bullet->SetPos(finalPos);
+			bullet->SetMoveDir(pInfo.shootDir);
+			bullet->Start();
+			CreateObject(bullet, GROUP_TYPE::PLAYER_BULLET);
+			m_accTime = 0.0f;
+		}
+	}
 		break;
 	case BULLET_TYPE::SPREAD:
 		//bullet = static_cast<CSpreadBullet*>(GetBullet(GetCurrentBullet()));
@@ -44,20 +56,7 @@ void CPlayerAttackBox::Fire()
 	default:
 		break;
 	}
-	if (m_accTime >= pInfo.attackSpeed)
-	{
-		if (finalPos.isZero())
-			return;
-		if (nullptr == bullet)
-			return;
-		CBullet* cloneBullet = ((CPeaShootBullet*)bullet)->Clone();
-		cloneBullet->SetPos(finalPos);
-		cloneBullet->SetMoveDir(pInfo.shootDir);
-		cloneBullet->SetName(L"Player_bullet");
-		cloneBullet->Start();
-		CreateObject(cloneBullet, GROUP_TYPE::PLAYER_BULLET);
-		m_accTime = 0.0f;
-	}
+
 }
 
 void CPlayerAttackBox::ChangeBullet()

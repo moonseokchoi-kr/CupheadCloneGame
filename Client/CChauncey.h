@@ -13,6 +13,9 @@
 /// attack
 /// Death
 /// </summary>
+/// 
+class CCarrotEyes;
+
 class CChauncey :
     public CMonster
 {
@@ -21,9 +24,19 @@ public:
     ~CChauncey();
     CLONE(CChauncey);
 public:
+    virtual void Start();
     virtual void Update();
     virtual void Render(HDC _dc);
+    virtual void FinalUpdate();
+    virtual void OnCollision(CCollider* _col);
+    virtual void OnCollisionEnter(CCollider* _col);
 public:
     void CreateAttackBox();
+private:
+    void CreateEyes();
+private:
+    CCarrotEyes* m_eyes;
+
+    friend class CCarrotEyes;
 };
 

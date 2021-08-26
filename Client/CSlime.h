@@ -1,13 +1,21 @@
 #pragma once
 #include "CMonster.h"
-class CCagney :
+
+enum class PHASE
+{
+    PHASE1,
+    PHASE2,
+};
+
+class CSlime :
     public CMonster
 {
 public:
-    CCagney();
-    ~CCagney();
-    CLONE(CCagney);
+    CSlime();
+    ~CSlime();
+    CLONE(CSlime);
 public:
+    virtual void Start();
     virtual void Update();
     virtual void Render(HDC _dc);
 

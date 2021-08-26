@@ -18,6 +18,6 @@ public:
 private:
     CObject* m_target;
     Vec2 m_maxAngle;
-
+    bool isDead;
 };
 

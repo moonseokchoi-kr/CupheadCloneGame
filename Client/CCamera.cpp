@@ -301,4 +301,5 @@ void CCamera::calLookAt()
 	else
 		m_lookAt.y= targetPos.y;
 	m_initLookAt = m_lookAt;
+	m_currentLookAt = m_lookAt;
 }

@@ -1,31 +1,35 @@
 #include "pch.h"
-#include "CCagney.h"
+#include "CSlime.h"
 #include "CCollider.h"
-#include "CCagneyAttackBox.h"
-
+#include "CSlimeAttackBox.h"
+#include "CMonsterHitBox.h"
 #include "SelectGDI.h"
-CCagney::CCagney()
+CSlime::CSlime()
 {
 	CreateCollider();
 	SetScale(Vec2(340.f, 616.f));
 	GetCollider()->SetScale(Vec2(340.f, 616.f));	
 }
 
-CCagney::~CCagney()
+CSlime::~CSlime()
 {
 }
 
-void CCagney::Update()
+void CSlime::Start()
+{
+}
+
+void CSlime::Update()
 {
 	CMonster::Update();
 }
 
-void CCagney::Render(HDC _dc)
+void CSlime::Render(HDC _dc)
 {
 	Vec2 renderPos = CCamera::GetInst()->GetRenderPos(GetPos());
 	Vec2 scale = GetScale();
 	SelectGDI gdi(_dc, BRUSH_TYPE::BLUE);
-	Rectangle(
+	Ellipse(
 		_dc,
 		renderPos.x - scale.x / 2.f,
 		renderPos.y - scale.y / 2.f,
@@ -34,8 +38,8 @@ void CCagney::Render(HDC _dc)
 	);
 }
 
-void CCagney::CreateAttackBox()
+void CSlime::CreateAttackBox()
 {
-	m_attackBox = new CCagneyAttackBox;
+	m_attackBox = new CSlimeAttackBox;
 	m_attackBox->m_owner = this;
 }

@@ -41,7 +41,7 @@ void CScene_Start::Enter()
 	player->Start();
 	CreateObject(player, GROUP_TYPE::PLAYER);
 
-	CMonster* monster = CMonsterFactory::CreateMonster(MON_TYPE::OLLIE, Vec2(resolution.x - 340.f, 300.f));
+	CMonster* monster = CMonsterFactory::CreateMonster(MON_TYPE::CHAUNCEY, Vec2(resolution.x - 340.f, 300.f));
 	
 	CreateObject(monster, GROUP_TYPE::BOSS);
 
@@ -52,9 +52,9 @@ void CScene_Start::Enter()
 	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::GROUND, GROUP_TYPE::BOSS);
 	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::PLATFORM_OBJ, GROUP_TYPE::PLAYER);
 	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::BOSS, GROUP_TYPE::PLAYER);
-	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::PLAYER_BULLET, GROUP_TYPE::BOSS);
 	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::PLAYER_BULLET, GROUP_TYPE::GROUND);
 	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::PLAYER_BULLET, GROUP_TYPE::MONSTER_BULLET);
+	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::PLAYER_BULLET, GROUP_TYPE::MONSTER_HITBOX);
 	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::PLAYER_HITBOX, GROUP_TYPE::MONSTER_BULLET);
 	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::MONSTER_BULLET, GROUP_TYPE::GROUND);
 	

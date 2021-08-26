@@ -176,6 +176,7 @@ void CPlayer::Update()
 	if (m_accTime >= m_info.infiniteTime)
 	{
 		m_hit = false;
+		m_accTime = 0;
 	}
 	m_attackBox->Update();
 	//m_hitBox->Update();

@@ -2,7 +2,8 @@
 #include "CCarrotBossAttackState.h"
 #include "CCarrotBossAttackBox.h"
 #include "CMonster.h"
-
+#include "CAnimation.h"
+#include "CAnimator.h"
 #include "CTimeManager.h"
 
 CCarrotBossAttackState::CCarrotBossAttackState()
@@ -11,6 +12,8 @@ CCarrotBossAttackState::CCarrotBossAttackState()
 	,m_beamAttackCount(0.f)
 	,m_interval(0.15f)
 	,m_beamInterval(0.8f)
+	,m_patternAccTime(0)
+	,m_patternTime(8.f)
 	, m_attackChangeinterval(3.f)
 {
 }
@@ -25,7 +28,7 @@ void CCarrotBossAttackState::Enter()
 	if (ATTACK_PATT::PATT1 == attackBox->GetCurrentPatt())
 	{
 		m_maxAttackCount = 4;
-		m_interval = 0.3f;
+		m_interval = 0.5f;
 	}
 	else
 	{
@@ -47,22 +50,31 @@ void CCarrotBossAttackState::Update()
 	CCarrotBossAttackBox* attackBox = (CCarrotBossAttackBox*)GetMonster()->GetAttackBox();
 	if (ATTACK_PATT::PATT1 == attackBox->GetCurrentPatt())
 	{
-		if (m_attackCount < m_maxAttackCount)
+		GetMonster()->GetAnimator()->Play(L"CARROT_IDLE", true);
+		//유도미사일
+		if (m_patternAccTime <= m_patternTime)
 		{
-			m_accTime += fDT;
-			if (m_accTime >= m_interval)
+			m_patternAccTime += fDT;
+			if (m_attackCount < m_maxAttackCount)
 			{
-				attackBox->Fire();
-				++m_attackCount;
-				m_accTime = 0;
+				m_accTime += fDT;
+				if (m_accTime >= m_interval)
+				{
+					attackBox->Fire();
+					++m_attackCount;
+					m_accTime = 0;
+				}
 			}
 		}
+
 		
 	}
 	else
 	{
 		if (m_attackCount < m_maxAttackCount)
 		{
+			//빔
+			GetMonster()->GetAnimator()->Play(L"CARROT_SHOOT", true);
 			if (m_beamAttackCount != 4)
 			{
 				m_accTime += fDT;
@@ -90,8 +102,19 @@ void CCarrotBossAttackState::Update()
 	}
 	if (m_attackCount == m_maxAttackCount)
 	{
+		if (ATTACK_PATT::PATT1 == attackBox->GetCurrentPatt()&& m_patternAccTime <= m_patternTime)
+		{
+				return;	
+		}
+		else
+		{
+			m_patternAccTime = 0;
+		}
+			
+		//변경
 		m_changeAccTime += fDT;
-		if (m_changeAccTime >= m_attackChangeinterval)
+		GetMonster()->GetAnimator()->Play(L"CARROT_TRANSIT", false);
+		if (GetMonster()->GetAnimator()->GetCurrentAnim()->IsFinish())
 		{
 			
 			attackBox->ChangeAttack();

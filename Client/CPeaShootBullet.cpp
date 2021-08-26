@@ -8,7 +8,7 @@
 CPeaShootBullet::CPeaShootBullet()
 	:CBullet(BULLET_TYPE::PEASHOOT)
 {
-	SetName(L"Player_bullet");
+	SetName(L"PlayerBullet");
 	bulletInfo info = {};
 	info.bulletSpeed = 300.f;
 	info.damege = 5.f;
@@ -45,7 +45,7 @@ void CPeaShootBullet::Render(HDC _dc)
 
 void CPeaShootBullet::OnCollisionEnter(CCollider* _col)
 {
-	if (_col->GetOwner()->GetName() == L"MonsterHitBox" || _col->GetOwner()->GetName() == L"Ground")
+	if (_col->GetOwner()->GetName() == L"MonsterHitBox" || _col->GetOwner()->GetName() == L"Ground" || _col->GetOwner()->GetName() == L"MonsterBullet")
 	{
 		DeleteObject(this);
 	}

@@ -40,6 +40,6 @@ private:
     friend class CSalSpudder;
     friend class CChauncey;
     friend class COllieBullb;
-    friend class CCagney;
+    friend class CSlime;
 };
 

@@ -18,8 +18,8 @@
 #include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CBeamMissile.cpp"
 
 
-#include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CBlackFlower.cpp"
-
-
 #include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CBullet.cpp"
+
+
+#include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CSlime.cpp"
 

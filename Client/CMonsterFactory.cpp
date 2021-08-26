@@ -12,8 +12,8 @@
 #include "COllieBullb.h"
 #include "COnionBossAttackState.h"
 #include "COnionBossIdleState.h"
-#include "CCagney.h"
-#include "CCagneyAttackState.h"
+#include "CSlime.h"
+#include "CState.h"
 CMonster* CMonsterFactory::CreateMonster(MON_TYPE _type, Vec2 _pos)
 {
 	CMonster* monster = nullptr;
@@ -78,6 +78,7 @@ CMonster* CMonsterFactory::CreateMonster(MON_TYPE _type, Vec2 _pos)
 		FSMAI* ai = new FSMAI;
 		ai->AddState(new CCarrotBossIntroState);
 		ai->AddState(new CCarrotBossAttackState);
+		ai->AddState(new CDeathState(L"CARROT_DEATH"));
 		ai->SetCurrentState(MON_STATE::INTRO);
 		monster->SetAi(ai);
 	}
@@ -106,23 +107,6 @@ CMonster* CMonsterFactory::CreateMonster(MON_TYPE _type, Vec2 _pos)
 	break;
 	case MON_TYPE::CAGNEY:
 	{
-		monster = new CCagney;
-		monster->SetPos(_pos);
-		monsterInfo info = {};
-		info.attackDamege = 1;
-		info.attackRange = 0;
-		info.eyesightRange = 0;
-		info.hp = 500.f;
-		info.attackSpeed = 2.f;
-		info.moveSpeed = 100.f;
-		monster->Start();
-		monster->SetInfo(info);
-		FSMAI* ai = new FSMAI;
-		ai->AddState(new CIntroState);
-		ai->AddState(new CCagneyAttackState);
-		ai->AddState(new CIdleState(L""));
-		ai->SetCurrentState(MON_STATE::INTRO);
-		monster->SetAi(ai);
 	}
 	case MON_TYPE::RANGE:
 		break;

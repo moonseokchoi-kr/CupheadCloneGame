@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "CCarrotBossIntroState.h"
-
+#include "CAnimator.h"
+#include "CAnimation.h"
+#include "CMonster.h"
 CCarrotBossIntroState::CCarrotBossIntroState()
 	:CState(MON_STATE::INTRO)
 {
@@ -20,5 +22,6 @@ void CCarrotBossIntroState::Exit()
 
 void CCarrotBossIntroState::Update()
 {
-	ChangeAIState(GetAI(), MON_STATE::ATTACK);
+	if(GetMonster()->GetAnimator()->GetCurrentAnim()->IsFinish())
+		ChangeAIState(GetAI(), MON_STATE::ATTACK);
 }

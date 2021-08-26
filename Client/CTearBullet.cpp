@@ -131,17 +131,7 @@ void CTearBullet::OnCollision(CCollider* _col)
 	{
 		isDead = true;
 	}
-	if (obj->GetName() == L"PlayerBullet")
-	{
-		bulletInfo info = GetInfo();
-		info.health -= 1;
-		if (info.health <= 0)
-		{
-			isDead = true;
-			return;
-		}
-		SetInfo(info);
-	}
+
 }
 
 void CTearBullet::randomTear()

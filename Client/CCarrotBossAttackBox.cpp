@@ -34,7 +34,7 @@ void CCarrotBossAttackBox::Update()
 	}
 	else
 	{
-		SetPos(Vec2(0.f, -200.f));
+		SetPos(Vec2(0.f, -100.f));
 	}
 	
 }
@@ -48,30 +48,29 @@ void CCarrotBossAttackBox::Fire()
 	random_device rd;
 	mt19937 gen(rd());
 	uniform_int_distribution<int> dis(0, 5);
-	CBullet* bullet = nullptr;
-	CBullet* cloneBullet = nullptr;
+	CBeamMissile* beam = new CBeamMissile;
+	CCarrotMissle* carrotMissile = new CCarrotMissle;
 	switch (m_currnetPatt)
 	{
 	case ATTACK_PATT::PATT1:
 	{
-		bullet = new CCarrotMissle;
-		cloneBullet = ((CCarrotMissle*)bullet)->Clone();
-		cloneBullet->SetPos(Vec2(m_missieX[dis(gen)], GetFinalPos().y));
+		carrotMissile->SetPos(Vec2(m_missieX[dis(gen)], GetFinalPos().y));
+		carrotMissile->SetName(L"MonsterBullet");
+		carrotMissile->Start();
+		CreateObject(carrotMissile, GROUP_TYPE::MONSTER_BULLET);
 	}
 		break;
 	case ATTACK_PATT::PATT2:
 	{
-		bullet = new CBeamMissile;
-		cloneBullet = ((CBeamMissile*)bullet)->Clone();
-		cloneBullet->SetPos(GetFinalPos());
+		beam->SetPos(GetFinalPos());
+		beam->SetName(L"BeamBullet");
+		beam->Start();
+		CreateObject(beam, GROUP_TYPE::MONSTER_BULLET);
 	}
 		break;
 	default:
 		break;
 	}
-	cloneBullet->SetName(L"MonsterBullet");
-	cloneBullet->Start();
-	CreateObject(cloneBullet, GROUP_TYPE::MONSTER_BULLET);
 }
 
 void CCarrotBossAttackBox::ChangeAttack()

@@ -243,9 +243,6 @@
     <Filter Include="Engine\Object\Bullet\Monster\Cagney">
       <UniqueIdentifier>{4f7e4af0-f39f-49f1-8cd0-199e30797ab5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Module\AI\State\AttackState\Cagney">
-      <UniqueIdentifier>{900a98f6-9c2f-444f-a199-4e3b21258d73}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Object\Player\StateMachine\State\HitState">
       <UniqueIdentifier>{49996d0e-6724-43b3-9095-2589ff7b4b71}</UniqueIdentifier>
     </Filter>
@@ -260,6 +257,12 @@
     </Filter>
     <Filter Include="Engine\Object\HitBox\Monster">
       <UniqueIdentifier>{e6e3d804-38cb-493e-99b8-9c9bc85f3323}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Module\AI\State\AttackState\Slime">
+      <UniqueIdentifier>{900a98f6-9c2f-444f-a199-4e3b21258d73}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Module\AI\State\IdleState\Slime">
+      <UniqueIdentifier>{4d110d00-20f4-4c39-8bb1-a9822efa9569}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -495,32 +498,11 @@
     <ClInclude Include="COnionBossIdleState.h">
       <Filter>Engine\Module\AI\State\IdleState\Ollie</Filter>
     </ClInclude>
-    <ClInclude Include="CCagney.h">
+    <ClInclude Include="CSlime.h">
       <Filter>Engine\Object\Monster\CagneyCarnation</Filter>
-    </ClInclude>
-    <ClInclude Include="CCagneyAttackBox.h">
-      <Filter>Engine\Object\AttackBox\Monster</Filter>
-    </ClInclude>
-    <ClInclude Include="CSeedBullet.h">
-      <Filter>Engine\Object\Bullet\Monster\Cagney</Filter>
-    </ClInclude>
-    <ClInclude Include="CMonSeedBullet.h">
-      <Filter>Engine\Object\Bullet\Monster\Cagney</Filter>
     </ClInclude>
     <ClInclude Include="CTearBullet.h">
       <Filter>Engine\Object\Bullet\Monster\Olle</Filter>
-    </ClInclude>
-    <ClInclude Include="CFlyFlower.h">
-      <Filter>Engine\Object\Monster\CagneyCarnation</Filter>
-    </ClInclude>
-    <ClInclude Include="CBlackFlower.h">
-      <Filter>Engine\Object\Monster\CagneyCarnation</Filter>
-    </ClInclude>
-    <ClInclude Include="CFaceAttack.h">
-      <Filter>Engine\Object\Bullet\Monster\Cagney</Filter>
-    </ClInclude>
-    <ClInclude Include="CCagneyAttackState.h">
-      <Filter>Engine\Module\AI\State\AttackState\Cagney</Filter>
     </ClInclude>
     <ClInclude Include="CPlayerHitState.h">
       <Filter>Engine\Object\Player\StateMachine\State\HitState</Filter>
@@ -536,6 +518,18 @@
     </ClInclude>
     <ClInclude Include="CMonsterHitBox.h">
       <Filter>Engine\Object\HitBox\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="CCarrotEyes.h">
+      <Filter>Engine\Object\Monster\Chauncey</Filter>
+    </ClInclude>
+    <ClInclude Include="CSlimAttackState.h">
+      <Filter>Engine\Module\AI\State\AttackState\Slime</Filter>
+    </ClInclude>
+    <ClInclude Include="CSlimeAttackBox.h">
+      <Filter>Engine\Object\AttackBox\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="CSlimeIdleState.h">
+      <Filter>Engine\Module\AI\State\IdleState\Slime</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -767,29 +761,8 @@
     <ClCompile Include="COnionBossIdleState.cpp">
       <Filter>Engine\Module\AI\State\IdleState\Ollie</Filter>
     </ClCompile>
-    <ClCompile Include="CCagney.cpp">
+    <ClCompile Include="CSlime.cpp">
       <Filter>Engine\Object\Monster\CagneyCarnation</Filter>
-    </ClCompile>
-    <ClCompile Include="CCagneyAttackBox.cpp">
-      <Filter>Engine\Object\AttackBox\Monster</Filter>
-    </ClCompile>
-    <ClCompile Include="CSeedBullet.cpp">
-      <Filter>Engine\Object\Bullet\Monster\Cagney</Filter>
-    </ClCompile>
-    <ClCompile Include="CMonSeedBullet.cpp">
-      <Filter>Engine\Object\Bullet\Monster\Cagney</Filter>
-    </ClCompile>
-    <ClCompile Include="CFlyFlower.cpp">
-      <Filter>Engine\Object\Monster\CagneyCarnation</Filter>
-    </ClCompile>
-    <ClCompile Include="CBlackFlower.cpp">
-      <Filter>Engine\Object\Monster\CagneyCarnation</Filter>
-    </ClCompile>
-    <ClCompile Include="CFaceAttack.cpp">
-      <Filter>Engine\Object\Bullet\Monster\Cagney</Filter>
-    </ClCompile>
-    <ClCompile Include="CCagneyAttackState.cpp">
-      <Filter>Engine\Module\AI\State\AttackState\Cagney</Filter>
     </ClCompile>
     <ClCompile Include="CPlayerHitState.cpp">
       <Filter>Engine\Object\Player\StateMachine\State\HitState</Filter>
@@ -805,6 +778,18 @@
     </ClCompile>
     <ClCompile Include="CMonsterHitBox.cpp">
       <Filter>Engine\Object\HitBox\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="CCarrotEyes.cpp">
+      <Filter>Engine\Object\Monster\Chauncey</Filter>
+    </ClCompile>
+    <ClCompile Include="CSlimAttackState.cpp">
+      <Filter>Engine\Module\AI\State\AttackState\Slime</Filter>
+    </ClCompile>
+    <ClCompile Include="CSlimeAttackBox.cpp">
+      <Filter>Engine\Object\AttackBox\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="CSlimeIdleState.cpp">
+      <Filter>Engine\Module\AI\State\IdleState\Slime</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -20,5 +20,6 @@ public:
 private:
     Vec2 m_targetPos;
     Vec2 m_diff;
+    bool isDead;
 };
 
