@@ -51,6 +51,7 @@ CMonster* CMonsterFactory::CreateMonster(MON_TYPE _type, Vec2 _pos)
 		info.attackSpeed = 0.4f;
 		info.moveSpeed = 100.f;
 		monster->SetInfo(info);
+		monster->SetName(L"Potato");
 		monster->Start();
 		FSMAI* ai = new FSMAI;
 		ai->AddState(new CIdleState(L"POTATO_IDLE"));
@@ -73,6 +74,7 @@ CMonster* CMonsterFactory::CreateMonster(MON_TYPE _type, Vec2 _pos)
 		info.hp = 300.f;
 		info.attackSpeed = 0.15;
 		info.moveSpeed = 100.f;
+		monster->SetName(L"Carrot");
 		monster->Start();
 		monster->SetInfo(info);
 		FSMAI* ai = new FSMAI;
@@ -94,6 +96,7 @@ CMonster* CMonsterFactory::CreateMonster(MON_TYPE _type, Vec2 _pos)
 		info.hp = 300.f;
 		info.attackSpeed = 0.5;
 		info.moveSpeed = 100.f;
+		monster->SetName(L"Onion");
 		monster->Start();
 		monster->SetInfo(info);
 		FSMAI* ai = new FSMAI;

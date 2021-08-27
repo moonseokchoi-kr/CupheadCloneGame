@@ -15,7 +15,6 @@
 CChauncey::CChauncey()
 {
 	CreateCollider();
-	CreateRigidBody();
 	CreateAnimator();
 	SetScale(Vec2(395.f,552.f));
 	GetCollider()->SetScale(GetScale());
@@ -77,11 +76,11 @@ void CChauncey::Render(HDC _dc)
 
 void CChauncey::FinalUpdate()
 {
+	CMonster::FinalUpdate();
 	if (GetAi()->GetCurrentState()->GetState() == MON_STATE::ATTACK && ((CCarrotBossAttackBox*)m_attackBox)->GetCurrentPatt() == ATTACK_PATT::PATT2)
 	{
 		m_eyes->FinalUpdate();
 	}
-	CMonster::FinalUpdate();
 }
 
 void CChauncey::OnCollision(CCollider* _col)

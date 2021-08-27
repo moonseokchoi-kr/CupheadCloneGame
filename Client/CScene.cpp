@@ -2,7 +2,8 @@
 #include "CScene.h"
 #include "CTexture.h"
 #include "CTile.h"
-
+#include "CMonster.h"
+#include "FSMAI.h"
 
 #include "CPathManager.h"
 #include "CResourceManager.h"
@@ -18,6 +19,8 @@
 CScene::CScene()
 	:m_TileXCount(0)
 	,m_TileYCount(0)
+	,m_currentState(SCENE_STATE::START)
+	,m_prevState(SCENE_STATE::START)
 {
 }
 
@@ -50,20 +53,38 @@ void CScene::Start()
 /// </summary>
 void CScene::Update()
 {
+
 	for (int i = 0; i < m_arrObj.size(); ++i)
 	{
 		if (TYPE_NUMBER(GROUP_TYPE::BACK_GROUND) == i)
 		{
 			offset_change();
 		}
+		if (m_currentState == SCENE_STATE::PAUSE)
+		{
+			if (TYPE_NUMBER(GROUP_TYPE::UI) == i)
+			{
+				for (int j = 0; j < m_arrObj[i].size(); ++j)
+				{
+					if (!m_arrObj[i][j]->IsDead())
+					{
+						m_arrObj[i][j]->Update();
+					}
+
+				}
+			}
+			return;
+		}
+
 		for (int j = 0; j < m_arrObj[i].size(); ++j)
 		{
 			if (!m_arrObj[i][j]->IsDead())
 			{
 				m_arrObj[i][j]->Update();
 			}
-			
+
 		}
+		
 	}
 }
 /// <summary>
@@ -103,6 +124,25 @@ void CScene::FinalUpdate()
 
 
 	}
+}
+
+void CScene::SetDeadState(CMonster* _boss)
+{
+	ChangeAIState(_boss->GetAi(), MON_STATE::DEAD);
+}
+
+void CScene::SetDebug()
+{
+	if (CCore::GetInst()->IsDebug())
+	{
+		CCore::GetInst()->SetDebug(false);
+		return;
+	}
+	else
+	{
+		CCore::GetInst()->SetDebug(true);
+	}
+	
 }
 
 void CScene::DeleteAll()
@@ -160,7 +200,11 @@ void CScene::LoadMap(const wstring& _relativePath)
 				AddObject(gameObj, GROUP_TYPE::GAME_OBJ);
 			}
 			else
+			{
+				gameObj->Start();
 				AddObject(gameObj, GROUP_TYPE::SPAWN_OBJ);
+			}
+				
 		}
 
 		else if ('G' == buffer[0])

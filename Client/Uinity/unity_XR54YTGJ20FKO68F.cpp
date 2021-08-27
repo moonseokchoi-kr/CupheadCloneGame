@@ -1,5 +1,11 @@
 #include "pch.h"
 
+#include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CStageScene_01.cpp"
+
+
+#include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CTearBullet.cpp"
+
+
 #include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CTextUI.cpp"
 
 
@@ -16,10 +22,4 @@
 
 
 #include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CUIManager.cpp"
-
-
-#include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\FSMAI.cpp"
-
-
-#include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\func.cpp"
 

@@ -45,8 +45,8 @@ void CCamera::Update()
 			m_lookAt = m_targetObject->GetPos();
 			m_currentLookAt = m_lookAt;
 		}
+		calLookAt();
 	}
-	calLookAt();
 	if (CSceneManager::GetInst()->GetCurrentScene()->GetSceneName() == L"Tool Scene")\
 	{
 		if (KEY_HOLD(KEY::LEFT))

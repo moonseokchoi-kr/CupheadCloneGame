@@ -16,9 +16,18 @@
 class CUI;
 class CPlayer;
 
+enum class SCENE_STATE
+{
+	START,
+	PLAY,
+	PAUSE,
+	GAMEOVER,
+
+};
+
 class CScene
 {
-public:	
+public:
 	CScene();
 	virtual ~CScene();
 public:
@@ -29,7 +38,7 @@ public:
 	virtual void Enter() = 0;
 	virtual void Exit() = 0;
 public:
-	
+
 	void AddObject(CObject* _obj, GROUP_TYPE _state)
 	{
 		m_arrObj[(UINT)_state].push_back(_obj);
@@ -60,6 +69,21 @@ public:
 	UINT GetTileX() { return m_TileXCount; }
 	UINT GetTileY() { return m_TileYCount; }
 
+	void SetCurrnetState(SCENE_STATE _state) 
+	{
+		m_prevState = m_currentState;
+		m_currentState = _state;
+	}
+	SCENE_STATE GetCurrentState()
+	{ 
+		return m_currentState;
+	}
+	SCENE_STATE GetPrevState() { return m_prevState; }
+
+public:
+	//디버그용 함수
+	void SetDeadState(CMonster* _boss);
+	void SetDebug();
 public:
 	void DeleteAll();
 	void DeleteGroup(GROUP_TYPE _target);
@@ -71,7 +95,8 @@ private:
 private:
 	array<vector<CObject*>, (UINT)GROUP_TYPE::END> m_arrObj;
 	wstring m_strName;
-
+	SCENE_STATE m_currentState;
+	SCENE_STATE m_prevState;
 	UINT m_TileXCount;
 	UINT m_TileYCount;
 };

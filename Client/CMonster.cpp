@@ -26,8 +26,6 @@ CMonster::~CMonster()
 		delete m_ai;
 	if (nullptr != m_attackBox)
 		delete m_attackBox;
-	if(nullptr !=m_hitBox)
-		DeleteObject(m_hitBox);
 }
 
 void CMonster::Start()
@@ -56,6 +54,8 @@ void CMonster::Update()
 
 void CMonster::FinalUpdate()
 {
+	if (CSceneManager::GetInst()->GetCurrentScene()->GetSceneName() == L"Tool Scene")
+		return;
 	CObject::FinalUpdate();
 }
 

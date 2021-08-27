@@ -18,8 +18,8 @@
 #include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CSpawnObject.cpp"
 
 
+#include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CStageScene_02.cpp"
+
+
 #include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CState.cpp"
-
-
-#include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CTearBullet.cpp"
 

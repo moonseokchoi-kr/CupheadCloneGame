@@ -15,53 +15,11 @@ CBackGround::CBackGround()
 	:m_type(BACKGROUND_TYPE::END)
 	,m_currentTex(nullptr)
 {
-	CResourceManager::GetInst()->LoadTexture(L"canetion_background_sky", L"texture\\cuphead\\background\\canetion_background.bmp");
-	CResourceManager::GetInst()->LoadTexture(L"canetion_background_yard", L"texture\\cuphead\\background\\canetion_background_tree.bmp");
-	CResourceManager::GetInst()->LoadTexture(L"canetion_background_tree", L"texture\\cuphead\\background\\canetion_tree.bmp");
-	CResourceManager::GetInst()->LoadTexture(L"botanic_background_1", L"texture\\cuphead\\background\\botanic_background_1.bmp");
-	CResourceManager::GetInst()->LoadTexture(L"botanic_ground", L"texture\\cuphead\\background\\botanic_ground.bmp");
-	CResourceManager::GetInst()->LoadTexture(L"botanic_background_cloud_1", L"texture\\cuphead\\background\\botanic_background_cloud_1.bmp");
-	CResourceManager::GetInst()->LoadTexture(L"botanic_background_cloud_2", L"texture\\cuphead\\background\\botanic_background_cloud_2.bmp");
-	CResourceManager::GetInst()->LoadTexture(L"botanic_background_cloud_3", L"texture\\cuphead\\background\\botanic_background_cloud_3.bmp");
-	CResourceManager::GetInst()->LoadTexture(L"botanic_background_cloud_4", L"texture\\cuphead\\background\\botanic_background_cloud_4.bmp");
-	CResourceManager::GetInst()->LoadTexture(L"botanic_background_cloud_5", L"texture\\cuphead\\background\\botanic_background_cloud_5.bmp");
-	CResourceManager::GetInst()->LoadTexture(L"botanic_background_tree_1", L"texture\\cuphead\\background\\botanic_background_tree_1.bmp");
-	CResourceManager::GetInst()->LoadTexture(L"botanic_background_tree_2", L"texture\\cuphead\\background\\botanic_background_tree_2.bmp");
-	CResourceManager::GetInst()->LoadTexture(L"botanic_background_tree_3", L"texture\\cuphead\\background\\botanic_background_tree_3.bmp");
-	CResourceManager::GetInst()->LoadTexture(L"botanic_background_tree_4", L"texture\\cuphead\\background\\botanic_background_tree_4.bmp");
-	CResourceManager::GetInst()->LoadTexture(L"botanic_background_tree_5", L"texture\\cuphead\\background\\botanic_background_tree_5.bmp");
-	CResourceManager::GetInst()->LoadTexture(L"botanic_ground", L"texture\\cuphead\\background\\botanic_ground.bmp");
-	CResourceManager::GetInst()->LoadTexture(L"botanic_plant_1", L"texture\\cuphead\\background\\botanic_plant_1.bmp");
-	CResourceManager::GetInst()->LoadTexture(L"botanic_plant_2", L"texture\\cuphead\\background\\botanic_plant_2.bmp");
-	CResourceManager::GetInst()->LoadTexture(L"botanic_plant_3", L"texture\\cuphead\\background\\botanic_plant_3.bmp");
-	CResourceManager::GetInst()->LoadTexture(L"botanic_plant_4", L"texture\\cuphead\\background\\botanic_plant_4.bmp");
-	CResourceManager::GetInst()->LoadTexture(L"botanic_plant_5", L"texture\\cuphead\\background\\botanic_plant_5.bmp");
-	CResourceManager::GetInst()->LoadTexture(L"botanic_plant_6", L"texture\\cuphead\\background\\botanic_plant_6.bmp");
-	CResourceManager::GetInst()->LoadTexture(L"botanic_sky", L"texture\\cuphead\\background\\botanic_sky.bmp");
-	
-	
-	m_backGroundArray[TYPE_NUMBER(BACKGROUND_TYPE::CANEGY_SKY)] = L"canetion_background_sky";
-	m_backGroundArray[TYPE_NUMBER(BACKGROUND_TYPE::CANEGY_BACKGROUND)] = L"canetion_background_tree";
-	m_backGroundArray[TYPE_NUMBER(BACKGROUND_TYPE::SLIME_BACKGROUND)] = L"canetion_background_yard";
-	m_backGroundArray[TYPE_NUMBER(BACKGROUND_TYPE::VEGGIE_BACKGROUND)] = L"botanic_background_1";
-	m_backGroundArray[TYPE_NUMBER(BACKGROUND_TYPE::BOTANIC_GROUND)] = L"botanic_ground";
-	m_backGroundArray[TYPE_NUMBER(BACKGROUND_TYPE::BOTANIC_CLOUD_1)] = L"botanic_background_cloud_1";
-	m_backGroundArray[TYPE_NUMBER(BACKGROUND_TYPE::BOTANIC_CLOUD_2)] = L"botanic_background_cloud_2";
-	m_backGroundArray[TYPE_NUMBER(BACKGROUND_TYPE::BOTANIC_CLOUD_3)] = L"botanic_background_cloud_3";
-	m_backGroundArray[TYPE_NUMBER(BACKGROUND_TYPE::BOTANIC_CLOUD_4)] = L"botanic_background_cloud_4";
-	m_backGroundArray[TYPE_NUMBER(BACKGROUND_TYPE::BOTANIC_CLOUD_5)] = L"botanic_background_cloud_5";
-	m_backGroundArray[TYPE_NUMBER(BACKGROUND_TYPE::BOTANIC_TREE_1)] = L"botanic_background_tree_1";
-	m_backGroundArray[TYPE_NUMBER(BACKGROUND_TYPE::BOTANIC_TREE_2)] = L"botanic_background_tree_2";
-	m_backGroundArray[TYPE_NUMBER(BACKGROUND_TYPE::BOTANIC_TREE_3)] = L"botanic_background_tree_3";
-	m_backGroundArray[TYPE_NUMBER(BACKGROUND_TYPE::BOTANIC_TREE_4)] = L"botanic_background_tree_4";
-	m_backGroundArray[TYPE_NUMBER(BACKGROUND_TYPE::BOTANIC_TREE_5)] = L"botanic_background_tree_5";
-	m_backGroundArray[TYPE_NUMBER(BACKGROUND_TYPE::BOTANIC_PLANT_1)] = L"botanic_plant_1";
-	m_backGroundArray[TYPE_NUMBER(BACKGROUND_TYPE::BOTANIC_PLANT_2)] = L"botanic_plant_2";
-	m_backGroundArray[TYPE_NUMBER(BACKGROUND_TYPE::BOTANIC_PLANT_3)] = L"botanic_plant_3";
-	m_backGroundArray[TYPE_NUMBER(BACKGROUND_TYPE::BOTANIC_PLANT_4)] = L"botanic_plant_4";
-	m_backGroundArray[TYPE_NUMBER(BACKGROUND_TYPE::BOTANIC_PLANT_5)] = L"botanic_plant_5";
-	m_backGroundArray[TYPE_NUMBER(BACKGROUND_TYPE::BOTANIC_PLANT_6)] = L"botanic_plant_6";
-	m_backGroundArray[TYPE_NUMBER(BACKGROUND_TYPE::BOTANIC_SKY)] = L"botanic_sky";
+	CResourceManager::GetInst()->LoadTexture(L"VeggieBackgroundTex", L"texture\\cuphead\\background\\veggie_background.bmp");
+	CResourceManager::GetInst()->LoadTexture(L"SlimeBackgroundTex", L"texture\\cuphead\\background\\slime_baground.bmp");
+
+	m_backGroundArray[TYPE_NUMBER(BACKGROUND_TYPE::SLIME_BACKGROUND)] = L"SlimeBackgroundTex";
+	m_backGroundArray[TYPE_NUMBER(BACKGROUND_TYPE::VEGGIE_BACKGROUND)] = L"VeggieBackgroundTex";
 
 
 }

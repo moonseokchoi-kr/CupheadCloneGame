@@ -45,7 +45,6 @@ public:
     void SaveMap(const wstring& _path);
     void SaveMapData();
     void LoadMapData();
-    void GoIdxTable(int _idx);
     void GetTileUIidx(int _idx);
     void CreateGameObject();
     void DeleteGameObject();

@@ -36,9 +36,6 @@
     <Filter Include="Engine\Scene">
       <UniqueIdentifier>{c8deaff5-2e5c-4c29-a539-0baac3f23009}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Scene\Start Scene">
-      <UniqueIdentifier>{d7ff4e17-ef04-4182-82ee-00a445c08a6d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Manager\SceneManager">
       <UniqueIdentifier>{db0520fd-8b9d-43c4-bf8d-0f9993fe826e}</UniqueIdentifier>
     </Filter>
@@ -270,6 +267,12 @@
     <Filter Include="Engine\Object\Player\StateMachine\State\IntroState">
       <UniqueIdentifier>{fc7e9bfa-ecfd-4900-8083-034eaf039ab3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Scene\Test Scene">
+      <UniqueIdentifier>{d7ff4e17-ef04-4182-82ee-00a445c08a6d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Scene\Stage Scene">
+      <UniqueIdentifier>{c31555b2-ac2f-4efd-af12-c78fc1c5aa12}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -306,8 +309,8 @@
     <ClInclude Include="CScene.h">
       <Filter>Engine\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="CScene_Start.h">
-      <Filter>Engine\Scene\Start Scene</Filter>
+    <ClInclude Include="CScene_Test.h">
+      <Filter>Engine\Scene\Test Scene</Filter>
     </ClInclude>
     <ClInclude Include="CPlayer.h">
       <Filter>Engine\Object\Player</Filter>
@@ -543,6 +546,12 @@
     <ClInclude Include="CPlayerIntroState.h">
       <Filter>Engine\Object\Player\StateMachine\State\IntroState</Filter>
     </ClInclude>
+    <ClInclude Include="CStageScene_01.h">
+      <Filter>Engine\Scene\Stage Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="CStageScene_02.h">
+      <Filter>Engine\Scene\Stage Scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -574,8 +583,8 @@
     <ClCompile Include="CScene.cpp">
       <Filter>Engine\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="CScene_Start.cpp">
-      <Filter>Engine\Scene\Start Scene</Filter>
+    <ClCompile Include="CScene_Test.cpp">
+      <Filter>Engine\Scene\Test Scene</Filter>
     </ClCompile>
     <ClCompile Include="CSceneManager.cpp">
       <Filter>Engine\Manager\SceneManager</Filter>
@@ -808,6 +817,12 @@
     </ClCompile>
     <ClCompile Include="CPlayerIntroState.cpp">
       <Filter>Engine\Object\Player\StateMachine\State\IntroState</Filter>
+    </ClCompile>
+    <ClCompile Include="CStageScene_01.cpp">
+      <Filter>Engine\Scene\Stage Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="CStageScene_02.cpp">
+      <Filter>Engine\Scene\Stage Scene</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

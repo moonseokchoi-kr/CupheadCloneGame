@@ -2,12 +2,12 @@
 #include "CScene.h"
 class CTexture;
 
-class CScene_Start :
+class CScene_Test :
     public CScene
 {
 public:
-    CScene_Start();
-    ~CScene_Start();
+    CScene_Test();
+    ~CScene_Test();
 public:
     // CScene을(를) 통해 상속됨
     virtual void Enter() override;

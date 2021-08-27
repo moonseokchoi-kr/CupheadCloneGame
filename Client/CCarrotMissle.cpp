@@ -25,7 +25,7 @@ CCarrotMissle::CCarrotMissle()
 	SetScale(Vec2(40.f, 70.f));
 	GetCollider()->SetScale(Vec2(40.f, 80.f));
 	GetCollider()->SetOffsetPos(Vec2(0.f, 10.f));
-	GetRigidBody()->SetMaxVelocity(100.f);
+	GetRigidBody()->SetMaxVelocity(200.f);
 	m_target = CSceneManager::GetInst()->GetCurrentScene()->GetTarget(GROUP_TYPE::PLAYER, L"Player");
 
 

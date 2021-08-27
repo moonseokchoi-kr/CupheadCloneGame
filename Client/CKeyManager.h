@@ -44,6 +44,12 @@ enum class KEY
 	DELT,
 	ESC,
 
+	F1,
+	F2,
+	F3,
+	F4,
+
+
 	MOUSE_MOVE,
 	MOUSE_LBUTTON,
 	MOUSE_RBUTTON,

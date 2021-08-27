@@ -69,7 +69,7 @@ void CScene_Tool::Update()
 	
 	if (KEY_TAP(KEY::DELT) && focusObj)
 		DeleteGameObject();
-	if (KEY_TAP(KEY::MOUSE_RBUTTON) && focusObj)
+	if (spawnObj && (spawnObj->GetGroupType() == GROUP_TYPE::PLAYER || spawnObj->GetGroupType() == GROUP_TYPE::BOSS))
 	{
 		if (nullptr == spawnObj)
 			return;
@@ -90,7 +90,7 @@ void CScene_Tool::Update()
 	}
 	if (KEY_TAP(KEY::ENTER))
 	{
-		ChangeScene(SCENE_TYPE::START);
+		ChangeScene(SCENE_TYPE::TEST);
 	}
 }
 	
@@ -100,11 +100,11 @@ void CScene_Tool::Enter()
 	Vec2 resolution = Vec2(1600, 960);
 	CCore::GetInst()->DockMenu(resolution);
 	CCore::GetInst()->SetDebug(true);
-
+	SetCurrnetState(SCENE_STATE::PLAY);
 	/*CreateTile(5, 5);*/
 
 	CUI* parentUI = new CPanelUI(false);
-	parentUI->SetScale(Vec2(400.f, 750.f));
+	parentUI->SetScale(Vec2(400.f, 450.f));
 	parentUI->SetPos(Vec2(resolution.x - parentUI->GetScale().x, 100.f));
 	parentUI->SetName(L"TilePanelUI");
 	
@@ -213,7 +213,7 @@ void CScene_Tool::SaveMap(const wstring& _path)
 			fputs("\n", file);
 		}
 		break;
-		case GAMEOBJECT_TYPE::CARROT:
+		case GAMEOBJECT_TYPE::GROUND:
 		{
 			fputs("G\n", file);
 			((CGround*)gameObj)->Save(file);
@@ -232,10 +232,6 @@ void CScene_Tool::SaveMap(const wstring& _path)
 		default:
 			break;
 		}
-		
-
-
-		
 	}
 	const vector<CObject*> foreGrounds = GetObjWithType(GROUP_TYPE::FORE_GROUND);
 	for(CObject* foreGround:foreGrounds)
@@ -304,78 +300,39 @@ void CScene_Tool::LoadMapData()
 	
 }
 
-
-void CScene_Tool::GoIdxTable(int _idx)
-{
-	
-	int idx = 0;
-	int maxIdx = 0;
-	switch (_idx)
-	{
-	case 0:
-	{
-		CGameObjectManager::GetInst()->SetCurrnetGroup(GROUP_TYPE::BACK_GROUND);
-		maxIdx = 23;
-	}
-		break;
-	case 1:
-	{
-		CGameObjectManager::GetInst()->SetCurrnetGroup(GROUP_TYPE::FORE_GROUND);
-		idx = 24;
-		maxIdx = 29;
-	}	
-	break;
-	case 2:
-	{
-		CGameObjectManager::GetInst()->SetCurrnetGroup(GROUP_TYPE::GAME_OBJ);
-		idx = 30;
-		maxIdx = 35;
-	}
-	break;
-	default:
-		break;
-	}
-
-	const vector<CObject*>& UIs = GetObjWithType(GROUP_TYPE::UI);
-
-	for (CObject* UI : UIs)
-	{
-		if (UI->GetName() == L"TilePanelUI")
-		{
-			const vector<CUI*>& children = ((CUI*)UI)->GetChilds();
-			for (CUI* child : children)
-			{
-				if (child->GetName() == L"TileButtonUI")
-				{
-					((CTileButtonUI*)child)->SetTileidx(idx++);
-					if (idx > maxIdx)
-						((CTileButtonUI*)child)->SetTileidx(35);
-				}
-			}
-			break;
-		}
-	}
-}
-
 void CScene_Tool::GetTileUIidx(int _idx)
 {
 	m_cilckedImageIdx = _idx;
+
+	if (0 <= m_cilckedImageIdx&& m_cilckedImageIdx < 4)
+	{
+		CGameObjectManager::GetInst()->SetCurrnetGroup(GROUP_TYPE::BACK_GROUND);
+	}
+	else if (4 <= m_cilckedImageIdx && m_cilckedImageIdx < 8)
+	{
+		CGameObjectManager::GetInst()->SetCurrnetGroup(GROUP_TYPE::FORE_GROUND);
+	}
+	else
+	{
+		CGameObjectManager::GetInst()->SetCurrnetGroup(GROUP_TYPE::GAME_OBJ);
+	}
 }
 
 void CScene_Tool::CreateGameObject()
 {
-	
 	if (KEY_TAP(KEY::MOUSE_LBUTTON))
 	{
 		CGameObject* gameObj = nullptr;
 		Vec2 mousePos = CCamera::GetInst()->GetRealPos(MOUSE_POS);
 		switch (CGameObjectManager::GetInst()->GetCurrentGroup())
 		{
-			
+
 		case GROUP_TYPE::BACK_GROUND:
 		{
+			if (m_cilckedImageIdx > 1)
+				return;
 			gameObj = new CBackGround;
-			gameObj->SetPos(mousePos);
+			gameObj->SetPos(Vec2(1450 / 2.f, 960 / 2.f));
 			((CBackGround*)gameObj)->SetType((BACKGROUND_TYPE)m_cilckedImageIdx);
 			AddObject(gameObj, GROUP_TYPE::BACK_GROUND);
 			m_cilckedImageIdx = -1;
@@ -393,7 +350,7 @@ void CScene_Tool::CreateGameObject()
 		break;
 		case GROUP_TYPE::GAME_OBJ:
 		{
-			
+
 			switch ((GAMEOBJECT_TYPE)m_cilckedImageIdx)
 			{
 			case GAMEOBJECT_TYPE::FLOWER_PLATFORM_A:
@@ -405,7 +362,7 @@ void CScene_Tool::CreateGameObject()
 				AddObject(gameObj, GROUP_TYPE::GAME_OBJ);
 				m_cilckedImageIdx = -1;
 			}
-				break;
+			break;
 			case GAMEOBJECT_TYPE::FLOWER_PLATFORM_B:
 			{
 				gameObj = new CGround;
@@ -415,7 +372,7 @@ void CScene_Tool::CreateGameObject()
 				AddObject(gameObj, GROUP_TYPE::GAME_OBJ);
 				m_cilckedImageIdx = -1;
 			}
-				break;
+			break;
 			case GAMEOBJECT_TYPE::FLOWER_PLATFORM_C:
 			{
 				gameObj = new CGround;
@@ -425,17 +382,17 @@ void CScene_Tool::CreateGameObject()
 				AddObject(gameObj, GROUP_TYPE::GAME_OBJ);
 				m_cilckedImageIdx = -1;
 			}
-				break;
-			case GAMEOBJECT_TYPE::CARROT:
+			break;
+			case GAMEOBJECT_TYPE::GROUND:
 			{
 				gameObj = new CGround;
 				gameObj->SetPos(mousePos);
-				gameObj->SetType(GAMEOBJECT_TYPE::CARROT);
+				gameObj->SetType(GAMEOBJECT_TYPE::GROUND);
 				gameObj->Start();
 				AddObject(gameObj, GROUP_TYPE::GAME_OBJ);
 				m_cilckedImageIdx = -1;
 			}
-				break;
+			break;
 			case GAMEOBJECT_TYPE::SPAWN:
 			{
 				gameObj = new CSpawnObject;
@@ -444,7 +401,7 @@ void CScene_Tool::CreateGameObject()
 				AddObject(gameObj, GROUP_TYPE::GAME_OBJ);
 				m_cilckedImageIdx = -1;
 			}
-				break;
+			break;
 			default:
 				break;
 			}
@@ -455,9 +412,8 @@ void CScene_Tool::CreateGameObject()
 		}
 		CGameObjectManager::GetInst()->SetFocusedObj(gameObj);
 	}
-
-
 }
+
 /// <summary>
 /// 배경을 삭제하는 함수, 현재 선택한 개체를 지우는 함수 delete키를 이용
 /// </summary>
@@ -566,10 +522,10 @@ SpawnObj spawnList[] =
 {
 	{TEXT("Player"),GROUP_TYPE::PLAYER,MON_TYPE::NONE},
 	{TEXT("Nomal"),GROUP_TYPE::MONSTER,MON_TYPE::NORMAL},
-	{TEXT("Cagney Carnation"),GROUP_TYPE::MONSTER,MON_TYPE::CAGNEY},
-	{TEXT("Ollie Bulb"),GROUP_TYPE::MONSTER,MON_TYPE::OLLIE},
-	{TEXT("Chauncey Chantenay"),GROUP_TYPE::MONSTER,MON_TYPE::CHAUNCEY},
-	{TEXT("Sal Spudder"),GROUP_TYPE::MONSTER,MON_TYPE::SAL},
+	{TEXT("Cagney Carnation"),GROUP_TYPE::BOSS,MON_TYPE::CAGNEY},
+	{TEXT("Ollie Bulb"),GROUP_TYPE::BOSS,MON_TYPE::OLLIE},
+	{TEXT("Chauncey Chantenay"),GROUP_TYPE::BOSS,MON_TYPE::CHAUNCEY},
+	{TEXT("Sal Spudder"),GROUP_TYPE::BOSS,MON_TYPE::SAL},
 
 };
 INT_PTR CALLBACK ListBoxExampleProc(HWND hDlg, UINT message,

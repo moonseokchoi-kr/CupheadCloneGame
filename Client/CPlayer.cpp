@@ -39,7 +39,7 @@ CPlayer::CPlayer()
 	,m_renderToggle(false)
 	,m_accTime(0.5f)
 {
-	
+	SetName(L"Player");
 	CreateCollider();
 	//526 230
 	GetCollider()->SetScale(Vec2(80.f,100.f));
@@ -159,7 +159,6 @@ CPlayer::~CPlayer()
 
 void CPlayer::Start()
 {
-	SetName(L"Player");
 	CPlayerStateMachine* ai = new CPlayerStateMachine;
 	CPlayerState* state = new CPlayerIdleState;
 	ai->AddState(state);
@@ -282,6 +281,8 @@ void CPlayer::OnCollisionExit(CCollider* _col)
 }
 void CPlayer::FinalUpdate()
 {
+	if (CSceneManager::GetInst()->GetCurrentScene()->GetSceneName() == L"Tool Scene")
+		return;
 	CObject::FinalUpdate();
 	//m_hitBox->FinalUpdate();
 }

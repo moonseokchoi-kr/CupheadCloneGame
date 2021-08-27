@@ -49,7 +49,7 @@ void CGround::Start()
 		return;
 	}
 		break;
-	case GAMEOBJECT_TYPE::CARROT:
+	case GAMEOBJECT_TYPE::GROUND:
 	{
 		SetName(L"Ground");
 	}
@@ -99,14 +99,6 @@ void CGround::Render(HDC _dc)
 	break;
 	default:
 	{
-		SelectGDI gdi(_dc, BRUSH_TYPE::HOLLOW);
-		SelectGDI gdi1(_dc, PEN_TYPE::WHITE);
-		Rectangle(_dc,
-			(int)(renderPos.x - scale.x / 2.f),
-			(int)(renderPos.y - scale.y / 2.f),
-			(int)(renderPos.x + scale.x / 2.f),
-			(int)(renderPos.y + scale.y / 2.f)
-		);
 	}
 	break;
 	}
@@ -160,7 +152,7 @@ void CGround::OnCollisionEnter(CCollider* _col)
 		}
 
 			break;
-		case GAMEOBJECT_TYPE::CARROT:
+		case GAMEOBJECT_TYPE::GROUND:
 		{
 			Vec2 moveDir = obj->GetMoveDir();
 			
@@ -189,9 +181,9 @@ void CGround::OnCollisionEnter(CCollider* _col)
 		}
 		
 	}
-	if (obj->GetName() == L"Monster")
+	if (obj->GetName() == L"Onion" || obj->GetName() == L"Potato" || obj->GetName() == L"Carrot" || obj->GetName() == L"Slime")
 	{
-		if (GetType() == GAMEOBJECT_TYPE::CARROT)
+		if (GetType() == GAMEOBJECT_TYPE::GROUND)
 		{
 	
 
@@ -234,10 +226,6 @@ void CGround::OnCollision(CCollider* _col)
 		case GAMEOBJECT_TYPE::FLOWER_PLATFORM_B:
 		case GAMEOBJECT_TYPE::FLOWER_PLATFORM_C:
 		{
-			
-
-			
-			
 			if (m_currentCollide == COLLIDE_TYPE::COLLIDE_TOP)
 			{
 				obj->GetGravity()->SetGround(true, GROUND_TYPE::GROUND);
@@ -252,7 +240,7 @@ void CGround::OnCollision(CCollider* _col)
 	
 		}
 		break;
-		case GAMEOBJECT_TYPE::CARROT:
+		case GAMEOBJECT_TYPE::GROUND:
 		{
 			Vec2 moveDir = obj->GetMoveDir();
 			switch (m_currentCollide)
@@ -293,9 +281,9 @@ void CGround::OnCollision(CCollider* _col)
 			break;
 		}
 	}
-	if (obj->GetName() == L"Monster")
+	if (obj->GetName() == L"Onion"|| obj->GetName() == L"Potato"|| obj->GetName() == L"Carrot"|| obj->GetName() == L"Slime")
 	{
-		if (GetType() == GAMEOBJECT_TYPE::CARROT)
+		if (GetType() == GAMEOBJECT_TYPE::GROUND)
 		{
 			Vec2 moveDir = obj->GetMoveDir();
 			switch (m_currentCollide)

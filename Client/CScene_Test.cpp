@@ -2,8 +2,9 @@
 
 #include "CObject.h"
 
-#include "CScene_Start.h"
+#include "CScene_Test.h"
 #include "CPlayer.h"
+
 #include "CTexture.h"
 
 #include "CPathManager.h"
@@ -21,19 +22,19 @@
 #include "CKeyManager.h"
 #include "CScene.h"
 
-CScene_Start::CScene_Start()
+CScene_Test::CScene_Test()
 	:m_background(nullptr)
 {
 }
 
-CScene_Start::~CScene_Start()
+CScene_Test::~CScene_Test()
 {
 }
 
-void CScene_Start::Enter()
+void CScene_Test::Enter()
 {
 	Vec2 resolution = CCore::GetInst()->GetResolution();
-
+	SetCurrnetState(SCENE_STATE::PLAY);
 	CScene::LoadMap(L"tile\\test_player.tile");
 /*	const vector<CObject*>& spawners = GetObjWithType(GROUP_TYPE::SPAWN_OBJ);*/
 	CObject* player = new CPlayer;
@@ -64,32 +65,25 @@ void CScene_Start::Enter()
 	CCamera::GetInst()->SetLookAt(resolution / 2.f);
 }
 
-void CScene_Start::Exit()
+void CScene_Test::Exit()
 {
 	DeleteAll();
 	CCamera::GetInst()->SetTarget(nullptr);
 }
 
-void CScene_Start::Update()
+void CScene_Test::Update()
 {
 
 	CScene::Update();
-	if (KEY_TAP(KEY::U))
-	{
-		CObject* boss = GetTarget(GROUP_TYPE::BOSS, L"Monster");
-		ChangeAIState(((CMonster*)boss)->GetAi(), MON_STATE::DEAD);
-	}
+
 	if (KEY_TAP(KEY::T))
 	{
 		ChangeScene(SCENE_TYPE::TOOL);
 	}
-	if (KEY_TAP(KEY::Y))
-	{
-		CCore::GetInst()->SetDebug(true);
-	}
+
 }
 
-void CScene_Start::Render(HDC _dc)
+void CScene_Test::Render(HDC _dc)
 {
 	CScene::Render(_dc);
 }

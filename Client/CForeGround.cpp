@@ -14,7 +14,8 @@ CForeGround::CForeGround()
 
 	m_foreGroundArray[TYPE_NUMBER(FOREGROUND_TYPE::BOTANIC_PLANT)] = L"botanic_foreground_1";
 	m_foreGroundArray[TYPE_NUMBER(FOREGROUND_TYPE::BOTANIC_PENSE)] = L"botanic_foreground_2";
-	m_foreGroundArray[TYPE_NUMBER(FOREGROUND_TYPE::CANETION_STONE)] = L"canetion_background_stone";
+	m_foreGroundArray[TYPE_NUMBER(FOREGROUND_TYPE::SLIME_MUSHROOM_LEFT)] = L"canetion_background_stone";
+	m_foreGroundArray[TYPE_NUMBER(FOREGROUND_TYPE::SLIME_MUSHROOM_RIGHT)] = L"canetion_background_stone";
 
 }
 

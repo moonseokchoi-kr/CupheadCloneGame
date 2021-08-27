@@ -224,12 +224,14 @@
     <ClInclude Include="CSalSpudder.h" />
     <ClInclude Include="CScene.h" />
     <ClInclude Include="CSceneManager.h" />
-    <ClInclude Include="CScene_Start.h" />
+    <ClInclude Include="CScene_Test.h" />
     <ClInclude Include="CScene_Tool.h" />
     <ClInclude Include="CSlimeAttackBox.h" />
     <ClInclude Include="CSlimeIdleState.h" />
     <ClInclude Include="CSpawnObject.h" />
+    <ClInclude Include="CStageScene_02.h" />
     <ClInclude Include="CState.h" />
+    <ClInclude Include="CStageScene_01.h" />
     <ClInclude Include="CTearBullet.h" />
     <ClInclude Include="CTextUI.h" />
     <ClInclude Include="CTexture.h" />
@@ -313,7 +315,9 @@
     <ClCompile Include="CSlimeAttackBox.cpp" />
     <ClCompile Include="CSlimeIdleState.cpp" />
     <ClCompile Include="CSpawnObject.cpp" />
+    <ClCompile Include="CStageScene_02.cpp" />
     <ClCompile Include="CState.cpp" />
+    <ClCompile Include="CStageScene_01.cpp" />
     <ClCompile Include="CTearBullet.cpp" />
     <ClCompile Include="CTextUI.cpp" />
     <ClCompile Include="CTile.cpp" />
@@ -331,7 +335,7 @@
     <ClCompile Include="CResourceManager.cpp" />
     <ClCompile Include="CScene.cpp" />
     <ClCompile Include="CSceneManager.cpp" />
-    <ClCompile Include="CScene_Start.cpp" />
+    <ClCompile Include="CScene_Test.cpp" />
     <ClCompile Include="CTexture.cpp" />
     <ClCompile Include="CTimeManager.cpp" />
     <ClCompile Include="pch.cpp">
