@@ -7,7 +7,8 @@
 #include "CAnimation.h"
 #include "CAnimator.h"
 #include "CPlayerStateMachine.h"
-
+#include "CPlayerHitBox.h"
+#include "CCollider.h"
 #include "CTimeManager.h"
 CPlayerDashState::CPlayerDashState()
 	:CPlayerState(PLAYER_STATE::DASH)
@@ -21,10 +22,12 @@ CPlayerDashState::~CPlayerDashState()
 
 void CPlayerDashState::Enter()
 {
+	GetPlayer()->GetHitBox()->GetCollider()->SetAvaCollide(false);
 }
 
 void CPlayerDashState::Exit()
 {
+	GetPlayer()->GetHitBox()->GetCollider()->SetAvaCollide(true);
 }
 
 void CPlayerDashState::Update()

@@ -165,6 +165,8 @@
     <ClInclude Include="CBackGround.h" />
     <ClInclude Include="CBeamMissile.h" />
     <ClInclude Include="CBullet.h" />
+    <ClInclude Include="CPlayerDuckState.h" />
+    <ClInclude Include="CPlayerIntroState.h" />
     <ClInclude Include="CSlimAttackState.h" />
     <ClInclude Include="CSlime.h" />
     <ClInclude Include="CCarrotBossAttackBox.h" />
@@ -256,6 +258,8 @@
     <ClCompile Include="CBackGround.cpp" />
     <ClCompile Include="CBeamMissile.cpp" />
     <ClCompile Include="CBullet.cpp" />
+    <ClCompile Include="CPlayerDuckState.cpp" />
+    <ClCompile Include="CPlayerIntroState.cpp" />
     <ClCompile Include="CSlimAttackState.cpp" />
     <ClCompile Include="CSlime.cpp" />
     <ClCompile Include="CCarrotBossAttackBox.cpp" />

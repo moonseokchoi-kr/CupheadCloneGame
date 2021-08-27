@@ -23,15 +23,17 @@
 #include "CPlayerJumpState.h"
 #include "CPlayerDeathState.h"
 #include "CPlayerHitState.h"
-
+#include "CPlayerDuckState.h"
+#include "CPlayerIntroState.h"
 #include "CPlayerStateMachine.h"
 #include "CPlayerHitBox.h"
+
 
 CPlayer::CPlayer()
 	: m_weaponMode(1)
 	, m_curState(PLAYER_STATE::IDLE)
 	, m_prevState(PLAYER_STATE::ATTACK)
-	,m_animateTime(1/15.f)
+	,m_animateTime(1/30.f)
 	, m_ai(nullptr)
 	,m_hit(false)
 	,m_renderToggle(false)
@@ -39,29 +41,26 @@ CPlayer::CPlayer()
 {
 	
 	CreateCollider();
-
+	//526 230
 	GetCollider()->SetScale(Vec2(80.f,100.f));
-	GetCollider()->SetOffsetPos(Vec2(0.f, 0.f));
-	CTexture* idle_tex = CResourceManager::GetInst()->LoadTexture(L"PlayerIdleTex", L"texture\\cuphead\\player\\idle_sheet.bmp");
-
-	CTexture* turn_tex = CResourceManager::GetInst()->LoadTexture(L"PlayerRunTurnTex", L"texture\\cuphead\\player\\normal_run_turn.bmp");
+	GetCollider()->SetOffsetPos(Vec2(0.f, 30.f));
+	CTexture* idle_tex = CResourceManager::GetInst()->LoadTexture(L"PlayerIdleTex", L"texture\\cuphead\\player\\player_idle.bmp");
+	CTexture* intro_tex = CResourceManager::GetInst()->LoadTexture(L"PlayerIntroTex", L"texture\\cuphead\\player\\player_intro.bmp");
+	CTexture* death_tex = CResourceManager::GetInst()->LoadTexture(L"PlayerDeathTex", L"texture\\cuphead\\player\\player_death.bmp");
+	CTexture* turn_tex = CResourceManager::GetInst()->LoadTexture(L"PlayerRunTurnTex", L"texture\\cuphead\\player\\player_turn.bmp");
+	CTexture* duck_tex = CResourceManager::GetInst()->LoadTexture(L"PlayerDucKTex", L"texture\\cuphead\\player\\player_duck.bmp");
 	
-	CTexture* run_tex = CResourceManager::GetInst()->LoadTexture(L"PlayerNormalRunTex", L"texture\\cuphead\\player\\run_sprite.bmp");
+	CTexture* run_tex = CResourceManager::GetInst()->LoadTexture(L"PlayerNormalRunTex", L"texture\\cuphead\\player\\player_run.bmp");
 
-	CTexture* run_shoot_tex = CResourceManager::GetInst()->LoadTexture(L"PlayerRunShootTex", L"texture\\cuphead\\player\\run_shoot.bmp");
-	CTexture* run_shoot_up_tex = CResourceManager::GetInst()->LoadTexture(L"PlayerRunShootUpTex", L"texture\\cuphead\\player\\direction_up_shoot_sprite.bmp");
-	
-	CTexture* run_shoot_turn_tex = CResourceManager::GetInst()->LoadTexture(L"PlayerRunShootTurnTex", L"texture\\cuphead\\player\\shoot_run_turn.bmp");
-	CTexture* run_shoot_up_turn_tex = CResourceManager::GetInst()->LoadTexture(L"PlayerRunShootUpTurnTex", L"texture\\cuphead\\player\\shoot_up_turn.bmp");
+	CTexture* aim_tex = CResourceManager::GetInst()->LoadTexture(L"PlayerAimTex", L"texture\\cuphead\\player\\player_aim.bmp");
+	CTexture* dash_tex = CResourceManager::GetInst()->LoadTexture(L"PlayerDashTex", L"texture\\cuphead\\player\\player_dash.bmp");
 
+	CTexture* shoot_tex = CResourceManager::GetInst()->LoadTexture(L"PlayerShootTex", L"texture\\cuphead\\player\\player_shoot.bmp");
+	CTexture* exShoot_tex = CResourceManager::GetInst()->LoadTexture(L"PlayerExShootTex", L"texture\\cuphead\\player\\player_ex_shoot.bmp");
+	CTexture* exShootAir_tex = CResourceManager::GetInst()->LoadTexture(L"PlayerExShootAirTex", L"texture\\cuphead\\player\\player_ex_shoot_air.bmp");
 
-	CTexture* shoot_tex = CResourceManager::GetInst()->LoadTexture(L"PlayerShootTex", L"texture\\cuphead\\player\\shoot_sprite.bmp");
-
-	
-	
-	CTexture* dash_tex = CResourceManager::GetInst()->LoadTexture(L"PlayerDashTex", L"texture\\cuphead\\player\\dash_sprite.bmp");
-
-	CTexture* jump_tex = CResourceManager::GetInst()->LoadTexture(L"PlayerJumpTex", L"texture\\cuphead\\player\\jump_sprite.bmp");
+	CTexture* jump_tex = CResourceManager::GetInst()->LoadTexture(L"PlayerJumpTex", L"texture\\cuphead\\player\\player_jump.bmp");
+	CTexture* hit_tex = CResourceManager::GetInst()->LoadTexture(L"PlayerHitTex", L"texture\\cuphead\\player\\player_hit.bmp");
 
 	CreateAnimator();
 	CreateRigidBody();
@@ -69,44 +68,74 @@ CPlayer::CPlayer()
 
 
 
-	GetAnimator()->CreateAnimation(L"PLAYER_IDLE_RIGHT", idle_tex, Vec2(0.f, 0.f), Vec2(98.f, 155.f), Vec2(98.f, 0.f), 1/15.f, 5, false);
-	GetAnimator()->CreateAnimation(L"PLAYER_IDLE_LEFT", idle_tex, Vec2(0.f, 155.f), Vec2(98.f, 155.f), Vec2(98.f, 0.f), 1/15.f, 5, true);
-
-	GetAnimator()->CreateAnimation(L"PLAYER_RUN_TURN_LEFT", turn_tex, Vec2(0.f, 164.f), Vec2(135.f, 164.f), Vec2(135.f, 0.f), m_animateTime, 2, true);
-	GetAnimator()->CreateAnimation(L"PLAYER_RUN_TURN_RIGHT", turn_tex, Vec2(0.f, 0.f), Vec2(135.f, 164.f), Vec2(135.f, 0.f), m_animateTime, 2, false);
-
-	GetAnimator()->CreateAnimation(L"PLAYER_SHOOT_RUN_TURN_LEFT", run_shoot_turn_tex, Vec2(0.f, 175.f), Vec2(143.f, 175.f), Vec2(143.f, 0.f), m_animateTime, 2, true);
-	GetAnimator()->CreateAnimation(L"PLAYER_SHOOT_RUN_TURN_RIGHT", run_shoot_turn_tex, Vec2(0.f, 0.f), Vec2(143.f, 175.f), Vec2(143.f, 0.f), m_animateTime, 2, false);
-
-	GetAnimator()->CreateAnimation(L"PLAYER_SHOOT_RUN_UP_RIGHT",run_shoot_up_tex,Vec2(0.f,0.f),Vec2(143.f,157.f),Vec2(143.f,0.f),m_animateTime, 16, false);
-	GetAnimator()->CreateAnimation(L"PLAYER_SHOOT_RUN_UP_LEFT",run_shoot_up_tex,Vec2(0.f,157.f),Vec2(143.f,157.f),Vec2(143.f,0.f),m_animateTime, 16, true);
-
-	GetAnimator()->CreateAnimation(L"PLAYER_SHOOT_RUN_UP_TURN_RIGHT", run_shoot_up_turn_tex, Vec2(0.f, 0.f), Vec2(187.f, 175.f), Vec2(187.f, 0.f), m_animateTime, 2, false);
-	GetAnimator()->CreateAnimation(L"PLAYER_SHOOT_RUN_UP_TURN_LEFT", run_shoot_up_turn_tex, Vec2(0.f, 175.f), Vec2(187.f, 175.f), Vec2(187.f, 0.f), m_animateTime, 2, true);
+	GetAnimator()->CreateAnimation(L"PLAYER_DUCK_IDLE_RIGHT", idle_tex, Vec2(0.f, 0.f), Vec2(326.f, 230.f), Vec2(326.f, 0.f), 1/30.f, 5, false);
+	GetAnimator()->CreateAnimation(L"PLAYER_DUCK_IDLE_LEFT", idle_tex, Vec2(0.f, 230.f), Vec2(326.f, 230.f), Vec2(326.f, 0.f), 1 / 30.f, 5, true);
+	GetAnimator()->CreateAnimation(L"PLAYER_IDLE_RIGHT", idle_tex, Vec2(0.f, 460.f), Vec2(326.f, 230.f), Vec2(326.f, 0.f), 1 / 30.f, 5, false);
+	GetAnimator()->CreateAnimation(L"PLAYER_IDLE_LEFT", idle_tex, Vec2(0.f, 690.f), Vec2(326.f, 230.f), Vec2(326.f, 0.f), 1 / 30.f, 5, true);
 
 
-	GetAnimator()->CreateAnimation(L"PLAYER_NORMAL_RUN_LEFT", run_tex, Vec2(0.f, 169.f), Vec2(137.f, 169.f), Vec2(137.f, 0.f), m_animateTime, 16, true);
-	GetAnimator()->CreateAnimation(L"PLAYER_NORMAL_RUN_RIGHT", run_tex, Vec2(0.f, 0.f), Vec2(137.f, 169.f), Vec2(137.f, 0.f), m_animateTime, 16, false);
 
-	GetAnimator()->CreateAnimation(L"PLAYER_SHOOT_RUN_LEFT", run_shoot_tex, Vec2(0.f, 168.f), Vec2(144.f, 168.f), Vec2(144.f, 0.f), m_animateTime, 16, true);
-	GetAnimator()->CreateAnimation(L"PLAYER_SHOOT_RUN_RIGHT", run_shoot_tex, Vec2(0.f, 0.f), Vec2(144.f, 168.f), Vec2(144.f, 0.f), m_animateTime, 16, false);
+	GetAnimator()->CreateAnimation(L"PLAYER_RUN_TURN_RIGHT", turn_tex, Vec2(0.f, 0.f), Vec2(326.f,230.f), Vec2(326.f, 0.f), m_animateTime, 2, false);
+	GetAnimator()->CreateAnimation(L"PLAYER_RUN_TURN_LEFT", turn_tex, Vec2(1304.f, 230.f), Vec2(326.f, 230.f), Vec2(326.f, 0.f), m_animateTime, 2, true);
+	GetAnimator()->CreateAnimation(L"PLAYER_SHOOT_RUN_TURN_RIGHT", turn_tex, Vec2(1304.f, 0.f), Vec2(326.f, 230.f), Vec2(326.f, 0.f), m_animateTime, 2, false);
+	GetAnimator()->CreateAnimation(L"PLAYER_SHOOT_RUN_TURN_LEFT", turn_tex, Vec2(0.f, 230.f), Vec2(326.f, 230.f), Vec2(326.f, 0.f), m_animateTime, 2, true);
+	GetAnimator()->CreateAnimation(L"PLAYER_SHOOT_RUN_UP_TURN_RIGHT", turn_tex, Vec2(652.f, 0.f), Vec2(326.f, 230.f), Vec2(326.f, 0.f), m_animateTime, 2, false);
+	GetAnimator()->CreateAnimation(L"PLAYER_SHOOT_RUN_UP_TURN_LEFT", turn_tex, Vec2(652.f, 230.f), Vec2(326.f,230.f), Vec2(326.f, 0.f), m_animateTime, 2, true);
 	
-	GetAnimator()->CreateAnimation(L"PLAYER_SHOOT_DIAGNOAL_DOWN_RIGHT", shoot_tex, Vec2(0.f, 0.f), Vec2(127.f, 172.f), Vec2(127.f, 0.f), m_animateTime, 3, false);
-	GetAnimator()->CreateAnimation(L"PLAYER_SHOOT_DIAGNOAL_DOWN_LEFT", shoot_tex, Vec2(381.f, 0.f), Vec2(127.f, 172.f), Vec2(127.f, 0.f), m_animateTime, 3, true);
-	GetAnimator()->CreateAnimation(L"PLAYER_SHOOT_DIAGNOAL_UP_RIGHT", shoot_tex, Vec2(762.f, 0.f), Vec2(127.f, 172.f), Vec2(127.f, 0.f), m_animateTime, 3, false);
-	GetAnimator()->CreateAnimation(L"PLAYER_SHOOT_DIAGNOAL_UP_LEFT", shoot_tex, Vec2(1143.f, 0.f), Vec2(127.f, 172.f), Vec2(127.f, 0.f), m_animateTime, 3, true);
-	GetAnimator()->CreateAnimation(L"PLAYER_SHOOT_STRAGIHT_RIGHT", shoot_tex, Vec2(0.f, 172.f), Vec2(127.f, 172.f), Vec2(127.f, 0.f), m_animateTime, 3, false);
-	GetAnimator()->CreateAnimation(L"PLAYER_SHOOT_STRAGIHT_LEFT", shoot_tex, Vec2(381.f,172.f), Vec2(127.f, 172.f), Vec2(127.f, 0.f), m_animateTime, 3, true);
-	GetAnimator()->CreateAnimation(L"PLAYER_SHOOT_DOWN", shoot_tex, Vec2(762.f, 172.f), Vec2(127.f, 172.f), Vec2(127.f, 0.f), m_animateTime, 3, false);
-	GetAnimator()->CreateAnimation(L"PLAYER_SHOOT_UP", shoot_tex, Vec2(1143.f, 172.f), Vec2(127.f, 172.f), Vec2(127.f, 0.f), m_animateTime, 3, false);
+	GetAnimator()->CreateAnimation(L"PLAYER_NORMAL_RUN_RIGHT", run_tex, Vec2(0.f, 0.f), Vec2(326.f, 230.f), Vec2(326.f, 0.f), m_animateTime, 16, false);
+	GetAnimator()->CreateAnimation(L"PLAYER_NORMAL_RUN_LEFT", run_tex, Vec2(0.f, 230.f), Vec2(326.f, 230.f), Vec2(326.f, 0.f), m_animateTime, 16, true);
+	GetAnimator()->CreateAnimation(L"PLAYER_SHOOT_RUN_RIGHT", run_tex, Vec2(0.f, 460.f), Vec2(326.f, 230.f), Vec2(326.f, 0.f), m_animateTime, 16, false);
+	GetAnimator()->CreateAnimation(L"PLAYER_SHOOT_RUN_LEFT", run_tex, Vec2(0.f, 690.f), Vec2(326.f, 230.f), Vec2(326.f, 0.f), m_animateTime, 16, true);
+	GetAnimator()->CreateAnimation(L"PLAYER_SHOOT_RUN_UP_RIGHT", run_tex, Vec2(0.f, 920.f), Vec2(326.f, 230.f), Vec2(326.f, 0.f), m_animateTime, 16, false);
+	GetAnimator()->CreateAnimation(L"PLAYER_SHOOT_RUN_UP_LEFT", run_tex, Vec2(0.f, 1150.f), Vec2(326.f, 230.f), Vec2(326.f, 0.f), m_animateTime, 16, true);
 
-	GetAnimator()->CreateAnimation(L"PLAYER_DASH_GROUND_RIGHT", dash_tex, Vec2(0.f, 0.f), Vec2(326.f, 163.f), Vec2(326.f, 0.f), m_animateTime, 8, false);
-	GetAnimator()->CreateAnimation(L"PLAYER_DASH_AIR_RIGHT", dash_tex, Vec2(0.f, 163.f), Vec2(326.f, 163.f), Vec2(326.f, 0.f), m_animateTime, 8, false);
-	GetAnimator()->CreateAnimation(L"PLAYER_DASH_GROUND_LEFT", dash_tex, Vec2(0.f, 326.f), Vec2(326.f, 163.f), Vec2(326.f, 0.f), m_animateTime, 8, true);
-	GetAnimator()->CreateAnimation(L"PLAYER_DASH_AIR_LEFT", dash_tex, Vec2(0.f, 489.f), Vec2(326.f, 163.f), Vec2(326.f, 0.f), m_animateTime, 8, true);
+	GetAnimator()->CreateAnimation(L"PLAYER_EX_SHOOT_DIGNOAL_UP_RIGHT", exShoot_tex, Vec2(0.f, 0.f), Vec2(326.f, 230.f), Vec2(326.f, 0.f), m_animateTime, 13, false);
+	GetAnimator()->CreateAnimation(L"PLAYER_EX_SHOOT_DIGNOAL_UP_LEFT", exShoot_tex, Vec2(0.f, 230.f), Vec2(326.f, 230.f), Vec2(326.f, 0.f), m_animateTime, 13, true);
+	GetAnimator()->CreateAnimation(L"PLAYER_EX_SHOOT_RIGHT", exShoot_tex, Vec2(0.f, 460.f), Vec2(326.f, 230.f), Vec2(326.f, 0.f), m_animateTime, 13, false);
+	GetAnimator()->CreateAnimation(L"PLAYER_EX_SHOOT_LEFT", exShoot_tex, Vec2(0.f, 690.f), Vec2(326.f, 230.f), Vec2(326.f, 0.f), m_animateTime, 13, true);
+	GetAnimator()->CreateAnimation(L"PLAYER_EX_SHOOT_UP_RIGHT", exShoot_tex, Vec2(0.f, 920.f), Vec2(326.f, 230.f), Vec2(326.f, 0.f), m_animateTime, 13, false);
+	GetAnimator()->CreateAnimation(L"PLAYER_EX_SHOOT_UP_LEFT", exShoot_tex, Vec2(0.f, 1150.f), Vec2(326.f, 230.f), Vec2(326.f, 0.f), m_animateTime, 13, true);
 
-	GetAnimator()->CreateAnimation(L"PLAYER_JUMP_RIGHT", jump_tex, Vec2(0.f, 0.f), Vec2(93.f, 124.f), Vec2(93.f, 0.f), m_animateTime, 8, false);
-	GetAnimator()->CreateAnimation(L"PLAYER_JUMP_LEFT", jump_tex, Vec2(0.f, 124.f), Vec2(93.f, 124.f), Vec2(93.f, 0.f), m_animateTime, 8, true);
+
+	GetAnimator()->CreateAnimation(L"PLAYER_EX_SHOOT_DIAGNOAL_DOWN_RIGHT_AIR", exShootAir_tex, Vec2(0.f, 0.f), Vec2(326.f, 230.f), Vec2(326.f, 0.f), m_animateTime, 6, false);
+	GetAnimator()->CreateAnimation(L"PLAYER_EX_SHOOT_DIAGNOAL_DOWN_LEFT_AIR", exShootAir_tex, Vec2(0.f, 230.f), Vec2(326.f, 230.f), Vec2(326.f, 0.f), m_animateTime, 6, true);
+	GetAnimator()->CreateAnimation(L"PLAYER_EX_SHOOT_DIGNOAL_UP_RIGHT_AIR", exShootAir_tex, Vec2(0.f, 460.f), Vec2(326.f, 230.f), Vec2(326.f, 0.f), m_animateTime, 6, false);
+	GetAnimator()->CreateAnimation(L"PLAYER_EX_SHOOT_DIGNOAL_UP_LEFT_AIR", exShootAir_tex, Vec2(0.f, 690.f), Vec2(326.f, 230.f), Vec2(326.f, 0.f), m_animateTime, 6, true);
+	GetAnimator()->CreateAnimation(L"PLAYER_EX_SHOOT_DOWN_AIR_RIGHT", exShootAir_tex, Vec2(0.f, 920.f), Vec2(326.f, 230.f), Vec2(326.f, 0.f), m_animateTime, 6, false);
+	GetAnimator()->CreateAnimation(L"PLAYER_EX_SHOOT_DOWN_AIR_LEFT", exShootAir_tex, Vec2(0.f, 1150.f), Vec2(326.f, 230.f), Vec2(326.f, 0.f), m_animateTime, 6, true);
+
+	GetAnimator()->CreateAnimation(L"PLAYER_EX_SHOOT_RIGHT_AIR", exShootAir_tex, Vec2(0.f, 1380.f), Vec2(326.f, 230.f), Vec2(326.f, 0.f), m_animateTime, 6, false);
+	GetAnimator()->CreateAnimation(L"PLAYER_EX_SHOOT_LEFT_AIR", exShootAir_tex, Vec2(0.f, 1610.f), Vec2(326.f, 230.f), Vec2(326.f, 0.f), m_animateTime, 6, true);
+	GetAnimator()->CreateAnimation(L"PLAYER_EX_SHOOT_UP_RIGHT_AIR", exShootAir_tex, Vec2(0.f, 1840.f), Vec2(326.f, 230.f), Vec2(326.f, 0.f), m_animateTime, 6, false);
+	GetAnimator()->CreateAnimation(L"PLAYER_EX_SHOOT_UP_LEFT_AIR", exShootAir_tex, Vec2(0.f, 2070.f), Vec2(326.f, 230.f), Vec2(326.f, 0.f), m_animateTime, 6, true);
+
+	GetAnimator()->CreateAnimation(L"PLAYER_SHOOT_UP", shoot_tex, Vec2(0.f, 0.f), Vec2(326.f, 230.f), Vec2(326.f, 0.f), m_animateTime, 3, false);
+	GetAnimator()->CreateAnimation(L"PLAYER_SHOOT_DUCK_RIGHT", shoot_tex, Vec2(0.f, 230.f), Vec2(326.f, 230.f), Vec2(326.f, 0.f), m_animateTime, 3, false);
+	GetAnimator()->CreateAnimation(L"PLAYER_SHOOT_DUCK_LEFT", shoot_tex, Vec2(0.f, 460.f), Vec2(326.f, 230.f), Vec2(326.f, 0.f), m_animateTime, 3, true);
+	GetAnimator()->CreateAnimation(L"PLAYER_SHOOT_DIAGNOAL_UP_RIGHT", shoot_tex, Vec2(0.f, 690.f), Vec2(326.f, 230.f), Vec2(326.f, 0.f), m_animateTime, 3, false);
+	GetAnimator()->CreateAnimation(L"PLAYER_SHOOT_DIAGNOAL_UP_LEFT", shoot_tex, Vec2(0.f, 920.f), Vec2(326.f, 230.f), Vec2(326.f, 0.f), m_animateTime, 3, true);
+	GetAnimator()->CreateAnimation(L"PLAYER_SHOOT_STRAGIHT_RIGHT", shoot_tex, Vec2(0.f, 1150.f), Vec2(326.f, 230.f), Vec2(326.f, 0.f), m_animateTime, 3, false);
+	GetAnimator()->CreateAnimation(L"PLAYER_SHOOT_STRAGIHT_LEFT", shoot_tex, Vec2(0.f,1380.f), Vec2(326.f, 230.f), Vec2(326.f, 0.f), m_animateTime, 3, true);
+
+
+	GetAnimator()->CreateAnimation(L"PLAYER_DASH_AIR_RIGHT", dash_tex, Vec2(0.f, 0.f), Vec2(326.f, 230.f), Vec2(326.f, 0.f), m_animateTime, 8, false);
+	GetAnimator()->CreateAnimation(L"PLAYER_DASH_GROUND_RIGHT", dash_tex, Vec2(0.f, 230.f), Vec2(326.f, 230.f), Vec2(326.f, 0.f), m_animateTime, 8, false);
+	GetAnimator()->CreateAnimation(L"PLAYER_DASH_AIR_LEFT", dash_tex, Vec2(0.f, 460.f), Vec2(326.f, 230.f), Vec2(326.f, 0.f), m_animateTime, 8, true);
+	GetAnimator()->CreateAnimation(L"PLAYER_DASH_GROUND_LEFT", dash_tex, Vec2(0.f, 690.f), Vec2(326.f, 230.f), Vec2(326.f, 0.f), m_animateTime, 8, true);
+
+	GetAnimator()->CreateAnimation(L"PLAYER_JUMP_RIGHT", jump_tex, Vec2(0.f, 0.f), Vec2(326.f, 230.f), Vec2(326.f, 0.f), m_animateTime, 8, false);
+	GetAnimator()->CreateAnimation(L"PLAYER_JUMP_LEFT", jump_tex, Vec2(0.f, 230.f), Vec2(326.f, 230.f), Vec2(326.f, 0.f), m_animateTime, 8, true);
+	
+	GetAnimator()->CreateAnimation(L"PLAYER_DEATH", death_tex, Vec2(0.f, 0.f), Vec2(326.f, 230.f), Vec2(326.f, 0.f), m_animateTime, 25, false);
+	GetAnimator()->CreateAnimation(L"PLAYER_HIT_AIR_RIGHT", hit_tex, Vec2(0.f, 0.f), Vec2(326.f, 230.f), Vec2(326.f, 0.f), m_animateTime, 6, false);
+	GetAnimator()->CreateAnimation(L"PLAYER_HIT_RIGHT", hit_tex, Vec2(0.f, 230.f), Vec2(326.f, 230.f), Vec2(326.f, 0.f), m_animateTime, 6, false);
+	GetAnimator()->CreateAnimation(L"PLAYER_HIT_AIR_LEFT", hit_tex, Vec2(0.f, 460.f), Vec2(326.f, 230.f), Vec2(326.f, 0.f), m_animateTime, 6, true);
+	GetAnimator()->CreateAnimation(L"PLAYER_HIT_LEFT", hit_tex, Vec2(0.f, 690.f), Vec2(326.f, 230.f), Vec2(326.f, 0.f), m_animateTime, 6, true);
+	GetAnimator()->CreateAnimation(L"PLAYER_DUCK_RIGHT", duck_tex, Vec2(0.f, 0.f), Vec2(326.f, 230.f), Vec2(326.f, 0.f), m_animateTime, 7, false);
+	GetAnimator()->CreateAnimation(L"PLAYER_DUCK_LEFT", duck_tex, Vec2(0.f, 230.f), Vec2(326.f, 230.f), Vec2(326.f, 0.f), m_animateTime, 7, true);
+	GetAnimator()->CreateAnimation(L"PLAYER_INTRO_1", intro_tex, Vec2(0.f, 0.f), Vec2(326.f, 230.f), Vec2(326.f, 0.f), m_animateTime, 14, false);
+	GetAnimator()->CreateAnimation(L"PLAYER_INTRO_2", intro_tex, Vec2(0.f, 230.f), Vec2(326.f, 230.f), Vec2(326.f, 0.f), m_animateTime, 14, false);
+
 
 
 	m_info.attackSpeed = 0.15f;
@@ -126,7 +155,6 @@ CPlayer::CPlayer()
 CPlayer::~CPlayer()
 {
 	delete m_attackBox;
-	DeleteObject(m_hitBox);
 }
 
 void CPlayer::Start()
@@ -145,13 +173,16 @@ void CPlayer::Start()
 	ai->AddState(state);
 	state = new CPlayerDeathState;
 	ai->AddState(state);
-	ai->SetCurrentState(PLAYER_STATE::IDLE);
+	state = new CPlayerDuckState;
+	ai->AddState(state);
+	state = new CPlayerIntroState;
+	ai->AddState(state);
+	ai->SetCurrentState(PLAYER_STATE::INTRO);
 	SetAi(ai);
 	CreateAttackBox();
 	CreateHitBox();
 	if (nullptr != m_attackBox)
 	{
-		m_attackBox->SetPos(Vec2(50.f, -3.f));
 		CBullet* bullet = new CPeaShootBullet;
 		m_attackBox->AddBullet(bullet);
 		m_attackBox->SetCurrentBullet(BULLET_TYPE::PEASHOOT);
@@ -159,7 +190,7 @@ void CPlayer::Start()
 	if (nullptr != m_hitBox)
 	{
 		m_hitBox->SetScale(Vec2(70.f, 90.f));
-		m_hitBox->SetOffset(Vec2(30.f, 0.f));
+		m_hitBox->SetOffset(Vec2(0.f, 30.f));
 		m_hitBox->Start();
 	}
 		
@@ -169,6 +200,15 @@ void CPlayer::Start()
 
 void CPlayer::Update()
 {
+	if (m_ai->GetCurrentState()->GetState() == PLAYER_STATE::INTRO && GetAnimator()->GetCurrentAnim() == nullptr)
+	{
+		GetAnimator()->Play(L"PLAYER_INTRO_1", false);
+	}
+	if (m_info.health <= 0 && m_ai->GetCurrentState()->GetState() != PLAYER_STATE::DEAD)
+	{
+		ChangePlayerState(m_ai, PLAYER_STATE::DEAD);
+		return;
+	}
 	if (m_hit)
 	{
 		m_accTime += fDT;
@@ -187,10 +227,7 @@ void CPlayer::Update()
 	m_info.prevMoveDir = GetMoveDir();
 	calMoveDir();
 	
-	if (m_info.health <= 0 && m_ai->GetCurrentState()->GetState() != PLAYER_STATE::DEAD)
-	{
-		ChangePlayerState(m_ai, PLAYER_STATE::DEAD);
-	}
+
 }
 
 void CPlayer::Render(HDC _dc)
@@ -282,7 +319,7 @@ void CPlayer::UpdateMove()
 	if (KEY_TAP(KEY::RIGHT))
 	{
 
-		m_info.shootDir = Vec2(-1, 0);
+		m_info.shootDir = Vec2(1, 0);
 		if (GetGravity()->IsGround())
 		{
 			rigidBody->SetVelocity(Vec2(m_info.moveSpeed, rigidBody->GetVelocity().y));
@@ -304,6 +341,18 @@ void CPlayer::UpdateMove()
 	}
 	if (KEY_HOLD(KEY::DOWN))
 	{
+		if (GetGravity()->IsGround() && m_ai->GetCurrentState()->GetState() != PLAYER_STATE::DUCK)
+		{
+			if (GetMoveDir().x < 0)
+			{
+				GetAnimator()->Play(L"PLAYER_DUCK_LEFT",true);
+			}
+			else
+			{
+				GetAnimator()->Play(L"PLAYER_DUCK_RIGHT", true);
+			}
+			ChangePlayerState(m_ai, PLAYER_STATE::DUCK);
+		}
 		m_info.shootDir = Vec2(0, 1);
 	}
 	if (KEY_HOLD(KEY::LEFT))

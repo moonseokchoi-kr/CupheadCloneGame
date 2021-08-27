@@ -2,6 +2,7 @@
 #include "CSlimeIdleState.h"
 
 CSlimeIdleState::CSlimeIdleState()
+	:CState(MON_STATE::IDLE)
 {
 }
 

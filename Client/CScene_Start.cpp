@@ -72,8 +72,8 @@ void CScene_Start::Exit()
 
 void CScene_Start::Update()
 {
-	if(CCamera::GetInst()->IsCurrentLookAt())
-		CScene::Update();
+
+	CScene::Update();
 	if (KEY_TAP(KEY::U))
 	{
 		CObject* boss = GetTarget(GROUP_TYPE::BOSS, L"Monster");

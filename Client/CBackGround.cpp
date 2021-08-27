@@ -42,8 +42,8 @@ CBackGround::CBackGround()
 	
 	m_backGroundArray[TYPE_NUMBER(BACKGROUND_TYPE::CANEGY_SKY)] = L"canetion_background_sky";
 	m_backGroundArray[TYPE_NUMBER(BACKGROUND_TYPE::CANEGY_BACKGROUND)] = L"canetion_background_tree";
-	m_backGroundArray[TYPE_NUMBER(BACKGROUND_TYPE::CANEGY_YARD)] = L"canetion_background_yard";
-	m_backGroundArray[TYPE_NUMBER(BACKGROUND_TYPE::BOTANIC_BACKGROUND)] = L"botanic_background_1";
+	m_backGroundArray[TYPE_NUMBER(BACKGROUND_TYPE::SLIME_BACKGROUND)] = L"canetion_background_yard";
+	m_backGroundArray[TYPE_NUMBER(BACKGROUND_TYPE::VEGGIE_BACKGROUND)] = L"botanic_background_1";
 	m_backGroundArray[TYPE_NUMBER(BACKGROUND_TYPE::BOTANIC_GROUND)] = L"botanic_ground";
 	m_backGroundArray[TYPE_NUMBER(BACKGROUND_TYPE::BOTANIC_CLOUD_1)] = L"botanic_background_cloud_1";
 	m_backGroundArray[TYPE_NUMBER(BACKGROUND_TYPE::BOTANIC_CLOUD_2)] = L"botanic_background_cloud_2";

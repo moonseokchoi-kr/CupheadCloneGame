@@ -83,6 +83,10 @@ void CPlayerIdleState::updateSubState()
 	{
 		ChangePlayerState(GetAI(), PLAYER_STATE::ATTACK);
 	}
+	if (KEY_TAP(KEY::V))
+	{
+		ChangePlayerState(GetAI(), PLAYER_STATE::ATTACK);
+	}
 	if (KEY_HOLD(KEY::DOWN))
 	{
 		if (KEY_TAP(KEY::X))

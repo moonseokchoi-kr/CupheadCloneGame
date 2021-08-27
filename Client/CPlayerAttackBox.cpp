@@ -5,6 +5,8 @@
 #include "CRigidBody.h"
 #include "CCollider.h"
 #include "CPeaShootBullet.h"
+#include "CPlayerStateMachine.h"
+#include "CPlayerState.h"
 CPlayerAttackBox::CPlayerAttackBox()
 	:m_accTime(0)
 {
@@ -18,8 +20,8 @@ CPlayerAttackBox::~CPlayerAttackBox()
 
 void CPlayerAttackBox::Update()
 {
-	CAttackBox::Update();
 	rotateCreateBulletPos();
+	CAttackBox::Update();
 }
 
 
@@ -65,17 +67,42 @@ void CPlayerAttackBox::ChangeBullet()
 
 void CPlayerAttackBox::rotateCreateBulletPos()
 {
-	playerInfo info = ((CPlayer*)GetOwner())->GetInfo();
-	Vec2 pos = GetOwner()->GetPos();
-	//플레이어의 위치에서 현재 어택박스 위치를 뺀다
-	//나온 결과 백터를 방향 벡터(숫)에 곱한다.
-	//플레이어의 위치와 결과벡터를 외적한다.
-	//나온 벡터가 최종위치
-
-	if (info.shootDir.isZero())
+	if (((CPlayer*)GetOwner())->GetAi()->GetCurrentState()->GetState() == PLAYER_STATE::DUCK)
+	{
 		return;
-	Vec2 diff = GetFinalPos() - pos;
-	float dist = diff.Distance();
-	Vec2 p = info.shootDir * dist;
-	SetFinalPos(pos + p);
+	}
+	playerInfo info = ((CPlayer*)GetOwner())->GetInfo();
+	
+	if (info.shootDir == Vec2(1, 0))
+	{
+		SetPos(Vec2(60.f, 45.f));
+	}
+	if (info.shootDir == Vec2(1, 1))
+	{
+		SetPos(Vec2(60.f, 90.f));
+	}
+	if (info.shootDir == Vec2(1, -1))
+	{
+		SetPos(Vec2(30.f, -13.f));
+	}
+	if (info.shootDir == Vec2(-1, 0))
+	{
+		SetPos(Vec2(-60.f, 45.f));
+	}
+	if (info.shootDir == Vec2(-1, 1))
+	{
+		SetPos(Vec2(-30.f, 90.f));
+	}
+	if (info.shootDir == Vec2(-1, -1))
+	{
+		SetPos(Vec2(-60.f, -13.f));
+	}
+	if (info.shootDir == Vec2(0, -1))
+	{
+		SetPos(Vec2(30.f, -45.f));
+	}
+	if (info.shootDir == Vec2(0, 1))
+	{
+		SetPos(Vec2(0.f, 100.f));
+	}
 }

@@ -48,9 +48,10 @@ void CPlayerAttackState::Update()
 {
 	
 	updateSubState();
-	GetPlayer()->UpdateMove();
+	if(m_subState != PLAYER_STATE::EX_ATTACK)
+		GetPlayer()->UpdateMove();
 	updateAnimation();
-	if (KEY_AWAY(KEY::Z) || KEY_NONE(KEY::Z))
+	if ((KEY_AWAY(KEY::Z) || KEY_NONE(KEY::Z)) &&(KEY_AWAY(KEY::V) || KEY_NONE(KEY::V)))
 	{
 		ChangePlayerState(GetAI(), GetAI()->GetPrevState()->GetState());
 	}
@@ -61,6 +62,7 @@ void CPlayerAttackState::Update()
 void CPlayerAttackState::updateSubState()
 {
 	playerInfo info = GetPlayer()->GetInfo();
+	GetPlayer()->GetRigidBody()->SetActive(true);
 	if (KEY_TAP(KEY::LEFT))
 	{
 		if (GetPlayer()->GetMoveDir() != info.prevMoveDir)
@@ -87,6 +89,11 @@ void CPlayerAttackState::updateSubState()
 	{
 		GetPlayer()->GetAttackBox()->Fire();
 	}
+	if (KEY_HOLD(KEY::V) || KEY_TAP(KEY::V))
+	{
+		m_subState = PLAYER_STATE::EX_ATTACK;
+	}
+
 	if (GetPlayer()->GetGravity()->IsGround())
 	{
 		if (KEY_TAP(KEY::X))
@@ -117,7 +124,7 @@ void CPlayerAttackState::updateAnimation()
 		{
 			if (info.shootDir.y == -1)
 			{
-				GetPlayer()->GetAnimator()->Play(L"PLAYER_SHOOT_DIAGNOAL_UP_RIGHT", true);
+				GetPlayer()->GetAnimator()->Play(L"PLAYER_SHOOT_DIAGNOAL_DOWN_LEFT", true);
 			}
 			else if (info.shootDir.y == 1)
 			{
@@ -221,6 +228,44 @@ void CPlayerAttackState::updateAnimation()
 		else
 		{
 			GetPlayer()->GetAnimator()->Play(L"PLAYER_JUMP_LEFT", true);
+		}
+	}
+	break;
+	case PLAYER_STATE::EX_ATTACK:
+	{
+		GetPlayer()->GetRigidBody()->SetActive(false);
+		if (info.shootDir.x == -1)
+		{
+			if (info.shootDir.y == 1)
+			{
+				GetPlayer()->GetAnimator()->Play(L"PLAYER_EX_SHOOT_DIGNOAL_UP_LEFT", true);
+			}
+			else
+			{
+				GetPlayer()->GetAnimator()->Play(L"PLAYER_EX_SHOOT_LEFT", true);
+			}
+		}
+		else if (info.shootDir.x == 1)
+		{
+			if (info.shootDir.y == 1)
+			{
+				GetPlayer()->GetAnimator()->Play(L"PLAYER_EX_SHOOT_DIGNOAL_UP_RIGHT", true);
+			}
+			else
+			{
+				GetPlayer()->GetAnimator()->Play(L"PLAYER_EX_SHOOT_RIGHT", true);
+			}
+		}
+		else
+		{
+			if (GetPlayer()->GetMoveDir().x < 0)
+			{
+				GetPlayer()->GetAnimator()->Play(L"PLAYER_EX_SHOOT_UP_LEFT", true);
+			}
+			else
+			{
+				GetPlayer()->GetAnimator()->Play(L"PLAYER_EX_SHOOT_UP_RIGHT", true);
+			}
 		}
 	}
 	break;

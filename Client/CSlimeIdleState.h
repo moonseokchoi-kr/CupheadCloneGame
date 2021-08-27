@@ -1,7 +1,7 @@
 #pragma once
-#include "CIdleState.h"
+#include "CState.h"
 class CSlimeIdleState :
-    public CIdleState
+    public CState
 {
 public:
     CSlimeIdleState();

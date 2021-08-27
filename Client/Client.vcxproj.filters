@@ -264,6 +264,12 @@
     <Filter Include="Engine\Module\AI\State\IdleState\Slime">
       <UniqueIdentifier>{4d110d00-20f4-4c39-8bb1-a9822efa9569}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Object\Player\StateMachine\State\DuckState">
+      <UniqueIdentifier>{0219d37a-2d9b-49c3-ba52-fec1666006e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Object\Player\StateMachine\State\IntroState">
+      <UniqueIdentifier>{fc7e9bfa-ecfd-4900-8083-034eaf039ab3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -531,6 +537,12 @@
     <ClInclude Include="CSlimeIdleState.h">
       <Filter>Engine\Module\AI\State\IdleState\Slime</Filter>
     </ClInclude>
+    <ClInclude Include="CPlayerDuckState.h">
+      <Filter>Engine\Object\Player\StateMachine\State\DuckState</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayerIntroState.h">
+      <Filter>Engine\Object\Player\StateMachine\State\IntroState</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -790,6 +802,12 @@
     </ClCompile>
     <ClCompile Include="CSlimeIdleState.cpp">
       <Filter>Engine\Module\AI\State\IdleState\Slime</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayerDuckState.cpp">
+      <Filter>Engine\Object\Player\StateMachine\State\DuckState</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayerIntroState.cpp">
+      <Filter>Engine\Object\Player\StateMachine\State\IntroState</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -49,7 +49,7 @@ void CGround::Start()
 		return;
 	}
 		break;
-	case GAMEOBJECT_TYPE::GROUND:
+	case GAMEOBJECT_TYPE::CARROT:
 	{
 		SetName(L"Ground");
 	}
@@ -160,7 +160,7 @@ void CGround::OnCollisionEnter(CCollider* _col)
 		}
 
 			break;
-		case GAMEOBJECT_TYPE::GROUND:
+		case GAMEOBJECT_TYPE::CARROT:
 		{
 			Vec2 moveDir = obj->GetMoveDir();
 			
@@ -191,7 +191,7 @@ void CGround::OnCollisionEnter(CCollider* _col)
 	}
 	if (obj->GetName() == L"Monster")
 	{
-		if (GetType() == GAMEOBJECT_TYPE::GROUND)
+		if (GetType() == GAMEOBJECT_TYPE::CARROT)
 		{
 	
 
@@ -252,7 +252,7 @@ void CGround::OnCollision(CCollider* _col)
 	
 		}
 		break;
-		case GAMEOBJECT_TYPE::GROUND:
+		case GAMEOBJECT_TYPE::CARROT:
 		{
 			Vec2 moveDir = obj->GetMoveDir();
 			switch (m_currentCollide)
@@ -295,7 +295,7 @@ void CGround::OnCollision(CCollider* _col)
 	}
 	if (obj->GetName() == L"Monster")
 	{
-		if (GetType() == GAMEOBJECT_TYPE::GROUND)
+		if (GetType() == GAMEOBJECT_TYPE::CARROT)
 		{
 			Vec2 moveDir = obj->GetMoveDir();
 			switch (m_currentCollide)

@@ -137,7 +137,7 @@ void CScene_Tool::Enter()
 
 	
 	int row = 4;
-	int col = 6;
+	int col = 4;
 	float yTerm = (parentUI->GetScale().y - 60.f) / (col+2);
 	float xTerm = (parentUI->GetScale().x - 60.f) / (row+1);
 	for (int i = 0; i <col; ++i)
@@ -151,21 +151,6 @@ void CScene_Tool::Enter()
 			newChild->SetClickedCallBack(this, (SCENE_MEM_FUNC)&CScene_Tool::GetTileUIidx);
 			parentUI->AddChild(newChild);
 		}
-	}
-	//탭 전환 버튼 설정
-	row = 3;
-	xTerm = (parentUI->GetScale().x - 60.f) / (row+2);
-	CButtonUI* tabButton = new CButtonUI(false);
-	
-	tabButton->SetScale(Vec2(100.f, 60.f));
-	
-	for (int j = 0; j < row; ++j)
-	{
-		CButtonUI* newTabButton = tabButton->Clone();
-		newTabButton->SetPos(Vec2(xTerm * (j + 1) + 30.f * j, 650.f));
-		newTabButton->SetName(L"TabButtonUI");
-		newTabButton->SetClickedCallBack(this, (SCENE_MEM_FUNC_INT)&CScene_Tool::GoIdxTable, (DWORD_PTR)j);
-		parentUI->AddChild(newTabButton);
 	}
 
 	AddObject(parentUI, GROUP_TYPE::UI);
@@ -228,7 +213,7 @@ void CScene_Tool::SaveMap(const wstring& _path)
 			fputs("\n", file);
 		}
 		break;
-		case GAMEOBJECT_TYPE::GROUND:
+		case GAMEOBJECT_TYPE::CARROT:
 		{
 			fputs("G\n", file);
 			((CGround*)gameObj)->Save(file);
@@ -441,11 +426,11 @@ void CScene_Tool::CreateGameObject()
 				m_cilckedImageIdx = -1;
 			}
 				break;
-			case GAMEOBJECT_TYPE::GROUND:
+			case GAMEOBJECT_TYPE::CARROT:
 			{
 				gameObj = new CGround;
 				gameObj->SetPos(mousePos);
-				gameObj->SetType(GAMEOBJECT_TYPE::GROUND);
+				gameObj->SetType(GAMEOBJECT_TYPE::CARROT);
 				gameObj->Start();
 				AddObject(gameObj, GROUP_TYPE::GAME_OBJ);
 				m_cilckedImageIdx = -1;
