@@ -8,7 +8,7 @@
 #include "CAnimation.h"
 
 #include "SelectGDI.h"
-
+#include "CTimeManager.h"
 CSalBullet::CSalBullet()
 	:CBullet(BULLET_TYPE::SAL_BULLET)
 	,m_currentBulletType(SAL_BULLET_TYPE::DUST)
@@ -17,7 +17,7 @@ CSalBullet::CSalBullet()
 	CreateRigidBody();
 	CreateAnimator();
 	SetScale(Vec2(30.f, 30.f));
-	GetCollider()->SetScale(Vec2(30.f, 30.f));
+	GetCollider()->SetScale(Vec2(60.f, 60.f));
 
 	bulletInfo info = {};
 	info.range = 1600.f;
@@ -48,6 +48,14 @@ void CSalBullet::Update()
 	Vec2 moveDir = GetMoveDir();
 	GetRigidBody()->SetVelocity(moveDir * GetInfo().bulletSpeed);
 	GetRigidBody()->AddVelocity(Vec2(info.bulletSpeed * moveDir.x, info.bulletSpeed * moveDir.y));
+	if (IsHit())
+	{
+		m_accTime += fDT;
+		if (m_accTime >= 0.1f)
+		{
+			SetHit(false);
+		}
+	}
 	if (m_currentBulletType == SAL_BULLET_TYPE::DUST)
 	{
 		GetAnimator()->Play(L"POTATO_DUST_BULLET_LOOP", true);
@@ -79,6 +87,23 @@ void CSalBullet::Update()
 
 void CSalBullet::Render(HDC _dc)
 {
+	if (IsHit())
+	{
+		if (m_renderToggle)
+		{
+			GetAnimator()->SetAlpha(127);
+			m_renderToggle = false;
+		}
+		else
+		{
+			GetAnimator()->SetAlpha(0);
+			m_renderToggle = true;
+		}
+	}
+	else
+	{
+		GetAnimator()->SetAlpha(255);
+	}
 	ComponentRender(_dc);
 }
 
@@ -98,7 +123,7 @@ void CSalBullet::OnCollision(CCollider* _col)
 	{
 		isDead = true;
 	}
-	if (obj->GetName() == L"PlayerBullet")
+	if (obj->GetName() == L"PlayerBullet" && m_currentBulletType == SAL_BULLET_TYPE::WORM)
 	{
 		bulletInfo info = GetInfo();
 		info.health -= 1;
@@ -107,6 +132,7 @@ void CSalBullet::OnCollision(CCollider* _col)
 			isDead = true;
 			return;
 		}
+		SetHit(true);
 		SetInfo(info);
 	}
 }

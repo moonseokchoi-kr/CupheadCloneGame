@@ -39,16 +39,34 @@ void CSalSpudder::Start()
 }
 void CSalSpudder::Update()
 {
-	if (GetAi()->GetCurrentState()->GetState() == MON_STATE::INTRO)
-		GetAnimator()->Play(L"POTATO_INTRO", false);
-	CMonster::Update();
 	if (GetInfo().hp <= 0)
 	{
 		ChangeAIState(GetAi(), MON_STATE::DEAD);
 	}
+	if (GetAi()->GetCurrentState()->GetState() == MON_STATE::INTRO)
+		GetAnimator()->Play(L"POTATO_INTRO", false);
+	CMonster::Update();
+
 }
 void CSalSpudder::Render(HDC _dc)
 {
+	if (IsHit())
+	{
+		if (m_renderToggle)
+		{
+			GetAnimator()->SetAlpha(127);
+			m_renderToggle = false;
+		}
+		else
+		{
+			GetAnimator()->SetAlpha(0);
+			m_renderToggle = true;
+		}
+	}
+	else
+	{
+		GetAnimator()->SetAlpha(255);
+	}
 	ComponentRender(_dc);
 }
 

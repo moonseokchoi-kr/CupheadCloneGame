@@ -29,5 +29,6 @@ private:
 private:
     TEAR_BULLET_TYPE m_type;
     bool isDead;
+    float m_accTime;
 };
 

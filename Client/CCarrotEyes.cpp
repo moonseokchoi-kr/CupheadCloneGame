@@ -32,5 +32,22 @@ void CCarrotEyes::Update()
 
 void CCarrotEyes::Render(HDC _dc)
 {
+	if (m_owner->IsHit())
+	{
+		if (m_owner->m_renderToggle)
+		{
+			GetAnimator()->SetAlpha(127);
+			m_owner->m_renderToggle = false;
+		}
+		else
+		{
+			GetAnimator()->SetAlpha(0);
+			m_owner->m_renderToggle = true;
+		}
+	}
+	else
+	{
+		GetAnimator()->SetAlpha(255);
+	}
 	ComponentRender(_dc);
 }

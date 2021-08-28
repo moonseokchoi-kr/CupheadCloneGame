@@ -1,9 +1,12 @@
 #include "pch.h"
 #include "CSlimeAttackBox.h"
-
+#include "CCollider.h"
+#include "CSlime.h"
 CSlimeAttackBox::CSlimeAttackBox()
 	:m_attackCount(0)
 {
+	CreateCollider();
+	GetCollider()->SetScale(Vec2(300.f,300.f));
 }
 
 CSlimeAttackBox::~CSlimeAttackBox()
@@ -12,18 +15,10 @@ CSlimeAttackBox::~CSlimeAttackBox()
 
 void CSlimeAttackBox::Update()
 {
-	//°øÀÌ Æ¨±âµí 5È¸Á¤µµ ÇÃ·¹ÀÌ¾î°¡ ÀÖ´Â ¹æÇâÀ¸·Î Æ¨±è
-	//È¦¼öÈ¸´Â ³·°Ô
-	//Â¦¼öÈ¸´Â Á» ³ô°Ô
-	//ÁÖ¸ÔÀ» »¸´Â ÆÐÅÏ
-	//ÆäÀÌÁî 1¿¡´Â ¾ó±¼À» »¸À½
-	//ÆäÀÌÁî 2¿¡´Â °¡·Î·Î ÈÎ¾À ³ÐÀº ¹üÀ§ÀÇ ÁÖ¸ÔÀ» »¸À½
-
-	if (m_attackCount >4)
-	{
-		m_attackCount = 0;
-
-	}
+	//ÆÝÄ¡ °ø°Ý¿¡¸¸ µ¿ÀÛ
+	//ÆäÀÌÁî 1ÀÇ ÆÝÄ¡ÀÎÁö 2ÀÇ ÆÝÄ¡ÀÎÁö¸¦ Àß ÆÄ¾ÇÇØ¼­ µ¿ÀÛ
+	Vec2 pos = GetOwner()->GetPos();
+	SetPos(pos + m_offset);
 }
 
 void CSlimeAttackBox::Fire()

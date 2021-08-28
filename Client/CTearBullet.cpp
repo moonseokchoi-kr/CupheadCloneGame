@@ -6,6 +6,7 @@
 #include "CTexture.h"
 #include "CResourceManager.h"
 #include "CRigidBody.h"
+#include "CTimeManager.h"
 #include "SelectGDI.h"
 CTearBullet::CTearBullet()
 	:CBullet(BULLET_TYPE::TEAR_BULLET)
@@ -22,6 +23,7 @@ CTearBullet::CTearBullet()
 	info.bulletSpeed = 600.f;
 	info.damege = 1;
 	info.range = 1600;
+	info.health = 3;
 	info.isParring = false;
 	SetInfo(info);
 
@@ -50,7 +52,14 @@ void CTearBullet::Update()
 	Vec2 pos = GetPos();
 	GetRigidBody()->SetVelocity(Vec2(0.f,GetInfo().bulletSpeed));
 	GetRigidBody()->SetVelocity(Vec2(0.f, GetInfo().bulletSpeed));
-	
+	if (IsHit())
+	{
+		m_accTime += fDT;
+		if (m_accTime >= 0.1f)
+		{
+			SetHit(false);
+		}
+	}
 	DeleteBullet();
 	if (isDead)
 	{
@@ -118,18 +127,44 @@ void CTearBullet::Update()
 
 void CTearBullet::OnCollisionEnter(CCollider* _col)
 {
+	bulletInfo info = GetInfo();
 	if (_col->GetOwner()->GetName() == L"PlayerHitBox" || _col->GetOwner()->GetName() == L"Ground")
 	{
 		isDead = true;
+	}
+	if (_col->GetOwner()->GetName() == L"PlayerBullet" && m_type == TEAR_BULLET_TYPE::P)
+	{
+		
+		SetHit(true);
+		info.health -= 1;
+		if (info.health <= 0)
+		{
+			isDead = true;
+		}
+		m_accTime = 0;
+		SetInfo(info);
 	}
 }
 
 void CTearBullet::OnCollision(CCollider* _col)
 {
+	bulletInfo info = GetInfo();
 	CObject* obj = _col->GetOwner();
 	if (obj->GetName() == L"PlayerHitBox")
 	{
 		isDead = true;
+	}
+	if (_col->GetOwner()->GetName() == L"PlayerBullet" && m_type == TEAR_BULLET_TYPE::P)
+	{
+
+		SetHit(true);
+		info.health -= 1;
+		if (info.health <= 0)
+		{
+			isDead = true;
+		}
+		m_accTime = 0;
+		SetInfo(info);
 	}
 
 }
@@ -162,5 +197,22 @@ void CTearBullet::randomTear()
 
 void CTearBullet::Render(HDC _dc)
 {
+	if (IsHit())
+	{
+		if (m_renderToggle)
+		{
+			GetAnimator()->SetAlpha(127);
+			m_renderToggle = false;
+		}
+		else
+		{
+			GetAnimator()->SetAlpha(0);
+			m_renderToggle = true;
+		}
+	}
+	else
+	{
+		GetAnimator()->SetAlpha(255);
+	}
 	ComponentRender(_dc);
 }

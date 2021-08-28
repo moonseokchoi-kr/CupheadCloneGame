@@ -55,10 +55,24 @@ void COllieBullb::Update()
 
 void COllieBullb::Render(HDC _dc)
 {
+	if (IsHit())
+	{
+		if (m_renderToggle)
+		{
+			GetAnimator()->SetAlpha(127);
+			m_renderToggle = false;
+		}
+		else
+		{
+			GetAnimator()->SetAlpha(0);
+			m_renderToggle = true;
+		}
+	}
+	else
+	{
+		GetAnimator()->SetAlpha(255);
+	}
 	ComponentRender(_dc);
-#ifdef _DEBUG
-	GetHitBox()->Render(_dc);
-#endif
 }
 
 void COllieBullb::OnCollisionEnter(CCollider* _col)

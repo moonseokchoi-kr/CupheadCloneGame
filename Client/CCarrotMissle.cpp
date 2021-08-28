@@ -12,11 +12,12 @@
 #include "CSceneManager.h"
 #include "CScene.h"
 #include "SelectGDI.h"
-
+#include "CTimeManager.h"
 
 CCarrotMissle::CCarrotMissle()
 	:CBullet(BULLET_TYPE::CARROT_MISSILE)
 	,m_maxAngle(Vec2(0.5f,0.5f))
+	,m_accTime(0)
 	,m_target(nullptr)
 {
 	CreateCollider();
@@ -48,14 +49,6 @@ CCarrotMissle::~CCarrotMissle()
 
 void CCarrotMissle::Update()
 {
-	Vec2 pos = GetPos();
-	Vec2 targetPos = m_target->GetPos();
-	Vec2 diff = targetPos - pos;
-	diff.Normalize();
-	GetAnimator()->Play(L"CARROT_MISSILE_LOOP", true);
-	GetRigidBody()->SetVelocity(Vec2(diff.x * GetInfo().bulletSpeed, diff.y * GetInfo().bulletSpeed));
-	GetRigidBody()->AddVelocity(Vec2(diff.x * GetInfo().bulletSpeed, diff.y * GetInfo().bulletSpeed));
-
 	if (isDead)
 	{
 		GetCollider()->SetAvaCollide(false);
@@ -63,12 +56,47 @@ void CCarrotMissle::Update()
 		GetAnimator()->Play(L"CARROT_MISSILE_DEATH", false);
 		if (GetAnimator()->GetCurrentAnim()->IsFinish())
 			DeleteObject(this);
+		return;
 	}
+	Vec2 pos = GetPos();
+	Vec2 targetPos = m_target->GetPos();
+	Vec2 diff = targetPos - pos;
+	diff.Normalize();
+	GetAnimator()->Play(L"CARROT_MISSILE_LOOP", true);
+	GetRigidBody()->SetVelocity(Vec2(diff.x * GetInfo().bulletSpeed, diff.y * GetInfo().bulletSpeed));
+	GetRigidBody()->AddVelocity(Vec2(diff.x * GetInfo().bulletSpeed, diff.y * GetInfo().bulletSpeed));
+	if (IsHit())
+	{
+		m_accTime += fDT;
+		if (m_accTime >= 0.1f)
+		{
+			SetHit(false);
+		}
+			
+	}
+
 	DeleteBullet();
 }
 
 void CCarrotMissle::Render(HDC _dc)
 {
+	if (IsHit())
+	{
+		if (m_renderToggle)
+		{
+			GetAnimator()->SetAlpha(127);
+			m_renderToggle = false;
+		}
+		else
+		{
+			GetAnimator()->SetAlpha(0);
+			m_renderToggle = true;
+		}
+	}
+	else
+	{
+		GetAnimator()->SetAlpha(255);
+	}
 	ComponentRender(_dc);
 }
 
@@ -88,7 +116,9 @@ void CCarrotMissle::OnCollisionEnter(CCollider* _col)
 			return;
 		}
 		info.health -= 1;
+		m_accTime = 0;
 		SetInfo(info);
+		SetHit(true);
 	}
 }
 
@@ -104,6 +134,8 @@ void CCarrotMissle::OnCollision(CCollider* _col)
 			return;
 		}
 		info.health -= 1;
+		m_accTime = 0;
+		SetHit(true);
 		SetInfo(info);
 	}
 }

@@ -50,12 +50,16 @@ public:
     CAttackBox* GetAttackBox() { return m_attackBox; }
     CObject* GetTarget() { return m_target; }
     CMonsterHitBox* GetHitBox() { return m_hitBox; }
+    bool IsHit() { return m_isHit; }
+    void SetHit(bool _b) { m_isHit = _b; }
 protected:
     CAttackBox* m_attackBox;
+    bool m_renderToggle;
 private:
     monsterInfo m_info;
     FSMAI* m_ai;
     CObject* m_target;
     CMonsterHitBox* m_hitBox;
+    bool m_isHit;
 };
 

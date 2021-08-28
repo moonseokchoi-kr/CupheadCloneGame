@@ -3,8 +3,10 @@
 #include "CCollider.h"
 #include "CMonster.h"
 #include "CBullet.h"
+#include "CTimeManager.h"
 CMonsterHitBox::CMonsterHitBox()
 	:m_owner(nullptr)
+	, m_accTime(0)
 {
 	CreateCollider();
 	SetName(L"MonsterHitBox");
@@ -22,6 +24,14 @@ void CMonsterHitBox::Update()
 {
 	Vec2 pos = m_owner->GetPos();
 	SetPos(pos + GetOffset());
+	if (m_owner->IsHit())
+	{
+		m_accTime += fDT;
+		if (m_accTime >= 0.1f)
+		{
+			m_owner->SetHit(false);
+		}
+	}
 }
 void CMonsterHitBox::FinalUpdate()
 {
@@ -38,6 +48,8 @@ void CMonsterHitBox::OnCollisionEnter(CCollider* _col)
 	{
 		monsterInfo info = m_owner->GetInfo();
 		info.hp -= ((CBullet*)obj)->GetInfo().damege;
+		m_owner->SetHit(true);
+		m_accTime = 0;
 	}
 }
 

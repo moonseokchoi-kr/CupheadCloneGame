@@ -18,7 +18,7 @@ public:
 	virtual void OnCollisionExit(CCollider* _col);
 private:
 	CMonster* m_owner;
-
+	float m_accTime;
 	friend class CMonster;
 
 

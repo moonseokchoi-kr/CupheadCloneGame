@@ -16,5 +16,6 @@ public:
    
 private:
     float m_animatedTime;
+    float m_accTime;
 };
 

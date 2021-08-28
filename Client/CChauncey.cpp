@@ -67,6 +67,23 @@ void CChauncey::Update()
 
 void CChauncey::Render(HDC _dc)
 {
+	if (IsHit())
+	{
+		if (m_renderToggle)
+		{
+			GetAnimator()->SetAlpha(127);
+			m_renderToggle = false;
+		}
+		else
+		{
+			GetAnimator()->SetAlpha(0);
+			m_renderToggle = true;
+		}
+	}
+	else
+	{
+		GetAnimator()->SetAlpha(255);
+	}
 	ComponentRender(_dc);
 	if (GetAi()->GetCurrentState()->GetState() == MON_STATE::ATTACK && ((CCarrotBossAttackBox*)m_attackBox)->GetCurrentPatt() == ATTACK_PATT::PATT2)
 	{
