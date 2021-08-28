@@ -552,6 +552,12 @@
     <ClInclude Include="CStageScene_02.h">
       <Filter>Engine\Scene\Stage Scene</Filter>
     </ClInclude>
+    <ClInclude Include="CChaserBullet.h">
+      <Filter>Engine\Object\Bullet\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="CHomingBulletTraile.h">
+      <Filter>Engine\Object\Bullet\Player</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -823,6 +829,12 @@
     </ClCompile>
     <ClCompile Include="CStageScene_02.cpp">
       <Filter>Engine\Scene\Stage Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="CChaserBullet.cpp">
+      <Filter>Engine\Object\Bullet\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="CHomingBulletTraile.cpp">
+      <Filter>Engine\Object\Bullet\Player</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

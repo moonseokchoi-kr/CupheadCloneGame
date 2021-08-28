@@ -23,7 +23,7 @@ void CIdleState::Enter()
 	if (!m_animName.empty())
 	{
 		GetMonster()->GetAnimator()->Play(m_animName, true);
-		GetMonster()->GetHitBox()->GetCollider()->SetAvaCollide(false);
+		GetMonster()->GetHitBox()->GetCollider()->SetAvaCollide(true);
 	}
 		
 	else

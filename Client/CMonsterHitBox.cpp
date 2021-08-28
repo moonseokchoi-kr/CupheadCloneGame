@@ -23,6 +23,10 @@ void CMonsterHitBox::Update()
 	Vec2 pos = m_owner->GetPos();
 	SetPos(pos + GetOffset());
 }
+void CMonsterHitBox::FinalUpdate()
+{
+	CObject::FinalUpdate();
+}
 void CMonsterHitBox::OnCollision(CCollider* _col)
 {
 }

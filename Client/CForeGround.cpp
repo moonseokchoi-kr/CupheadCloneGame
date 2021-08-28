@@ -10,7 +10,6 @@ CForeGround::CForeGround()
 {
 	CResourceManager::GetInst()->LoadTexture(L"botanic_foreground_1", L"texture\\cuphead\\foreground\\botanic_foreground_1.bmp");
 	CResourceManager::GetInst()->LoadTexture(L"botanic_foreground_2", L"texture\\cuphead\\foreground\\botanic_foreground_2.bmp");
-	CResourceManager::GetInst()->LoadTexture(L"canetion_background_stone", L"texture\\cuphead\\foreground\\canetion_background_stone.bmp");
 
 	m_foreGroundArray[TYPE_NUMBER(FOREGROUND_TYPE::BOTANIC_PLANT)] = L"botanic_foreground_1";
 	m_foreGroundArray[TYPE_NUMBER(FOREGROUND_TYPE::BOTANIC_PENSE)] = L"botanic_foreground_2";

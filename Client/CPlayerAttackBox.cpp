@@ -7,6 +7,7 @@
 #include "CPeaShootBullet.h"
 #include "CPlayerStateMachine.h"
 #include "CPlayerState.h"
+#include "CChaserBullet.h"
 CPlayerAttackBox::CPlayerAttackBox()
 	:m_accTime(0)
 {
@@ -44,16 +45,26 @@ void CPlayerAttackBox::Fire()
 			bullet->SetPos(finalPos);
 			bullet->SetMoveDir(pInfo.shootDir);
 			bullet->Start();
+			bullet->SetAnimName(m_bulletAnimName);
 			CreateObject(bullet, GROUP_TYPE::PLAYER_BULLET);
 			m_accTime = 0.0f;
 		}
 	}
 		break;
-	case BULLET_TYPE::SPREAD:
-		//bullet = static_cast<CSpreadBullet*>(GetBullet(GetCurrentBullet()));
-		break;
-	case BULLET_TYPE::ROUNDABOUT:
-		//bullet = static_cast<CRoundaboutBullet*>(GetBullet(GetCurrentBullet()));
+	case BULLET_TYPE::CHASER:
+	{
+		pInfo.attackSpeed = 0.5f;
+		CChaserBullet* bullet = new CChaserBullet;
+		if (m_accTime >= pInfo.attackSpeed)
+		{
+			if (finalPos.isZero())
+				return;
+			bullet->SetPos(finalPos);
+			bullet->Start();
+			CreateObject(bullet, GROUP_TYPE::PLAYER_BULLET);
+			m_accTime = 0.0f;
+		}
+	}
 		break;
 	default:
 		break;
@@ -62,6 +73,18 @@ void CPlayerAttackBox::Fire()
 }
 
 void CPlayerAttackBox::ChangeBullet()
+{
+	if (GetCurrentBullet() == BULLET_TYPE::PEASHOOT)
+	{
+		SetCurrentBullet(BULLET_TYPE::CHASER);
+	}
+	else
+	{
+		SetCurrentBullet(BULLET_TYPE::PEASHOOT);
+	}
+}
+
+void CPlayerAttackBox::ExFire()
 {
 }
 
@@ -76,33 +99,41 @@ void CPlayerAttackBox::rotateCreateBulletPos()
 	if (info.shootDir == Vec2(1, 0))
 	{
 		SetPos(Vec2(60.f, 45.f));
+		m_bulletAnimName = L"PEASHOOT_STRAIGHT_RIGHT";
 	}
 	if (info.shootDir == Vec2(1, 1))
 	{
 		SetPos(Vec2(60.f, 90.f));
+		m_bulletAnimName = L"PEASHOOT_DIRECTION_DOWN_RIGHT";
 	}
 	if (info.shootDir == Vec2(1, -1))
 	{
 		SetPos(Vec2(30.f, -13.f));
+		m_bulletAnimName = L"PEASHOOT_DIRECTION_UP_RIGHT";
 	}
 	if (info.shootDir == Vec2(-1, 0))
 	{
 		SetPos(Vec2(-60.f, 45.f));
+		m_bulletAnimName = L"PEASHOOT_STRAIGHT_LEFT";
 	}
 	if (info.shootDir == Vec2(-1, 1))
 	{
 		SetPos(Vec2(-30.f, 90.f));
+		m_bulletAnimName = L"PEASHOOT_DIRECTION_DOWN_LEFT";
 	}
 	if (info.shootDir == Vec2(-1, -1))
 	{
 		SetPos(Vec2(-60.f, -13.f));
+		m_bulletAnimName = L"PEASHOOT_DIRECTION_UP_LEFT";
 	}
 	if (info.shootDir == Vec2(0, -1))
 	{
 		SetPos(Vec2(30.f, -45.f));
+		m_bulletAnimName = L"PEASHOOT_UP";
 	}
 	if (info.shootDir == Vec2(0, 1))
 	{
 		SetPos(Vec2(0.f, 100.f));
+		m_bulletAnimName = L"PEASHOOT_DOWN";
 	}
 }

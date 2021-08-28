@@ -105,6 +105,16 @@ struct Vec2
 	{
 		return Vec2(-x, -y);
 	}
+
+	bool operator >(Vec2 v)
+	{
+		return Distance() > v.Distance();
+	}
+
+	bool operator <(Vec2 v)
+	{
+		return Distance() < v.Distance();
+	}
 public:
 	bool isZero()
 	{

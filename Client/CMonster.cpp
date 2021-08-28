@@ -56,6 +56,7 @@ void CMonster::FinalUpdate()
 {
 	if (CSceneManager::GetInst()->GetCurrentScene()->GetSceneName() == L"Tool Scene")
 		return;
+	m_hitBox->FinalUpdate();
 	CObject::FinalUpdate();
 }
 
@@ -64,7 +65,7 @@ void CMonster::Render(HDC _dc)
 
 	ComponentRender(_dc);
 #ifdef _DEBUG
-	m_hitBox->Update();
+	//m_hitBox->Render(_dc);
 #endif
 }
 

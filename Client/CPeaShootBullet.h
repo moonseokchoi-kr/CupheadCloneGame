@@ -15,7 +15,10 @@ public:
 	virtual void OnCollisionEnter(CCollider* _col) override;
 	virtual void OnCollision(CCollider* _col)override;
 	virtual void OnCollisionExit(CCollider* _col)override;
-private:
 
+	void SetAnimName(const wstring& _name) { m_animName = _name; }
+private:
+	bool m_isDead;
+	wstring m_animName;
 };
 

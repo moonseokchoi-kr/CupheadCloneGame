@@ -1,5 +1,11 @@
 #include "pch.h"
 
+#include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CHomingBulletTraile.cpp"
+
+
+#include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CPlayerDuckState.cpp"
+
+
 #include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CPlayerIntroState.cpp"
 
 
@@ -16,10 +22,4 @@
 
 
 #include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CCarrotBossIntroState.cpp"
-
-
-#include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CCarrotEyes.cpp"
-
-
-#include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CCarrotMissle.cpp"
 

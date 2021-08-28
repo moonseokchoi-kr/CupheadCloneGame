@@ -22,6 +22,7 @@ void CIntroState::Enter()
 
 void CIntroState::Exit()
 {
+	GetMonster()->GetHitBox()->GetCollider()->SetAvaCollide(true);
 }
 
 void CIntroState::Update()

@@ -89,10 +89,6 @@ void CPlayerAttackState::updateSubState()
 	{
 		GetPlayer()->GetAttackBox()->Fire();
 	}
-	if (KEY_HOLD(KEY::V) || KEY_TAP(KEY::V))
-	{
-		m_subState = PLAYER_STATE::EX_ATTACK;
-	}
 
 	if (GetPlayer()->GetGravity()->IsGround())
 	{
@@ -231,44 +227,8 @@ void CPlayerAttackState::updateAnimation()
 		}
 	}
 	break;
-	case PLAYER_STATE::EX_ATTACK:
-	{
-		GetPlayer()->GetRigidBody()->SetActive(false);
-		if (info.shootDir.x == -1)
-		{
-			if (info.shootDir.y == 1)
-			{
-				GetPlayer()->GetAnimator()->Play(L"PLAYER_EX_SHOOT_DIGNOAL_UP_LEFT", true);
-			}
-			else
-			{
-				GetPlayer()->GetAnimator()->Play(L"PLAYER_EX_SHOOT_LEFT", true);
-			}
-		}
-		else if (info.shootDir.x == 1)
-		{
-			if (info.shootDir.y == 1)
-			{
-				GetPlayer()->GetAnimator()->Play(L"PLAYER_EX_SHOOT_DIGNOAL_UP_RIGHT", true);
-			}
-			else
-			{
-				GetPlayer()->GetAnimator()->Play(L"PLAYER_EX_SHOOT_RIGHT", true);
-			}
-		}
-		else
-		{
-			if (GetPlayer()->GetMoveDir().x < 0)
-			{
-				GetPlayer()->GetAnimator()->Play(L"PLAYER_EX_SHOOT_UP_LEFT", true);
-			}
-			else
-			{
-				GetPlayer()->GetAnimator()->Play(L"PLAYER_EX_SHOOT_UP_RIGHT", true);
-			}
-		}
-	}
-	break;
+
+
 	default:
 		break;
 	}

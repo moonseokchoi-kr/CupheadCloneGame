@@ -13,12 +13,12 @@ public:
 public:
 	virtual void Fire();
 	void ChangeBullet();
-
+	void ExFire();
 private:
 	void rotateCreateBulletPos();
 
 private:
 	float m_accTime;
-	
+	wstring m_bulletAnimName;
 };
 

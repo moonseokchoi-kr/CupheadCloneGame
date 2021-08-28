@@ -306,6 +306,10 @@ void CPlayer::UpdateMove()
 	CRigidBody* rigidBody = GetRigidBody();
 	Vec2 moveDir = GetMoveDir();
 
+	if (KEY_TAP(KEY::C))
+	{
+		m_attackBox->ChangeBullet();
+	}
 	
 	if (KEY_TAP(KEY::LEFT))
 	{

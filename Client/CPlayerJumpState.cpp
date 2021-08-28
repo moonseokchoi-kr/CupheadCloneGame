@@ -87,10 +87,4 @@ void CPlayerJumpState::updateSubState()
 	{
 		GetPlayer()->GetAttackBox()->Fire();
 	}
-	//ÆÐ¸µ
-
-	if (KEY_TAP(KEY::X))
-	{
-
-	}
 }

@@ -42,7 +42,7 @@ void CScene_Test::Enter()
 	player->Start();
 	CreateObject(player, GROUP_TYPE::PLAYER);
 
-	CMonster* monster = CMonsterFactory::CreateMonster(MON_TYPE::CHAUNCEY, Vec2(resolution.x - 340.f, 300.f));
+	CMonster* monster = CMonsterFactory::CreateMonster(MON_TYPE::SAL, Vec2(resolution.x - 340.f, 300.f));
 	
 	CreateObject(monster, GROUP_TYPE::BOSS);
 
@@ -57,6 +57,7 @@ void CScene_Test::Enter()
 	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::PLAYER_BULLET, GROUP_TYPE::MONSTER_BULLET);
 	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::PLAYER_BULLET, GROUP_TYPE::MONSTER_HITBOX);
 	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::PLAYER_HITBOX, GROUP_TYPE::MONSTER_BULLET);
+	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::PLAYER_HITBOX, GROUP_TYPE::MONSTER_HITBOX);
 	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::MONSTER_BULLET, GROUP_TYPE::GROUND);
 	
 
@@ -79,6 +80,14 @@ void CScene_Test::Update()
 	if (KEY_TAP(KEY::T))
 	{
 		ChangeScene(SCENE_TYPE::TOOL);
+	}
+	if (KEY_TAP(KEY::F1))
+	{
+		SetDebug();
+	}
+	if (KEY_TAP(KEY::F2))
+	{
+		SetDeadState(((CMonster*)GetTarget(GROUP_TYPE::BOSS, L"Potato")));
 	}
 
 }
