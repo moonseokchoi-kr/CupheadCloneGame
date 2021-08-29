@@ -114,6 +114,8 @@ void CSlime::Update()
 	if (GetInfo().hp <= 100.f && m_currentPhase != PHASE::PHASE2 && GetGravity()->IsGround())
 	{
 		m_currentPhase = PHASE::PHASE2;
+		GetRigidBody()->SetActive(false);
+		GetHitBox()->GetCollider()->SetAvaCollide(false);
 		ChangeAIState(GetAi(), MON_STATE::INTRO);
 		if (GetMoveDir().x < 0)
 		{
@@ -121,10 +123,10 @@ void CSlime::Update()
 		}
 		else
 		{
-			GetAnimator()->Play(L"SLIME_MORPH_LEFT_1", true);
+			GetAnimator()->Play(L"SLIME_MORPH_RIGHT_1", false);
 		}
-		GetHitBox()->SetScale(Vec2(380.f, 340.f));
-		GetCollider()->SetScale(Vec2(400.f, 360.f));
+
+		return;
 	}
 	if (GetInfo().hp <= 0)
 	{

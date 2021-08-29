@@ -8,6 +8,7 @@
 #include "CAnimation.h"
 #include "CAnimator.h"
 #include "CScene.h"
+#include "CMonsterHitBox.h"
 #include "CSceneManager.h"
 CSlimAttackState::CSlimAttackState()
 	:m_accTime(0)
@@ -25,6 +26,8 @@ CSlimAttackState::~CSlimAttackState()
 
 void CSlimAttackState::Enter()
 {
+	GetMonster()->GetRigidBody()->SetActive(true);
+	GetMonster()->GetHitBox()->GetCollider()->SetAvaCollide(true);
 	CSlime* slime = static_cast<CSlime*>(GetMonster());
 	getTargetDiff();
 	randomPatt();
@@ -529,7 +532,7 @@ void CSlimAttackState::randomPatt()
 			m_currentPatt = ATTACK_PATT::PATT1;
 
 		}
-		if (slime->GetCurrentPhase() == PHASE::PHASE2 && m_prevPatt != ATTACK_PATT::PATT4)
+		else if (slime->GetCurrentPhase() == PHASE::PHASE2 && m_prevPatt != ATTACK_PATT::PATT4)
 		{
 			m_currentPatt = ATTACK_PATT::PATT4;
 		}
