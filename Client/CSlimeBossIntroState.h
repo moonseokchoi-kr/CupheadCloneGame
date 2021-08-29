@@ -1,11 +1,11 @@
 #pragma once
 #include "CState.h"
-class CCarrotBossIntroState :
+class CSlimeBossIntroState :
     public CState
 {
 public:
-    CCarrotBossIntroState();
-    ~CCarrotBossIntroState();
+    CSlimeBossIntroState();
+    ~CSlimeBossIntroState();
 public:
 
     // CState을(를) 통해 상속됨

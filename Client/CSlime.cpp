@@ -1,14 +1,99 @@
 #include "pch.h"
 #include "CSlime.h"
 #include "CCollider.h"
+#include "CGravity.h"
+#include "CRigidBody.h"
+#include "CAnimator.h"
+#include "CAnimation.h"
 #include "CSlimeAttackBox.h"
 #include "CMonsterHitBox.h"
+
+#include "CResourceManager.h"
+#include "CTexture.h"
+#include "CCore.h"
+#include "FSMAI.h"
+#include "CState.h"
+#include "CKeyManager.h"
 #include "SelectGDI.h"
 CSlime::CSlime()
+	:m_currentPhase(PHASE::PHASE1)
 {
 	CreateCollider();
-	SetScale(Vec2(340.f, 616.f));
-	GetCollider()->SetScale(Vec2(340.f, 616.f));	
+	CreateAnimator();
+	CreateRigidBody();
+	CreateGravity();
+	SetScale(Vec2(220.f, 180.f));
+	GetCollider()->SetScale(Vec2(220.f, 180.f));	
+
+	float animateTime = 1/15.f;
+	CTexture* lgSlimeAirDownTex = CResourceManager::GetInst()->LoadTexture(L"lgSlimeAirDownTex", L"texture\\cuphead\\boss\\lg_slime_air_down.bmp");
+	CTexture* lgSlimeAirUpTex = CResourceManager::GetInst()->LoadTexture(L"lgSlimeAirUpTex", L"texture\\cuphead\\boss\\lg_slime_air_up.bmp");
+	CTexture* lgSlimeDeathTex = CResourceManager::GetInst()->LoadTexture(L"lgSlimeDeathTex", L"texture\\cuphead\\boss\\lg_slime_death.bmp");
+	CTexture* lgSlimeIdleTex = CResourceManager::GetInst()->LoadTexture(L"lgSlimeIdleTex", L"texture\\cuphead\\boss\\lg_slime_idle.bmp");
+	CTexture* lgSlimeJumpTex = CResourceManager::GetInst()->LoadTexture(L"lgSlimeJumpTex", L"texture\\cuphead\\boss\\lg_slime_jump.bmp");
+	CTexture* lgSlimePunchTex = CResourceManager::GetInst()->LoadTexture(L"lgSlimePunchTex", L"texture\\cuphead\\boss\\lg_slime_punch.bmp");
+	CTexture* lgSlimeTurnPunchTex = CResourceManager::GetInst()->LoadTexture(L"lgSlimeTurnPunchTex", L"texture\\cuphead\\boss\\lg_slime_turn_punch.bmp");
+	CTexture* lgSlimeUpDownTurnTex = CResourceManager::GetInst()->LoadTexture(L"lgSlimeUpDownTurnTex", L"texture\\cuphead\\boss\\lg_slime_Up_Down_Turn.bmp");
+	CTexture* slimeAirTurnTex = CResourceManager::GetInst()->LoadTexture(L"slimeAirTurnTex", L"texture\\cuphead\\boss\\slime_air_up_down_turn.bmp");
+	CTexture* slimeIntroTex = CResourceManager::GetInst()->LoadTexture(L"slimeIntroTex", L"texture\\cuphead\\boss\\slime_intro.bmp");
+	CTexture* slimeMorphTex = CResourceManager::GetInst()->LoadTexture(L"slimeMorphTex", L"texture\\cuphead\\boss\\slime_morph.bmp");
+	CTexture* slimePunchTex = CResourceManager::GetInst()->LoadTexture(L"slimePunchTex", L"texture\\cuphead\\boss\\slime_punch.bmp");
+	CTexture* slimePunchTurnTex = CResourceManager::GetInst()->LoadTexture(L"slimePunchTurnTex", L"texture\\cuphead\\boss\\slime_punch_turn.bmp");
+	CTexture* slimeJumpTex = CResourceManager::GetInst()->LoadTexture(L"slimeJumpTex", L"texture\\cuphead\\boss\\slime_jump.bmp");
+
+	GetAnimator()->CreateAnimation(L"LG_SLIME_AIR_DOWN_LEFT", lgSlimeAirDownTex, Vec2(0.f, 0.f), Vec2(1250.f, 568.f), Vec2(1250.f, 0.f), animateTime, 5, false);
+	GetAnimator()->CreateAnimation(L"LG_SLIME_AIR_DOWN_RIGHT", lgSlimeAirDownTex, Vec2(0.f, 568.f), Vec2(1250.f, 568.f), Vec2(1250.f, 0.f), animateTime, 5, true);
+	GetAnimator()->CreateAnimation(L"LG_SLIME_AIR_UP_LEFT", lgSlimeAirUpTex, Vec2(0.f, 0.f), Vec2(1250.f, 568.f), Vec2(1250.f, 0.f), animateTime, 4, false);
+	GetAnimator()->CreateAnimation(L"LG_SLIME_AIR_UP_RIGHT", lgSlimeAirUpTex, Vec2(0.f, 568.f), Vec2(1250.f, 568.f), Vec2(1250.f, 0.f), animateTime, 4, true);
+	
+	GetAnimator()->CreateAnimation(L"LG_SLIME_DEATH_LEFT_1", lgSlimeDeathTex, Vec2(0.f, 0.f), Vec2(1250.f, 568.f), Vec2(1250.f, 0.f), animateTime, 10, false);
+	GetAnimator()->CreateAnimation(L"LG_SLIME_DEATH_LEFT_2", lgSlimeDeathTex, Vec2(0.f, 568.f), Vec2(1250.f, 568.f), Vec2(1250.f, 0.f), animateTime, 10, false);
+	GetAnimator()->CreateAnimation(L"LG_SLIME_DEATH_RIGHT_1", lgSlimeDeathTex, Vec2(0.f, 1136.f), Vec2(1250.f, 568.f), Vec2(1250.f, 0.f), animateTime, 10, true);
+	GetAnimator()->CreateAnimation(L"LG_SLIME_DEATH_RIGHT_2", lgSlimeDeathTex, Vec2(0.f, 1704.f), Vec2(1250.f, 568.f), Vec2(1250.f, 0.f), animateTime, 10, true);
+	
+	GetAnimator()->CreateAnimation(L"LG_SLIME_IDLE_LEFT", lgSlimeIdleTex, Vec2(0.f, 0.f), Vec2(1250.f, 568.f), Vec2(1250.f, 0.f), animateTime, 5, false);
+	GetAnimator()->CreateAnimation(L"LG_SLIME_IDLE_RIGHT", lgSlimeIdleTex, Vec2(0.f, 568.f), Vec2(1250.f, 568.f), Vec2(1250.f, 0.f), animateTime, 5, true);
+	
+	GetAnimator()->CreateAnimation(L"LG_SLIME_JUMP_LEFT", lgSlimeJumpTex, Vec2(0.f, 0.f), Vec2(1250.f, 568.f), Vec2(1250.f, 0.f), animateTime, 8, false);
+	GetAnimator()->CreateAnimation(L"LG_SLIME_JUMP_RIGHT", lgSlimeJumpTex, Vec2(0.f, 568.f), Vec2(1250.f, 568.f), Vec2(1250.f, 0.f), animateTime, 8, true);
+	
+	GetAnimator()->CreateAnimation(L"LG_SLIME_PUNCH_LEFT", lgSlimePunchTex, Vec2(0.f, 0.f), Vec2(1250.f, 568.f), Vec2(1250.f, 0.f), animateTime, 19, false);
+	GetAnimator()->CreateAnimation(L"LG_SLIME_PUNCH_RIGHT", lgSlimePunchTex, Vec2(0.f, 568.f), Vec2(1250.f, 568.f), Vec2(1250.f, 0.f), animateTime, 19, true);
+
+	GetAnimator()->CreateAnimation(L"LG_SLIME_PUNCH_TURN_LEFT", lgSlimeTurnPunchTex, Vec2(0.f, 0.f), Vec2(1250.f, 568.f), Vec2(1250.f, 0.f), animateTime, 7, false);
+	GetAnimator()->CreateAnimation(L"LG_SLIME_PUNCH_TURN_RIGHT", lgSlimeTurnPunchTex, Vec2(0.f, 568.f), Vec2(1250.f, 568.f), Vec2(1250.f, 0.f), animateTime, 7, true);
+
+	GetAnimator()->CreateAnimation(L"LG_SLIME_UP_DOWN_TURN_LEFT", lgSlimeUpDownTurnTex, Vec2(0.f, 0.f), Vec2(1250.f, 568.f), Vec2(1250.f, 0.f), animateTime, 5, false);
+	GetAnimator()->CreateAnimation(L"LG_SLIME_UP_DOWN_TURN_RIGHT", lgSlimeUpDownTurnTex, Vec2(0.f, 568.f), Vec2(1250.f, 568.f), Vec2(1250.f, 0.f), animateTime, 5, true);
+
+	GetAnimator()->CreateAnimation(L"SLIME_AIR_DOWN_LEFT", slimeAirTurnTex, Vec2(0.f, 0.f), Vec2(1250.f, 568.f), Vec2(1250.f, 0.f), animateTime, 3, false);
+	GetAnimator()->CreateAnimation(L"SLIME_AIR_UP_LEFT", slimeAirTurnTex, Vec2(0.f, 568.f), Vec2(1250.f, 568.f), Vec2(1250.f, 0.f), animateTime, 3, false);
+	GetAnimator()->CreateAnimation(L"SLIME_AIR_DOWN_TURN_LEFT", slimeAirTurnTex, Vec2(0.f, 1136.f), Vec2(1250.f, 568.f), Vec2(1250.f, 0.f), animateTime, 3, false);
+	GetAnimator()->CreateAnimation(L"SLIME_AIR_UP_TURN_LEFT", slimeAirTurnTex, Vec2(0.f, 1704.f), Vec2(1250.f, 568.f), Vec2(1250.f, 0.f), animateTime, 3, false);
+
+	GetAnimator()->CreateAnimation(L"SLIME_AIR_DOWN_RIGHT", slimeAirTurnTex, Vec2(0.f, 2272.f), Vec2(1250.f, 568.f), Vec2(1250.f, 0.f), animateTime, 3, true);
+	GetAnimator()->CreateAnimation(L"SLIME_AIR_UP_RIGHT", slimeAirTurnTex, Vec2(0.f, 2840.f), Vec2(1250.f, 568.f), Vec2(1250.f, 0.f), animateTime, 3, true);
+	GetAnimator()->CreateAnimation(L"SLIME_AIR_DOWN_TURN_RIGHT", slimeAirTurnTex, Vec2(0.f, 3408.f), Vec2(1250.f, 568.f), Vec2(1250.f, 0.f), animateTime, 3, true);
+	GetAnimator()->CreateAnimation(L"SLIME_AIR_UP_TURN_RIGHT", slimeAirTurnTex, Vec2(0.f, 3976.f), Vec2(1250.f, 568.f), Vec2(1250.f, 0.f), animateTime, 3, true);
+
+
+	GetAnimator()->CreateAnimation(L"SLIME_INTRO_1", slimeIntroTex, Vec2(0.f, 0.f), Vec2(1250.f, 568.f), Vec2(1250.f, 0.f), animateTime, 9, false);
+	GetAnimator()->CreateAnimation(L"SLIME_INTRO_2", slimeIntroTex, Vec2(0.f, 568.f), Vec2(1250.f, 568.f), Vec2(1250.f, 0.f), animateTime, 9, false);
+	GetAnimator()->CreateAnimation(L"SLIME_INTRO_3", slimeIntroTex, Vec2(0.f,1136.f), Vec2(1250.f, 568.f), Vec2(1250.f, 0.f), animateTime, 9, false);
+
+	GetAnimator()->CreateAnimation(L"SLIME_MORPH_LEFT_1", slimeMorphTex, Vec2(0.f, 0.f), Vec2(1250.f, 568.f), Vec2(1250.f, 0.f), animateTime, 24, false);
+	GetAnimator()->CreateAnimation(L"SLIME_MORPH_LEFT_2", slimeMorphTex, Vec2(0.f, 568.f), Vec2(1250.f, 568.f), Vec2(1250.f, 0.f), animateTime, 24, false);
+	GetAnimator()->CreateAnimation(L"SLIME_MORPH_RIGHT_1", slimeMorphTex, Vec2(0.f, 1136.f), Vec2(1250.f, 568.f), Vec2(1250.f, 0.f), animateTime, 24, true);
+	GetAnimator()->CreateAnimation(L"SLIME_MORPH_RIGHT_2", slimeMorphTex, Vec2(0.f, 1704.f), Vec2(1250.f, 568.f), Vec2(1250.f, 0.f), animateTime, 24, true);
+
+	GetAnimator()->CreateAnimation(L"SLIME_PUNCH_LEFT", slimePunchTex, Vec2(0.f, 0.f), Vec2(1250.f, 568.f), Vec2(1250.f, 0.f), animateTime, 16, false);
+	GetAnimator()->CreateAnimation(L"SLIME_PUNCH_RIGHT", slimePunchTex, Vec2(0.f, 568.f), Vec2(1250.f, 568.f), Vec2(1250.f, 0.f), animateTime, 16, true);
+
+	GetAnimator()->CreateAnimation(L"SLIME_PUNCH_TURN_LEFT", slimePunchTurnTex, Vec2(0.f, 0.f), Vec2(1250.f, 568.f), Vec2(1250.f, 0.f), animateTime, 6, false);
+	GetAnimator()->CreateAnimation(L"SLIME_PUNCH_TURN_RIGHT", slimePunchTurnTex, Vec2(0.f, 568.f), Vec2(1250.f, 568.f), Vec2(1250.f, 0.f), animateTime, 6, true);
+
+	GetAnimator()->CreateAnimation(L"SLIME_JUMP_LEFT", slimeJumpTex, Vec2(0.f, 0.f), Vec2(1250.f, 568.f), Vec2(1250.f, 0.f), animateTime, 9, false);
+	GetAnimator()->CreateAnimation(L"SLIME_JUMP_RIGHT", slimeJumpTex, Vec2(0.f, 568.f), Vec2(1250.f, 568.f), Vec2(1250.f, 0.f), animateTime, 9, true);
 }
 
 CSlime::~CSlime()
@@ -17,25 +102,71 @@ CSlime::~CSlime()
 
 void CSlime::Start()
 {
+	CMonster::Start();
+	GetHitBox()->SetScale(Vec2(240.f, 200.f));
+	GetHitBox()->Start();
+	GetAttackBox()->Start();
 }
 
 void CSlime::Update()
 {
+	
+	if (GetInfo().hp <= 100.f && m_currentPhase != PHASE::PHASE2 && GetGravity()->IsGround())
+	{
+		m_currentPhase = PHASE::PHASE2;
+		ChangeAIState(GetAi(), MON_STATE::INTRO);
+		if (GetMoveDir().x < 0)
+		{
+			GetAnimator()->Play(L"SLIME_MORPH_LEFT_1", false);
+		}
+		else
+		{
+			GetAnimator()->Play(L"SLIME_MORPH_LEFT_1", true);
+		}
+		GetHitBox()->SetScale(Vec2(380.f, 340.f));
+		GetCollider()->SetScale(Vec2(400.f, 360.f));
+	}
+	if (GetInfo().hp <= 0)
+	{
+		ChangeAIState(GetAi(), MON_STATE::DEAD);
+	}
+	if (GetAi()->GetCurrentState()->GetState() == MON_STATE::INTRO && GetAnimator()->GetCurrentAnim() == nullptr)
+		GetAnimator()->Play(L"SLIME_INTRO_1", false);
+	m_prevMoveDir = GetMoveDir();
 	CMonster::Update();
+
+	if (CCore::GetInst()->IsDebug())
+	{
+		if (KEY_TAP(KEY::F3))
+		{
+			monsterInfo info = GetInfo();
+			info.hp = 100.f;
+			SetInfo(info);
+		}
+		
+	}
 }
 
 void CSlime::Render(HDC _dc)
 {
-	Vec2 renderPos = CCamera::GetInst()->GetRenderPos(GetPos());
-	Vec2 scale = GetScale();
-	SelectGDI gdi(_dc, BRUSH_TYPE::BLUE);
-	Ellipse(
-		_dc,
-		renderPos.x - scale.x / 2.f,
-		renderPos.y - scale.y / 2.f,
-		renderPos.x + scale.x / 2.f,
-		renderPos.y + scale.y / 2.f
-	);
+	if (IsHit())
+	{
+		if (m_renderToggle)
+		{
+			GetAnimator()->SetAlpha(127);
+			m_renderToggle = false;
+		}
+		else
+		{
+			GetAnimator()->SetAlpha(0);
+			m_renderToggle = true;
+		}
+	}
+	else
+	{
+		GetAnimator()->SetAlpha(255);
+	}
+	ComponentRender(_dc);
 }
 
 void CSlime::CreateAttackBox()

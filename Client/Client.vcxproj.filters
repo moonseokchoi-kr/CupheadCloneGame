@@ -207,9 +207,6 @@
     <Filter Include="Engine\Module\AI\State\AttackState\Sal Spudder">
       <UniqueIdentifier>{aa484264-79d1-41c9-b51e-081a44a0a1ea}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Module\AI\State\DeathState\Sal Spudder">
-      <UniqueIdentifier>{a6a6c92a-a673-4e46-9252-1866fa35899b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Object\Bullet\Monster\Sal Spudder">
       <UniqueIdentifier>{63f5feaf-6e4b-4b00-806d-5072bc80f83b}</UniqueIdentifier>
     </Filter>
@@ -221,9 +218,6 @@
     </Filter>
     <Filter Include="Engine\Module\AI\State\AttackState\Chauncey">
       <UniqueIdentifier>{46788169-84c8-434a-9692-2c4b010e7c79}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Module\AI\State\IntroState\Chauncey">
-      <UniqueIdentifier>{ffe47c14-1400-4939-835b-b544b99ee923}</UniqueIdentifier>
     </Filter>
     <Filter Include="Engine\Object\Bullet\Monster\Chauncey">
       <UniqueIdentifier>{31bbf3e2-5551-4cbd-9b68-7b828b49b97b}</UniqueIdentifier>
@@ -272,6 +266,12 @@
     </Filter>
     <Filter Include="Engine\Scene\Stage Scene">
       <UniqueIdentifier>{c31555b2-ac2f-4efd-af12-c78fc1c5aa12}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Module\AI\State\DeathState\Slime">
+      <UniqueIdentifier>{a6a6c92a-a673-4e46-9252-1866fa35899b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Module\AI\State\IntroState\Slime">
+      <UniqueIdentifier>{ffe47c14-1400-4939-835b-b544b99ee923}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -483,8 +483,8 @@
     <ClInclude Include="CCarrotBossAttackState.h">
       <Filter>Engine\Module\AI\State\AttackState\Chauncey</Filter>
     </ClInclude>
-    <ClInclude Include="CCarrotBossIntroState.h">
-      <Filter>Engine\Module\AI\State\IntroState\Chauncey</Filter>
+    <ClInclude Include="CSlimeBossIntroState.h">
+      <Filter>Engine\Module\AI\State\IntroState\Slime</Filter>
     </ClInclude>
     <ClInclude Include="CCarrotMissle.h">
       <Filter>Engine\Object\Bullet\Monster\Chauncey</Filter>
@@ -557,6 +557,9 @@
     </ClInclude>
     <ClInclude Include="CHomingBulletTraile.h">
       <Filter>Engine\Object\Bullet\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="CSlimeDeathState.h">
+      <Filter>Engine\Module\AI\State\DeathState\Slime</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -761,8 +764,8 @@
     <ClCompile Include="CCarrotBossAttackState.cpp">
       <Filter>Engine\Module\AI\State\AttackState\Chauncey</Filter>
     </ClCompile>
-    <ClCompile Include="CCarrotBossIntroState.cpp">
-      <Filter>Engine\Module\AI\State\IntroState\Chauncey</Filter>
+    <ClCompile Include="CSlimeBossIntroState.cpp">
+      <Filter>Engine\Module\AI\State\IntroState\Slime</Filter>
     </ClCompile>
     <ClCompile Include="CCarrotMissle.cpp">
       <Filter>Engine\Object\Bullet\Monster\Chauncey</Filter>
@@ -835,6 +838,9 @@
     </ClCompile>
     <ClCompile Include="CHomingBulletTraile.cpp">
       <Filter>Engine\Object\Bullet\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="CSlimeDeathState.cpp">
+      <Filter>Engine\Module\AI\State\DeathState\Slime</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

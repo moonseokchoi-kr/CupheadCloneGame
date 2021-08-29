@@ -44,7 +44,8 @@ void CCollider::Render(HDC _dc)
 	if (!CCore::GetInst()->IsDebug())
 		return;
 	PEN_TYPE pen = PEN_TYPE::GREEN;
-
+	if (!m_avaliableCollide)
+		pen = PEN_TYPE::BLUE_BOLD;
 	if (m_col)
 		pen = PEN_TYPE::RED;
 

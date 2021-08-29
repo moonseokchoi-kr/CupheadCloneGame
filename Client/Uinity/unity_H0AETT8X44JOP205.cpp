@@ -18,8 +18,8 @@
 #include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CSlimeAttackBox.cpp"
 
 
+#include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CSlimeDeathState.cpp"
+
+
 #include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CSlimeIdleState.cpp"
-
-
-#include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CSpawnObject.cpp"
 

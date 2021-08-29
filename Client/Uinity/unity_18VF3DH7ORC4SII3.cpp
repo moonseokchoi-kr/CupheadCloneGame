@@ -21,5 +21,5 @@
 #include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CCarrotBossAttackState.cpp"
 
 
-#include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CCarrotBossIntroState.cpp"
+#include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CSlimeBossIntroState.cpp"
 
