@@ -19,8 +19,7 @@ CPlayerHitState::~CPlayerHitState()
 
 void CPlayerHitState::Enter()
 {
-	GetPlayer()->GetRigidBody()->SetVelocity(Vec2(-GetPlayer()->GetMoveDir().x*200.f, 0.f));
-	GetPlayer()->GetRigidBody()->SetVelocity(Vec2(-GetPlayer()->GetMoveDir().x *100.f, 0.f));
+	GetPlayer()->GetRigidBody()->SetVelocity(Vec2(0, 0));
 }
 
 void CPlayerHitState::Exit()
@@ -32,10 +31,6 @@ void CPlayerHitState::Update()
 {
 	updateAnimation();
 	m_accTime += fDT;
-	if (m_accTime >= 0.1f)
-	{
-		GetPlayer()->GetRigidBody()->SetVelocity(Vec2(0.f, 0.f));
-	}
 	if (GetPlayer()->GetAnimator()->GetCurrentAnim()->IsFinish())
 	{
 		m_accTime = 0;

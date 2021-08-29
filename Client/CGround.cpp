@@ -3,7 +3,6 @@
 #include "CCollider.h"
 #include "CAnimation.h"
 #include "CAnimator.h"
-#include "CRigidBody.h"
 #include "CTexture.h"
 #include "CPropeller.h"
 #include "CGravity.h"
@@ -15,7 +14,7 @@
 
 CGround::CGround()
 	:m_propeller(nullptr)
-	, m_currentCollide(COLLIDE_TYPE::COLLIDE_IDLE)
+	,m_currentCollide(COLLIDE_TYPE::COLLIDE_IDLE)
 {
 	CreateCollider();
 	SetScale(Vec2(100, 60));
@@ -42,25 +41,25 @@ void CGround::Start()
 		GetAnimator()->CreateAnimation(L"platform_C_anim", tex, Vec2(960, 0), Vec2(160, 93), Vec2(160, 0), 0.15f, 3, false);
 
 		SetScale(Vec2(160, 93));
-		GetCollider()->SetScale(GetScale() - Vec2(20.f, 50.f));
+		GetCollider()->SetScale(GetScale()-Vec2(20.f,50.f));
 		GetCollider()->SetOffsetPos(Vec2(0.f, -10.f));
 		m_propeller = new CPropeller;
 		m_propeller->SetParent(this);
 		m_propeller->SetPosOffset(Vec2(5.f, 60.f));
 		return;
 	}
-	break;
+		break;
 	case GAMEOBJECT_TYPE::GROUND:
 	{
 		SetName(L"Ground");
 	}
-	break;
+		break;
 	case GAMEOBJECT_TYPE::END:
 		break;
 	default:
 		break;
 	}
-	if (nullptr != GetCollider())
+	if(nullptr != GetCollider())
 		GetCollider()->SetScale(GetScale());
 }
 
@@ -106,7 +105,7 @@ void CGround::Render(HDC _dc)
 
 	ComponentRender(_dc);
 
-
+	
 
 }
 
@@ -129,7 +128,7 @@ void CGround::OnCollisionEnter(CCollider* _col)
 	Vec2 objLBPrevPos = Vec2(objPrevPos.x - objColScale.x / 2.f, objPrevPos.y + objColScale.y / 2.f);
 	if (obj->GetName() == L"Player")
 	{
-
+		
 		switch (GetType())
 		{
 		case GAMEOBJECT_TYPE::FLOWER_PLATFORM_A:
@@ -141,7 +140,7 @@ void CGround::OnCollisionEnter(CCollider* _col)
 			// 콜라이더의 이전 위치가 콜라이더의 하단보다 크고 현재 하단보다 작을경우
 			// 콜라이더 상단 충돌
 			// 콜라이더의 이전 위치가 콜라이더의 상단보다 작고 현재 상단보다 클경우
-			if ((int)objRBPos.y <= (int)platLT.y && platLT.y >= objRBPrevPos.y)
+			if ((int)objRBPos.y <= (int)platLT.y && platLT.y>=objRBPrevPos.y)
 			{
 				obj->GetGravity()->SetGround(true, GROUND_TYPE::PLATFORM);
 				m_currentCollide = COLLIDE_TYPE::COLLIDE_TOP;
@@ -152,42 +151,44 @@ void CGround::OnCollisionEnter(CCollider* _col)
 			}
 		}
 
-		break;
+			break;
 		case GAMEOBJECT_TYPE::GROUND:
 		{
 			Vec2 moveDir = obj->GetMoveDir();
-
+			
 			//플렝이어의 이전 위치가 땅의 상단위치보다 작고 현재 위치가 플랫폼 좌상단 우상단보다 클경우
-			if ((int)objRBPos.y >= (int)platLT.y && (int)objRBPrevPos.y <= (int)platLT.y)
+			if ((int)objRBPos.y >= (int)platLT.y && (int)objRBPrevPos.y<=(int)platLT.y)
 			{
 				obj->GetGravity()->SetGround(true, GROUND_TYPE::GROUND);
 				m_currentCollide = COLLIDE_TYPE::COLLIDE_TOP;
 			}
 			else if (platLT.y < objRBPos.y <= platRB.y)
 			{
-
-				if (platRB.x >= objLBPos.x && objLBPrevPos.x >= platRB.x)
+				
+				if (platRB.x >= objLBPos.x && objLBPrevPos.x>= platRB.x)
 				{
-					m_currentCollide = COLLIDE_TYPE::COLLIDE_LEFT;
+					m_currentCollide= COLLIDE_TYPE::COLLIDE_LEFT;
 				}
-				else if (objRBPos.x >= platLT.x && objRBPrevPos.x <= platLT.x)
+				else if (objRBPos.x >= platLT.x && objRBPrevPos.x<=platLT.x)
 				{
 					m_currentCollide = COLLIDE_TYPE::COLLIDE_RIGHT;
 				}
 			}
 		}
-		break;
+			break;
 		default:
 			break;
 		}
-
+		
 	}
 	if (obj->GetName() == L"Onion" || obj->GetName() == L"Potato" || obj->GetName() == L"Carrot" || obj->GetName() == L"Slime")
 	{
 		if (GetType() == GAMEOBJECT_TYPE::GROUND)
 		{
+	
+
 			//플렝이어의 이전 위치가 땅의 상단위치보다 작고 현재 위치가 플랫폼 좌상단 우상단보다 클경우
-			if ((int)objRBPos.y >= (int)platLT.y && (int)objRBPrevPos.y <= (int)platLT.y)
+			if ((int)objRBPos.y >= (int)platLT.y && (int)objRBPos.y <= (int)platLT.y)
 			{
 				obj->GetGravity()->SetGround(true, GROUND_TYPE::GROUND);
 				m_currentCollide = COLLIDE_TYPE::COLLIDE_TOP;
@@ -199,7 +200,7 @@ void CGround::OnCollisionEnter(CCollider* _col)
 				{
 					m_currentCollide = COLLIDE_TYPE::COLLIDE_RIGHT;
 				}
-				else if (objRBPos.x >= platLT.x && objRBPrevPos.x <= platLT.x)
+				else if (objRBPos.x >= platLT.x && objRBPos.x <= platLT.x)
 				{
 					m_currentCollide = COLLIDE_TYPE::COLLIDE_LEFT;
 				}
@@ -217,7 +218,7 @@ void CGround::OnCollision(CCollider* _col)
 	Vec2 objPos = obj->GetPos();
 	Vec2 pos = GetCollider()->GetFinalPos();
 	Vec2 scale = GetCollider()->GetScale();
-	if (obj->GetName() == L"Player")
+	if (obj->GetName() == L"Player" )
 	{
 		switch (GetType())
 		{
@@ -236,7 +237,7 @@ void CGround::OnCollision(CCollider* _col)
 			{
 				obj->GetGravity()->SetGround(false, GROUND_TYPE::NONE);
 			}
-
+	
 		}
 		break;
 		case GAMEOBJECT_TYPE::GROUND:
@@ -250,24 +251,24 @@ void CGround::OnCollision(CCollider* _col)
 				float fDiff = calColliderDiff(objColPos.y, objColScale.y, pos.y, scale.y);
 				objPos.y -= (fDiff);
 			}
-			break;
+				break;
 			case COLLIDE_TYPE::COLLIDE_LEFT:
 			{
 				float fDiff = calColliderDiff(objColPos.x, objColScale.x, pos.x, scale.x);
 				objPos.x += (fDiff);
 			}
-			break;
+				break;
 			case COLLIDE_TYPE::COLLIDE_RIGHT:
 			{
 				float fDiff = calColliderDiff(objColPos.x, objColScale.x, pos.x, scale.x);
 				objPos.x -= (fDiff);
 			}
-			break;
+				break;
 			case COLLIDE_TYPE::COLLIDE_BOTTOM:
 			{
 
 			}
-			break;
+				break;
 			case COLLIDE_TYPE::COLLIDE_IDLE:
 				break;
 			default:
@@ -280,7 +281,7 @@ void CGround::OnCollision(CCollider* _col)
 			break;
 		}
 	}
-	if (obj->GetName() == L"Onion" || obj->GetName() == L"Potato" || obj->GetName() == L"Carrot" || obj->GetName() == L"Slime")
+	if (obj->GetName() == L"Onion"|| obj->GetName() == L"Potato"|| obj->GetName() == L"Carrot"|| obj->GetName() == L"Slime")
 	{
 		if (GetType() == GAMEOBJECT_TYPE::GROUND)
 		{
@@ -289,7 +290,7 @@ void CGround::OnCollision(CCollider* _col)
 			{
 			case COLLIDE_TYPE::COLLIDE_TOP:
 			{
-				obj->GetGravity()->SetGround(true, GROUND_TYPE::GROUND);
+				obj->GetGravity()->SetGround(true,GROUND_TYPE::GROUND);
 				float fDiff = calColliderDiff(objColPos.y, objColScale.y, pos.y, scale.y);
 				objPos.y -= (fDiff);
 			}
@@ -298,32 +299,12 @@ void CGround::OnCollision(CCollider* _col)
 			{
 				float fDiff = calColliderDiff(objColPos.x, objColScale.x, pos.x, scale.x);
 				objPos.x -= moveDir.x * fDiff;
-				if (obj->GetName() == L"Slime")
-				{
-					float fDiff = calColliderDiff(objColPos.x, objColScale.x, pos.x, scale.x);
-					objPos.x -= moveDir.x * fDiff;
-					obj->SetMoveDir(-1, moveDir.y);
-					obj->GetRigidBody()->SetVelocity(Vec2(-400.f, 0.f));
-					obj->GetRigidBody()->AddForce(Vec2(-400.f, 0.f));
-				}
-
-
 			}
 			break;
 			case COLLIDE_TYPE::COLLIDE_RIGHT:
 			{
 				float fDiff = calColliderDiff(objColPos.x, objColScale.x, pos.x, scale.x);
 				objPos.x += moveDir.x * fDiff;
-				
-				if (obj->GetName() == L"Slime")
-				{
-				
-					obj->SetMoveDir(1, moveDir.y);
-					obj->GetRigidBody()->SetVelocity(Vec2( 400.f, 0.f));
-					obj->GetRigidBody()->AddForce(Vec2( 400.f, 0.f));
-				}
-		
-
 			}
 			break;
 			case COLLIDE_TYPE::COLLIDE_BOTTOM:
@@ -338,7 +319,7 @@ void CGround::OnCollision(CCollider* _col)
 			}
 			obj->SetPos(objPos);
 		}
-
+		
 	}
 
 }
@@ -346,7 +327,7 @@ void CGround::OnCollision(CCollider* _col)
 void CGround::OnCollisionExit(CCollider* _col)
 {
 	CObject* obj = _col->GetOwner();
-	if (obj->GetName() == L"Player" || obj->GetName() == L"Onion" || obj->GetName() == L"Potato" || obj->GetName() == L"Carrot" || obj->GetName() == L"Slime")
+	if (obj->GetName() == L"Player" || obj->GetName() == L"Monster")
 	{
 		obj->GetGravity()->SetGround(false, GROUND_TYPE::NONE);
 		m_currentCollide = COLLIDE_TYPE::COLLIDE_IDLE;

@@ -1,8 +1,5 @@
 #include "pch.h"
 
-#include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CSpawnObject.cpp"
-
-
 #include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CStageScene_02.cpp"
 
 
@@ -22,4 +19,7 @@
 
 
 #include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CTileButtonUI.cpp"
+
+
+#include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CTraceState.cpp"
 

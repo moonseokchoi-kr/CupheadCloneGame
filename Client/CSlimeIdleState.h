@@ -11,8 +11,5 @@ public:
     virtual void Update();
     virtual void Exit();
 
-private:
-    float m_accTime;
 };
-
 

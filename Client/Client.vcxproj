@@ -173,7 +173,7 @@
     <ClInclude Include="CSlime.h" />
     <ClInclude Include="CCarrotBossAttackBox.h" />
     <ClInclude Include="CCarrotBossAttackState.h" />
-    <ClInclude Include="CSlimeBossIntroState.h" />
+    <ClInclude Include="CCarrotBossIntroState.h" />
     <ClInclude Include="CCarrotEyes.h" />
     <ClInclude Include="CCarrotMissle.h" />
     <ClInclude Include="CChauncey.h" />
@@ -229,7 +229,6 @@
     <ClInclude Include="CScene_Test.h" />
     <ClInclude Include="CScene_Tool.h" />
     <ClInclude Include="CSlimeAttackBox.h" />
-    <ClInclude Include="CSlimeDeathState.h" />
     <ClInclude Include="CSlimeIdleState.h" />
     <ClInclude Include="CSpawnObject.h" />
     <ClInclude Include="CStageScene_02.h" />
@@ -271,7 +270,7 @@
     <ClCompile Include="CSlime.cpp" />
     <ClCompile Include="CCarrotBossAttackBox.cpp" />
     <ClCompile Include="CCarrotBossAttackState.cpp" />
-    <ClCompile Include="CSlimeBossIntroState.cpp" />
+    <ClCompile Include="CCarrotBossIntroState.cpp" />
     <ClCompile Include="CCarrotEyes.cpp" />
     <ClCompile Include="CCarrotMissle.cpp" />
     <ClCompile Include="CChauncey.cpp" />
@@ -318,7 +317,6 @@
     <ClCompile Include="CSalSpudder.cpp" />
     <ClCompile Include="CScene_Tool.cpp" />
     <ClCompile Include="CSlimeAttackBox.cpp" />
-    <ClCompile Include="CSlimeDeathState.cpp" />
     <ClCompile Include="CSlimeIdleState.cpp" />
     <ClCompile Include="CSpawnObject.cpp" />
     <ClCompile Include="CStageScene_02.cpp" />

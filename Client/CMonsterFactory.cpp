@@ -6,16 +6,12 @@
 #include "CIntroState.h"
 #include "CDeathState.h"
 #include "CSalAttackState.h"
-#include "CSlimeBossIntroState.h"
+#include "CCarrotBossIntroState.h"
 #include "CCarrotBossAttackState.h"
 #include "CChauncey.h"
 #include "COllieBullb.h"
 #include "COnionBossAttackState.h"
 #include "COnionBossIdleState.h"
-#include "CSlimeIdleState.h"
-#include "CSlimAttackState.h"
-#include "CSlimeDeathState.h"
-#include "CSlimeBossIntroState.h"
 #include "CSlime.h"
 #include "CState.h"
 CMonster* CMonsterFactory::CreateMonster(MON_TYPE _type, Vec2 _pos)
@@ -82,7 +78,7 @@ CMonster* CMonsterFactory::CreateMonster(MON_TYPE _type, Vec2 _pos)
 		monster->Start();
 		monster->SetInfo(info);
 		FSMAI* ai = new FSMAI;
-		ai->AddState(new CSlimeBossIntroState);
+		ai->AddState(new CCarrotBossIntroState);
 		ai->AddState(new CCarrotBossAttackState);
 		ai->AddState(new CDeathState(L"CARROT_DEATH"));
 		ai->SetCurrentState(MON_STATE::INTRO);
@@ -112,27 +108,8 @@ CMonster* CMonsterFactory::CreateMonster(MON_TYPE _type, Vec2 _pos)
 		monster->SetAi(ai);
 	}
 	break;
-	case MON_TYPE::SLIME:
+	case MON_TYPE::CAGNEY:
 	{
-		monster = new CSlime;
-		monster->SetPos(_pos);
-		monsterInfo info = {};
-		info.attackDamege = 1;
-		info.attackRange = 0;
-		info.eyesightRange = 0;
-		info.hp = 300.f;//300.f
-		info.attackSpeed = 0.5;
-		info.moveSpeed = 100.f;
-		monster->SetName(L"Slime");
-		monster->Start();
-		monster->SetInfo(info);
-		FSMAI* ai = new FSMAI;
-		ai->AddState(new CSlimeBossIntroState);
-		ai->AddState(new CSlimeIdleState);
-		ai->AddState(new CSlimAttackState);
-		ai->AddState(new CSlimeDeathState);
-		ai->SetCurrentState(MON_STATE::INTRO);
-		monster->SetAi(ai);
 	}
 	case MON_TYPE::RANGE:
 		break;
