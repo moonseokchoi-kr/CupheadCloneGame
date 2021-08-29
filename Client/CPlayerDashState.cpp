@@ -23,6 +23,7 @@ CPlayerDashState::~CPlayerDashState()
 void CPlayerDashState::Enter()
 {
 	GetPlayer()->GetHitBox()->GetCollider()->SetAvaCollide(false);
+	GetPlayer()->GetRigidBody()->SetMaxVelocity(1000.f);
 }
 
 void CPlayerDashState::Exit()
@@ -37,7 +38,7 @@ void CPlayerDashState::Update()
 	playerInfo info = GetPlayer()->GetInfo();
 	Vec2 velocity = GetPlayer()->GetRigidBody()->GetVelocity();
 	updateAnimation();
-	GetPlayer()->GetRigidBody()->SetVelocity(Vec2(moveDir.x*500.f, 0.f));
+	GetPlayer()->GetRigidBody()->SetVelocity(Vec2(moveDir.x*1000.f, 0.f));
 	if (GetPlayer()->GetAnimator()->GetCurrentAnim()->IsFinish())
 	{
 		m_accTime = 0.0f;

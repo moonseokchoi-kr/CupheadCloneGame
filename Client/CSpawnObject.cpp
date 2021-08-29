@@ -43,7 +43,7 @@ void CSpawnObject::Start()
 	{
 		switch (m_monType)
 		{
-		case MON_TYPE::CAGNEY:
+		case MON_TYPE::SLIME:
 		{
 
 		}
