@@ -276,6 +276,18 @@
     <Filter Include="Engine\Module\AI\State\IntroState\Carrot">
       <UniqueIdentifier>{68f27a03-5731-46c9-a568-4d0a22ee6f1a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Scene\StartScene">
+      <UniqueIdentifier>{de1f487f-b952-4ac4-9b91-c5cfff6e3ae1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Object\GameObject\Title">
+      <UniqueIdentifier>{8d56b2fe-8518-4b07-8d02-024b556bc9b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Object\UI\PanelUI\MenuPanel">
+      <UniqueIdentifier>{c665904a-077f-4f07-944e-165c82d6447b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Object\UI\ButtonUI\MenuButton">
+      <UniqueIdentifier>{ce08093e-8f24-43e8-9bbf-0b8427fe43de}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -567,6 +579,15 @@
     <ClInclude Include="CCarrotIntroState.h">
       <Filter>Engine\Module\AI\State\IntroState\Carrot</Filter>
     </ClInclude>
+    <ClInclude Include="CStartScene.h">
+      <Filter>Engine\Scene\StartScene</Filter>
+    </ClInclude>
+    <ClInclude Include="CMenuButtonUI.h">
+      <Filter>Engine\Object\UI\ButtonUI\MenuButton</Filter>
+    </ClInclude>
+    <ClInclude Include="CMenuPanel.h">
+      <Filter>Engine\Object\UI\PanelUI\MenuPanel</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -850,6 +871,15 @@
     </ClCompile>
     <ClCompile Include="CCarrotIntroState.cpp">
       <Filter>Engine\Module\AI\State\IntroState\Carrot</Filter>
+    </ClCompile>
+    <ClCompile Include="CStartScene.cpp">
+      <Filter>Engine\Scene\StartScene</Filter>
+    </ClCompile>
+    <ClCompile Include="CMenuButtonUI.cpp">
+      <Filter>Engine\Object\UI\ButtonUI\MenuButton</Filter>
+    </ClCompile>
+    <ClCompile Include="CMenuPanel.cpp">
+      <Filter>Engine\Object\UI\PanelUI\MenuPanel</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

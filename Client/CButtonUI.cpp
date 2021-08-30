@@ -79,4 +79,8 @@ void CButtonUI::MouseLButtonClicked()
 	{
 		((*m_sceneInst).*m_sceneIntFunction)((int)m_param1);
 	}
+	if (nullptr != m_sceneTypeFunction)
+	{
+		m_sceneTypeFunction((SCENE_TYPE)m_param1);
+	}
 }

@@ -168,6 +168,8 @@
     <ClInclude Include="CCarrotIntroState.h" />
     <ClInclude Include="CChaserBullet.h" />
     <ClInclude Include="CHomingBulletTraile.h" />
+    <ClInclude Include="CMenuButtonUI.h" />
+    <ClInclude Include="CMenuPanel.h" />
     <ClInclude Include="CPlayerDuckState.h" />
     <ClInclude Include="CPlayerIntroState.h" />
     <ClInclude Include="CSlimAttackState.h" />
@@ -234,6 +236,7 @@
     <ClInclude Include="CSlimeIdleState.h" />
     <ClInclude Include="CSpawnObject.h" />
     <ClInclude Include="CStageScene_02.h" />
+    <ClInclude Include="CStartScene.h" />
     <ClInclude Include="CState.h" />
     <ClInclude Include="CStageScene_01.h" />
     <ClInclude Include="CTearBullet.h" />
@@ -267,6 +270,8 @@
     <ClCompile Include="CCarrotIntroState.cpp" />
     <ClCompile Include="CChaserBullet.cpp" />
     <ClCompile Include="CHomingBulletTraile.cpp" />
+    <ClCompile Include="CMenuButtonUI.cpp" />
+    <ClCompile Include="CMenuPanel.cpp" />
     <ClCompile Include="CPlayerDuckState.cpp" />
     <ClCompile Include="CPlayerIntroState.cpp" />
     <ClCompile Include="CSlimAttackState.cpp" />
@@ -324,6 +329,7 @@
     <ClCompile Include="CSlimeIdleState.cpp" />
     <ClCompile Include="CSpawnObject.cpp" />
     <ClCompile Include="CStageScene_02.cpp" />
+    <ClCompile Include="CStartScene.cpp" />
     <ClCompile Include="CState.cpp" />
     <ClCompile Include="CStageScene_01.cpp" />
     <ClCompile Include="CTearBullet.cpp" />

@@ -24,9 +24,6 @@ void CStageScene_01::Enter()
 	CScene::LoadMap(L"tile\\stage_1.tile");
 	CScene::SetCurrnetState(SCENE_STATE::START);
 	
-
-	
-	
 	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::GROUND, GROUP_TYPE::PLAYER);
 	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::GROUND, GROUP_TYPE::BOSS);
 	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::PLATFORM_OBJ, GROUP_TYPE::PLAYER);
@@ -38,7 +35,7 @@ void CStageScene_01::Enter()
 	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::PLAYER_HITBOX, GROUP_TYPE::MONSTER_BULLET);
 	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::PLAYER_HITBOX, GROUP_TYPE::MONSTER_HITBOX);
 	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::MONSTER_BULLET, GROUP_TYPE::GROUND);
-
+	CreatePauseUI();
 	
 }
 
@@ -56,10 +53,15 @@ void CStageScene_01::Update()
 		m_prevBossName = m_currentBoss->GetName();
 		CCamera::GetInst()->SetTarget(playerSpawn->GetSpawnObj());
 		SetCurrnetState(SCENE_STATE::PLAY);
+		return;
 	}
 	if (KEY_TAP(KEY::F1))
 	{
 		SetDebug();
+	}
+	if (KEY_TAP(KEY::ESC))
+	{
+		ShowPauseUI();
 	}
 	if (CCore::GetInst()->IsDebug())
 	{
@@ -70,6 +72,9 @@ void CStageScene_01::Update()
 
 		if (KEY_TAP(KEY::F7))
 		{
+			SetCurrnetState(SCENE_STATE::START);
+			playerInfo info = ((CPlayer*)GetTarget(GROUP_TYPE::PLAYER, L"Player"))->GetInfo();
+			SetHp(info.health);
 			ChangeScene(SCENE_TYPE::STAGE_02);
 		}
 	}
@@ -86,6 +91,9 @@ void CStageScene_01::Update()
 		}
 		else if (m_prevBossName == L"Carrot")
 		{
+			SetCurrnetState(SCENE_STATE::START);
+			playerInfo info = ((CPlayer*)GetTarget(GROUP_TYPE::PLAYER, L"Player"))->GetInfo();
+			SetHp(info.health);
 			ChangeScene(SCENE_TYPE::STAGE_02);
 		}
 		else
@@ -95,6 +103,11 @@ void CStageScene_01::Update()
 			m_currentBoss = carrotSpawn->GetSpawnObj();
 			m_prevBossName = m_currentBoss->GetName();
 		}
+	}
+	if (GetTarget(GROUP_TYPE::PLAYER, L"Player")->IsDead())
+	{
+		SetCurrnetState(SCENE_STATE::GAMEOVER);
+		ChangeScene(SCENE_TYPE::START);
 	}
 }
 

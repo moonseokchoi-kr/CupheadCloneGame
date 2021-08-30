@@ -94,7 +94,7 @@ void CColliderManager::collisionGroupUpdate(GROUP_TYPE _left, GROUP_TYPE _right)
 			CCollider* leftCol = vecLeft[i]->GetCollider();
 			CCollider* rightCol = vecRight[j]->GetCollider();
 			if (!leftCol->CanCollide() || !rightCol->CanCollide())
-				return;
+				continue;
 
 			COLLIDER_ID ID;
 	

@@ -156,7 +156,8 @@ CPlayer::CPlayer()
 CPlayer::~CPlayer()
 {
 	delete m_attackBox;
-	DeleteObject(m_hitBox);
+	if(CSceneManager::GetInst()->GetCurrentScene()->GetSceneName() == L"Tool Scene")
+		DeleteObject(m_hitBox);
 }
 
 void CPlayer::Start()

@@ -15,6 +15,7 @@
 
 class CUI;
 class CPlayer;
+class CMenuPanel;
 
 enum class SCENE_STATE
 {
@@ -37,6 +38,7 @@ public:
 	virtual void FinalUpdate() final;
 	virtual void Enter() = 0;
 	virtual void Exit() = 0;
+	virtual void Restart();
 public:
 
 	void AddObject(CObject* _obj, GROUP_TYPE _state)
@@ -89,15 +91,22 @@ public:
 	void DeleteGroup(GROUP_TYPE _target);
 	void LoadMap(const wstring& _relativePath);
 	CObject* GetTarget(GROUP_TYPE _group, const wstring& _objName);
+public:
+	void SetHp(int _hp) { m_playerhp = _hp; }
+	int GetHp() { return m_playerhp; }
+	void ShowPauseUI();
+	void CreatePauseUI();
 private:
 	void render_tile(HDC _dc);
 	void offset_change();
 private:
 	array<vector<CObject*>, (UINT)GROUP_TYPE::END> m_arrObj;
 	wstring m_strName;
+	CMenuPanel* m_pauseUI;
 	SCENE_STATE m_currentState;
 	SCENE_STATE m_prevState;
 	UINT m_TileXCount;
 	UINT m_TileYCount;
+	static int m_playerhp;
 };
 

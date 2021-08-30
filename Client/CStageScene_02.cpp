@@ -22,6 +22,17 @@ void CStageScene_02::Enter()
 
 	CScene::LoadMap(L"tile\\stage_2.tile");
 	CScene::SetCurrnetState(SCENE_STATE::START);
+	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::GROUND, GROUP_TYPE::PLAYER);
+	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::GROUND, GROUP_TYPE::BOSS);
+	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::PLATFORM_OBJ, GROUP_TYPE::PLAYER);
+	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::BOSS, GROUP_TYPE::PLAYER);
+	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::MONSTER_ATTACKBOX, GROUP_TYPE::PLAYER);
+	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::PLAYER_BULLET, GROUP_TYPE::GROUND);
+	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::PLAYER_BULLET, GROUP_TYPE::MONSTER_BULLET);
+	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::PLAYER_BULLET, GROUP_TYPE::MONSTER_HITBOX);
+	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::PLAYER_HITBOX, GROUP_TYPE::MONSTER_BULLET);
+	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::PLAYER_HITBOX, GROUP_TYPE::MONSTER_HITBOX);
+	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::MONSTER_BULLET, GROUP_TYPE::GROUND);
 
 }
 
@@ -33,12 +44,16 @@ void CStageScene_02::Update()
 	{
 		CSpawnObject* playerSpawn = ((CSpawnObject*)GetTarget(GROUP_TYPE::SPAWN_OBJ, L"Spawn_Player"));
 		playerSpawn->Spawn();
+		playerInfo info = ((CPlayer*)playerSpawn->GetSpawnObj())->GetInfo();
+		info.health = GetHp();
+		((CPlayer*)playerSpawn->GetSpawnObj())->SetInfo(info);
 		CSpawnObject* salSpawn = ((CSpawnObject*)GetTarget(GROUP_TYPE::SPAWN_OBJ, L"Spawn_Slime"));
 		salSpawn->Spawn();
 		m_currentBoss = salSpawn->GetSpawnObj();
 		m_prevBossName = m_currentBoss->GetName();
 		CCamera::GetInst()->SetTarget(playerSpawn->GetSpawnObj());
 		SetCurrnetState(SCENE_STATE::PLAY);
+		return;
 	}
 	if (KEY_TAP(KEY::F1))
 	{
@@ -58,7 +73,12 @@ void CStageScene_02::Update()
 
 	if (m_currentBoss != nullptr && m_currentBoss->IsDead())
 	{
-		int a = 0;
+		ChangeScene(SCENE_TYPE::START);
+	}
+	if (GetTarget(GROUP_TYPE::PLAYER, L"Player")->IsDead())
+	{
+		SetCurrnetState(SCENE_STATE::GAMEOVER);
+		ChangeScene(SCENE_TYPE::START);
 	}
 }
 

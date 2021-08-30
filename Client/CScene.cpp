@@ -13,15 +13,19 @@
 #include "CSpawnObject.h"
 #include "CGround.h"
 #include "CForeGround.h"
-
+#include "CMenuPanel.h"
+#include "CMenuButtonUI.h"
 #include "CSceneManager.h"
 #include "CGameObjectManager.h"
+
+int  CScene::m_playerhp = 0;
 CScene::CScene()
 	:m_TileXCount(0)
 	,m_TileYCount(0)
 	,m_currentState(SCENE_STATE::START)
 	,m_prevState(SCENE_STATE::START)
 {
+	
 }
 
 CScene::~CScene()
@@ -73,7 +77,7 @@ void CScene::Update()
 
 				}
 			}
-			return;
+			continue;
 		}
 
 		for (int j = 0; j < m_arrObj[i].size(); ++j)
@@ -117,6 +121,18 @@ void CScene::FinalUpdate()
 {
 	for (int i = 0; i < m_arrObj.size(); ++i)
 	{
+	
+		if (m_currentState == SCENE_STATE::PAUSE)
+		{
+			if (TYPE_NUMBER(GROUP_TYPE::UI) == i)
+			{
+				for (int j = 0; j < m_arrObj[i].size(); ++j)
+				{
+					m_arrObj[i][j]->FinalUpdate();
+				}
+			}
+			continue;
+		}
 		for (int j = 0; j < m_arrObj[i].size(); ++j)
 		{
 			m_arrObj[i][j]->FinalUpdate();
@@ -124,6 +140,12 @@ void CScene::FinalUpdate()
 
 
 	}
+}
+
+void CScene::Restart()
+{
+	Exit();
+	Enter();
 }
 
 void CScene::SetDeadState(CMonster* _boss)
@@ -149,7 +171,7 @@ void CScene::DeleteAll()
 {
 	for (UINT i = 0; i < TYPE_NUMBER(GROUP_TYPE::END); ++i)
 	{
-		if ((TYPE_NUMBER(GROUP_TYPE::MONSTER_HITBOX) == i || TYPE_NUMBER(GROUP_TYPE::MONSTER_ATTACKBOX) == i || TYPE_NUMBER(GROUP_TYPE::PLAYER_HITBOX)))
+		if (m_strName == L"Tool Scene" && (TYPE_NUMBER(GROUP_TYPE::MONSTER_HITBOX) == i || TYPE_NUMBER(GROUP_TYPE::MONSTER_ATTACKBOX) == i || TYPE_NUMBER(GROUP_TYPE::PLAYER_HITBOX) == i))
 			continue;
 		DeleteGroup((GROUP_TYPE)i);
 	}
@@ -255,6 +277,55 @@ CObject* CScene::GetTarget(GROUP_TYPE _group, const wstring& _objName)
 	}
 	return nullptr;
 }
+
+void CScene::ShowPauseUI()
+{
+	if (nullptr == m_pauseUI)
+		return;
+	Vec2 resolution = CCore::GetInst()->GetResolution();
+	if (m_pauseUI->IsShow())
+	{
+		m_pauseUI->SetShow(false);
+		m_pauseUI->SetScale(Vec2(0.f, 0.f));
+		m_prevState = m_currentState;
+		m_currentState = SCENE_STATE::PLAY;
+	}
+	else
+	{
+		m_currentState = SCENE_STATE::PAUSE;
+		m_pauseUI->SetShow(true);
+		m_pauseUI->SetScale(Vec2(resolution));
+		m_prevState = m_currentState;
+	}
+}
+
+void CScene::CreatePauseUI()
+{
+	Vec2 resolution = CCore::GetInst()->GetResolution();
+	m_pauseUI = new CMenuPanel;
+	m_pauseUI->UsePauseUI();
+	m_pauseUI->SetPos(Vec2(resolution / 2.f));
+	CMenuButtonUI* resumeButton = new CMenuButtonUI;
+	resumeButton->SetScale(Vec2(320.f, 78.f));
+	resumeButton->SetPos(Vec2(-200.f, -88.f));
+	resumeButton->SetIndex(5);
+	resumeButton->SetClickedCallBack(this, (SCENE_MEM_FUNC_VOID)&CScene::ShowPauseUI);
+	CMenuButtonUI* restartButton = new CMenuButtonUI;
+	restartButton->SetScale(Vec2(320.f, 78.f));
+	restartButton->SetPos(Vec2(-200.f, 0.f));
+	restartButton->SetIndex(0);
+	restartButton->SetClickedCallBack(this, (SCENE_MEM_FUNC_VOID)&CScene::Restart);
+	CMenuButtonUI* returnButton = new CMenuButtonUI;
+	returnButton->SetScale(Vec2(320.f, 78.f));
+	returnButton->SetPos(Vec2(-200.f, 88.f));
+	returnButton->SetIndex(1);
+	returnButton->SetClickedCallBack((SCENE_MEM_FUNC_SCENE_TYPE)&ChangeScene, (DWORD_PTR)SCENE_TYPE::START);
+	m_pauseUI->AddChild(resumeButton);
+	m_pauseUI->AddChild(restartButton);
+	m_pauseUI->AddChild(returnButton);
+	CreateObject(m_pauseUI, GROUP_TYPE::UI);
+}
+
 
 void CScene::render_tile(HDC _dc)
 {

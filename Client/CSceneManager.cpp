@@ -3,9 +3,11 @@
 #include "CSceneManager.h"
 #include "CScene_Test.h"
 #include "CScene_Tool.h"
+#include "CUIManager.h"
+#include "CColliderManager.h"
 #include "CStageScene_01.h"
 #include "CStageScene_02.h"
-
+#include "CStartScene.h"
 CSceneManager::CSceneManager()
 	:m_arrScene{}
 	,m_currentScene(nullptr)
@@ -28,6 +30,9 @@ void CSceneManager::Init()
 	m_arrScene[TYPE_NUMBER(SCENE_TYPE::TEST)] = new CScene_Test;
 	m_arrScene[TYPE_NUMBER(SCENE_TYPE::TEST)]->SetSceneName(L"Test Scene");
 
+	m_arrScene[TYPE_NUMBER(SCENE_TYPE::START)] = new CStartScene;
+	m_arrScene[TYPE_NUMBER(SCENE_TYPE::START)]->SetSceneName(L"Start Scene");
+
 	m_arrScene[TYPE_NUMBER(SCENE_TYPE::TOOL)] = new CScene_Tool;
 	m_arrScene[TYPE_NUMBER(SCENE_TYPE::TOOL)]->SetSceneName(L"Tool Scene");
 
@@ -38,7 +43,7 @@ void CSceneManager::Init()
 	m_arrScene[TYPE_NUMBER(SCENE_TYPE::STAGE_02)]->SetSceneName(L"STAGE02 Scene");
 
 
-	m_currentScene = m_arrScene[TYPE_NUMBER(SCENE_TYPE::STAGE_01)];
+	m_currentScene = m_arrScene[TYPE_NUMBER(SCENE_TYPE::START)];
 	m_currentScene->Enter();
 }
 
@@ -56,6 +61,8 @@ void CSceneManager::Render(HDC _dc)
 
 void CSceneManager::ChangeScene(SCENE_TYPE _next)
 {
+	CUIManager::GetInst()->SetFocusedUI(nullptr);
+	CColliderManager::GetInst()->Reset();
 	m_currentScene->Exit();
 	m_currentScene = m_arrScene[TYPE_NUMBER(_next)];
 	m_currentScene->Enter();

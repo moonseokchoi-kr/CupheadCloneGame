@@ -46,6 +46,7 @@ void ChangeScene(SCENE_TYPE _type)
 
 void ChangeAIState(FSMAI* _ai, MON_STATE _nextState)
 {
+	
 	event evn = {};
 	evn.event_type = EVENT_TYPE::STATE_CHANGE;
 	evn.lParam = (DWORD_PTR)_ai;

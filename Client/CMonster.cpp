@@ -24,7 +24,7 @@ CMonster::~CMonster()
 		delete m_ai;
 	if (nullptr != m_attackBox && m_attackBox->GetName() != L"SlimeAttackBox")
 		delete m_attackBox;
-	if (nullptr != m_hitBox)
+	if (CSceneManager::GetInst()->GetCurrentScene()->GetSceneName() == L"Tool Scene")
 		DeleteObject(m_hitBox);
 }
 
