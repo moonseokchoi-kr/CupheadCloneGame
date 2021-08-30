@@ -17,10 +17,12 @@ CStartScene::~CStartScene()
 
 void CStartScene::Enter()
 {
-	SetCurrnetState(SCENE_STATE::START);
 	Vec2 resolution = CCore::GetInst()->GetResolution();
+
+	SetCurrnetState(SCENE_STATE::START);
+	
 	CCore::GetInst()->SetDebug(true);
-	CBackGround* titleMenu = new CBackGround;
+	CBackGround* titleMenu = new CBackGround(false);
 	titleMenu->SetType(BACKGROUND_TYPE::TITLE);
 	titleMenu->SetPos(Vec2(resolution / 2.f));
 	CreateObject(titleMenu, GROUP_TYPE::BACK_GROUND);
@@ -46,7 +48,7 @@ void CStartScene::Enter()
 //	menuPanel->AddChild(exitButton);
 
 	CreateObject(menuPanel, GROUP_TYPE::UI);
-	CCamera::GetInst()->SetLookAt(resolution / 2.f);
+	
 }
 
 void CStartScene::Update()

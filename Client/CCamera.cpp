@@ -249,7 +249,6 @@ void CCamera::calLookAt()
 	Vec2 resolution = CCore::GetInst()->GetResolution();
 	if (!m_targetObject)
 	{
-		m_lookAt = m_mapResolution / 2.f;
 		return;
 	}
 	/// 타겟의 위치정보

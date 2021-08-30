@@ -20,6 +20,7 @@ class CBackGround :
 {
 public:
     CBackGround();
+    CBackGround(bool _b);
     ~CBackGround();
     CLONE(CBackGround);
 public:
@@ -35,7 +36,7 @@ private:
 private:
     CTexture* m_currentTex;        //배경 텍스쳐
     BACKGROUND_TYPE m_type;
-
+    bool m_cameraAffected;
     
 
 

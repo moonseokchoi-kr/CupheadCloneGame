@@ -47,9 +47,10 @@ void CMenuPanel::Render(HDC _dc)
 		BLENDFUNCTION bf = {};
 		bf.BlendOp = AC_SRC_OVER;
 		bf.BlendFlags = 0;
-		bf.AlphaFormat = AC_SRC_ALPHA;
-		bf.SourceConstantAlpha = 255;
+		bf.AlphaFormat = 0;
+		bf.SourceConstantAlpha = 255*0.35f;
 
+	
 		AlphaBlend(
 			_dc,
 			0,
@@ -105,8 +106,8 @@ void CMenuPanel::SetTex(BACKGROUND_TYPE _type)
 void CMenuPanel::UsePauseUI()
 {
 	Vec2 resolution = CCore::GetInst()->GetResolution();
-	m_backGround = new CBackGround;
+	m_backGround = new CBackGround(false);
 	m_backGround->SetType(BACKGROUND_TYPE::PAUSE);
-	m_backGround->SetPos(resolution / 2.f + Vec2(0.f,200.f));
+	m_backGround->SetPos(resolution / 2.f);
 	m_menuType = MENU_TYPE::PAUSE;
 }

@@ -123,9 +123,6 @@
     <Filter Include="Engine\Component\RigidBody">
       <UniqueIdentifier>{e2b4d4ac-1a4f-4f24-9dd4-60bb63af87fa}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Manager\BackGoundManager">
-      <UniqueIdentifier>{fe79b3e2-e3ed-4f30-98bc-7392fd6ebffc}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Object\UI\ButtonUI\TileButton">
       <UniqueIdentifier>{707fc00d-b4c5-4101-8207-710419522f2d}</UniqueIdentifier>
     </Filter>
@@ -288,6 +285,9 @@
     <Filter Include="Engine\Object\UI\ButtonUI\MenuButton">
       <UniqueIdentifier>{ce08093e-8f24-43e8-9bbf-0b8427fe43de}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Manager\GameObejctManager">
+      <UniqueIdentifier>{fe79b3e2-e3ed-4f30-98bc-7392fd6ebffc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -409,7 +409,7 @@
       <Filter>Engine\Object\GameObject\BackGround</Filter>
     </ClInclude>
     <ClInclude Include="CGameObjectManager.h">
-      <Filter>Engine\Manager\BackGoundManager</Filter>
+      <Filter>Engine\Manager\GameObejctManager</Filter>
     </ClInclude>
     <ClInclude Include="CTileButtonUI.h">
       <Filter>Engine\Object\UI\ButtonUI\TileButton</Filter>
@@ -702,7 +702,7 @@
       <Filter>Engine\Object\GameObject\BackGround</Filter>
     </ClCompile>
     <ClCompile Include="CGameObjectManager.cpp">
-      <Filter>Engine\Manager\BackGoundManager</Filter>
+      <Filter>Engine\Manager\GameObejctManager</Filter>
     </ClCompile>
     <ClCompile Include="CTileButtonUI.cpp">
       <Filter>Engine\Object\UI\ButtonUI\TileButton</Filter>

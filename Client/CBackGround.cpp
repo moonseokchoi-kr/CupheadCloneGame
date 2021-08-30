@@ -14,6 +14,7 @@
 CBackGround::CBackGround()
 	:m_type(BACKGROUND_TYPE::END)
 	,m_currentTex(nullptr)
+	,m_cameraAffected(true)
 {
 	CResourceManager::GetInst()->LoadTexture(L"VeggieBackgroundTex", L"texture\\cuphead\\background\\veggie_background.bmp");
 	CResourceManager::GetInst()->LoadTexture(L"SlimeBackgroundTex", L"texture\\cuphead\\background\\slime_baground.bmp");
@@ -26,12 +27,34 @@ CBackGround::CBackGround()
 
 }
 
+CBackGround::CBackGround(bool _b)
+	:m_type(BACKGROUND_TYPE::END)
+	, m_currentTex(nullptr)
+	, m_cameraAffected(_b)
+
+
+{
+	CResourceManager::GetInst()->LoadTexture(L"VeggieBackgroundTex", L"texture\\cuphead\\background\\veggie_background.bmp");
+	CResourceManager::GetInst()->LoadTexture(L"SlimeBackgroundTex", L"texture\\cuphead\\background\\slime_baground.bmp");
+	CResourceManager::GetInst()->LoadTexture(L"TitleBackgroundTex", L"texture\\cuphead\\background\\title_menu.bmp");
+	CResourceManager::GetInst()->LoadTexture(L"PauseBackgroundTex", L"texture\\cuphead\\background\\pause_menu.bmp");
+	m_backGroundArray[TYPE_NUMBER(BACKGROUND_TYPE::SLIME_BACKGROUND)] = L"SlimeBackgroundTex";
+	m_backGroundArray[TYPE_NUMBER(BACKGROUND_TYPE::VEGGIE_BACKGROUND)] = L"VeggieBackgroundTex";
+	m_backGroundArray[TYPE_NUMBER(BACKGROUND_TYPE::TITLE)] = L"TitleBackgroundTex";
+	m_backGroundArray[TYPE_NUMBER(BACKGROUND_TYPE::PAUSE)] = L"PauseBackgroundTex";
+}
+
 CBackGround::~CBackGround()
 {
 }
 void CBackGround::Render(HDC _dc)
 {
-	Vec2 pos = CCamera::GetInst()->GetRenderPos(GetPos());
+	Vec2 pos = GetPos();
+	if (m_cameraAffected)
+	{
+		pos= CCamera::GetInst()->GetRenderPos(GetPos());
+	}
+	
 	Vec2 scale = GetScale();
 	BLENDFUNCTION bf = {};
 	bf.BlendOp = AC_SRC_OVER;
