@@ -260,7 +260,7 @@ void CSlimAttackState::updateAnimation()
 		//페이즈 1 점프 공격
 		//5번을 뛸때까지 3번째마다 높은 높이로 뛴다.
 		//이전과 이동방향이 달라지면 턴 애니메이션 진행
-		if (m_jumpCount <= m_maxJumpCount)
+		if (m_jumpCount < m_maxJumpCount)
 		{
 			switch (m_currSubState)
 			{

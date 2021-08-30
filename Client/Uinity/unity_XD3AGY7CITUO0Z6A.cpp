@@ -21,5 +21,5 @@
 #include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CBullet.cpp"
 
 
-#include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CChaserBullet.cpp"
+#include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CCarrotIntroState.cpp"
 

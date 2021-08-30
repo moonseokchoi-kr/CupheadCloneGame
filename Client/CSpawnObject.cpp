@@ -13,18 +13,18 @@
 
 CSpawnObject::CSpawnObject()
 	:m_groupType(GROUP_TYPE::END)
-	,m_monType(MON_TYPE::NONE)
-	,m_spawned(false)
-	,m_spawnObj(nullptr)
+	, m_monType(MON_TYPE::NONE)
+	, m_spawned(false)
+	, m_spawnObj(nullptr)
 {
 	SetScale(Vec2(50.f, 50.f));
 }
 
 CSpawnObject::~CSpawnObject()
 {
-	if (CSceneManager::GetInst()->GetCurrentScene()->GetSceneName() == L"Tool Scene" && !m_spawnObj->IsDead())
+	if (CSceneManager::GetInst()->GetCurrentScene()->GetSceneName() == L"Tool Scene" && m_spawnObj != nullptr)
 	{
-		//DeleteObject(m_spawnObj);
+		DeleteObject(m_spawnObj);
 	}
 }
 
@@ -36,45 +36,48 @@ void CSpawnObject::Start()
 	case GROUP_TYPE::PLAYER:
 	{
 		m_spawnObj = new CPlayer;
-		SetName(L"Spawn_"+m_spawnObj->GetName());
+		SetName(L"Spawn_" + m_spawnObj->GetName());
 	}
-		break;
+	break;
 	case GROUP_TYPE::BOSS:
 	{
 		switch (m_monType)
 		{
 		case MON_TYPE::SLIME:
 		{
-
-		}
-			break;
-		case MON_TYPE::OLLIE:
-		{
-			CMonster* monObj = CMonsterFactory::CreateMonster(m_monType, Vec2(0,0));
+			CMonster* monObj = CMonsterFactory::CreateMonster(m_monType, Vec2(0, 0));
 			m_spawnObj = ((CObject*)monObj);
 			SetName(L"Spawn_" + m_spawnObj->GetName());
 		}
-			break;
+		break;
+		case MON_TYPE::OLLIE:
+		{
+			CMonster* monObj = CMonsterFactory::CreateMonster(m_monType, Vec2(0, 0));
+			m_spawnObj = ((CObject*)monObj);
+			SetName(L"Spawn_" + m_spawnObj->GetName());
+		}
+		break;
 		case MON_TYPE::CHAUNCEY:
 		{
 			CMonster* monObj = CMonsterFactory::CreateMonster(m_monType, Vec2(0, 0));
 			m_spawnObj = ((CObject*)monObj);
 			SetName(L"Spawn_" + m_spawnObj->GetName());
 		}
-			break;
+		break;
 		case MON_TYPE::SAL:
 		{
 			CMonster* monObj = CMonsterFactory::CreateMonster(m_monType, Vec2(0, 0));
 			m_spawnObj = ((CObject*)monObj);
 			SetName(L"Spawn_" + m_spawnObj->GetName());
+
 		}
-			break;
+		break;
 		case MON_TYPE::NONE:
 		default:
 			break;
 		}
 	}
-		break;
+	break;
 	}
 }
 
@@ -91,7 +94,7 @@ void CSpawnObject::Render(HDC _dc)
 		return;
 	}
 	SelectGDI gdi(_dc, BRUSH_TYPE::HOLLOW);
-	
+
 	if (GROUP_TYPE::PLAYER == m_groupType)
 	{
 		SelectGDI gdi2(_dc, PEN_TYPE::GREEN_BOLD);
@@ -119,10 +122,10 @@ void CSpawnObject::Render(HDC _dc)
 void CSpawnObject::Spawn()
 {
 	Vec2 pos = GetPos();
-	if(!m_spawned){
+	if (!m_spawned) {
 		if (GROUP_TYPE::PLAYER == m_groupType)
 		{
-			
+
 			m_spawnObj->SetPos(pos);
 			m_spawnObj->Start();
 			m_spawned = true;
@@ -136,7 +139,7 @@ void CSpawnObject::Spawn()
 			CreateObject(m_spawnObj, m_groupType);
 			m_spawned = true;
 		}
-		
+
 	}
 	else
 	{
@@ -155,9 +158,9 @@ void CSpawnObject::SetMonType(MON_TYPE _type)
 
 void CSpawnObject::SetGroupType(GROUP_TYPE _type)
 {
-	
+
 	m_groupType = _type;
-	
+
 }
 
 void CSpawnObject::Save(FILE* _file)

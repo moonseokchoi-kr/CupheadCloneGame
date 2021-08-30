@@ -398,6 +398,7 @@ void CScene_Tool::CreateGameObject()
 				gameObj = new CSpawnObject;
 				gameObj->SetPos(mousePos);
 				gameObj->SetType(GAMEOBJECT_TYPE::SPAWN);
+
 				AddObject(gameObj, GROUP_TYPE::GAME_OBJ);
 				m_cilckedImageIdx = -1;
 			}
@@ -522,7 +523,7 @@ SpawnObj spawnList[] =
 {
 	{TEXT("Player"),GROUP_TYPE::PLAYER,MON_TYPE::NONE},
 	{TEXT("Nomal"),GROUP_TYPE::MONSTER,MON_TYPE::NORMAL},
-	{TEXT("Cagney Carnation"),GROUP_TYPE::BOSS,MON_TYPE::SLIME},
+	{TEXT("Slime"),GROUP_TYPE::BOSS,MON_TYPE::SLIME},
 	{TEXT("Ollie Bulb"),GROUP_TYPE::BOSS,MON_TYPE::OLLIE},
 	{TEXT("Chauncey Chantenay"),GROUP_TYPE::BOSS,MON_TYPE::CHAUNCEY},
 	{TEXT("Sal Spudder"),GROUP_TYPE::BOSS,MON_TYPE::SAL},
@@ -570,7 +571,7 @@ INT_PTR CALLBACK ListBoxExampleProc(HWND hDlg, UINT message,
 				
 			spawnObj->SetMonType(spawnList[index].mon_type);
 			spawnObj->SetGroupType(spawnList[index].group);
-
+			spawnObj->Start();
 			EndDialog(hDlg, LOWORD(wParam));
 			return TRUE;
 		}

@@ -38,12 +38,16 @@ COllieBullb::~COllieBullb()
 void COllieBullb::Start()
 {
 	CMonster::Start();
-	GetHitBox()->SetScale(Vec2(400.f, 380.f));
+	GetHitBox()->SetScale(Vec2(400.f, 480.f));
 	GetHitBox()->Start();
 }
 
 void COllieBullb::Update()
 {
+	if (IsHit() && GetAi()->GetCurrentState()->GetState() != MON_STATE::ATTACK)
+	{
+		ChangeAIState(GetAi(), MON_STATE::ATTACK);
+	}
 	if (GetAi()->GetCurrentState()->GetState() == MON_STATE::INTRO)
 		GetAnimator()->Play(L"ONION_INTRO", false);
 	CMonster::Update();
@@ -77,13 +81,7 @@ void COllieBullb::Render(HDC _dc)
 
 void COllieBullb::OnCollisionEnter(CCollider* _col)
 {
-	if (_col->GetOwner()->GetName() == L"Player_bullet")
-	{
-		if (GetAi()->GetCurrentState()->GetState() == MON_STATE::IDLE)
-		{
-			ChangeAIState(GetAi(), MON_STATE::ATTACK);
-		}
-	}
+
 }
 
 void COllieBullb::CreateAttackBox()

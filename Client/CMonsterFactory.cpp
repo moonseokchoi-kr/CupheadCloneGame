@@ -16,6 +16,7 @@
 #include "CSlimAttackState.h"
 #include "CSlimeDeathState.h"
 #include "CSlimeBossIntroState.h"
+#include "CCarrotIntroState.h"
 #include "CSlime.h"
 #include "CState.h"
 CMonster* CMonsterFactory::CreateMonster(MON_TYPE _type, Vec2 _pos)
@@ -82,7 +83,7 @@ CMonster* CMonsterFactory::CreateMonster(MON_TYPE _type, Vec2 _pos)
 		monster->Start();
 		monster->SetInfo(info);
 		FSMAI* ai = new FSMAI;
-		ai->AddState(new CSlimeBossIntroState);
+		ai->AddState(new CCarrotIntroState);
 		ai->AddState(new CCarrotBossAttackState);
 		ai->AddState(new CDeathState(L"CARROT_DEATH"));
 		ai->SetCurrentState(MON_STATE::INTRO);

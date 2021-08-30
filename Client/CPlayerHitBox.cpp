@@ -34,10 +34,11 @@ void CPlayerHitBox::OnCollision(CCollider* _col)
 void CPlayerHitBox::OnCollisionEnter(CCollider* _col)
 {
 	CObject* obj = _col->GetOwner();
-	if ((obj->GetName() == L"MonsterHitBox" || obj->GetName() == L"MonsterBullet"|| obj->GetName() == L"BeamBullet") && m_owner->GetAi()->GetCurrentState()->GetState() != PLAYER_STATE::HIT&& !m_owner->IsHit())
+	if ((obj->GetName() == L"Slime" || obj->GetName() == L"MonsterBullet"|| obj->GetName() == L"BeamBullet") && m_owner->GetAi()->GetCurrentState()->GetState() != PLAYER_STATE::HIT&& !m_owner->IsHit())
 	{
 		playerInfo info = m_owner->GetInfo();
-		info.health -= 1;
+		if(!m_owner->IsInfinite())
+			info.health -= 1;
 		m_owner->SetInfo(info);
 		m_owner->SetHit(true);
 		ChangePlayerState(m_owner->GetAi(), PLAYER_STATE::HIT);

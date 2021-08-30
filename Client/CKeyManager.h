@@ -48,6 +48,10 @@ enum class KEY
 	F2,
 	F3,
 	F4,
+	F5,
+	F6,
+	F7,
+	F8,
 
 
 	MOUSE_MOVE,

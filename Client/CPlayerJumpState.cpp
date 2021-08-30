@@ -27,7 +27,7 @@ void CPlayerJumpState::Enter()
 
 void CPlayerJumpState::Exit()
 {
-	GetPlayer()->GetCollider()->SetScale(Vec2(80.f, 150.f));
+	GetPlayer()->GetCollider()->SetScale(Vec2(80.f, 120.f));
 	GetPlayer()->GetRigidBody()->SetVelocity(Vec2(GetPlayer()->GetInfo().moveSpeed, 0.f));
 }
 

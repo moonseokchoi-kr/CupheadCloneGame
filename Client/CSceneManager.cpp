@@ -38,7 +38,7 @@ void CSceneManager::Init()
 	m_arrScene[TYPE_NUMBER(SCENE_TYPE::STAGE_02)]->SetSceneName(L"STAGE02 Scene");
 
 
-	m_currentScene = m_arrScene[TYPE_NUMBER(SCENE_TYPE::TEST)];
+	m_currentScene = m_arrScene[TYPE_NUMBER(SCENE_TYPE::STAGE_01)];
 	m_currentScene->Enter();
 }
 

@@ -60,6 +60,7 @@ public:
 
     bool IsAir() { return m_isAir; }
     bool IsHit() { return m_hit; }
+    bool IsInfinite() { return m_infinite; }
     void SetAir(bool _b) { m_isAir = _b; }
     void SetHit(bool _b) { m_hit = _b; }
     playerInfo GetInfo() { return m_info; }
@@ -76,6 +77,7 @@ private:
 
     float m_animateTime;
     bool m_hit;
+    bool m_infinite;
     bool m_isAir;
     bool m_renderToggle;
     float m_accTime;

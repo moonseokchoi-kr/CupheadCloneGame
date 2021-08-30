@@ -1,5 +1,8 @@
 #include "pch.h"
 
+#include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CSlimeBossIntroState.cpp"
+
+
 #include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CCarrotEyes.cpp"
 
 
@@ -19,7 +22,4 @@
 
 
 #include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CGround.cpp"
-
-
-#include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CGameObjectManager.cpp"
 

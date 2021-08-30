@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "CPlayerIntroState.h"
+#include "CRigidBody.h"
 #include "CAnimation.h"
 #include "CAnimator.h"
 #include "CPlayerHitBox.h"
@@ -21,6 +22,7 @@ void CPlayerIntroState::Enter()
 void CPlayerIntroState::Update()
 {
 	GetPlayer()->GetHitBox()->GetCollider()->SetAvaCollide(false);
+	GetPlayer()->GetRigidBody()->SetActive(false);
 	if (GetPlayer()->GetAnimator()->GetCurrentAnim()->IsFinish() && GetPlayer()->GetAnimator()->GetCurrentAnim()->GetName() == L"PLAYER_INTRO_1")
 	{
 		GetPlayer()->GetAnimator()->Play(L"PLAYER_INTRO_2", false);
@@ -33,6 +35,7 @@ void CPlayerIntroState::Update()
 
 void CPlayerIntroState::Exit()
 {
+	GetPlayer()->GetRigidBody()->SetActive(true);
 	GetPlayer()->GetHitBox()->GetCollider()->SetAvaCollide(true);
 }
 

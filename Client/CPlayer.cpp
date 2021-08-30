@@ -27,23 +27,24 @@
 #include "CPlayerIntroState.h"
 #include "CPlayerStateMachine.h"
 #include "CPlayerHitBox.h"
-
+#include "CCore.h"
 
 CPlayer::CPlayer()
 	: m_weaponMode(1)
 	, m_curState(PLAYER_STATE::IDLE)
 	, m_prevState(PLAYER_STATE::ATTACK)
-	,m_animateTime(1/30.f)
+	, m_animateTime(1 / 30.f)
 	, m_ai(nullptr)
-	,m_hit(false)
-	,m_renderToggle(false)
+	, m_hit(false)
+	, m_renderToggle(false)
+	, m_infinite(false)
 	,m_accTime(0.5f)
 {
 	SetName(L"Player");
 	CreateCollider();
 	//526 230
-	GetCollider()->SetScale(Vec2(80.f,100.f));
-	GetCollider()->SetOffsetPos(Vec2(0.f, 30.f));
+	GetCollider()->SetScale(Vec2(80.f, 120.f));
+	GetCollider()->SetOffsetPos(Vec2(0.f, 50.f));
 	CTexture* idle_tex = CResourceManager::GetInst()->LoadTexture(L"PlayerIdleTex", L"texture\\cuphead\\player\\player_idle.bmp");
 	CTexture* intro_tex = CResourceManager::GetInst()->LoadTexture(L"PlayerIntroTex", L"texture\\cuphead\\player\\player_intro.bmp");
 	CTexture* death_tex = CResourceManager::GetInst()->LoadTexture(L"PlayerDeathTex", L"texture\\cuphead\\player\\player_death.bmp");
@@ -155,6 +156,7 @@ CPlayer::CPlayer()
 CPlayer::~CPlayer()
 {
 	delete m_attackBox;
+	DeleteObject(m_hitBox);
 }
 
 void CPlayer::Start()
@@ -226,6 +228,16 @@ void CPlayer::Update()
 	m_info.prevMoveDir = GetMoveDir();
 	calMoveDir();
 	
+	if (CCore::GetInst()->IsDebug())
+	{
+		if (KEY_TAP(KEY::F5))
+		{
+			if (m_infinite)
+				m_infinite = false;
+			else
+				m_infinite = true;
+		}
+	}
 
 }
 
@@ -415,9 +427,6 @@ void CPlayer::UpdateMove()
 			GetRigidBody()->SetVelocity(Vec2(GetRigidBody()->GetVelocity().x, -800.f));
 		}
 	}
-
-	
-	
 }
 
 

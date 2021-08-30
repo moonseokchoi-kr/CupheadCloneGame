@@ -42,6 +42,10 @@ int g_arrVK[(int)KEY::LAST] =
 	VK_F2,
 	VK_F3,
 	VK_F4,
+	VK_F5,
+	VK_F6,
+	VK_F7,
+	VK_F8,
 
 	WM_MOUSEMOVE,// 	MOUSE_MOVE,
 	VK_LBUTTON, // 	MOUSE_LBUTTON,

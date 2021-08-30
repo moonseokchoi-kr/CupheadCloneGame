@@ -1,5 +1,8 @@
 #include "pch.h"
 
+#include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CChaserBullet.cpp"
+
+
 #include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CHomingBulletTraile.cpp"
 
 
@@ -19,7 +22,4 @@
 
 
 #include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CCarrotBossAttackState.cpp"
-
-
-#include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CSlimeBossIntroState.cpp"
 

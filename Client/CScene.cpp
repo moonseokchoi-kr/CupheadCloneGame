@@ -149,6 +149,8 @@ void CScene::DeleteAll()
 {
 	for (UINT i = 0; i < TYPE_NUMBER(GROUP_TYPE::END); ++i)
 	{
+		if ((TYPE_NUMBER(GROUP_TYPE::MONSTER_HITBOX) == i || TYPE_NUMBER(GROUP_TYPE::MONSTER_ATTACKBOX) == i || TYPE_NUMBER(GROUP_TYPE::PLAYER_HITBOX)))
+			continue;
 		DeleteGroup((GROUP_TYPE)i);
 	}
 }
@@ -195,13 +197,14 @@ void CScene::LoadMap(const wstring& _relativePath)
 			
 			gameObj = new CSpawnObject;
 			((CSpawnObject*)gameObj)->Load(file);
+			((CSpawnObject*)gameObj)->Start();
 			if (CSceneManager::GetInst()->GetCurrentScene()->GetSceneName() == L"Tool Scene")
 			{
+				((CGround*)gameObj)->SetType(GAMEOBJECT_TYPE::SPAWN);
 				AddObject(gameObj, GROUP_TYPE::GAME_OBJ);
 			}
 			else
 			{
-				gameObj->Start();
 				AddObject(gameObj, GROUP_TYPE::SPAWN_OBJ);
 			}
 				
@@ -214,6 +217,7 @@ void CScene::LoadMap(const wstring& _relativePath)
 			((CGround*)gameObj)->Start();
 			if (CSceneManager::GetInst()->GetCurrentScene()->GetSceneName() == L"Tool Scene")
 			{
+				
 				AddObject(gameObj, GROUP_TYPE::GAME_OBJ);
 			}
 			else

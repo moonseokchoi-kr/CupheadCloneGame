@@ -38,7 +38,7 @@ public:
 		m_moveDir = Vec2(x, y);
 	}
 	Vec2 GetScale() { return m_objScale; }
-	void SetPos(const Vec2& v) { m_objPos = v; }
+void SetPos(const Vec2& v) { m_objPos = v; }
 	void SetScale(const Vec2& v) { m_objScale = v; }
 	
 

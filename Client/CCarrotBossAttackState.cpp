@@ -2,6 +2,8 @@
 #include "CCarrotBossAttackState.h"
 #include "CCarrotBossAttackBox.h"
 #include "CMonster.h"
+#include "CMonsterHitBox.h"
+#include "CCollider.h"
 #include "CAnimation.h"
 #include "CAnimator.h"
 #include "CTimeManager.h"
@@ -24,6 +26,7 @@ CCarrotBossAttackState::~CCarrotBossAttackState()
 
 void CCarrotBossAttackState::Enter()
 {
+	GetMonster()->GetHitBox()->GetCollider()->SetAvaCollide(true);
 	CCarrotBossAttackBox* attackBox = (CCarrotBossAttackBox*)GetMonster()->GetAttackBox();
 	if (ATTACK_PATT::PATT1 == attackBox->GetCurrentPatt())
 	{

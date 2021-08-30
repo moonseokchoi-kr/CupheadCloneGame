@@ -7,7 +7,6 @@
 #include "CPlayer.h"
 #include "CColliderManager.h"
 #include "CSpawnObject.h"
-#include "CCore.h"
 #include "CKeyManager.h"
 CStageScene_01::CStageScene_01()
 	:m_currentBoss(nullptr)
@@ -32,10 +31,12 @@ void CStageScene_01::Enter()
 	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::GROUND, GROUP_TYPE::BOSS);
 	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::PLATFORM_OBJ, GROUP_TYPE::PLAYER);
 	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::BOSS, GROUP_TYPE::PLAYER);
+	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::MONSTER_ATTACKBOX, GROUP_TYPE::PLAYER);
 	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::PLAYER_BULLET, GROUP_TYPE::GROUND);
 	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::PLAYER_BULLET, GROUP_TYPE::MONSTER_BULLET);
 	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::PLAYER_BULLET, GROUP_TYPE::MONSTER_HITBOX);
 	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::PLAYER_HITBOX, GROUP_TYPE::MONSTER_BULLET);
+	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::PLAYER_HITBOX, GROUP_TYPE::MONSTER_HITBOX);
 	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::MONSTER_BULLET, GROUP_TYPE::GROUND);
 
 	
@@ -66,6 +67,11 @@ void CStageScene_01::Update()
 		{
 			SetDeadState((CMonster*)m_currentBoss);
 		}
+
+		if (KEY_TAP(KEY::F7))
+		{
+			ChangeScene(SCENE_TYPE::STAGE_02);
+		}
 	}
 
 	if (m_currentBoss != nullptr&&m_currentBoss->IsDead())
@@ -78,11 +84,16 @@ void CStageScene_01::Update()
 			m_prevBossName = m_currentBoss->GetName();
 			return;
 		}
+		else if (m_prevBossName == L"Carrot")
+		{
+			ChangeScene(SCENE_TYPE::STAGE_02);
+		}
 		else
 		{
 			CSpawnObject* carrotSpawn = ((CSpawnObject*)GetTarget(GROUP_TYPE::SPAWN_OBJ, L"Spawn_Carrot"));
 			carrotSpawn->Spawn();
 			m_currentBoss = carrotSpawn->GetSpawnObj();
+			m_prevBossName = m_currentBoss->GetName();
 		}
 	}
 }
@@ -90,4 +101,5 @@ void CStageScene_01::Update()
 
 void CStageScene_01::Exit()
 {
+	DeleteAll();
 }

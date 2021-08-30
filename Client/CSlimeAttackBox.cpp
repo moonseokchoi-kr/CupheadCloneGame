@@ -11,6 +11,7 @@ CSlimeAttackBox::CSlimeAttackBox()
 	CreateCollider();
 	GetCollider()->SetScale(Vec2(300.f,300.f));
 	GetCollider()->SetAvaCollide(false);
+	SetName(L"SlimeAttackBox");
 }
 
 CSlimeAttackBox::~CSlimeAttackBox()

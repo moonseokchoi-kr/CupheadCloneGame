@@ -1,5 +1,8 @@
 #include "pch.h"
 
+#include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CPlayerDeathState.cpp"
+
+
 #include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CPlayerHitBox.cpp"
 
 
@@ -19,7 +22,4 @@
 
 
 #include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CPropeller.cpp"
-
-
-#include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CRigidBody.cpp"
 

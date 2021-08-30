@@ -1,5 +1,8 @@
 #include "pch.h"
 
+#include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CGameObjectManager.cpp"
+
+
 #include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CButtonUI.cpp"
 
 
@@ -19,7 +22,4 @@
 
 
 #include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CGameObject.cpp"
-
-
-#include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CHitBox.cpp"
 

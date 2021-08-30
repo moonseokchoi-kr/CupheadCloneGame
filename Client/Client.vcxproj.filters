@@ -273,6 +273,9 @@
     <Filter Include="Engine\Module\AI\State\IntroState\Slime">
       <UniqueIdentifier>{ffe47c14-1400-4939-835b-b544b99ee923}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Module\AI\State\IntroState\Carrot">
+      <UniqueIdentifier>{68f27a03-5731-46c9-a568-4d0a22ee6f1a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -561,6 +564,9 @@
     <ClInclude Include="CSlimeDeathState.h">
       <Filter>Engine\Module\AI\State\DeathState\Slime</Filter>
     </ClInclude>
+    <ClInclude Include="CCarrotIntroState.h">
+      <Filter>Engine\Module\AI\State\IntroState\Carrot</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -841,6 +847,9 @@
     </ClCompile>
     <ClCompile Include="CSlimeDeathState.cpp">
       <Filter>Engine\Module\AI\State\DeathState\Slime</Filter>
+    </ClCompile>
+    <ClCompile Include="CCarrotIntroState.cpp">
+      <Filter>Engine\Module\AI\State\IntroState\Carrot</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

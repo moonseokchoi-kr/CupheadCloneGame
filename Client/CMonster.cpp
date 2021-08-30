@@ -12,8 +12,6 @@ CMonster::CMonster()
 	,m_ai(nullptr)
 {
 	CreateCollider();
-	CreateRigidBody();
-	CreateGravity();
 	SetName(L"Monster");
 	SetScale(Vec2(40.f, 40.f));
 	GetCollider()->SetScale(Vec2(100.f, 100.f));
@@ -24,8 +22,10 @@ CMonster::~CMonster()
 {
 	if (nullptr != m_ai)
 		delete m_ai;
-	if (nullptr != m_attackBox)
+	if (nullptr != m_attackBox && m_attackBox->GetName() != L"SlimeAttackBox")
 		delete m_attackBox;
+	if (nullptr != m_hitBox)
+		DeleteObject(m_hitBox);
 }
 
 void CMonster::Start()
@@ -71,26 +71,12 @@ void CMonster::Render(HDC _dc)
 
 void CMonster::OnCollisionEnter(CCollider* _col)
 {
-	CObject* obj = _col->GetOwner();
-	Vec2 moveDir = _col->GetOwner()->GetMoveDir();
-	if (obj->GetName() == L"PlayerHitBox")
-	{
-		obj->GetRigidBody()->SetVelocity(Vec2(0, 0));
-		obj->GetRigidBody()->AddVelocity(-moveDir * 300.f);
 
-	}
 }
 
 void CMonster::OnCollision(CCollider* _col)
 {
-	CObject* obj = _col->GetOwner();
-	Vec2 moveDir = _col->GetOwner()->GetMoveDir();
-	if (obj->GetName() == L"PlayerHitBox")
-	{
-		obj->GetRigidBody()->SetVelocity(Vec2(0, 0));
-		obj->GetRigidBody()->AddVelocity(-moveDir * 300.f);
 
-	}
 }
 
 

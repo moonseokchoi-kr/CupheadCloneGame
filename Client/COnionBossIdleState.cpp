@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "COnionBossIdleState.h"
 #include "CMonster.h"
+#include "CMonsterHitBox.h"
+#include "CCollider.h"
 #include "CAnimator.h"
 #include "CAnimation.h"
 COnionBossIdleState::COnionBossIdleState()
@@ -14,8 +16,7 @@ COnionBossIdleState::~COnionBossIdleState()
 
 void COnionBossIdleState::Enter()
 {
-	GetMonster()->GetAnimator()->Play(L"ONION_IDLE_2", false);
-	m_prevAnim = L"ONION_IDLE_2";
+	GetMonster()->GetHitBox()->GetCollider()->SetAvaCollide(true);
 }
 
 void COnionBossIdleState::Exit()
