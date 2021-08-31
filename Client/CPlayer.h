@@ -22,20 +22,22 @@
 
 struct playerInfo
 {
-	float moveSpeed;
+	float moveSpeed = 0.f;
 	Vec2 prevMoveDir;
-    float attackSpeed;
-    float jupAccTime = 0.15f;
-    float dashtime = 0.15f;
-    float dashDist = 300.f;
+    float attackSpeed = 0.f;
+	float jupAccTime = 0.f;
+	float dashtime = 0.f;
+	float dashDist = 0.f;
     Vec2  shootDir;
-    float infiniteTime = 0.3f;
-    int health;
+    float infiniteTime =0.f;
+    int health = 0;
 };
 
 class CPlayerStateMachine;
-class CAttackBox;
+class CPlayerHpUI;
+class CPlayerAttackBox;
 class CPlayerHitBox;
+
 class CPlayer :
     public CObject
 {
@@ -67,12 +69,12 @@ public:
     void SetInfo(playerInfo _info) { m_info = _info; }
     void SetAi(CPlayerStateMachine* _ai);
     CPlayerStateMachine* GetAi() { return m_ai; }
-    CAttackBox* GetAttackBox() { return m_attackBox; }
+    CPlayerAttackBox* GetAttackBox() { return m_attackBox; }
     CPlayerHitBox* GetHitBox() { return m_hitBox; }
 
     void CreateAttackBox();
     void CreateHitBox();
-
+    void CreatehpUI();
 private:
 
     float m_animateTime;
@@ -83,7 +85,7 @@ private:
     float m_accTime;
     UINT m_weaponMode;
 
-    CAttackBox* m_attackBox;
+    CPlayerAttackBox* m_attackBox;
     CPlayerHitBox* m_hitBox;
     playerInfo m_info;
 
@@ -92,5 +94,5 @@ private:
     PLAYER_STATE m_curState;
     PLAYER_STATE m_prevState;
 
-
+    CPlayerHpUI* m_hpUI;
 };

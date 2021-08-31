@@ -171,7 +171,9 @@
     <ClInclude Include="CMenuButtonUI.h" />
     <ClInclude Include="CMenuPanel.h" />
     <ClInclude Include="CPlayerDuckState.h" />
+    <ClInclude Include="CPlayerHpUI.h" />
     <ClInclude Include="CPlayerIntroState.h" />
+    <ClInclude Include="CPlayerWeaponUI.h" />
     <ClInclude Include="CSlimAttackState.h" />
     <ClInclude Include="CSlime.h" />
     <ClInclude Include="CCarrotBossAttackBox.h" />
@@ -273,7 +275,9 @@
     <ClCompile Include="CMenuButtonUI.cpp" />
     <ClCompile Include="CMenuPanel.cpp" />
     <ClCompile Include="CPlayerDuckState.cpp" />
+    <ClCompile Include="CPlayerHpUI.cpp" />
     <ClCompile Include="CPlayerIntroState.cpp" />
+    <ClCompile Include="CPlayerWeaponUI.cpp" />
     <ClCompile Include="CSlimAttackState.cpp" />
     <ClCompile Include="CSlime.cpp" />
     <ClCompile Include="CCarrotBossAttackBox.cpp" />

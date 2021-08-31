@@ -35,7 +35,7 @@ float COnionBossAttackBox::calRandomXPos()
 		random_device rd;
 		mt19937 gen(rd());
 		uniform_int_distribution<int> dis (0, (int)ownerL-30);
-		return dis(gen);
+		return (float)dis(gen);
 	}
 	else
 	{
@@ -43,7 +43,7 @@ float COnionBossAttackBox::calRandomXPos()
 		random_device rd;
 		mt19937 gen(rd());
 		uniform_int_distribution<int> dis((int)ownerR + 30, 1450);
-		return dis(gen);
+		return (float)dis(gen);
 	}
 
 }

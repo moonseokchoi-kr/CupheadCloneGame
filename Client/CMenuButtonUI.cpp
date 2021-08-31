@@ -59,15 +59,15 @@ void CMenuButtonUI::Render(HDC _dc)
 
 	AlphaBlend(
 		_dc
-		, pos.x
-		, pos.y
-		, m_width
-		, m_heigth
+		, (int)pos.x
+		, (int)pos.y
+		, (int)m_width
+		, (int)m_heigth
 		, m_tex->GetDC()
-		, curCol * m_width
-		, curRow * m_heigth
-		, m_width
-		, m_heigth
+		, (int)curCol * m_width
+		, (int)curRow * m_heigth
+		, (int)m_width
+		, (int)m_heigth
 		, bf
 	);
 }

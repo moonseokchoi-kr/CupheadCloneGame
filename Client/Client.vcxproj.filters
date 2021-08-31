@@ -288,6 +288,9 @@
     <Filter Include="Engine\Manager\GameObejctManager">
       <UniqueIdentifier>{fe79b3e2-e3ed-4f30-98bc-7392fd6ebffc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Object\UI\PlayerUI">
+      <UniqueIdentifier>{f414d6eb-7abd-4c02-9e87-c2e144702548}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -588,6 +591,12 @@
     <ClInclude Include="CMenuPanel.h">
       <Filter>Engine\Object\UI\PanelUI\MenuPanel</Filter>
     </ClInclude>
+    <ClInclude Include="CPlayerHpUI.h">
+      <Filter>Engine\Object\UI\PlayerUI</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayerWeaponUI.h">
+      <Filter>Engine\Object\UI\PlayerUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -880,6 +889,12 @@
     </ClCompile>
     <ClCompile Include="CMenuPanel.cpp">
       <Filter>Engine\Object\UI\PanelUI\MenuPanel</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayerHpUI.cpp">
+      <Filter>Engine\Object\UI\PlayerUI</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayerWeaponUI.cpp">
+      <Filter>Engine\Object\UI\PlayerUI</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

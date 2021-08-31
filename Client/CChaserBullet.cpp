@@ -12,6 +12,7 @@ CChaserBullet::CChaserBullet()
 	:CBullet(BULLET_TYPE::CHASER)
 	, m_fx(nullptr)
 	, m_target(nullptr)
+	, m_isDead(false)
 {
 	CreateCollider();
 	CreateRigidBody();
@@ -27,7 +28,7 @@ CChaserBullet::CChaserBullet()
 	info.bulletSpeed = 600.f;
 	info.damege = 7.f;
 	info.range = 1600.f;
-	info.health = 3.f;
+	info.health = 3;
 	SetInfo(info);
 
 	CTexture* homingTex = CResourceManager::GetInst()->LoadTexture(L"HomingBulletTex", L"texture\\cuphead\\bullet\\homing_bullet.bmp");

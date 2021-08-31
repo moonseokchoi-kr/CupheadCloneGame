@@ -30,10 +30,10 @@ void CTextUI::Render(HDC _dc)
 	Vec2 scale = GetScale();
 	TextOutW(
 		_dc,
-		pos.x,
-		pos.y,
+		(int)pos.x,
+		(int)pos.y,
 		m_text.c_str(),
-		m_text.length()
+		(int)m_text.length()
 	);
 
 }

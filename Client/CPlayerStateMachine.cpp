@@ -5,6 +5,7 @@
 CPlayerStateMachine::CPlayerStateMachine()
 	:m_currentState(nullptr)
 	,m_prevState(nullptr)
+	,m_owner(nullptr)
 {
 }
 

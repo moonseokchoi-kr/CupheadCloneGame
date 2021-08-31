@@ -35,10 +35,10 @@ void CMenuPanel::Render(HDC _dc)
 		SelectGDI gdi1(_dc, PEN_TYPE::BLACK);
 		Rectangle(
 			_dc,
-			(int)pos.x - scale.x / 2.f,
-			(int)pos.y - scale.y / 2.f,
-			(int)pos.x + scale.x / 2.f,
-			(int)pos.y + scale.y / 2.f
+			(int)(pos.x - scale.x / 2.f),
+			(int)(pos.y - scale.y / 2.f),
+			(int)(pos.x + scale.x / 2.f),
+			(int)(pos.y + scale.y / 2.f)
 		);
 
 	}

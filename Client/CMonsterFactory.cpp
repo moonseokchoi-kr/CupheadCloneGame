@@ -77,7 +77,7 @@ CMonster* CMonsterFactory::CreateMonster(MON_TYPE _type, Vec2 _pos)
 		info.attackRange = 0;
 		info.eyesightRange = 0;
 		info.hp = 300.f;
-		info.attackSpeed = 0.15;
+		info.attackSpeed = 0.15f;
 		info.moveSpeed = 100.f;
 		monster->SetName(L"Carrot");
 		monster->Start();

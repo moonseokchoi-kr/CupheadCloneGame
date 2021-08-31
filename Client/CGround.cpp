@@ -7,7 +7,7 @@
 #include "CTexture.h"
 #include "CPropeller.h"
 #include "CGravity.h"
-#include "CResourceManager.h";
+#include "CResourceManager.h"
 #include "CSceneManager.h"
 #include "CCamera.h"
 #include "SelectGDI.h"
@@ -146,7 +146,7 @@ void CGround::OnCollisionEnter(CCollider* _col)
 				obj->GetGravity()->SetGround(true, GROUND_TYPE::PLATFORM);
 				m_currentCollide = COLLIDE_TYPE::COLLIDE_TOP;
 			}
-			else if (platLT.y < objRBPos.y <= platRB.y)
+			else if (platLT.y < objRBPos.y && objRBPos.y <= platRB.y)
 			{
 				m_currentCollide = COLLIDE_TYPE::COLLIDE_IDLE;
 			}
@@ -163,7 +163,7 @@ void CGround::OnCollisionEnter(CCollider* _col)
 				obj->GetGravity()->SetGround(true, GROUND_TYPE::GROUND);
 				m_currentCollide = COLLIDE_TYPE::COLLIDE_TOP;
 			}
-			else if (platLT.y < objRBPos.y <= platRB.y)
+			else if (platLT.y < objRBPos.y&& objRBPos.y <= platRB.y)
 			{
 
 				if (platRB.x >= objLBPos.x && objLBPrevPos.x >= platRB.x)
@@ -192,7 +192,7 @@ void CGround::OnCollisionEnter(CCollider* _col)
 				obj->GetGravity()->SetGround(true, GROUND_TYPE::GROUND);
 				m_currentCollide = COLLIDE_TYPE::COLLIDE_TOP;
 			}
-			else if (platLT.y < objRBPos.y <= platRB.y)
+			else if (platLT.y < objRBPos.y&& objRBPos.y <= platRB.y)
 			{
 
 				if (platRB.x >= objLBPos.x && objLBPrevPos.x >= platRB.x)

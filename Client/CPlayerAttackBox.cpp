@@ -8,8 +8,10 @@
 #include "CPlayerStateMachine.h"
 #include "CPlayerState.h"
 #include "CChaserBullet.h"
+#include "CPlayerWeaponUI.h"
 CPlayerAttackBox::CPlayerAttackBox()
 	:m_accTime(0)
+	,m_weaponUI(nullptr)
 {
 	CreateCollider();
 	GetCollider()->SetScale(Vec2(40.f, 40.f));
@@ -82,10 +84,19 @@ void CPlayerAttackBox::ChangeBullet()
 	{
 		SetCurrentBullet(BULLET_TYPE::PEASHOOT);
 	}
+	m_weaponUI->m_isActive = true;
 }
 
 void CPlayerAttackBox::ExFire()
 {
+}
+
+void CPlayerAttackBox::CreateWeaponUI()
+{
+	m_weaponUI = new CPlayerWeaponUI;
+	m_weaponUI->m_owner = this;
+	m_weaponUI->m_bulletType = BULLET_TYPE::PEASHOOT;
+	CreateObject(m_weaponUI, GROUP_TYPE::UI);
 }
 
 void CPlayerAttackBox::rotateCreateBulletPos()

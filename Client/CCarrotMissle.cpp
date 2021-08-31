@@ -32,10 +32,9 @@ CCarrotMissle::CCarrotMissle()
 
 	bulletInfo info = {};
 	info.bulletSpeed = 400.f;
-	info.health = 24.f;
 	info.damege = 1.f;
 	info.range = 1600.f;
-	info.health = 3.f;
+	info.health = 3;
 	SetInfo(info);
 
 	CTexture* missleTex = CResourceManager::GetInst()->LoadTexture(L"CarrotMissileTex", L"texture\\cuphead\\boss\\carrot_missile.bmp");

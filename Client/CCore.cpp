@@ -147,8 +147,8 @@ void CCore::UnDockMenu()
 
 void CCore::changeWindowSize(Vec2 _resolution, bool _isDock)
 {
-	RECT rt = { 0,0,_resolution.x, _resolution.y };
-	m_ptResolution = { (int)_resolution.x, (int)_resolution.y };
+	RECT rt = { 0,0,(LONG)_resolution.x, (LONG)_resolution.y };
+	m_ptResolution = { (LONG)_resolution.x, (LONG)_resolution.y };
 	//윈도우크기 계산
 	AdjustWindowRect(&rt, WS_OVERLAPPEDWINDOW, _isDock);
 	//윈도우 창위치 설정, 크기설정

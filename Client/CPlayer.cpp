@@ -15,7 +15,7 @@
 
 #include "CAnimation.h"
 #include "CGravity.h"
-
+#include "CPlayerHpUI.h"
 #include "CPlayerState.h"
 #include "CPlayerIdleState.h"
 #include "CPlayerAttackState.h"
@@ -39,6 +39,10 @@ CPlayer::CPlayer()
 	, m_renderToggle(false)
 	, m_infinite(false)
 	,m_accTime(0.5f)
+	,m_hpUI(nullptr)
+	,m_attackBox(nullptr)
+	,m_hitBox(nullptr)
+	,m_isAir(nullptr)
 {
 	SetName(L"Player");
 	CreateCollider();
@@ -142,7 +146,7 @@ CPlayer::CPlayer()
 	m_info.attackSpeed = 0.15f;
 	m_info.dashDist = 300.f;
 	m_info.dashtime = 0.1f;
-	m_info.health = 3.f;
+	m_info.health = 3;
 	m_info.jupAccTime = 0.15f;
 	m_info.moveSpeed = 400.f;
 	m_info.prevMoveDir = Vec2(0, 0);
@@ -181,13 +185,16 @@ void CPlayer::Start()
 	ai->AddState(state);
 	ai->SetCurrentState(PLAYER_STATE::INTRO);
 	SetAi(ai);
+	CreatehpUI();
 	CreateAttackBox();
 	CreateHitBox();
+
 	if (nullptr != m_attackBox)
 	{
 		CBullet* bullet = new CPeaShootBullet;
 		m_attackBox->AddBullet(bullet);
 		m_attackBox->SetCurrentBullet(BULLET_TYPE::PEASHOOT);
+		m_attackBox->CreateWeaponUI();
 	}
 	if (nullptr != m_hitBox)
 	{
@@ -313,6 +320,12 @@ void CPlayer::CreateHitBox()
 {
 	m_hitBox = new CPlayerHitBox;
 	m_hitBox->m_owner = this;
+}
+void CPlayer::CreatehpUI()
+{
+	m_hpUI = new CPlayerHpUI;
+	m_hpUI->m_owenr = this;
+	CreateObject(m_hpUI, GROUP_TYPE::UI);
 }
 void CPlayer::UpdateMove()
 {
