@@ -32,7 +32,7 @@ void CPlayerAttackBox::Update()
 
 void CPlayerAttackBox::Fire()
 {
-	Vec2 finalPos = GetFinalPos();
+	Vec2 finalPos = GetPos();
 	m_accTime += fDT;
 	playerInfo pInfo = ((CPlayer*)GetOwner())->GetInfo();
 	GetSFX()->Play(false);

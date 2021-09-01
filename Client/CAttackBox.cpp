@@ -28,15 +28,14 @@ CAttackBox::~CAttackBox()
 
 void CAttackBox::Update()
 {
-	Vec2 offset = GetPos();
 	Vec2 ownerPos = m_owner->GetPos();
-	m_finalPos = ownerPos+ offset;
+	SetPos(ownerPos+ m_offset);
 }
 
 void CAttackBox::Render(HDC _dc)
 {
 	SelectGDI gdi(_dc, PEN_TYPE::BLUE_BOLD);
-	Vec2 renderPos = CCamera::GetInst()->GetRenderPos(m_finalPos);
+	Vec2 renderPos = CCamera::GetInst()->GetRenderPos(m_offset);
 	Vec2 scale = GetScale();
 	Rectangle(
 		_dc,

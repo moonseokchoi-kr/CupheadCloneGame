@@ -37,7 +37,7 @@ class CPlayerStateMachine;
 class CPlayerHpUI;
 class CPlayerAttackBox;
 class CPlayerHitBox;
-
+class CVFXObject;
 class CPlayer :
     public CObject
 {
@@ -71,8 +71,9 @@ public:
     CPlayerStateMachine* GetAi() { return m_ai; }
     CPlayerAttackBox* GetAttackBox() { return m_attackBox; }
     CPlayerHitBox* GetHitBox() { return m_hitBox; }
-
+    CVFXObject* GetVFX() { return m_vfxObject; }
     void CreateAttackBox();
+    void CreateVFX();
     void CreateHitBox();
     void CreatehpUI();
 private:
@@ -88,6 +89,8 @@ private:
     CPlayerAttackBox* m_attackBox;
     CPlayerHitBox* m_hitBox;
     playerInfo m_info;
+
+    CVFXObject* m_vfxObject;
 
     CPlayerStateMachine* m_ai;
 

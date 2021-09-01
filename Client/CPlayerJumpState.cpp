@@ -8,6 +8,7 @@
 #include "CAnimator.h"
 #include "CPlayerAttackBox.h"
 #include "CSound.h"
+#include "CVFXObject.h"
 #include "CKeyManager.h"
 #include "CTimeManager.h"
 
@@ -33,6 +34,8 @@ void CPlayerJumpState::Exit()
 {
 	GetPlayer()->GetCollider()->SetScale(Vec2(80.f, 120.f));
 	GetPlayer()->GetRigidBody()->SetVelocity(Vec2(GetPlayer()->GetInfo().moveSpeed, 0.f));
+	GetPlayer()->GetVFX()->SetOffset(Vec2(0.f, 80.f));
+	GetPlayer()->GetVFX()->SetType(VFX_TYPE::JUMP_DUST);
 }
 
 void CPlayerJumpState::Update()

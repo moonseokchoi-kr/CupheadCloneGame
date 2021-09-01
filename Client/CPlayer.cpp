@@ -8,7 +8,7 @@
 #include "CTimeManager.h"
 #include "CPathManager.h"
 #include "CResourceManager.h"
-
+#include "CVFXObject.h"
 #include "CTexture.h"
 #include "CAnimator.h"
 #include "CRigidBody.h"
@@ -164,6 +164,7 @@ void CPlayer::Start()
 	CreatehpUI();
 	CreateAttackBox();
 	CreateHitBox();
+	CreateVFX();
 
 	if (nullptr != m_attackBox)
 	{
@@ -208,9 +209,8 @@ void CPlayer::Update()
 		m_accTime = 0;
 	}
 	m_attackBox->Update();
-	//m_hitBox->Update();
 	m_ai->Update();
-
+	m_vfxObject->Update();
 
 	SetPrevPos(GetPos());
 	m_info.prevMoveDir = GetMoveDir();
@@ -249,9 +249,9 @@ void CPlayer::Render(HDC _dc)
 		GetAnimator()->SetAlpha(255);
 	}
 	ComponentRender(_dc);
+	m_vfxObject->Render(_dc);
 #ifdef _DEBUG
 	m_attackBox->Render(_dc);
-	//m_hitBox->Render(_dc);
 #endif
 	
 }
@@ -284,7 +284,7 @@ void CPlayer::FinalUpdate()
 	if (CSceneManager::GetInst()->GetCurrentScene()->GetSceneName() == L"Tool Scene")
 		return;
 	CObject::FinalUpdate();
-	//m_hitBox->FinalUpdate();
+	m_vfxObject->FinalUpdate();
 }
 void CPlayer::SetAi(CPlayerStateMachine* _ai)
 {
@@ -295,6 +295,11 @@ void CPlayer::CreateAttackBox()
 {
 	m_attackBox = new CPlayerAttackBox;
 	m_attackBox->m_owner = this;
+}
+void CPlayer::CreateVFX()
+{
+	m_vfxObject = new CVFXObject;
+	m_vfxObject->m_owner = this;
 }
 void CPlayer::CreateHitBox()
 {
@@ -324,6 +329,7 @@ void CPlayer::UpdateMove()
 		if (GetGravity()->IsGround())
 		{
 			rigidBody->SetVelocity(Vec2(-m_info.moveSpeed, rigidBody->GetVelocity().y));
+			
 		}
 
 	}

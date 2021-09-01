@@ -252,6 +252,7 @@
     <ClInclude Include="CTraceState.h" />
     <ClInclude Include="CUI.h" />
     <ClInclude Include="CUIManager.h" />
+    <ClInclude Include="CVFXObject.h" />
     <ClInclude Include="define.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="FSMAI.h" />
@@ -347,6 +348,7 @@
     <ClCompile Include="CTraceState.cpp" />
     <ClCompile Include="CUI.cpp" />
     <ClCompile Include="CUIManager.cpp" />
+    <ClCompile Include="CVFXObject.cpp" />
     <ClCompile Include="FSMAI.cpp" />
     <ClCompile Include="func.cpp" />
     <ClCompile Include="main.cpp" />

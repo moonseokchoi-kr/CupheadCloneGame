@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "CPlayerDashState.h"
-
+#include "CVFXObject.h"
 #include "CPlayer.h"
 #include "CGravity.h"
 #include "CRigidBody.h"
@@ -23,12 +23,15 @@ CPlayerDashState::~CPlayerDashState()
 
 void CPlayerDashState::Enter()
 {
+	Vec2 moveDir = GetPlayer()->GetMoveDir();
 	GetPlayer()->GetHitBox()->GetCollider()->SetAvaCollide(false);
 	GetPlayer()->GetRigidBody()->SetMaxVelocity(1000.f);
 	SetSFX(L"PLAYER_DASH");
 	GetSFX()->Play(true);
 	GetSFX()->SetPosition(50.f);
 	GetSFX()->SetVolume(100.f);
+	GetPlayer()->GetVFX()->SetOffset(Vec2(-moveDir.x*90.f, 70.f));
+	GetPlayer()->GetVFX()->SetType(VFX_TYPE::DASH_BOMB);
 }
 
 void CPlayerDashState::Exit()

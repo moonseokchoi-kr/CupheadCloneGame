@@ -9,6 +9,9 @@
 #include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CUIManager.cpp"
 
 
+#include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CVFXObject.cpp"
+
+
 #include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\FSMAI.cpp"
 
 
@@ -19,7 +22,4 @@
 
 
 #include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CObject.cpp"
-
-
-#include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CPathManager.cpp"
 

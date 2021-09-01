@@ -297,6 +297,9 @@
     <Filter Include="Engine\Object\Monster\Slime">
       <UniqueIdentifier>{c3505bb6-da28-4d88-9028-bc9473518324}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Object\fx">
+      <UniqueIdentifier>{0e80934b-3889-4625-bd72-5ab37a164b84}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -609,6 +612,9 @@
     <ClInclude Include="CSound.h">
       <Filter>Engine\Resource\Sound</Filter>
     </ClInclude>
+    <ClInclude Include="CVFXObject.h">
+      <Filter>Engine\Object\fx</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -913,6 +919,9 @@
     </ClCompile>
     <ClCompile Include="CSound.cpp">
       <Filter>Engine\Resource\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="CVFXObject.cpp">
+      <Filter>Engine\Object\fx</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

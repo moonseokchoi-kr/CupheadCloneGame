@@ -28,6 +28,8 @@ void CIntroState::Exit()
 void CIntroState::Update()
 {
 	GetMonster()->GetHitBox()->GetCollider()->SetAvaCollide(false);
+	if (nullptr == GetMonster()->GetAnimator()->GetCurrentAnim())
+		return;
 	bool isFinish = GetMonster()->GetAnimator()->GetCurrentAnim()->IsFinish();
 	if (isFinish)
 		ChangeAIState(GetAI(), MON_STATE::IDLE);

@@ -9,6 +9,7 @@ public:
     CLONE(CSalAttackBox);
 public:
     virtual void Fire();
+    virtual void Render(HDC _dc);
 public:
     void SetBulletSpeed(float _speed) { m_bulletSpeed = _speed; }
 private:

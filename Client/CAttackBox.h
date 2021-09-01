@@ -18,8 +18,8 @@ public:
     void SetCurrentBullet(BULLET_TYPE _type) { m_current_Bullet = _type; }
     void AddBullet(CBullet* _bullet);
     CObject* GetOwner() { return m_owner; }
-    Vec2 GetFinalPos() { return m_finalPos; }
-    void SetFinalPos(Vec2 _v) { m_finalPos = _v; }
+    Vec2 GetOffset() { return m_offset; }
+    void SetOffset(Vec2 _v) { m_offset = _v; }
     bool isFinish() { return m_isFinish; }
     void SetFinish(bool _b) { m_isFinish = _b; }
 public:
@@ -30,7 +30,7 @@ public:
     CSound* GetSFX() { return m_sfx; }
 private:
     CObject* m_owner;
-    Vec2 m_finalPos;
+    Vec2 m_offset;
     BULLET_TYPE m_current_Bullet;
     CSound* m_sfx;
     unordered_map<BULLET_TYPE,CBullet*> m_bulletVec;

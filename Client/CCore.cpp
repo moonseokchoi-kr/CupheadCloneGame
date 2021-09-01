@@ -243,6 +243,16 @@ void CCore::loadResource()
 	CResourceManager::GetInst()->LoadTexture(L"PlayerHpTex", L"texture\\cuphead\\ui\\hp_sprite.bmp");
 	CResourceManager::GetInst()->LoadTexture(L"weaponUITex", L"texture\\cuphead\\ui\\equip_wepon_sprite.bmp");
 
+	//FX
+	CResourceManager::GetInst()->LoadTexture(L"LevelStratTex", L"texture\\cuphead\\fx\\level_start_text.bmp");
+	CResourceManager::GetInst()->LoadTexture(L"LgSlimeJumpDustTex", L"texture\\cuphead\\fx\\lg_slime_jump_dust.bmp");
+	CResourceManager::GetInst()->LoadTexture(L"PlayerDashBombTex", L"texture\\cuphead\\fx\\player_dashbomb.bmp");
+	CResourceManager::GetInst()->LoadTexture(L"PlayerJumpDustTex", L"texture\\cuphead\\fx\\player_jump_dust.bmp");
+	CResourceManager::GetInst()->LoadTexture(L"PotatoIntroDustTex", L"texture\\cuphead\\fx\\potato_intro_dust.bmp");
+	CResourceManager::GetInst()->LoadTexture(L"PotatoShootDustTex", L"texture\\cuphead\\fx\\potato_shoot_dust.bmp");
+	CResourceManager::GetInst()->LoadTexture(L"OnionTearBigTex", L"texture\\cuphead\\fx\\onion_tear_big.bmp");
+	CResourceManager::GetInst()->LoadTexture(L"ScreenChangeTex", L"texture\\cuphead\\fx\\screen_change_effect.bmp");
+	CResourceManager::GetInst()->LoadTexture(L"YouDiedTex", L"texture\\cuphead\\fx\\you_died_text.bmp");
 	//Sound Reasource
 
 	//Player
@@ -299,6 +309,8 @@ void CCore::loadResource()
 	CResourceManager::GetInst()->LoadSound(L"POTATO_DUST_3", L"sound\\veggie\\sfx_level_veggies_Potato_Spit_003.wav");
 	CResourceManager::GetInst()->LoadSound(L"POTATO_WORM", L"sound\\veggie\\sfx_level_veggies_Potato_Spit_Worm_01.wav");
 	CResourceManager::GetInst()->LoadSound(L"POTATO_WORM_DEATH", L"sound\\veggie\\sfx_level_veggies_Potato_Worm_Explode_01.wav");
+
+
 
 }
 

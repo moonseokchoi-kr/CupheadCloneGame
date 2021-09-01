@@ -7,6 +7,8 @@
 #include "CResourceManager.h"
 #include "CMonsterHitBox.h"
 #include "CTexture.h"
+#include "CAnimation.h"
+#include "CVFXObject.h"
 #include "SelectGDI.h"
 #include "CSalBullet.h"
 #include "FSMAI.h"
@@ -37,6 +39,13 @@ void CSalSpudder::Start()
 	CMonster::Start();
 	GetHitBox()->SetScale(Vec2(360.f, 380.f));
 	GetHitBox()->Start();
+
+	CSound* sfx = CResourceManager::GetInst()->FindSound(L"POTATO_INTRO");
+	sfx->Play(false);
+	sfx->SetPosition(50.f);
+	sfx->SetVolume(100.f);
+
+
 }
 void CSalSpudder::Update()
 {
@@ -46,11 +55,16 @@ void CSalSpudder::Update()
 	}
 	if (GetAi()->GetCurrentState()->GetState() == MON_STATE::INTRO && GetAnimator()->GetCurrentAnim()== nullptr)
 	{
-		CSound* sfx = CResourceManager::GetInst()->FindSound(L"POTATO_INTRO");
-		sfx->Play(false);
-		sfx->SetPosition(50.f);
-		sfx->SetVolume(100.f);
-		GetAnimator()->Play(L"POTATO_INTRO", false);
+		
+		if (nullptr == GetVFX()->GetAnimator()->GetCurrentAnim())
+		{
+			GetVFX()->SetOffset(Vec2(-20.f, 80.f));
+			GetVFX()->SetType(VFX_TYPE::INTRO_DUST);
+		}
+
+ 			
+ 		if(GetVFX()->GetAnimator()->GetCurrentAnim()->GetCurrentFrame() == 8)
+			GetAnimator()->Play(L"POTATO_INTRO", false);
 	}
 		
 	CMonster::Update();
@@ -75,7 +89,7 @@ void CSalSpudder::Render(HDC _dc)
 	{
 		GetAnimator()->SetAlpha(255);
 	}
-	ComponentRender(_dc);
+	CMonster::Render(_dc);
 }
 
 void CSalSpudder::CreateAttackBox()

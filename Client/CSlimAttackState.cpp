@@ -548,12 +548,6 @@ void CSlimAttackState::getTargetDiff()
 	CObject* target = CSceneManager::GetInst()->GetCurrentScene()->GetTarget(GROUP_TYPE::PLAYER_HITBOX, L"PlayerHitBox");
 	m_diff = target->GetPos() - slime->GetPos();
 	m_diff.Normalize();
-	if (m_prevdiff.x != m_diff.x && m_currSubState == SLIME_SUB_STATE::TURN)
-	{
-		Vec2 moveDir = slime->GetMoveDir();
-		slime->GetRigidBody()->SetVelocity(Vec2(-moveDir.x * 400.f, -1000.f));
-		slime->GetRigidBody()->AddForce(Vec2(-moveDir.x * 400.f, -1000.f));
-	}
 	slime->SetMoveDir(m_diff.x, slime->GetMoveDir().y);
 }
 

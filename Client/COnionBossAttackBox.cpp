@@ -14,7 +14,7 @@ COnionBossAttackBox::~COnionBossAttackBox()
 void COnionBossAttackBox::Fire()
 {
 	CTearBullet* bullet = new CTearBullet;
-	bullet->SetPos(Vec2(calRandomXPos(), GetFinalPos().y));
+	bullet->SetPos(Vec2(calRandomXPos(), GetPos().y));
 	bullet->SetName(L"MonsterBullet");
 	bullet->Start();
 	CreateObject(bullet, GROUP_TYPE::MONSTER_BULLET);

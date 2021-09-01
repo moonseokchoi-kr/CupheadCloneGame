@@ -56,7 +56,7 @@ void CCarrotBossAttackBox::Fire()
 	{
 	case ATTACK_PATT::PATT1:
 	{
-		carrotMissile->SetPos(Vec2(m_missieX[dis(gen)], GetFinalPos().y));
+		carrotMissile->SetPos(Vec2(m_missieX[dis(gen)], GetPos().y));
 		carrotMissile->SetName(L"MonsterBullet");
 		carrotMissile->Start();
 		CreateObject(carrotMissile, GROUP_TYPE::MONSTER_BULLET);
@@ -68,7 +68,7 @@ void CCarrotBossAttackBox::Fire()
 		GetSFX()->SetPosition(50.f);
 		GetSFX()->SetVolume(80.f);
 		GetSFX()->Play(false);
-		beam->SetPos(GetFinalPos());
+		beam->SetPos(GetOffset());
 		beam->SetName(L"BeamBullet");
 		beam->Start();
 		CreateObject(beam, GROUP_TYPE::MONSTER_BULLET);
