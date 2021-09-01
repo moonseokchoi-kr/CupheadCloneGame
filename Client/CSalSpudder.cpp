@@ -17,10 +17,10 @@ CSalSpudder::CSalSpudder()
 	CreateCollider();
 	CreateAnimator();
 	GetCollider()->SetScale(Vec2(500.f, 430.f));
-	CTexture* idleTex = CResourceManager::GetInst()->LoadTexture(L"PotatoIdleTex", L"texture\\cuphead\\boss\\potato_idle.bmp");//5
-	CTexture* deathTex = CResourceManager::GetInst()->LoadTexture(L"PotatoDeathTex", L"texture\\cuphead\\boss\\potato_death.bmp");//34
-	CTexture* introTex = CResourceManager::GetInst()->LoadTexture(L"PotatoIntroTex", L"texture\\cuphead\\boss\\potato_intro.bmp");//11
-	CTexture* shootTex = CResourceManager::GetInst()->LoadTexture(L"PotatoShootTex", L"texture\\cuphead\\boss\\potato_shoot.bmp");//22
+	CTexture* idleTex = CResourceManager::GetInst()->FindTexture(L"PotatoIdleTex");//5
+	CTexture* deathTex = CResourceManager::GetInst()->FindTexture(L"PotatoDeathTex");//34
+	CTexture* introTex = CResourceManager::GetInst()->FindTexture(L"PotatoIntroTex");//11
+	CTexture* shootTex = CResourceManager::GetInst()->FindTexture(L"PotatoShootTex");//22
 
 	GetAnimator()->CreateAnimation(L"POTATO_IDLE", idleTex, Vec2(0.f,0.f),Vec2(540,456),Vec2(540.f,0.f), m_animatedTime, 5, false);
 	GetAnimator()->CreateAnimation(L"POTATO_DEATH", deathTex, Vec2(0.f, 0.f), Vec2(540, 456), Vec2(540.f, 0.f), m_animatedTime, 34, false);

@@ -15,7 +15,7 @@ CCarrotEyes::CCarrotEyes()
 	SetScale(Vec2(114.f, 100.f));
 	CreateAnimator();
 	
-	CTexture* eyeTex = CResourceManager::GetInst()->LoadTexture(L"CarrotEyeTex", L"texture\\cuphead\\boss\\carrot_eye.bmp");
+	CTexture* eyeTex = CResourceManager::GetInst()->FindTexture(L"CarrotEyeTex");
 
 	GetAnimator()->CreateAnimation(L"CARROT_EYE", eyeTex, Vec2(0.f, 0.f), Vec2(114.f, 100.f), Vec2(114.f, 0.f), 1 / 16.f, 6, false);
 	GetAnimator()->Play(L"CARROT_EYE", true);

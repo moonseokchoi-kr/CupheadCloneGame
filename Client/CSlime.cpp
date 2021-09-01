@@ -26,20 +26,20 @@ CSlime::CSlime()
 	GetCollider()->SetScale(Vec2(220.f, 180.f));	
 
 	float animateTime = 1/15.f;
-	CTexture* lgSlimeAirDownTex = CResourceManager::GetInst()->LoadTexture(L"lgSlimeAirDownTex", L"texture\\cuphead\\boss\\lg_slime_air_down.bmp");
-	CTexture* lgSlimeAirUpTex = CResourceManager::GetInst()->LoadTexture(L"lgSlimeAirUpTex", L"texture\\cuphead\\boss\\lg_slime_air_up.bmp");
-	CTexture* lgSlimeDeathTex = CResourceManager::GetInst()->LoadTexture(L"lgSlimeDeathTex", L"texture\\cuphead\\boss\\lg_slime_death.bmp");
-	CTexture* lgSlimeIdleTex = CResourceManager::GetInst()->LoadTexture(L"lgSlimeIdleTex", L"texture\\cuphead\\boss\\lg_slime_idle.bmp");
-	CTexture* lgSlimeJumpTex = CResourceManager::GetInst()->LoadTexture(L"lgSlimeJumpTex", L"texture\\cuphead\\boss\\lg_slime_jump.bmp");
-	CTexture* lgSlimePunchTex = CResourceManager::GetInst()->LoadTexture(L"lgSlimePunchTex", L"texture\\cuphead\\boss\\lg_slime_punch.bmp");
-	CTexture* lgSlimeTurnPunchTex = CResourceManager::GetInst()->LoadTexture(L"lgSlimeTurnPunchTex", L"texture\\cuphead\\boss\\lg_slime_turn_punch.bmp");
-	CTexture* lgSlimeUpDownTurnTex = CResourceManager::GetInst()->LoadTexture(L"lgSlimeUpDownTurnTex", L"texture\\cuphead\\boss\\lg_slime_Up_Down_Turn.bmp");
-	CTexture* slimeAirTurnTex = CResourceManager::GetInst()->LoadTexture(L"slimeAirTurnTex", L"texture\\cuphead\\boss\\slime_air_up_down_turn.bmp");
-	CTexture* slimeIntroTex = CResourceManager::GetInst()->LoadTexture(L"slimeIntroTex", L"texture\\cuphead\\boss\\slime_intro.bmp");
-	CTexture* slimeMorphTex = CResourceManager::GetInst()->LoadTexture(L"slimeMorphTex", L"texture\\cuphead\\boss\\slime_morph.bmp");
-	CTexture* slimePunchTex = CResourceManager::GetInst()->LoadTexture(L"slimePunchTex", L"texture\\cuphead\\boss\\slime_punch.bmp");
-	CTexture* slimePunchTurnTex = CResourceManager::GetInst()->LoadTexture(L"slimePunchTurnTex", L"texture\\cuphead\\boss\\slime_punch_turn.bmp");
-	CTexture* slimeJumpTex = CResourceManager::GetInst()->LoadTexture(L"slimeJumpTex", L"texture\\cuphead\\boss\\slime_jump.bmp");
+	CTexture* lgSlimeAirDownTex = CResourceManager::GetInst()->FindTexture(L"lgSlimeAirDownTex");
+	CTexture* lgSlimeAirUpTex = CResourceManager::GetInst()->FindTexture(L"lgSlimeAirUpTex");
+	CTexture* lgSlimeDeathTex = CResourceManager::GetInst()->FindTexture(L"lgSlimeDeathTex");
+	CTexture* lgSlimeIdleTex = CResourceManager::GetInst()->FindTexture(L"lgSlimeIdleTex");
+	CTexture* lgSlimeJumpTex = CResourceManager::GetInst()->FindTexture(L"lgSlimeJumpTex");
+	CTexture* lgSlimePunchTex = CResourceManager::GetInst()->FindTexture(L"lgSlimePunchTex");
+	CTexture* lgSlimeTurnPunchTex = CResourceManager::GetInst()->FindTexture(L"lgSlimeTurnPunchTex");
+	CTexture* lgSlimeUpDownTurnTex = CResourceManager::GetInst()->FindTexture(L"lgSlimeUpDownTurnTex");
+	CTexture* slimeAirTurnTex = CResourceManager::GetInst()->FindTexture(L"slimeAirTurnTex");
+	CTexture* slimeIntroTex = CResourceManager::GetInst()->FindTexture(L"slimeIntroTex");
+	CTexture* slimeMorphTex = CResourceManager::GetInst()->FindTexture(L"slimeMorphTex");
+	CTexture* slimePunchTex = CResourceManager::GetInst()->FindTexture(L"slimePunchTex");
+	CTexture* slimePunchTurnTex = CResourceManager::GetInst()->FindTexture(L"slimePunchTurnTex");
+	CTexture* slimeJumpTex = CResourceManager::GetInst()->FindTexture(L"slimeJumpTex");
 
 	GetAnimator()->CreateAnimation(L"LG_SLIME_AIR_DOWN_LEFT", lgSlimeAirDownTex, Vec2(0.f, 0.f), Vec2(1250.f, 568.f), Vec2(1250.f, 0.f), animateTime, 5, false);
 	GetAnimator()->CreateAnimation(L"LG_SLIME_AIR_DOWN_RIGHT", lgSlimeAirDownTex, Vec2(0.f, 568.f), Vec2(1250.f, 568.f), Vec2(1250.f, 0.f), animateTime, 5, true);

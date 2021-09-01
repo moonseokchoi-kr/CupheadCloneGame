@@ -26,8 +26,8 @@ CPeaShootBullet::CPeaShootBullet()
 
 	SetInfo(info);
 
-	CTexture* bulletTex = CResourceManager::GetInst()->LoadTexture(L"PeashootTex", L"texture\\cuphead\\bullet\\peashoot_bullet_direction.bmp");
-	CTexture* bulletDeath = CResourceManager::GetInst()->LoadTexture(L"PeashootDeathTex", L"texture\\cuphead\\bullet\\peashoot_bullet_death.bmp");
+	CTexture* bulletTex = CResourceManager::GetInst()->FindTexture(L"PeashootTex");
+	CTexture* bulletDeath = CResourceManager::GetInst()->FindTexture(L"PeashootDeathTex");
 
 	GetAnimator()->CreateAnimation(L"PEASHOOT_DIRECTION_DOWN_RIGHT_INTRO", bulletTex, Vec2(0.f, 0.f), Vec2(159.f, 140.f), Vec2(159.f, 0.f), 1 / 30.f, 3, false);
 	GetAnimator()->CreateAnimation(L"PEASHOOT_DIRECTION_UP_RIGHT_INTRO", bulletTex, Vec2(0.f, 140.f), Vec2(159.f, 140.f), Vec2(159.f, 0.f), 1 / 30.f, 3, false);

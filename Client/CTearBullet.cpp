@@ -29,8 +29,8 @@ CTearBullet::CTearBullet()
 
 	randomTear();
 
-	CTexture* bulletTex = CResourceManager::GetInst()->LoadTexture(L"TearBulletTex", L"texture\\cuphead\\boss\\onion_tear.bmp");
-	CTexture* deathTex = CResourceManager::GetInst()->LoadTexture(L"TearBulletDeathTex", L"texture\\cuphead\\boss\\onion_tear_death.bmp");
+	CTexture* bulletTex = CResourceManager::GetInst()->FindTexture(L"TearBulletTex");
+	CTexture* deathTex = CResourceManager::GetInst()->FindTexture(L"TearBulletDeathTex");
 
 	GetAnimator()->CreateAnimation(L"A_LOOP", bulletTex, Vec2(0.f, 0.f), Vec2(231.f, 147.f), Vec2(231.f,0.f), 1 / 16.f, 3, false);
 	GetAnimator()->CreateAnimation(L"B_LOOP", bulletTex, Vec2(693.f, 0.f), Vec2(231.f, 147.f), Vec2(231.f,0.f), 1 / 16.f, 3, false);

@@ -37,7 +37,7 @@ CCarrotMissle::CCarrotMissle()
 	info.health = 3;
 	SetInfo(info);
 
-	CTexture* missleTex = CResourceManager::GetInst()->LoadTexture(L"CarrotMissileTex", L"texture\\cuphead\\boss\\carrot_missile.bmp");
+	CTexture* missleTex = CResourceManager::GetInst()->FindTexture(L"CarrotMissileTex");
 	GetAnimator()->CreateAnimation(L"CARROT_MISSILE_DEATH", missleTex, Vec2(0.f, 0.f), Vec2(437.f, 395.f), Vec2(437.f, 0.f), 1 / 16.f, 10, false);
 	GetAnimator()->CreateAnimation(L"CARROT_MISSILE_LOOP", missleTex, Vec2(4370.f , 0.f), Vec2(437.f, 395.f), Vec2(437.f, 0.f), 1 / 16.f, 6, false);
 }

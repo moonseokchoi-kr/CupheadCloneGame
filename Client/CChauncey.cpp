@@ -20,11 +20,11 @@ CChauncey::CChauncey()
 	GetCollider()->SetScale(GetScale());
 
 	
-	CTexture* introTex = CResourceManager::GetInst()->LoadTexture(L"CarrotIntroTex", L"texture\\cuphead\\boss\\carrot_intro.bmp");
-	CTexture* idleTex = CResourceManager::GetInst()->LoadTexture(L"CarrotIdleTex", L"texture\\cuphead\\boss\\carrot_idle.bmp");
-	CTexture* deathTex = CResourceManager::GetInst()->LoadTexture(L"CarrotDeathTex", L"texture\\cuphead\\boss\\carrot_death.bmp");
-	CTexture* shootTex = CResourceManager::GetInst()->LoadTexture(L"CarrotShootTex", L"texture\\cuphead\\boss\\carrot_shoot.bmp");
-	CTexture* transitTex = CResourceManager::GetInst()->LoadTexture(L"CarrotTrasitTex", L"texture\\cuphead\\boss\\carrot_transition.bmp");
+	CTexture* introTex = CResourceManager::GetInst()->FindTexture(L"CarrotIntroTex");
+	CTexture* idleTex = CResourceManager::GetInst()->FindTexture(L"CarrotIdleTex");
+	CTexture* deathTex = CResourceManager::GetInst()->FindTexture(L"CarrotDeathTex");
+	CTexture* shootTex = CResourceManager::GetInst()->FindTexture(L"CarrotShootTex");
+	CTexture* transitTex = CResourceManager::GetInst()->FindTexture(L"CarrotTrasitTex");
 	
 
 	GetAnimator()->CreateAnimation(L"CARROT_INTRO", introTex, Vec2(0.f, 0.f), Vec2(595.f, 552.f), Vec2(595.f, 0.f), 1 / 16.f, 25, false);

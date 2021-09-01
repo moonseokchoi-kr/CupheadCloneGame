@@ -12,7 +12,7 @@ CPlayerHpUI::CPlayerHpUI()
 {
 	SetScale(Vec2(78.f, 32.f));
 	SetPos(Vec2(80.f, 700.f));
-	m_tex = CResourceManager::GetInst()->LoadTexture(L"PlayerHpTex", L"texture\\cuphead\\ui\\hp_sprite.bmp");
+	m_tex = CResourceManager::GetInst()->FindTexture(L"PlayerHpTex");
 }
 
 CPlayerHpUI::~CPlayerHpUI()

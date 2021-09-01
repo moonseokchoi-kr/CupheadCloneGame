@@ -198,9 +198,6 @@
     <Filter Include="Engine\Object\Monster\Sal Spudder">
       <UniqueIdentifier>{8e82dfb1-1f2b-46b0-842a-4688bfa718db}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Object\Monster\CagneyCarnation">
-      <UniqueIdentifier>{c3505bb6-da28-4d88-9028-bc9473518324}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Module\AI\State\AttackState\Sal Spudder">
       <UniqueIdentifier>{aa484264-79d1-41c9-b51e-081a44a0a1ea}</UniqueIdentifier>
     </Filter>
@@ -290,6 +287,15 @@
     </Filter>
     <Filter Include="Engine\Object\UI\PlayerUI">
       <UniqueIdentifier>{f414d6eb-7abd-4c02-9e87-c2e144702548}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Resource\Sound">
+      <UniqueIdentifier>{fef27e82-2491-481b-b946-683c398502f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Manager\SoundManager">
+      <UniqueIdentifier>{6be3b7bc-cbb7-440d-b92f-0137096471f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Object\Monster\Slime">
+      <UniqueIdentifier>{c3505bb6-da28-4d88-9028-bc9473518324}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -526,7 +532,7 @@
       <Filter>Engine\Module\AI\State\IdleState\Ollie</Filter>
     </ClInclude>
     <ClInclude Include="CSlime.h">
-      <Filter>Engine\Object\Monster\CagneyCarnation</Filter>
+      <Filter>Engine\Object\Monster\Slime</Filter>
     </ClInclude>
     <ClInclude Include="CTearBullet.h">
       <Filter>Engine\Object\Bullet\Monster\Olle</Filter>
@@ -596,6 +602,12 @@
     </ClInclude>
     <ClInclude Include="CPlayerWeaponUI.h">
       <Filter>Engine\Object\UI\PlayerUI</Filter>
+    </ClInclude>
+    <ClInclude Include="CSoundManager.h">
+      <Filter>Engine\Manager\SoundManager</Filter>
+    </ClInclude>
+    <ClInclude Include="CSound.h">
+      <Filter>Engine\Resource\Sound</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -828,7 +840,7 @@
       <Filter>Engine\Module\AI\State\IdleState\Ollie</Filter>
     </ClCompile>
     <ClCompile Include="CSlime.cpp">
-      <Filter>Engine\Object\Monster\CagneyCarnation</Filter>
+      <Filter>Engine\Object\Monster\Slime</Filter>
     </ClCompile>
     <ClCompile Include="CPlayerHitState.cpp">
       <Filter>Engine\Object\Player\StateMachine\State\HitState</Filter>
@@ -895,6 +907,12 @@
     </ClCompile>
     <ClCompile Include="CPlayerWeaponUI.cpp">
       <Filter>Engine\Object\UI\PlayerUI</Filter>
+    </ClCompile>
+    <ClCompile Include="CSoundManager.cpp">
+      <Filter>Engine\Manager\SoundManager</Filter>
+    </ClCompile>
+    <ClCompile Include="CSound.cpp">
+      <Filter>Engine\Resource\Sound</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

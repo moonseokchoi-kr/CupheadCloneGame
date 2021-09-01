@@ -29,7 +29,7 @@ CBeamMissile::CBeamMissile()
 	info.range = 1600;
 	SetInfo(info);
 
-	CTexture* beamTex = CResourceManager::GetInst()->LoadTexture(L"CarrotBeamTex", L"texture\\cuphead\\boss\\carrot_beam.bmp");
+	CTexture* beamTex = CResourceManager::GetInst()->FindTexture(L"CarrotBeamTex");
 	GetAnimator()->CreateAnimation(L"CARROT_BEAM_DEATH",beamTex,Vec2(0.f,0.f), Vec2(173.f,178.f),Vec2(173.f,0.f),1/16.f, 3, false);
 	GetAnimator()->CreateAnimation(L"CARROT_BEAM_INTRO",beamTex,Vec2(519.f,0.f), Vec2(173.f,178.f),Vec2(173.f,0.f),1/16.f, 7, false);
 	GetAnimator()->CreateAnimation(L"CARROT_BEAM_LOOP",beamTex,Vec2(1730.f,0.f), Vec2(173.f,178.f),Vec2(173.f,0.f),1/16.f, 5, false);

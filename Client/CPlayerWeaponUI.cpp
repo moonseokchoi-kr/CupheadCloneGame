@@ -15,7 +15,7 @@ CPlayerWeaponUI::CPlayerWeaponUI()
 	,m_accTime(0.f)
 	,m_bulletType(BULLET_TYPE::END)
 {
-	CTexture* weaponUITex = CResourceManager::GetInst()->LoadTexture(L"weaponUITex", L"texture\\cuphead\\ui\\equip_wepon_sprite.bmp");
+	CTexture* weaponUITex = CResourceManager::GetInst()->FindTexture(L"weaponUITex");
 	CreateAnimator();
 	GetAnimator()->CreateAnimation(L"CHASER_UI", weaponUITex, Vec2(0.f, 0.f), Vec2(80.f, 80.f), Vec2(80.f, 0.f), 1 / 30.f, 3, false);
 	GetAnimator()->CreateAnimation(L"PEASHOOT_UI", weaponUITex, Vec2(240.f, 0.f), Vec2(80.f, 80.f), Vec2(80.f, 0.f), 1 / 30.f, 3, false);

@@ -8,7 +8,7 @@
 CHomingBulletTraile::CHomingBulletTraile()
 	:m_owner(nullptr)
 {
-	CTexture* trailTex = CResourceManager::GetInst()->LoadTexture(L"TrailTex", L"texture\\cuphead\\bullet\\homing_bulle_trailt.bmp");
+	CTexture* trailTex = CResourceManager::GetInst()->FindTexture(L"TrailTex");
 	//80,69
 	CreateAnimator();
 	GetAnimator()->CreateAnimation(L"HOMING_BULLET_TRAIL", trailTex, Vec2(0.f, 0.f), Vec2(80.f, 69.f), Vec2(80.f, 0.f), 1 / 30.f, 12, false);

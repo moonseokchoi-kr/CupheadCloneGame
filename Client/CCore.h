@@ -39,7 +39,7 @@ public:
 	void Clear();
 private:
 	void changeWindowSize(Vec2 _resolution, bool _isDock);
-	
+	void loadResource();
 private:
 	HWND	m_hWnd;//시스템 id
 	POINT	m_ptResolution;//창 해상도

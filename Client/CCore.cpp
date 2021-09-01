@@ -12,7 +12,7 @@
 #include "CResourceManager.h"
 #include "CGameObjectManager.h"
 #include "CTexture.h"
-
+#include "CSoundManager.h"
 
 #include "resource.h"
 #include "SelectGDI.h"
@@ -57,11 +57,13 @@ int CCore::InitCore(HWND _hwnd, POINT _resolution)
 	CTimeManager::GetInst()->Init();
 	CPathManager::GetInst()->Init();
 	CCamera::GetInst()->Init();
+	CSoundManager::GetInst()->init();
 	CSceneManager::GetInst()->Init();
 	
 
 	CreateBrushPen();
 	
+	loadResource();
 	return S_OK;
 }
 
@@ -153,6 +155,92 @@ void CCore::changeWindowSize(Vec2 _resolution, bool _isDock)
 	AdjustWindowRect(&rt, WS_OVERLAPPEDWINDOW, _isDock);
 	//윈도우 창위치 설정, 크기설정
 	SetWindowPos(m_hWnd, nullptr, m_ptMonitorResolution.x / 2 - _resolution.x / 2, m_ptMonitorResolution.y / 2 - _resolution.y / 2, rt.right - rt.left, rt.bottom - rt.top, 0);
+}
+
+void CCore::loadResource()
+{
+	//Texture resource Load
+	CResourceManager::GetInst()->LoadTexture(L"CarrotBeamTex", L"texture\\cuphead\\boss\\carrot_beam.bmp");
+	CResourceManager::GetInst()->LoadTexture(L"CarrotMissileTex", L"texture\\cuphead\\boss\\carrot_missile.bmp");
+
+	CResourceManager::GetInst()->LoadTexture(L"TearBulletTex", L"texture\\cuphead\\boss\\onion_tear.bmp");
+	CResourceManager::GetInst()->LoadTexture(L"TearBulletDeathTex", L"texture\\cuphead\\boss\\onion_tear_death.bmp");
+
+	CResourceManager::GetInst()->LoadTexture(L"PotatoDustBullet", L"texture\\cuphead\\boss\\potato_bullet_dust.bmp");
+	CResourceManager::GetInst()->LoadTexture(L"PotatoWormBullet", L"texture\\cuphead\\boss\\potato_bullet_worm.bmp");
+
+	CResourceManager::GetInst()->LoadTexture(L"HomingBulletTex", L"texture\\cuphead\\bullet\\homing_bullet.bmp");
+	CResourceManager::GetInst()->LoadTexture(L"HomingBulletDeathTex", L"texture\\cuphead\\bullet\\homing_bullet_death.bmp");
+	CResourceManager::GetInst()->LoadTexture(L"TrailTex", L"texture\\cuphead\\bullet\\homing_bulle_trailt.bmp");
+
+	CResourceManager::GetInst()->LoadTexture(L"PeashootTex", L"texture\\cuphead\\bullet\\peashoot_bullet_direction.bmp");
+	CResourceManager::GetInst()->LoadTexture(L"PeashootDeathTex", L"texture\\cuphead\\bullet\\peashoot_bullet_death.bmp");
+
+	CResourceManager::GetInst()->LoadTexture(L"VeggieBackgroundTex", L"texture\\cuphead\\background\\veggie_background.bmp");
+	CResourceManager::GetInst()->LoadTexture(L"SlimeBackgroundTex", L"texture\\cuphead\\background\\slime_baground.bmp");
+	CResourceManager::GetInst()->LoadTexture(L"TitleBackgroundTex", L"texture\\cuphead\\background\\title_menu.bmp");
+	CResourceManager::GetInst()->LoadTexture(L"PauseBackgroundTex", L"texture\\cuphead\\background\\pause_menu.bmp");
+
+	CResourceManager::GetInst()->LoadTexture(L"botanic_foreground_1", L"texture\\cuphead\\foreground\\botanic_foreground_1.bmp");
+	CResourceManager::GetInst()->LoadTexture(L"botanic_foreground_2", L"texture\\cuphead\\foreground\\botanic_foreground_2.bmp");
+	CResourceManager::GetInst()->LoadTexture(L"slime_bg_fg_mushrooms_1", L"texture\\cuphead\\foreground\\slime_bg_fg_mushrooms_left.bmp");
+	CResourceManager::GetInst()->LoadTexture(L"slime_bg_fg_mushrooms_2", L"texture\\cuphead\\foreground\\slime_bg_fg_mushrooms_right.bmp");
+	
+	CResourceManager::GetInst()->LoadTexture(L"platform_propeller", L"texture\\cuphead\\obj\\PropellerSprite.bmp");
+	CResourceManager::GetInst()->LoadTexture(L"platform", L"texture\\cuphead\\obj\\PlatformSprite.bmp");
+	
+	CResourceManager::GetInst()->LoadTexture(L"lgSlimeAirDownTex", L"texture\\cuphead\\boss\\lg_slime_air_down.bmp");
+	CResourceManager::GetInst()->LoadTexture(L"lgSlimeAirUpTex", L"texture\\cuphead\\boss\\lg_slime_air_up.bmp");
+	CResourceManager::GetInst()->LoadTexture(L"lgSlimeDeathTex", L"texture\\cuphead\\boss\\lg_slime_death.bmp");
+	CResourceManager::GetInst()->LoadTexture(L"lgSlimeIdleTex", L"texture\\cuphead\\boss\\lg_slime_idle.bmp");
+	CResourceManager::GetInst()->LoadTexture(L"lgSlimeJumpTex", L"texture\\cuphead\\boss\\lg_slime_jump.bmp");
+	CResourceManager::GetInst()->LoadTexture(L"lgSlimePunchTex", L"texture\\cuphead\\boss\\lg_slime_punch.bmp");
+	CResourceManager::GetInst()->LoadTexture(L"lgSlimeTurnPunchTex", L"texture\\cuphead\\boss\\lg_slime_turn_punch.bmp");
+	CResourceManager::GetInst()->LoadTexture(L"lgSlimeUpDownTurnTex", L"texture\\cuphead\\boss\\lg_slime_Up_Down_Turn.bmp");
+	CResourceManager::GetInst()->LoadTexture(L"slimeAirTurnTex", L"texture\\cuphead\\boss\\slime_air_up_down_turn.bmp");
+	CResourceManager::GetInst()->LoadTexture(L"slimeIntroTex", L"texture\\cuphead\\boss\\slime_intro.bmp");
+	CResourceManager::GetInst()->LoadTexture(L"slimeMorphTex", L"texture\\cuphead\\boss\\slime_morph.bmp");
+	CResourceManager::GetInst()->LoadTexture(L"slimePunchTex", L"texture\\cuphead\\boss\\slime_punch.bmp");
+	CResourceManager::GetInst()->LoadTexture(L"slimePunchTurnTex", L"texture\\cuphead\\boss\\slime_punch_turn.bmp");
+	CResourceManager::GetInst()->LoadTexture(L"slimeJumpTex", L"texture\\cuphead\\boss\\slime_jump.bmp");
+	
+	CResourceManager::GetInst()->LoadTexture(L"CarrotEyeTex", L"texture\\cuphead\\boss\\carrot_eye.bmp");
+	CResourceManager::GetInst()->LoadTexture(L"CarrotIntroTex", L"texture\\cuphead\\boss\\carrot_intro.bmp");
+	CResourceManager::GetInst()->LoadTexture(L"CarrotIdleTex", L"texture\\cuphead\\boss\\carrot_idle.bmp");
+	CResourceManager::GetInst()->LoadTexture(L"CarrotDeathTex", L"texture\\cuphead\\boss\\carrot_death.bmp");
+	CResourceManager::GetInst()->LoadTexture(L"CarrotShootTex", L"texture\\cuphead\\boss\\carrot_shoot.bmp");
+	CResourceManager::GetInst()->LoadTexture(L"CarrotTrasitTex", L"texture\\cuphead\\boss\\carrot_transition.bmp");
+	
+	CResourceManager::GetInst()->LoadTexture(L"OnionIntroTex", L"texture\\cuphead\\boss\\onion_intro.bmp");
+	CResourceManager::GetInst()->LoadTexture(L"OnionIdleTex", L"texture\\cuphead\\boss\\onion_idle.bmp");
+	CResourceManager::GetInst()->LoadTexture(L"OnionCryingTex", L"texture\\cuphead\\boss\\onion_crying.bmp");
+	CResourceManager::GetInst()->LoadTexture(L"OnionDeathTex", L"texture\\cuphead\\boss\\onion_death.bmp");
+	CResourceManager::GetInst()->LoadTexture(L"PotatoIdleTex", L"texture\\cuphead\\boss\\potato_idle.bmp");//5
+	CResourceManager::GetInst()->LoadTexture(L"PotatoDeathTex", L"texture\\cuphead\\boss\\potato_death.bmp");//34
+	CResourceManager::GetInst()->LoadTexture(L"PotatoIntroTex", L"texture\\cuphead\\boss\\potato_intro.bmp");//11
+	CResourceManager::GetInst()->LoadTexture(L"PotatoShootTex", L"texture\\cuphead\\boss\\potato_shoot.bmp");//22
+
+	CResourceManager::GetInst()->LoadTexture(L"PlayerIdleTex", L"texture\\cuphead\\player\\player_idle.bmp");
+	CResourceManager::GetInst()->LoadTexture(L"PlayerIntroTex", L"texture\\cuphead\\player\\player_intro.bmp");
+	CResourceManager::GetInst()->LoadTexture(L"PlayerDeathTex", L"texture\\cuphead\\player\\player_death.bmp");
+	CResourceManager::GetInst()->LoadTexture(L"PlayerRunTurnTex", L"texture\\cuphead\\player\\player_turn.bmp");
+	CResourceManager::GetInst()->LoadTexture(L"PlayerDucKTex", L"texture\\cuphead\\player\\player_duck.bmp");
+
+	CResourceManager::GetInst()->LoadTexture(L"PlayerNormalRunTex", L"texture\\cuphead\\player\\player_run.bmp");
+
+	CResourceManager::GetInst()->LoadTexture(L"PlayerAimTex", L"texture\\cuphead\\player\\player_aim.bmp");
+	CResourceManager::GetInst()->LoadTexture(L"PlayerDashTex", L"texture\\cuphead\\player\\player_dash.bmp");
+
+	CResourceManager::GetInst()->LoadTexture(L"PlayerShootTex", L"texture\\cuphead\\player\\player_shoot.bmp");
+	CResourceManager::GetInst()->LoadTexture(L"PlayerExShootTex", L"texture\\cuphead\\player\\player_ex_shoot.bmp");
+	CResourceManager::GetInst()->LoadTexture(L"PlayerExShootAirTex", L"texture\\cuphead\\player\\player_ex_shoot_air.bmp");
+
+	CResourceManager::GetInst()->LoadTexture(L"PlayerJumpTex", L"texture\\cuphead\\player\\player_jump.bmp");
+	CResourceManager::GetInst()->LoadTexture(L"PlayerHitTex", L"texture\\cuphead\\player\\player_hit.bmp");
+
+	CResourceManager::GetInst()->LoadTexture(L"MenuButtonTex", L"texture\\cuphead\\ui\\text_sprite.bmp");
+	CResourceManager::GetInst()->LoadTexture(L"PlayerHpTex", L"texture\\cuphead\\ui\\hp_sprite.bmp");
+	CResourceManager::GetInst()->LoadTexture(L"weaponUITex", L"texture\\cuphead\\ui\\equip_wepon_sprite.bmp");
 }
 
 void CCore::Clear()

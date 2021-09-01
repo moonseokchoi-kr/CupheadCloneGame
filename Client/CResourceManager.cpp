@@ -2,6 +2,7 @@
 #include "CResourceManager.h"
 #include "CPathManager.h"
 #include "CTexture.h"
+#include "CSound.h"
 CResourceManager::CResourceManager()
 {
 
@@ -27,7 +28,7 @@ CTexture* CResourceManager::LoadTexture(const wstring& _key, const wstring& _rel
 	tex->Load(contentPath);
 
 	tex->SetKey(_key);
-	tex->SetRelateivePath(_relativePath);
+	tex->SetRelativePath(_relativePath);
 
 	m_mapTex.insert(make_pair(_key, tex));
 	return tex;
@@ -60,4 +61,40 @@ CTexture* CResourceManager::FindTexture(const wstring& _key)
 		return nullptr;
 	}
 	return (CTexture*)iter->second;
+}
+
+CSound* CResourceManager::LoadSound(const wstring& _strKey, const wstring& _strRelativePath)
+{
+	assert(nullptr == FindSound(_strKey));
+
+	CSound* pSound = new CSound;
+
+	wstring strFilePath = CPathManager::GetInst()->GetContentPath();
+	strFilePath += _strRelativePath;
+	HRESULT hr = pSound->Load(strFilePath.c_str());
+
+	if (FAILED(hr))
+	{
+		MessageBox(nullptr, L"Sound 로딩 실패!!!", L"리소스 로딩 실패", MB_OK);
+		delete pSound;
+		return nullptr;
+	}
+
+	pSound->SetKey(_strKey);
+	pSound->SetRelativePath(_strRelativePath);
+
+	// map 에 등록
+	m_mapSound.insert(make_pair(_strKey, pSound));
+
+	return pSound;
+}
+
+CSound* CResourceManager::FindSound(const wstring& _strKey)
+{
+	unordered_map<wstring, CResource*>::iterator iter = m_mapSound.find(_strKey);
+
+	if (iter == m_mapSound.end())
+		return nullptr;
+
+	return (CSound*)iter->second;
 }

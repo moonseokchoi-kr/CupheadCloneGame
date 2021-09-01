@@ -28,8 +28,8 @@ CSalBullet::CSalBullet()
 	SetInfo(info);
 	SetName(L"MonsterBullet");
 
-	CTexture* dustBullet = CResourceManager::GetInst()->LoadTexture(L"PotatoDustBullet", L"texture\\cuphead\\boss\\potato_bullet_dust.bmp");
-	CTexture* wormBullet = CResourceManager::GetInst()->LoadTexture(L"PotatoWormBullet", L"texture\\cuphead\\boss\\potato_bullet_worm.bmp");
+	CTexture* dustBullet = CResourceManager::GetInst()->FindTexture(L"PotatoDustBullet");
+	CTexture* wormBullet = CResourceManager::GetInst()->FindTexture(L"PotatoWormBullet");
 
 	GetAnimator()->CreateAnimation(L"POTATO_DUST_BULLET_LOOP", dustBullet, Vec2(0.f, 0.f), Vec2(350.f, 327.f), Vec2(350.f, 0.f), 1 / 16.f, 8, false);
 	GetAnimator()->CreateAnimation(L"POTATO_DUST_BULLET_DEATH", dustBullet, Vec2(2800.f, 0.f), Vec2(350.f, 327.f), Vec2(350.f, 0.f), 1 / 16.f, 7, false);

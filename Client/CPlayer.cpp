@@ -49,23 +49,23 @@ CPlayer::CPlayer()
 	//526 230
 	GetCollider()->SetScale(Vec2(80.f, 120.f));
 	GetCollider()->SetOffsetPos(Vec2(0.f, 50.f));
-	CTexture* idle_tex = CResourceManager::GetInst()->LoadTexture(L"PlayerIdleTex", L"texture\\cuphead\\player\\player_idle.bmp");
-	CTexture* intro_tex = CResourceManager::GetInst()->LoadTexture(L"PlayerIntroTex", L"texture\\cuphead\\player\\player_intro.bmp");
-	CTexture* death_tex = CResourceManager::GetInst()->LoadTexture(L"PlayerDeathTex", L"texture\\cuphead\\player\\player_death.bmp");
-	CTexture* turn_tex = CResourceManager::GetInst()->LoadTexture(L"PlayerRunTurnTex", L"texture\\cuphead\\player\\player_turn.bmp");
-	CTexture* duck_tex = CResourceManager::GetInst()->LoadTexture(L"PlayerDucKTex", L"texture\\cuphead\\player\\player_duck.bmp");
+	CTexture* idle_tex = CResourceManager::GetInst()->FindTexture(L"PlayerIdleTex");
+	CTexture* intro_tex = CResourceManager::GetInst()->FindTexture(L"PlayerIntroTex");
+	CTexture* death_tex = CResourceManager::GetInst()->FindTexture(L"PlayerDeathTex");
+	CTexture* turn_tex = CResourceManager::GetInst()->FindTexture(L"PlayerRunTurnTex");
+	CTexture* duck_tex = CResourceManager::GetInst()->FindTexture(L"PlayerDucKTex");
 	
-	CTexture* run_tex = CResourceManager::GetInst()->LoadTexture(L"PlayerNormalRunTex", L"texture\\cuphead\\player\\player_run.bmp");
+	CTexture* run_tex = CResourceManager::GetInst()->FindTexture(L"PlayerNormalRunTex");
 
-	CTexture* aim_tex = CResourceManager::GetInst()->LoadTexture(L"PlayerAimTex", L"texture\\cuphead\\player\\player_aim.bmp");
-	CTexture* dash_tex = CResourceManager::GetInst()->LoadTexture(L"PlayerDashTex", L"texture\\cuphead\\player\\player_dash.bmp");
+	CTexture* aim_tex = CResourceManager::GetInst()->FindTexture(L"PlayerAimTex");
+	CTexture* dash_tex = CResourceManager::GetInst()->FindTexture(L"PlayerDashTex");
 
-	CTexture* shoot_tex = CResourceManager::GetInst()->LoadTexture(L"PlayerShootTex", L"texture\\cuphead\\player\\player_shoot.bmp");
-	CTexture* exShoot_tex = CResourceManager::GetInst()->LoadTexture(L"PlayerExShootTex", L"texture\\cuphead\\player\\player_ex_shoot.bmp");
-	CTexture* exShootAir_tex = CResourceManager::GetInst()->LoadTexture(L"PlayerExShootAirTex", L"texture\\cuphead\\player\\player_ex_shoot_air.bmp");
+	CTexture* shoot_tex = CResourceManager::GetInst()->FindTexture(L"PlayerShootTex");
+	CTexture* exShoot_tex = CResourceManager::GetInst()->FindTexture(L"PlayerExShootTex");
+	CTexture* exShootAir_tex = CResourceManager::GetInst()->FindTexture(L"PlayerExShootAirTex");
 
-	CTexture* jump_tex = CResourceManager::GetInst()->LoadTexture(L"PlayerJumpTex", L"texture\\cuphead\\player\\player_jump.bmp");
-	CTexture* hit_tex = CResourceManager::GetInst()->LoadTexture(L"PlayerHitTex", L"texture\\cuphead\\player\\player_hit.bmp");
+	CTexture* jump_tex = CResourceManager::GetInst()->FindTexture(L"PlayerJumpTex");
+	CTexture* hit_tex = CResourceManager::GetInst()->FindTexture(L"PlayerHitTex");
 
 	CreateAnimator();
 	CreateRigidBody();

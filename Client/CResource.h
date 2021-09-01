@@ -13,9 +13,8 @@ public:
 	CResource();
 	virtual ~CResource();
 public:
-	virtual bool Load(const wstring& _path) = 0;
 	void SetKey(const wstring& _key) { m_resourceKey = _key; }
-	void SetRelateivePath(const wstring& _path) { m_relativePath = _path; }
+	void SetRelativePath(const wstring& _path) { m_relativePath = _path; }
 
 	const wstring& GetKey() { return m_resourceKey; }
 	const wstring& GetRelativePath() { return m_relativePath; }

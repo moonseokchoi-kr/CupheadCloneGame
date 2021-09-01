@@ -8,7 +8,7 @@ CMenuButtonUI::CMenuButtonUI()
 	, m_heigth(78)
 	, m_index(0)
 {
-	m_tex = CResourceManager::GetInst()->LoadTexture(L"MenuButtonTex", L"texture\\cuphead\\ui\\text_sprite.bmp");
+	m_tex = CResourceManager::GetInst()->FindTexture(L"MenuButtonTex");
 }
 
 CMenuButtonUI::~CMenuButtonUI()

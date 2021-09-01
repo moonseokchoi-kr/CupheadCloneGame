@@ -8,11 +8,6 @@
 
 CForeGround::CForeGround()
 {
-	CResourceManager::GetInst()->LoadTexture(L"botanic_foreground_1", L"texture\\cuphead\\foreground\\botanic_foreground_1.bmp");
-	CResourceManager::GetInst()->LoadTexture(L"botanic_foreground_2", L"texture\\cuphead\\foreground\\botanic_foreground_2.bmp");
-	CResourceManager::GetInst()->LoadTexture(L"slime_bg_fg_mushrooms_1", L"texture\\cuphead\\foreground\\slime_bg_fg_mushrooms_left.bmp");
-	CResourceManager::GetInst()->LoadTexture(L"slime_bg_fg_mushrooms_2", L"texture\\cuphead\\foreground\\slime_bg_fg_mushrooms_right.bmp");
-
 	m_foreGroundArray[TYPE_NUMBER(FOREGROUND_TYPE::BOTANIC_PLANT)] = L"botanic_foreground_1";
 	m_foreGroundArray[TYPE_NUMBER(FOREGROUND_TYPE::BOTANIC_PENSE)] = L"botanic_foreground_2";
 	m_foreGroundArray[TYPE_NUMBER(FOREGROUND_TYPE::SLIME_MUSHROOM_LEFT)] = L"slime_bg_fg_mushrooms_1";

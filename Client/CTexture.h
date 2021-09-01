@@ -8,8 +8,8 @@ public:
     ~CTexture();
 public:
     // CResource을(를) 통해 상속됨
-    virtual bool Load(const wstring& _path) override;
-    void Create(UINT _width, UINT _height);
+    bool Load(const wstring& _path);
+	void Create(UINT _width, UINT _height);
     UINT Width() { return m_bitMapInfo.bmWidth; }
     UINT Height() { return m_bitMapInfo.bmHeight; }
 

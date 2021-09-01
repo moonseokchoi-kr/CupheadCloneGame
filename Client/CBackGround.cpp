@@ -34,10 +34,6 @@ CBackGround::CBackGround(bool _b)
 
 
 {
-	CResourceManager::GetInst()->LoadTexture(L"VeggieBackgroundTex", L"texture\\cuphead\\background\\veggie_background.bmp");
-	CResourceManager::GetInst()->LoadTexture(L"SlimeBackgroundTex", L"texture\\cuphead\\background\\slime_baground.bmp");
-	CResourceManager::GetInst()->LoadTexture(L"TitleBackgroundTex", L"texture\\cuphead\\background\\title_menu.bmp");
-	CResourceManager::GetInst()->LoadTexture(L"PauseBackgroundTex", L"texture\\cuphead\\background\\pause_menu.bmp");
 	m_backGroundArray[TYPE_NUMBER(BACKGROUND_TYPE::SLIME_BACKGROUND)] = L"SlimeBackgroundTex";
 	m_backGroundArray[TYPE_NUMBER(BACKGROUND_TYPE::VEGGIE_BACKGROUND)] = L"VeggieBackgroundTex";
 	m_backGroundArray[TYPE_NUMBER(BACKGROUND_TYPE::TITLE)] = L"TitleBackgroundTex";

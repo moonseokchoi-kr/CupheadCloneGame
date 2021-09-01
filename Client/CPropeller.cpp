@@ -12,7 +12,7 @@ CPropeller::CPropeller()
 	:m_parent(nullptr)
 {
 	CreateAnimator();
-	CTexture* tex = CResourceManager::GetInst()->LoadTexture(L"platform_propeller", L"texture\\cuphead\\obj\\PropellerSprite.bmp");
+	CTexture* tex = CResourceManager::GetInst()->FindTexture(L"platform_propeller");
 	GetAnimator()->CreateAnimation(L"platform_propeller_anim", tex, Vec2(0, 0), Vec2(117, 39), Vec2(117, 0), 0.15f, 9, false);
 	GetAnimator()->Play(L"platform_propeller_anim", true);
 	

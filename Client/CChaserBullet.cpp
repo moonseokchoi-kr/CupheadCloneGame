@@ -31,8 +31,8 @@ CChaserBullet::CChaserBullet()
 	info.health = 3;
 	SetInfo(info);
 
-	CTexture* homingTex = CResourceManager::GetInst()->LoadTexture(L"HomingBulletTex", L"texture\\cuphead\\bullet\\homing_bullet.bmp");
-	CTexture* homingDeathTex= CResourceManager::GetInst()->LoadTexture(L"HomingBulletDeathTex", L"texture\\cuphead\\bullet\\homing_bullet_death.bmp");
+	CTexture* homingTex = CResourceManager::GetInst()->FindTexture(L"HomingBulletTex");
+	CTexture* homingDeathTex= CResourceManager::GetInst()->FindTexture(L"HomingBulletDeathTex");
 	GetAnimator()->CreateAnimation(L"CHASER_LOOP", homingTex, Vec2(0.f, 0.f), Vec2(51.f, 54.f), Vec2(51.f, 0.f), 1 / 30.f, 8, false);
 	GetAnimator()->CreateAnimation(L"CHASER_DEATH", homingDeathTex, Vec2(0.f, 0.f), Vec2(95.f, 109.f), Vec2(95.f, 0.f), 1 / 30.f, 4, false);
 
