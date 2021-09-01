@@ -4,6 +4,8 @@
 #include "CCollider.h"
 #include "CRigidBody.h"
 #include "CTimeManager.h"
+#include "CResourceManager.h"
+#include "CSound.h"
 CBullet::CBullet(BULLET_TYPE _type)
 	:m_bulletType(_type)
 	,m_attackBox(nullptr)
@@ -62,7 +64,12 @@ void CBullet::OnCollision(CCollider* _col)
 
 void CBullet::OnCollisionExit(CCollider* _col)
 {
+	
+}
 
+void CBullet::SetSFX(const wstring& _name)
+{
+	m_sfx = CResourceManager::GetInst()->FindSound(_name);
 }
 
 void CBullet::DeleteBullet()

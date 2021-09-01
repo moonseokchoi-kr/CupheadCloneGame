@@ -2,6 +2,8 @@
 #include "CButtonUI.h"
 #include "CTexture.h"
 #include "CCamera.h"
+#include "CSound.h"
+#include "CResourceManager.h"
 CButtonUI::CButtonUI(bool _cameraAffeted)
 	:CUI(_cameraAffeted)
 	,m_callBackFuction(nullptr)
@@ -9,6 +11,7 @@ CButtonUI::CButtonUI(bool _cameraAffeted)
 	,m_param2(0)
 	,m_tex(nullptr)
 {
+	m_sfx = CResourceManager::GetInst()->FindSound(L"PLAYER_MENU_SELECT");
 }
 
 CButtonUI::~CButtonUI()
@@ -73,6 +76,9 @@ void CButtonUI::MouseLButtonClicked()
 	}
 	if (m_sceneInst && m_sceneFunction)
 	{
+		m_sfx->Play(false);
+		m_sfx->SetPosition(50.f);
+		m_sfx->SetVolume(100.f);
 		((*m_sceneInst).*m_sceneFunction)();
 	}
 	if (m_sceneInst && m_sceneIntFunction)
@@ -81,6 +87,9 @@ void CButtonUI::MouseLButtonClicked()
 	}
 	if (nullptr != m_sceneTypeFunction)
 	{
+		m_sfx->Play(false);
+		m_sfx->SetPosition(50.f);
+		m_sfx->SetVolume(100.f);
 		m_sceneTypeFunction((SCENE_TYPE)m_param1);
 	}
 }

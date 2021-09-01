@@ -20,11 +20,12 @@ public:
     Vec2 GetOffset() { return m_offset; }
     void SetOffset(Vec2 _v) { m_offset = _v; }
     ATTACK_PATT GetCurrentPatt() { return m_currentAttackPatt; }
+    void SetCurrentPatt(ATTACK_PATT _patt) { m_currentAttackPatt = _patt; }
     Vec2 GetTargetDiff();
 public:
     Vec2 m_offset;
     float m_attackCount;
-    Vec2 m_diff;
+    
     ATTACK_PATT m_currentAttackPatt;
 };
 

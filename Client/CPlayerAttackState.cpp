@@ -5,10 +5,10 @@
 #include "CPlayer.h"
 #include "CRigidBody.h"
 #include "CGravity.h"
-#include "CAttackBox.h"
+#include "CPlayerAttackBox.h"
 #include "CAnimation.h"
+#include "CSound.h"
 #include "CAnimator.h"
-
 #include "CKeyManager.h"
 #include "CCamera.h"
 CPlayerAttackState::CPlayerAttackState()
@@ -42,6 +42,7 @@ void CPlayerAttackState::Enter()
 
 void CPlayerAttackState::Exit()
 {
+	
 }
 
 void CPlayerAttackState::Update()
@@ -51,8 +52,9 @@ void CPlayerAttackState::Update()
 	if(m_subState != PLAYER_STATE::EX_ATTACK)
 		GetPlayer()->UpdateMove();
 	updateAnimation();
-	if ((KEY_AWAY(KEY::Z) || KEY_NONE(KEY::Z)) &&(KEY_AWAY(KEY::V) || KEY_NONE(KEY::V)))
+	if (KEY_AWAY(KEY::Z) || KEY_NONE(KEY::Z))
 	{
+		GetPlayer()->GetAttackBox()->GetSFX()->Stop(true);
 		ChangePlayerState(GetAI(), GetAI()->GetPrevState()->GetState());
 	}
 	playerInfo info = GetPlayer()->GetInfo();

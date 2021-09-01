@@ -6,6 +6,7 @@
 #include "CMonsterFactory.h"
 #include "CPlayer.h"
 #include "CColliderManager.h"
+#include "CSound.h"
 #include "CSpawnObject.h"
 #include "CKeyManager.h"
 CStageScene_01::CStageScene_01()
@@ -27,15 +28,20 @@ void CStageScene_01::Enter()
 	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::GROUND, GROUP_TYPE::PLAYER);
 	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::GROUND, GROUP_TYPE::BOSS);
 	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::PLATFORM_OBJ, GROUP_TYPE::PLAYER);
-	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::BOSS, GROUP_TYPE::PLAYER);
 	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::MONSTER_ATTACKBOX, GROUP_TYPE::PLAYER);
 	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::PLAYER_BULLET, GROUP_TYPE::GROUND);
 	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::PLAYER_BULLET, GROUP_TYPE::MONSTER_BULLET);
 	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::PLAYER_BULLET, GROUP_TYPE::MONSTER_HITBOX);
 	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::PLAYER_HITBOX, GROUP_TYPE::MONSTER_BULLET);
 	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::PLAYER_HITBOX, GROUP_TYPE::MONSTER_HITBOX);
+	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::PLAYER_HITBOX, GROUP_TYPE::BOSS);
 	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::MONSTER_BULLET, GROUP_TYPE::GROUND);
 	CreatePauseUI();
+	SetBGM(L"BGM_VEGGIE");
+	GetBGM()->PlayToBGM(true);
+	GetBGM()->SetPosition(50.f);
+	GetBGM()->SetVolume(20.f);
+
 	
 }
 
@@ -115,4 +121,5 @@ void CStageScene_01::Update()
 void CStageScene_01::Exit()
 {
 	DeleteAll();
+	GetBGM()->Stop();
 }

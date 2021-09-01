@@ -16,7 +16,7 @@ typedef void(*SCENE_MEM_FUNC_SCENE_TYPE)(SCENE_TYPE);
 /// </summary>
 
 class CTexture;
-
+class CSound;
 class CButtonUI :
     public CUI
 {
@@ -65,6 +65,7 @@ private:
 	SCENE_MEM_FUNC_VOID m_sceneFunction;
 	SCENE_MEM_FUNC_INT m_sceneIntFunction;
 	SCENE_MEM_FUNC_SCENE_TYPE m_sceneTypeFunction;
+	CSound* m_sfx;
 	CScene* m_sceneInst;
 	DWORD_PTR	m_param1;
 	DWORD_PTR	m_param2;

@@ -6,7 +6,7 @@
 #include "CTexture.h"
 #include "CAnimator.h"
 #include "CAnimation.h"
-
+#include "CSound.h"
 #include "SelectGDI.h"
 #include "CTimeManager.h"
 CSalBullet::CSalBullet()
@@ -114,6 +114,23 @@ void CSalBullet::OnCollisionEnter(CCollider* _col)
 	{
 		isDead = true;
 	}
+	if (obj->GetName() == L"PlayerBullet" && m_currentBulletType == SAL_BULLET_TYPE::WORM)
+	{
+
+		bulletInfo info = GetInfo();
+		info.health -= 1;
+		if (info.health <= 0)
+		{
+			SetSFX(L"POTATO_WORM_DEATH");
+			GetSFX()->Play(false);
+			GetSFX()->SetPosition(50.f);
+			GetSFX()->SetVolume(100.f);
+			isDead = true;
+			return;
+		}
+		SetHit(true);
+		SetInfo(info);
+	}
 }
 
 void CSalBullet::OnCollision(CCollider* _col)
@@ -123,18 +140,7 @@ void CSalBullet::OnCollision(CCollider* _col)
 	{
 		isDead = true;
 	}
-	if (obj->GetName() == L"PlayerBullet" && m_currentBulletType == SAL_BULLET_TYPE::WORM)
-	{
-		bulletInfo info = GetInfo();
-		info.health -= 1;
-		if (info.health <= 0)
-		{
-			isDead = true;
-			return;
-		}
-		SetHit(true);
-		SetInfo(info);
-	}
+
 }
 
 void CSalBullet::OnCollisionExit(CCollider* _col)

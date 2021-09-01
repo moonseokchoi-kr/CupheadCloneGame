@@ -6,6 +6,7 @@
 #include "CTimeManager.h"
 #include "CAnimation.h"
 #include "CAnimator.h"
+#include "CSound.h"
 CPlayerHitState::CPlayerHitState()
 	:CPlayerState(PLAYER_STATE::HIT)
 	,m_accTime(0)
@@ -21,6 +22,10 @@ void CPlayerHitState::Enter()
 {
 	GetPlayer()->GetRigidBody()->SetVelocity(Vec2(-GetPlayer()->GetMoveDir().x*200.f, 0.f));
 	GetPlayer()->GetRigidBody()->SetVelocity(Vec2(-GetPlayer()->GetMoveDir().x *100.f, 0.f));
+	SetSFX(L"PLAYER_HIT");
+	GetSFX()->Play(true);
+	GetSFX()->SetPosition(50.f);
+	GetSFX()->SetVolume(100.f);
 }
 
 void CPlayerHitState::Exit()
@@ -39,6 +44,7 @@ void CPlayerHitState::Update()
 	if (GetPlayer()->GetAnimator()->GetCurrentAnim()->IsFinish())
 	{
 		m_accTime = 0;
+		GetSFX()->Stop(true);
 		ChangePlayerState(GetAI(), PLAYER_STATE::IDLE);
 	}
 }

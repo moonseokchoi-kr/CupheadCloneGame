@@ -33,7 +33,8 @@ private:
     float m_maxJumpCount; //최대 점프 횟수
     float m_limitHealth;
     Vec2 m_diff;
-    bool m_isAttack;//현재 공격패턴이 진행중인지
+    Vec2 m_prevdiff;
+    bool m_soundPlay;//현재 공격패턴이 진행중인지
 
     SLIME_SUB_STATE m_prevSubState;
     SLIME_SUB_STATE m_currSubState;

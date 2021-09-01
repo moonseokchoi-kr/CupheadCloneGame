@@ -9,6 +9,7 @@
 #include "CAnimator.h"
 #include "CResourceManager.h"
 #include "SelectGDI.h"
+#include "CSound.h"
 COllieBullb::COllieBullb()
 {
 	CreateCollider();
@@ -44,17 +45,28 @@ void COllieBullb::Start()
 
 void COllieBullb::Update()
 {
+	if (GetInfo().hp <= 0)
+	{
+		CSound* sfx = CResourceManager::GetInst()->FindSound(L"ONION_DEATH");
+		sfx->Play(false);
+		sfx->SetPosition(50.f);
+		sfx->SetVolume(100.f);
+		ChangeAIState(GetAi(), MON_STATE::DEAD);
+	}
 	if (IsHit() && GetAi()->GetCurrentState()->GetState() != MON_STATE::ATTACK)
 	{
 		ChangeAIState(GetAi(), MON_STATE::ATTACK);
 	}
-	if (GetAi()->GetCurrentState()->GetState() == MON_STATE::INTRO)
-		GetAnimator()->Play(L"ONION_INTRO", false);
-	CMonster::Update();
-	if (GetInfo().hp <= 0)
+	if (GetAi()->GetCurrentState()->GetState() == MON_STATE::INTRO && GetAnimator()->GetCurrentAnim() == nullptr)
 	{
-		ChangeAIState(GetAi(), MON_STATE::DEAD);
+		CSound* sfx = CResourceManager::GetInst()->FindSound(L"ONION_INTRO");
+		sfx->Play(false);
+		sfx->SetPosition(50.f);
+		sfx->SetVolume(100.f);
+		GetAnimator()->Play(L"ONION_INTRO", false);
 	}
+	CMonster::Update();
+
 }
 
 void COllieBullb::Render(HDC _dc)

@@ -12,7 +12,7 @@
 #include "CTexture.h"
 #include "CAnimator.h"
 #include "CRigidBody.h"
-
+#include "CSound.h"
 #include "CAnimation.h"
 #include "CGravity.h"
 #include "CPlayerHpUI.h"
@@ -61,8 +61,6 @@ CPlayer::CPlayer()
 	CTexture* dash_tex = CResourceManager::GetInst()->FindTexture(L"PlayerDashTex");
 
 	CTexture* shoot_tex = CResourceManager::GetInst()->FindTexture(L"PlayerShootTex");
-	CTexture* exShoot_tex = CResourceManager::GetInst()->FindTexture(L"PlayerExShootTex");
-	CTexture* exShootAir_tex = CResourceManager::GetInst()->FindTexture(L"PlayerExShootAirTex");
 
 	CTexture* jump_tex = CResourceManager::GetInst()->FindTexture(L"PlayerJumpTex");
 	CTexture* hit_tex = CResourceManager::GetInst()->FindTexture(L"PlayerHitTex");
@@ -78,8 +76,6 @@ CPlayer::CPlayer()
 	GetAnimator()->CreateAnimation(L"PLAYER_IDLE_RIGHT", idle_tex, Vec2(0.f, 460.f), Vec2(326.f, 230.f), Vec2(326.f, 0.f), 1 / 30.f, 5, false);
 	GetAnimator()->CreateAnimation(L"PLAYER_IDLE_LEFT", idle_tex, Vec2(0.f, 690.f), Vec2(326.f, 230.f), Vec2(326.f, 0.f), 1 / 30.f, 5, true);
 
-
-
 	GetAnimator()->CreateAnimation(L"PLAYER_RUN_TURN_RIGHT", turn_tex, Vec2(0.f, 0.f), Vec2(326.f,230.f), Vec2(326.f, 0.f), m_animateTime, 2, false);
 	GetAnimator()->CreateAnimation(L"PLAYER_RUN_TURN_LEFT", turn_tex, Vec2(1304.f, 230.f), Vec2(326.f, 230.f), Vec2(326.f, 0.f), m_animateTime, 2, true);
 	GetAnimator()->CreateAnimation(L"PLAYER_SHOOT_RUN_TURN_RIGHT", turn_tex, Vec2(1304.f, 0.f), Vec2(326.f, 230.f), Vec2(326.f, 0.f), m_animateTime, 2, false);
@@ -93,26 +89,6 @@ CPlayer::CPlayer()
 	GetAnimator()->CreateAnimation(L"PLAYER_SHOOT_RUN_LEFT", run_tex, Vec2(0.f, 690.f), Vec2(326.f, 230.f), Vec2(326.f, 0.f), m_animateTime, 16, true);
 	GetAnimator()->CreateAnimation(L"PLAYER_SHOOT_RUN_UP_RIGHT", run_tex, Vec2(0.f, 920.f), Vec2(326.f, 230.f), Vec2(326.f, 0.f), m_animateTime, 16, false);
 	GetAnimator()->CreateAnimation(L"PLAYER_SHOOT_RUN_UP_LEFT", run_tex, Vec2(0.f, 1150.f), Vec2(326.f, 230.f), Vec2(326.f, 0.f), m_animateTime, 16, true);
-
-	GetAnimator()->CreateAnimation(L"PLAYER_EX_SHOOT_DIGNOAL_UP_RIGHT", exShoot_tex, Vec2(0.f, 0.f), Vec2(326.f, 230.f), Vec2(326.f, 0.f), m_animateTime, 13, false);
-	GetAnimator()->CreateAnimation(L"PLAYER_EX_SHOOT_DIGNOAL_UP_LEFT", exShoot_tex, Vec2(0.f, 230.f), Vec2(326.f, 230.f), Vec2(326.f, 0.f), m_animateTime, 13, true);
-	GetAnimator()->CreateAnimation(L"PLAYER_EX_SHOOT_RIGHT", exShoot_tex, Vec2(0.f, 460.f), Vec2(326.f, 230.f), Vec2(326.f, 0.f), m_animateTime, 13, false);
-	GetAnimator()->CreateAnimation(L"PLAYER_EX_SHOOT_LEFT", exShoot_tex, Vec2(0.f, 690.f), Vec2(326.f, 230.f), Vec2(326.f, 0.f), m_animateTime, 13, true);
-	GetAnimator()->CreateAnimation(L"PLAYER_EX_SHOOT_UP_RIGHT", exShoot_tex, Vec2(0.f, 920.f), Vec2(326.f, 230.f), Vec2(326.f, 0.f), m_animateTime, 13, false);
-	GetAnimator()->CreateAnimation(L"PLAYER_EX_SHOOT_UP_LEFT", exShoot_tex, Vec2(0.f, 1150.f), Vec2(326.f, 230.f), Vec2(326.f, 0.f), m_animateTime, 13, true);
-
-
-	GetAnimator()->CreateAnimation(L"PLAYER_EX_SHOOT_DIAGNOAL_DOWN_RIGHT_AIR", exShootAir_tex, Vec2(0.f, 0.f), Vec2(326.f, 230.f), Vec2(326.f, 0.f), m_animateTime, 6, false);
-	GetAnimator()->CreateAnimation(L"PLAYER_EX_SHOOT_DIAGNOAL_DOWN_LEFT_AIR", exShootAir_tex, Vec2(0.f, 230.f), Vec2(326.f, 230.f), Vec2(326.f, 0.f), m_animateTime, 6, true);
-	GetAnimator()->CreateAnimation(L"PLAYER_EX_SHOOT_DIGNOAL_UP_RIGHT_AIR", exShootAir_tex, Vec2(0.f, 460.f), Vec2(326.f, 230.f), Vec2(326.f, 0.f), m_animateTime, 6, false);
-	GetAnimator()->CreateAnimation(L"PLAYER_EX_SHOOT_DIGNOAL_UP_LEFT_AIR", exShootAir_tex, Vec2(0.f, 690.f), Vec2(326.f, 230.f), Vec2(326.f, 0.f), m_animateTime, 6, true);
-	GetAnimator()->CreateAnimation(L"PLAYER_EX_SHOOT_DOWN_AIR_RIGHT", exShootAir_tex, Vec2(0.f, 920.f), Vec2(326.f, 230.f), Vec2(326.f, 0.f), m_animateTime, 6, false);
-	GetAnimator()->CreateAnimation(L"PLAYER_EX_SHOOT_DOWN_AIR_LEFT", exShootAir_tex, Vec2(0.f, 1150.f), Vec2(326.f, 230.f), Vec2(326.f, 0.f), m_animateTime, 6, true);
-
-	GetAnimator()->CreateAnimation(L"PLAYER_EX_SHOOT_RIGHT_AIR", exShootAir_tex, Vec2(0.f, 1380.f), Vec2(326.f, 230.f), Vec2(326.f, 0.f), m_animateTime, 6, false);
-	GetAnimator()->CreateAnimation(L"PLAYER_EX_SHOOT_LEFT_AIR", exShootAir_tex, Vec2(0.f, 1610.f), Vec2(326.f, 230.f), Vec2(326.f, 0.f), m_animateTime, 6, true);
-	GetAnimator()->CreateAnimation(L"PLAYER_EX_SHOOT_UP_RIGHT_AIR", exShootAir_tex, Vec2(0.f, 1840.f), Vec2(326.f, 230.f), Vec2(326.f, 0.f), m_animateTime, 6, false);
-	GetAnimator()->CreateAnimation(L"PLAYER_EX_SHOOT_UP_LEFT_AIR", exShootAir_tex, Vec2(0.f, 2070.f), Vec2(326.f, 230.f), Vec2(326.f, 0.f), m_animateTime, 6, true);
 
 	GetAnimator()->CreateAnimation(L"PLAYER_SHOOT_UP", shoot_tex, Vec2(0.f, 0.f), Vec2(326.f, 230.f), Vec2(326.f, 0.f), m_animateTime, 3, false);
 	GetAnimator()->CreateAnimation(L"PLAYER_SHOOT_DUCK_RIGHT", shoot_tex, Vec2(0.f, 230.f), Vec2(326.f, 230.f), Vec2(326.f, 0.f), m_animateTime, 3, false);
@@ -143,7 +119,7 @@ CPlayer::CPlayer()
 
 
 
-	m_info.attackSpeed = 0.15f;
+	m_info.attackSpeed = 0.1f;
 	m_info.dashDist = 300.f;
 	m_info.dashtime = 0.1f;
 	m_info.health = 3;
@@ -211,6 +187,10 @@ void CPlayer::Update()
 {
 	if (m_ai->GetCurrentState()->GetState() == PLAYER_STATE::INTRO && GetAnimator()->GetCurrentAnim() == nullptr)
 	{
+		CSound* sfx = CResourceManager::GetInst()->FindSound(L"PLAYER_INTRO");
+		sfx->Play(false);
+		sfx->SetPosition(50.f);
+		sfx->SetVolume(100.f);
 		GetAnimator()->Play(L"PLAYER_INTRO_1", false);
 	}
 	if (m_info.health <= 0 && m_ai->GetCurrentState()->GetState() != PLAYER_STATE::DEAD)

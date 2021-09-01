@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "CSalAttackBox.h"
-
+#include "CSound.h"
 
 #include "CSalBullet.h"
 #include "CTimeManager.h"
@@ -11,6 +11,7 @@ CSalAttackBox::CSalAttackBox()
 	,m_bulletSpeed(600.f)
 {
 	SetPos(Vec2(-150.f, 150.f));
+	
 }
 
 CSalAttackBox::~CSalAttackBox()
@@ -30,10 +31,18 @@ void CSalAttackBox::Fire()
 	salBullet->SetInfo(info);
 	if (m_shootCount == 3)
 	{
+		SetSFX(L"POTATO_WORM");
+		GetSFX()->Play(false);
+		GetSFX()->SetPosition(50.f);
+		GetSFX()->SetVolume(100.f);
 		salBullet->SetBulletType(SAL_BULLET_TYPE::WORM);
 	}
 	else
 	{
+		SetSFX(L"POTATO_DUST_" + to_wstring(m_shootCount + 1));
+		GetSFX()->Play(false);
+		GetSFX()->SetPosition(50.f);
+		GetSFX()->SetVolume(100.f);
 		salBullet->SetBulletType(SAL_BULLET_TYPE::DUST);
 
 	}

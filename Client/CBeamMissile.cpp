@@ -8,13 +8,14 @@
 #include "CAnimator.h"
 #include "CTexture.h"
 #include "CResourceManager.h"
-
+#include "CSound.h"
 
 #include "SelectGDI.h"
 
 
 CBeamMissile::CBeamMissile()
 	:CBullet(BULLET_TYPE::BEAM_BULLET)
+	, isDead(false)
 {
 	CreateCollider();
 	CreateRigidBody();
@@ -80,6 +81,7 @@ void CBeamMissile::OnCollisionEnter(CCollider* _col)
 {
 	if (_col->GetOwner()->GetName() == L"Grond" || _col->GetOwner()->GetName() == L"PlayerHitBox")
 	{
+
 		isDead = true;
 	}
 }

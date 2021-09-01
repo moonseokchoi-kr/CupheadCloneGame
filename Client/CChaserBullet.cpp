@@ -6,6 +6,7 @@
 #include "CAnimator.h"
 #include "CSceneManager.h"
 #include "CScene.h"
+#include "CSound.h"
 #include "CResourceManager.h"
 #include "CHomingBulletTraile.h"
 CChaserBullet::CChaserBullet()
@@ -62,6 +63,7 @@ void CChaserBullet::Update()
 		GetAnimator()->Play(L"CHASER_DEATH", false);
 		if (GetAnimator()->GetCurrentAnim()->IsFinish())
 		{
+			GetSFX()->Stop(true);
 			DeleteObject(this);
 		}
 		return;
@@ -106,6 +108,10 @@ void CChaserBullet::OnCollisionEnter(CCollider* _col)
 {
 	if (_col->GetOwner()->GetName() == L"MonsterHitBox" || _col->GetOwner()->GetName() == L"Ground" || _col->GetOwner()->GetName() == L"MonsterBullet")
 	{
+		SetSFX(L"PLAYER_SHOOT_HIT");
+		GetSFX()->Play(true);
+		GetSFX()->SetPosition(50.f);
+		GetSFX()->SetVolume(70.f);
 		m_isDead = true;
 	}
 }

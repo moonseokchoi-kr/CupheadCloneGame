@@ -7,6 +7,7 @@
 #include "CResourceManager.h"
 #include "CRigidBody.h"
 #include "CTimeManager.h"
+#include "CSound.h"
 #include "SelectGDI.h"
 CTearBullet::CTearBullet()
 	:CBullet(BULLET_TYPE::TEAR_BULLET)
@@ -130,10 +131,18 @@ void CTearBullet::OnCollisionEnter(CCollider* _col)
 	bulletInfo info = GetInfo();
 	if (_col->GetOwner()->GetName() == L"PlayerHitBox" || _col->GetOwner()->GetName() == L"Ground")
 	{
+		SetSFX(L"ONION_TEAR_DEATH");
+		GetSFX()->Play(false);
+		GetSFX()->SetPosition(50.f);
+		GetSFX()->SetVolume(100.f);
 		isDead = true;
 	}
 	if (_col->GetOwner()->GetName() == L"PlayerBullet" && m_type == TEAR_BULLET_TYPE::P)
 	{
+		SetSFX(L"ONION_TEAR_DEATH");
+		GetSFX()->Play(false);
+		GetSFX()->SetPosition(50.f);
+		GetSFX()->SetVolume(100.f);
 		
 		SetHit(true);
 		info.health -= 1;

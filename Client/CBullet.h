@@ -28,7 +28,7 @@ enum class BULLET_STATE
 /// 
 
 class CAttackBox;
-
+class CSound;
 class CBullet :
     public CObject
 {
@@ -58,6 +58,8 @@ public:
     void SetTarget(CObject* _target) { m_target = _target; }
 	bool IsHit() { return m_isHit; }
 	void SetHit(bool _b) { m_isHit = _b; }
+	void SetSFX(const wstring& _name);
+	CSound* GetSFX() { return m_sfx; }
 protected:
     void DeleteBullet();
     bool m_renderToggle;
@@ -66,6 +68,7 @@ private:
     Vec2 m_offset;
     Vec2 m_finalPos;
     Vec2 m_initPos;
+    CSound* m_sfx;
     bulletInfo m_info;
     CObject* m_deathFx;
     Vec2 m_moveDir;

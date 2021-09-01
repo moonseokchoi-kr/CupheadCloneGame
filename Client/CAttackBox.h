@@ -2,9 +2,8 @@
 #include "CObject.h"
 
 
-
 class CBullet;
-
+class CSound;
 class CAttackBox :
     public CObject
 {
@@ -27,10 +26,13 @@ public:
     virtual void Fire() = 0;
     virtual void ChangeBullet() {};
     CBullet* GetBullet(BULLET_TYPE _type);
+    void SetSFX(const wstring& _name);
+    CSound* GetSFX() { return m_sfx; }
 private:
     CObject* m_owner;
     Vec2 m_finalPos;
     BULLET_TYPE m_current_Bullet;
+    CSound* m_sfx;
     unordered_map<BULLET_TYPE,CBullet*> m_bulletVec;
     float m_accTime;
 

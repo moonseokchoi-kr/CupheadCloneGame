@@ -6,6 +6,7 @@
 #include "CCollider.h"
 #include "CAnimation.h"
 #include "CAnimator.h"
+#include "CSound.h"
 #include "CTimeManager.h"
 
 CCarrotBossAttackState::CCarrotBossAttackState()
@@ -15,8 +16,8 @@ CCarrotBossAttackState::CCarrotBossAttackState()
 	,m_interval(2.f)
 	,m_beamInterval(0.8f)
 	,m_patternAccTime(0)
-	,m_patternTime(8.f)
-	, m_attackChangeinterval(3.f)
+	,m_patternTime(6.f)
+	, m_attackChangeinterval(4.f)
 {
 }
 
@@ -54,7 +55,7 @@ void CCarrotBossAttackState::Update()
 	if (ATTACK_PATT::PATT1 == attackBox->GetCurrentPatt())
 	{
 		GetMonster()->GetAnimator()->Play(L"CARROT_IDLE", true);
-		//유도미사일
+
 		if (m_patternAccTime <= m_patternTime)
 		{
 			m_patternAccTime += fDT;
@@ -78,6 +79,7 @@ void CCarrotBossAttackState::Update()
 		{
 			//빔
 			GetMonster()->GetAnimator()->Play(L"CARROT_SHOOT", true);
+
 			if (m_beamAttackCount != 4)
 			{
 				m_accTime += fDT;
@@ -109,17 +111,14 @@ void CCarrotBossAttackState::Update()
 		{
 				return;	
 		}
-		else
-		{
-			m_patternAccTime = 0;
-		}
-			
+
 		//변경
-		m_changeAccTime += fDT;
 		GetMonster()->GetAnimator()->Play(L"CARROT_TRANSIT", false);
-		if (GetMonster()->GetAnimator()->GetCurrentAnim()->IsFinish())
+
+		m_changeAccTime += fDT;
+		if (m_changeAccTime >= m_attackChangeinterval)
 		{
-			
+			GetMonster()->GetAnimator()->GetCurrentAnim()->SetFrame(0);
 			attackBox->ChangeAttack();
 			m_attackCount = 0;
 			if (ATTACK_PATT::PATT1 == attackBox->GetCurrentPatt())
@@ -132,7 +131,12 @@ void CCarrotBossAttackState::Update()
 				m_maxAttackCount = 3;
 				m_interval = 0.1f;
 			}
+			m_patternAccTime = 0;
 			m_changeAccTime = 0;
+		}
+		else if(GetMonster()->GetAnimator()->GetCurrentAnim()->IsFinish())
+		{
+			GetMonster()->GetAnimator()->GetCurrentAnim()->SetFrame(7);
 		}
 		
 	}

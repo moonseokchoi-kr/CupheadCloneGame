@@ -16,7 +16,7 @@
 class CUI;
 class CPlayer;
 class CMenuPanel;
-
+class CSound;
 enum class SCENE_STATE
 {
 	START,
@@ -94,6 +94,8 @@ public:
 public:
 	void SetHp(int _hp) { m_playerhp = _hp; }
 	int GetHp() { return m_playerhp; }
+	void SetBGM(const wstring& _name);
+	CSound* GetBGM() { return m_bgm; }
 	void ShowPauseUI();
 	void CreatePauseUI();
 private:
@@ -105,6 +107,7 @@ private:
 	CMenuPanel* m_pauseUI;
 	SCENE_STATE m_currentState;
 	SCENE_STATE m_prevState;
+	CSound* m_bgm;
 	UINT m_TileXCount;
 	UINT m_TileYCount;
 	static int m_playerhp;

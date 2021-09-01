@@ -5,7 +5,9 @@
 #include "CTextUI.h"
 #include "CMenuPanel.h"
 #include "CMenuButtonUI.h"
+#include "CResourceManager.h"
 #include "CCore.h"
+#include "CSound.h"
 #include "CCamera.h"
 CStartScene::CStartScene()
 {
@@ -41,11 +43,11 @@ void CStartScene::Enter()
 	toolButton->SetIndex(4);
 	toolButton->SetClickedCallBack((SCENE_MEM_FUNC_SCENE_TYPE)&ChangeScene, (DWORD_PTR)SCENE_TYPE::TOOL);
 	menuPanel->AddChild(toolButton);
-// 	CMenuButtonUI* exitButton = new CMenuButtonUI;
-// 	exitButton->SetScale(Vec2(320.f, 78.f));
-// 	exitButton->SetPos(Vec2(-152.f, -menuPanel->GetScale().y / 2.f + 246.f));
-// 	exitButton->SetIndex(3);
-//	menuPanel->AddChild(exitButton);
+	
+	SetBGM(L"BGM_TITLE");
+	GetBGM()->PlayToBGM(true);
+	GetBGM()->SetPosition(50.f);
+	GetBGM()->SetVolume(20.f);
 
 	CreateObject(menuPanel, GROUP_TYPE::UI);
 	
@@ -59,4 +61,5 @@ void CStartScene::Update()
 void CStartScene::Exit()
 {
 	DeleteAll();
+	GetBGM()->Stop();
 }

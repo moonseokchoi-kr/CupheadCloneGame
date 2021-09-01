@@ -58,12 +58,13 @@ int CCore::InitCore(HWND _hwnd, POINT _resolution)
 	CPathManager::GetInst()->Init();
 	CCamera::GetInst()->Init();
 	CSoundManager::GetInst()->init();
+	loadResource();
 	CSceneManager::GetInst()->Init();
 	
 
 	CreateBrushPen();
 	
-	loadResource();
+
 	return S_OK;
 }
 
@@ -241,6 +242,64 @@ void CCore::loadResource()
 	CResourceManager::GetInst()->LoadTexture(L"MenuButtonTex", L"texture\\cuphead\\ui\\text_sprite.bmp");
 	CResourceManager::GetInst()->LoadTexture(L"PlayerHpTex", L"texture\\cuphead\\ui\\hp_sprite.bmp");
 	CResourceManager::GetInst()->LoadTexture(L"weaponUITex", L"texture\\cuphead\\ui\\equip_wepon_sprite.bmp");
+
+	//Sound Reasource
+
+	//Player
+	CResourceManager::GetInst()->LoadSound(L"PLAYER_DASH", L"sound\\player\\sfx_player_dash_01.wav");
+	CResourceManager::GetInst()->LoadSound(L"PLAYER_DEATH", L"sound\\player\\sfx_player_death_01.wav");
+	CResourceManager::GetInst()->LoadSound(L"PLAYER_FIRE_LOOP", L"sound\\player\\sfx_player_default_fire_loop_01.wav");
+	CResourceManager::GetInst()->LoadSound(L"PLAYER_HIT", L"sound\\player\\sfx_player_hit_01.wav");
+	CResourceManager::GetInst()->LoadSound(L"PLAYER_INTRO", L"sound\\player\\sfx_player_intro_cuphead.wav");
+	CResourceManager::GetInst()->LoadSound(L"PLAYER_JUMP", L"sound\\player\\sfx_player_jump_01.wav");
+	CResourceManager::GetInst()->LoadSound(L"PLAYER_SHOOT_HIT", L"sound\\player\\sfx_player_shoot_hit_01.wav");
+	CResourceManager::GetInst()->LoadSound(L"PLAYER_HOMING_LOOP", L"sound\\player\\sfx_player_weapon_homing_loop_001.wav");
+	CResourceManager::GetInst()->LoadSound(L"PLAYER_MENU_SELECT", L"sound\\player\\Menu_Category_Select.wav");
+
+	//Slime
+	CResourceManager::GetInst()->LoadSound(L"BGM_SLIME", L"sound\\slime\\MUS_Slime.wav");
+	CResourceManager::GetInst()->LoadSound(L"SLIME_DEATH", L"sound\\slime\\sfx_slime_big_death_01.wav");
+	CResourceManager::GetInst()->LoadSound(L"LG_SLIME_JUMP", L"sound\\slime\\sfx_slime_big_jump_01.wav");
+	CResourceManager::GetInst()->LoadSound(L"LG_SLIME_LAND", L"sound\\slime\\sfx_slime_big_land_01.wav");
+	CResourceManager::GetInst()->LoadSound(L"LG_SLIME_PUNCH", L"sound\\slime\\sfx_slime_big_punch_01.wav");
+	CResourceManager::GetInst()->LoadSound(L"LG_SLIME_PUNCH_VOICE", L"sound\\slime\\sfx_slime_big_punch_voice_01.wav");
+	CResourceManager::GetInst()->LoadSound(L"SLIME_INTRO", L"sound\\slime\\sfx_slime_small_intro_anim.wav");
+	CResourceManager::GetInst()->LoadSound(L"SLIME_JUMP", L"sound\\slime\\sfx_slime_small_jump_01.wav");
+	CResourceManager::GetInst()->LoadSound(L"SLIME_LAND", L"sound\\slime\\sfx_slime_small_land_01.wav");
+	CResourceManager::GetInst()->LoadSound(L"SLIME_PUNCH", L"sound\\slime\\sfx_slime_small_stretch_punch_01.wav");
+	CResourceManager::GetInst()->LoadSound(L"SLIME_MORPH", L"sound\\slime\\sfx_slime_small_transform.wav");
+	CResourceManager::GetInst()->LoadSound(L"SLIME_TIPHAT", L"sound\\slime\\sfx_slime_tiphat_01.wav");
+
+	//TITLE
+	CResourceManager::GetInst()->LoadSound(L"BGM_TITLE", L"sound\\title\\bgm_title_screen.wav");
+
+	//Veggie
+	CResourceManager::GetInst()->LoadSound(L"BGM_VEGGIE", L"sound\\veggie\\bgm_level_veggies.wav");
+
+	//Carrot
+	CResourceManager::GetInst()->LoadSound(L"CARROT_DEATH", L"sound\\veggie\\sfx_level_veggies_Carrot_Die.wav");
+	CResourceManager::GetInst()->LoadSound(L"CARROT_HURT", L"sound\\veggie\\sfx_level_veggies_carrot_hurt.wav");
+	CResourceManager::GetInst()->LoadSound(L"CARROT_MIND_MEID_START", L"sound\\veggie\\sfx_level_veggies_Carrot_MindMeld_Start.wav");
+	CResourceManager::GetInst()->LoadSound(L"CARROT_MIND_MEID_LOOP", L"sound\\veggie\\sfx_level_veggies_Carrot_MindMeld_Loop.wav");
+	CResourceManager::GetInst()->LoadSound(L"CARROT_MIND_MEID_BEAM_FIRE", L"sound\\veggie\\sfx_level_veggies_Carrot_MindMeld_BeamFire_01.wav");
+	CResourceManager::GetInst()->LoadSound(L"CARROT_INTRO", L"sound\\veggie\\sfx_level_veggies_Carrot_Rise.wav");
+	CResourceManager::GetInst()->LoadSound(L"CARROT_MISSILE_DEATH", L"sound\\veggie\\sfx_level_veggies_Carrot_Bomb_Explode_01.wav");
+
+	//ONION
+	CResourceManager::GetInst()->LoadSound(L"ONION_DEATH", L"sound\\veggie\\sfx_level_veggies_Onion_Die.wav");
+	CResourceManager::GetInst()->LoadSound(L"ONION_CRYING", L"sound\\veggie\\sfx_level_veggies_Onion_Crying.wav");
+	CResourceManager::GetInst()->LoadSound(L"ONION_INTRO", L"sound\\veggie\\sfx_level_veggies_Onion_Rise.wav");
+	CResourceManager::GetInst()->LoadSound(L"ONION_TEAR_DEATH", L"sound\\veggie\\sfx_level_veggies_Onion_Teardrop_01.wav");
+
+
+	//Potato
+	CResourceManager::GetInst()->LoadSound(L"POTATO_INTRO", L"sound\\veggie\\sfx_level_veggies_Potato_RiseGround.wav");
+	CResourceManager::GetInst()->LoadSound(L"POTATO_DUST_1", L"sound\\veggie\\sfx_level_veggies_Potato_Spit_01.wav");
+	CResourceManager::GetInst()->LoadSound(L"POTATO_DUST_2", L"sound\\veggie\\sfx_level_veggies_Potato_Spit_002.wav");
+	CResourceManager::GetInst()->LoadSound(L"POTATO_DUST_3", L"sound\\veggie\\sfx_level_veggies_Potato_Spit_003.wav");
+	CResourceManager::GetInst()->LoadSound(L"POTATO_WORM", L"sound\\veggie\\sfx_level_veggies_Potato_Spit_Worm_01.wav");
+	CResourceManager::GetInst()->LoadSound(L"POTATO_WORM_DEATH", L"sound\\veggie\\sfx_level_veggies_Potato_Worm_Explode_01.wav");
+
 }
 
 void CCore::Clear()

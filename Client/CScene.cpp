@@ -4,7 +4,7 @@
 #include "CTile.h"
 #include "CMonster.h"
 #include "FSMAI.h"
-
+#include "CSound.h"
 #include "CPathManager.h"
 #include "CResourceManager.h"
 #include "CCore.h"
@@ -276,6 +276,11 @@ CObject* CScene::GetTarget(GROUP_TYPE _group, const wstring& _objName)
 			return _obj;
 	}
 	return nullptr;
+}
+
+void CScene::SetBGM(const wstring& _name)
+{
+	m_bgm = CResourceManager::GetInst()->FindSound(_name);
 }
 
 void CScene::ShowPauseUI()

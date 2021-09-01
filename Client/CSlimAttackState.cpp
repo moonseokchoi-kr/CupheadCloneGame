@@ -7,14 +7,16 @@
 #include "CGravity.h"
 #include "CAnimation.h"
 #include "CAnimator.h"
+#include "CCamera.h"
 #include "CScene.h"
 #include "CMonsterHitBox.h"
 #include "CSceneManager.h"
+#include "CSound.h"
 CSlimAttackState::CSlimAttackState()
 	:m_accTime(0)
 	, m_jumpCount(0)
 	, m_maxJumpCount(5)
-	, m_isAttack(false)
+	, m_soundPlay(false)
 	,m_currSubState(SLIME_SUB_STATE::GROUND)
 	,m_currentPatt(ATTACK_PATT::PATT1)
 {
@@ -30,6 +32,7 @@ void CSlimAttackState::Enter()
 	GetMonster()->GetHitBox()->GetCollider()->SetAvaCollide(true);
 	CSlime* slime = static_cast<CSlime*>(GetMonster());
 	getTargetDiff();
+	m_prevdiff = m_diff;
 	randomPatt();
 }
 
@@ -70,20 +73,22 @@ void CSlimAttackState::updateAnimation()
 			switch (m_currSubState)
 			{
 			case SLIME_SUB_STATE::GROUND:
-			{
-				
+			{	
 				if (moveDir.x < 0)
 				{
 					
 					slime->GetAnimator()->Play(L"SLIME_JUMP_LEFT", false);
+				
 				}
 				else
 				{
 					slime->GetAnimator()->Play(L"SLIME_JUMP_RIGHT", false);
+
 				}
 				
 				if (slime->GetAnimator()->GetCurrentAnim()->IsFinish())
 				{
+					m_soundPlay = false;
 					slime->GetAnimator()->GetCurrentAnim()->SetFrame(0);
 					slime->GetRigidBody()->SetMaxVelocity(1500.f);
 					slime->GetRigidBody()->SetVelocity(Vec2(moveDir.x * 400.f, -1000.f));
@@ -91,7 +96,10 @@ void CSlimAttackState::updateAnimation()
 					m_prevSubState = m_currSubState;
 					m_currSubState = SLIME_SUB_STATE::AIR;
 					++m_jumpCount;
-
+					SetSFX(L"LG_SLIME_JUMP");
+					GetSFX()->SetPosition(50.f);
+					GetSFX()->SetVolume(80.f);
+					GetSFX()->Play(false);
 				}
 			}
 				break;
@@ -157,10 +165,9 @@ void CSlimAttackState::updateAnimation()
 		}
 		else
 		{
-			if (slime->GetGravity()->IsGround())
+			if (slime->GetGravity()->IsGround()&& m_prevSubState == SLIME_SUB_STATE::AIR)
 			{
 				m_jumpCount = 0;
-				getTargetDiff();
 				randomPatt();
 			}
 		}
@@ -174,11 +181,20 @@ void CSlimAttackState::updateAnimation()
 		{
 		case SLIME_SUB_STATE::GROUND:
 		{
+			slimeAttackBox->SetCurrentPatt(ATTACK_PATT::PATT2);
+			if (!m_soundPlay)
+			{
+				slime->GetAttackBox()->Fire();
+				m_soundPlay = true;
+			}
+
 			
 			if (moveDir.x < 0)
 			{
+				
 				slimeAttackBox->SetOffset(Vec2(-300.f, -100.f));
 				slimeAttackBox->GetCollider()->SetScale(Vec2(500.f, 300.f));
+
 				if (slime->GetAnimator()->GetCurrentAnim()->GetName() == L"SLIME_PUNCH_TURN_LEFT")
 				{
 					if (slime->GetAnimator()->GetCurrentAnim()->IsFinish())
@@ -193,7 +209,7 @@ void CSlimAttackState::updateAnimation()
 				}
 				else
 				{
-					
+
 					slime->GetAnimator()->Play(L"SLIME_PUNCH_LEFT", false);
 				}
 				
@@ -232,6 +248,7 @@ void CSlimAttackState::updateAnimation()
 
 			if (slime->GetAnimator()->GetCurrentAnim()->IsFinish())
 			{
+				m_soundPlay = false;
 				randomPatt();
 				getTargetDiff();
 				slime->GetAnimator()->GetCurrentAnim()->SetFrame(0);
@@ -266,7 +283,6 @@ void CSlimAttackState::updateAnimation()
 			{
 			case SLIME_SUB_STATE::GROUND:
 			{
-
 				if (moveDir.x < 0)
 				{
 
@@ -279,6 +295,7 @@ void CSlimAttackState::updateAnimation()
 
 				if (slime->GetAnimator()->GetCurrentAnim()->IsFinish())
 				{
+					m_soundPlay = false;
 					slime->GetAnimator()->GetCurrentAnim()->SetFrame(0);
 					slime->GetRigidBody()->SetMaxVelocity(1200.f);
 					slime->GetRigidBody()->SetVelocity(Vec2(moveDir.x * 400.f, -2000.f));
@@ -286,7 +303,10 @@ void CSlimAttackState::updateAnimation()
 					m_prevSubState = m_currSubState;
 					m_currSubState = SLIME_SUB_STATE::AIR;
 					++m_jumpCount;
-
+					SetSFX(L"LG_SLIME_JUMP");
+					GetSFX()->SetPosition(50.f);
+					GetSFX()->SetVolume(80.f);
+					GetSFX()->Play();
 				}
 			}
 			break;
@@ -352,7 +372,7 @@ void CSlimAttackState::updateAnimation()
 		}
 		else
 		{
-			if (slime->GetGravity()->IsGround())
+			if (slime->GetGravity()->IsGround()&& m_prevSubState == SLIME_SUB_STATE::AIR)
 			{
 				m_jumpCount = 0;
 				getTargetDiff();
@@ -365,14 +385,23 @@ void CSlimAttackState::updateAnimation()
 	{
 		//작은 슬라임 주먹 공격
 		//한번만 실행
+
 		switch (m_currSubState)
 		{
 		case SLIME_SUB_STATE::GROUND:
-		{
+		{	
+			slimeAttackBox->SetCurrentPatt(ATTACK_PATT::PATT4);
+			if (!m_soundPlay)
+			{
+				slime->GetAttackBox()->Fire();
+				m_soundPlay = true;
+			}
 			if (moveDir.x < 0)
 			{
+				
 				slimeAttackBox->SetOffset(Vec2(-300.f, 0.f));
 				slimeAttackBox->GetCollider()->SetScale(Vec2(500.f, 100.f));
+				
 				if (slime->GetAnimator()->GetCurrentAnim()->GetName() == L"LG_SLIME_PUNCH_TURN_LEFT")
 				{
 					if (slime->GetAnimator()->GetCurrentAnim()->IsFinish())
@@ -387,14 +416,16 @@ void CSlimAttackState::updateAnimation()
 				}
 				else
 				{
+				
 					slime->GetAnimator()->Play(L"LG_SLIME_PUNCH_LEFT", false);
 				}
-
+		
 			}
 			else
 			{
 				slimeAttackBox->SetOffset(Vec2(300.f, 0.f));
 				slimeAttackBox->GetCollider()->SetScale(Vec2(500.f, 100.f));
+				
 				if (slime->GetAnimator()->GetCurrentAnim()->GetName() == L"LG_SLIME_PUNCH_TURN_RIGHT")
 				{
 					if (slime->GetAnimator()->GetCurrentAnim()->IsFinish())
@@ -424,6 +455,7 @@ void CSlimAttackState::updateAnimation()
 
 			if (slime->GetAnimator()->GetCurrentAnim()->IsFinish())
 			{
+				m_soundPlay = false;
 				slime->GetAnimator()->GetCurrentAnim()->SetFrame(0);
 				ChangeAIState(GetAI(), MON_STATE::IDLE);
 			}
@@ -466,11 +498,32 @@ void CSlimAttackState::updateSubState()
 
 		if (slime->GetMoveDir().y == 0)
 		{
-			if(SLIME_SUB_STATE::AIR == m_prevSubState)
+			if (SLIME_SUB_STATE::AIR == m_prevSubState)
+			{
 				slime->GetRigidBody()->SetVelocity(Vec2(0, 0));
+				if (slime->GetCurrentPhase() == PHASE::PHASE1 && !m_soundPlay)
+				{
+					SetSFX(L"SLIME_LAND");
+					GetSFX()->SetPosition(50.f);
+					GetSFX()->SetVolume(80.f);
+					GetSFX()->Play(false);
+					CCamera::GetInst()->SetCamEffect(0.1f, CAMERA_EFFECT::VIBRATION);
+					m_soundPlay = true;
+				}
+				else if (slime->GetCurrentPhase() == PHASE::PHASE2 && !m_soundPlay)
+				{
+					SetSFX(L"LG_SLIME_LAND");
+					GetSFX()->SetPosition(50.f);
+					GetSFX()->SetVolume(80.f);
+					GetSFX()->Play(false);
+					CCamera::GetInst()->SetCamEffect(0.1f, CAMERA_EFFECT::VIBRATION);
+					m_soundPlay = true;
+				}
+			}
 			m_prevSubState = m_currSubState;
 			m_currSubState = SLIME_SUB_STATE::GROUND;
 
+			
 		}
 	}
 	else
@@ -490,10 +543,17 @@ void CSlimAttackState::updateSubState()
 
 void CSlimAttackState::getTargetDiff()
 {
+	m_prevdiff = m_diff;
 	CSlime* slime = static_cast<CSlime*>(GetMonster());
 	CObject* target = CSceneManager::GetInst()->GetCurrentScene()->GetTarget(GROUP_TYPE::PLAYER_HITBOX, L"PlayerHitBox");
 	m_diff = target->GetPos() - slime->GetPos();
 	m_diff.Normalize();
+	if (m_prevdiff.x != m_diff.x && m_currSubState == SLIME_SUB_STATE::TURN)
+	{
+		Vec2 moveDir = slime->GetMoveDir();
+		slime->GetRigidBody()->SetVelocity(Vec2(-moveDir.x * 400.f, -1000.f));
+		slime->GetRigidBody()->AddForce(Vec2(-moveDir.x * 400.f, -1000.f));
+	}
 	slime->SetMoveDir(m_diff.x, slime->GetMoveDir().y);
 }
 
@@ -525,6 +585,8 @@ void CSlimAttackState::randomPatt()
 		{
 			
 			m_currentPatt = ATTACK_PATT::PATT2;
+			slime->GetRigidBody()->SetVelocity(Vec2(0, 0));
+			updateAnimation();
 		}
 		else if (slime->GetCurrentPhase() == PHASE::PHASE1 && m_prevPatt == ATTACK_PATT::PATT2)
 		{
@@ -534,6 +596,8 @@ void CSlimAttackState::randomPatt()
 		}
 		else if (slime->GetCurrentPhase() == PHASE::PHASE2 && m_prevPatt != ATTACK_PATT::PATT4)
 		{
+			slime->GetRigidBody()->SetVelocity(Vec2(0, 0));
+			updateAnimation();
 			m_currentPatt = ATTACK_PATT::PATT4;
 		}
 		else

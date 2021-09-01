@@ -7,7 +7,7 @@
 #include "CTexture.h"
 #include "CAnimation.h"
 #include "CAnimator.h"
-
+#include "CSound.h"
 CPeaShootBullet::CPeaShootBullet()
 	:CBullet(BULLET_TYPE::PEASHOOT)
 {
@@ -64,6 +64,7 @@ void CPeaShootBullet::Update()
 		GetAnimator()->Play(L"PEASHOOT_DEATH", false);
 		if (GetAnimator()->GetCurrentAnim()->IsFinish())
 		{
+			GetSFX()->Stop(true);
 			DeleteObject(this);
 		}
 		return;
@@ -89,6 +90,10 @@ void CPeaShootBullet::OnCollisionEnter(CCollider* _col)
 {
 	if (_col->GetOwner()->GetName() == L"MonsterHitBox" || _col->GetOwner()->GetName() == L"Ground" || _col->GetOwner()->GetName() == L"MonsterBullet")
 	{
+		SetSFX(L"PLAYER_SHOOT_HIT");
+		GetSFX()->Play(true);
+		GetSFX()->SetPosition(50.f);
+		GetSFX()->SetVolume(70.f);
 		m_isDead = true;
 	}
 }

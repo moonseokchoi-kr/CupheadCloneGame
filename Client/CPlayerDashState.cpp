@@ -7,6 +7,7 @@
 #include "CAnimation.h"
 #include "CAnimator.h"
 #include "CPlayerStateMachine.h"
+#include "CSound.h"
 #include "CPlayerHitBox.h"
 #include "CCollider.h"
 #include "CTimeManager.h"
@@ -24,10 +25,15 @@ void CPlayerDashState::Enter()
 {
 	GetPlayer()->GetHitBox()->GetCollider()->SetAvaCollide(false);
 	GetPlayer()->GetRigidBody()->SetMaxVelocity(1000.f);
+	SetSFX(L"PLAYER_DASH");
+	GetSFX()->Play(true);
+	GetSFX()->SetPosition(50.f);
+	GetSFX()->SetVolume(100.f);
 }
 
 void CPlayerDashState::Exit()
 {
+	GetSFX()->Stop(true);
 	GetPlayer()->GetHitBox()->GetCollider()->SetAvaCollide(true);
 }
 

@@ -31,5 +31,7 @@ private:
     float m_changeAccTime;
     float m_patternTime;
     float m_patternAccTime;
+
+    bool m_soundPlay;
 };
 

@@ -8,7 +8,7 @@
 #include "CResourceManager.h"
 #include "CAnimation.h"
 #include "CAnimator.h"
-
+#include "CSound.h"
 #include "CSceneManager.h"
 #include "CScene.h"
 #include "SelectGDI.h"
@@ -111,6 +111,10 @@ void CCarrotMissle::OnCollisionEnter(CCollider* _col)
 		bulletInfo info = GetInfo();
 		if (info.health <= 0)
 		{
+			SetSFX(L"CARROT_MISSILE_DEATH");
+			GetSFX()->Play(false);
+			GetSFX()->SetPosition(50.f);
+			GetSFX()->SetVolume(100.f);
 			isDead = true;
 			return;
 		}

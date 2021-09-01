@@ -11,12 +11,13 @@
 #include "CSalBullet.h"
 #include "FSMAI.h"
 #include "CState.h"
+#include "CSound.h"
 CSalSpudder::CSalSpudder()
 	:m_animatedTime(1/15.f)
 {
 	CreateCollider();
 	CreateAnimator();
-	GetCollider()->SetScale(Vec2(500.f, 430.f));
+	GetCollider()->SetScale(Vec2(380.f, 430.f));
 	CTexture* idleTex = CResourceManager::GetInst()->FindTexture(L"PotatoIdleTex");//5
 	CTexture* deathTex = CResourceManager::GetInst()->FindTexture(L"PotatoDeathTex");//34
 	CTexture* introTex = CResourceManager::GetInst()->FindTexture(L"PotatoIntroTex");//11
@@ -34,7 +35,7 @@ CSalSpudder::~CSalSpudder()
 void CSalSpudder::Start()
 {
 	CMonster::Start();
-	GetHitBox()->SetScale(Vec2(400.f, 380.f));
+	GetHitBox()->SetScale(Vec2(360.f, 380.f));
 	GetHitBox()->Start();
 }
 void CSalSpudder::Update()
@@ -43,8 +44,15 @@ void CSalSpudder::Update()
 	{
 		ChangeAIState(GetAi(), MON_STATE::DEAD);
 	}
-	if (GetAi()->GetCurrentState()->GetState() == MON_STATE::INTRO)
+	if (GetAi()->GetCurrentState()->GetState() == MON_STATE::INTRO && GetAnimator()->GetCurrentAnim()== nullptr)
+	{
+		CSound* sfx = CResourceManager::GetInst()->FindSound(L"POTATO_INTRO");
+		sfx->Play(false);
+		sfx->SetPosition(50.f);
+		sfx->SetVolume(100.f);
 		GetAnimator()->Play(L"POTATO_INTRO", false);
+	}
+		
 	CMonster::Update();
 
 }

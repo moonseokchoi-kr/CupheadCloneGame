@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "CSlimeAttackBox.h"
 #include "CCollider.h"
+#include "CSound.h"
 #include "CRigidBody.h"
 #include "CSlime.h"
 #include "CPlayer.h"
@@ -33,6 +34,20 @@ void CSlimeAttackBox::Update()
 
 void CSlimeAttackBox::Fire()
 {
+	if (m_currentAttackPatt == ATTACK_PATT::PATT2)
+	{
+		SetSFX(L"SLIME_PUNCH");
+		GetSFX()->SetPosition(50.f);
+		GetSFX()->SetVolume(20.f);
+		GetSFX()->Play(false);
+	}
+	else
+	{
+		SetSFX(L"LG_SLIME_PUNCH");
+		GetSFX()->SetPosition(50.f);
+		GetSFX()->SetVolume(80.f);
+		GetSFX()->Play(false);
+	}
 }
 
 void CSlimeAttackBox::Render(HDC _dc)

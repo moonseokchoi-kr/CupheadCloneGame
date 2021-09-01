@@ -7,7 +7,7 @@
 #include "CAnimation.h"
 #include "CAnimator.h"
 #include "CPlayerAttackBox.h"
-
+#include "CSound.h"
 #include "CKeyManager.h"
 #include "CTimeManager.h"
 
@@ -23,6 +23,10 @@ CPlayerJumpState::~CPlayerJumpState()
 void CPlayerJumpState::Enter()
 {
 	GetPlayer()->GetCollider()->SetScale(Vec2(70.f, 100.f));
+	SetSFX(L"PLAYER_JUMP");
+	GetSFX()->Play(false);
+	GetSFX()->SetPosition(50.f);
+	GetSFX()->SetVolume(100.f);
 }
 
 void CPlayerJumpState::Exit()
@@ -42,6 +46,7 @@ void CPlayerJumpState::Update()
 	if (GetPlayer()->GetGravity()->IsGround() && m_accTime>=0.05f)
 	{
 		m_accTime = 0.f;
+		GetSFX()->Stop(true);
 		ChangePlayerState(GetAI(), PLAYER_STATE::IDLE);
 	}
 }

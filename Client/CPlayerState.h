@@ -2,7 +2,7 @@
 
 class CPlayer;
 class CPlayerStateMachine;
-
+class CSound;
 
 class CPlayerState
 {
@@ -19,7 +19,9 @@ public:
 	virtual void Enter() = 0;
 	virtual void Exit() = 0;
 	virtual void Update() = 0;
-	
+public:
+	void SetSFX(const wstring& _name);
+	CSound* GetSFX() { return m_sfx; }
 protected:
 	virtual void updateSubState(){}
 	virtual void updateAnimation() {}
@@ -28,7 +30,7 @@ private:
 	
 	CPlayerStateMachine* m_ai;
 	PLAYER_STATE m_state;
-
+	CSound* m_sfx;
 	friend class CPlayerStateMachine;
 };
 

@@ -7,7 +7,7 @@
 #include "CAnimation.h"
 #include "CSlimeAttackBox.h"
 #include "CMonsterHitBox.h"
-
+#include "CSound.h"
 #include "CResourceManager.h"
 #include "CTexture.h"
 #include "CCore.h"
@@ -116,6 +116,10 @@ void CSlime::Update()
 		m_currentPhase = PHASE::PHASE2;
 		GetRigidBody()->SetActive(false);
 		GetHitBox()->GetCollider()->SetAvaCollide(false);
+		CSound* sfx = CResourceManager::GetInst()->FindSound(L"SLIME_MORPH");
+		sfx->Play(false);
+		sfx->SetPosition(50.f);
+		sfx->SetVolume(100.f);
 		ChangeAIState(GetAi(), MON_STATE::INTRO);
 		if (GetMoveDir().x < 0)
 		{
@@ -130,10 +134,21 @@ void CSlime::Update()
 	}
 	if (GetInfo().hp <= 0)
 	{
+		CSound* sfx = CResourceManager::GetInst()->FindSound(L"SLIME_DEATH");
+		sfx->Play(false);
+		sfx->SetPosition(30.f);
+		sfx->SetVolume(100.f);
 		ChangeAIState(GetAi(), MON_STATE::DEAD);
 	}
 	if (GetAi()->GetCurrentState()->GetState() == MON_STATE::INTRO && GetAnimator()->GetCurrentAnim() == nullptr)
+	{
+		CSound* sfx = CResourceManager::GetInst()->FindSound(L"SLIME_INTRO");
+		sfx->Play(false);
+		sfx->SetPosition(30.f);
+		sfx->SetVolume(100.f); 
 		GetAnimator()->Play(L"SLIME_INTRO_1", false);
+	}
+		
 	m_prevMoveDir = GetMoveDir();
 	CMonster::Update();
 

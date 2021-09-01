@@ -9,12 +9,14 @@
 #include "CPlayerState.h"
 #include "CChaserBullet.h"
 #include "CPlayerWeaponUI.h"
+#include "CSound.h"
 CPlayerAttackBox::CPlayerAttackBox()
 	:m_accTime(0)
 	,m_weaponUI(nullptr)
 {
 	CreateCollider();
 	GetCollider()->SetScale(Vec2(40.f, 40.f));
+	SetSFX(L"PLAYER_FIRE_LOOP");
 }
 
 CPlayerAttackBox::~CPlayerAttackBox()
@@ -33,12 +35,13 @@ void CPlayerAttackBox::Fire()
 	Vec2 finalPos = GetFinalPos();
 	m_accTime += fDT;
 	playerInfo pInfo = ((CPlayer*)GetOwner())->GetInfo();
-	
+	GetSFX()->Play(false);
 
 	switch (GetCurrentBullet())
 	{
 	case BULLET_TYPE::PEASHOOT:
 	{
+		
 		CPeaShootBullet* bullet = new CPeaShootBullet;
 		if (m_accTime >= pInfo.attackSpeed)
 		{
@@ -55,7 +58,6 @@ void CPlayerAttackBox::Fire()
 		break;
 	case BULLET_TYPE::CHASER:
 	{
-		pInfo.attackSpeed = 0.5f;
 		CChaserBullet* bullet = new CChaserBullet;
 		if (m_accTime >= pInfo.attackSpeed)
 		{
@@ -78,10 +80,16 @@ void CPlayerAttackBox::ChangeBullet()
 {
 	if (GetCurrentBullet() == BULLET_TYPE::PEASHOOT)
 	{
+		SetSFX(L"PLAYER_HOMING_LOOP");
+		GetSFX()->SetPosition(50.f);
+		GetSFX()->SetVolume(100.f);
 		SetCurrentBullet(BULLET_TYPE::CHASER);
 	}
 	else
 	{
+		SetSFX(L"PLAYER_FIRE_LOOP");
+		GetSFX()->SetPosition(50.f);
+		GetSFX()->SetVolume(70.f);
 		SetCurrentBullet(BULLET_TYPE::PEASHOOT);
 	}
 	m_weaponUI->m_isActive = true;

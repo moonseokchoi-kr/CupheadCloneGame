@@ -6,6 +6,7 @@
 #include "CPlayerHitBox.h"
 #include "CCollider.h"
 #include "CPlayer.h"
+#include "CSound.h"
 CPlayerIntroState::CPlayerIntroState()
 	:CPlayerState(PLAYER_STATE::INTRO)
 {
@@ -17,10 +18,13 @@ CPlayerIntroState::~CPlayerIntroState()
 
 void CPlayerIntroState::Enter()
 {
+
 }
 
 void CPlayerIntroState::Update()
 {
+
+
 	GetPlayer()->GetHitBox()->GetCollider()->SetAvaCollide(false);
 	GetPlayer()->GetRigidBody()->SetActive(false);
 	if (GetPlayer()->GetAnimator()->GetCurrentAnim()->IsFinish() && GetPlayer()->GetAnimator()->GetCurrentAnim()->GetName() == L"PLAYER_INTRO_1")

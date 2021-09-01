@@ -4,7 +4,7 @@
 #include "CPlayer.h"
 #include "CBullet.h"
 #include "CCamera.h"
-
+#include "CResourceManager.h"
 
 
 #include "SelectGDI.h"
@@ -15,6 +15,7 @@ CAttackBox::CAttackBox()
 	:m_accTime(0.f)
 	,m_current_Bullet(BULLET_TYPE::END)
 	,m_owner(nullptr)
+	,m_sfx(nullptr)
 {
 	CreateCollider();
 	GetCollider()->SetScale(Vec2(40.f, 40.f));
@@ -59,4 +60,9 @@ CBullet* CAttackBox::GetBullet(BULLET_TYPE _type)
 	if (m_bulletVec.end() == iter)
 		return nullptr;
 	return iter->second;
+}
+
+void CAttackBox::SetSFX(const wstring& _name)
+{
+	m_sfx = CResourceManager::GetInst()->FindSound(_name);
 }

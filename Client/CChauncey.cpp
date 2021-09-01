@@ -11,13 +11,12 @@
 #include "CMonsterHitBox.h"
 #include "FSMAI.h"
 #include "CState.h"
+#include "CSound.h"
 #include "SelectGDI.h"
 CChauncey::CChauncey()
 {
-	CreateCollider();
 	CreateAnimator();
 	SetScale(Vec2(395.f,552.f));
-	GetCollider()->SetScale(GetScale());
 
 	
 	CTexture* introTex = CResourceManager::GetInst()->FindTexture(L"CarrotIntroTex");
@@ -44,25 +43,37 @@ void CChauncey::Start()
 	CMonster::Start();
 	CreateEyes();
 	m_eyes->m_offSet = Vec2(-5.f, -30.f);
-	GetHitBox()->SetScale(GetScale() - Vec2(100.f, 100.f));
+	GetHitBox()->SetScale(GetScale() - Vec2(200.f, 300.f));
+	GetHitBox()->GetCollider()->SetOffsetPos(Vec2(0.f, -40.f));
 	GetHitBox()->SetOffset(Vec2(0.f, 50.f));
 	GetHitBox()->Start();
 }
 
 void CChauncey::Update()
 {
-	if (GetAi()->GetCurrentState()->GetState() == MON_STATE::INTRO)
+	if (GetInfo().hp <= 0)
+	{
+		CSound* sfx = CResourceManager::GetInst()->FindSound(L"CARROT_DEATH");
+		sfx->Play(false);
+		sfx->SetPosition(50.f);
+		sfx->SetVolume(100.f);
+		GetHitBox()->GetCollider()->SetAvaCollide(false);
+		ChangeAIState(GetAi(), MON_STATE::DEAD);
+		return;
+	}
+	if (GetAi()->GetCurrentState()->GetState() == MON_STATE::INTRO && GetAnimator()->GetCurrentAnim() == nullptr)
+	{
+		CSound* sfx = CResourceManager::GetInst()->FindSound(L"CARROT_INTRO");
+		sfx->Play(false);
+		sfx->SetPosition(50.f);
+		sfx->SetVolume(100.f);
 		GetAnimator()->Play(L"CARROT_INTRO", false);
+	}
 	GetHitBox()->Update();
 	m_eyes->Update();
 	CMonster::Update();
 
-	if (GetInfo().hp <= 0)
-	{
-		GetHitBox()->GetCollider()->SetAvaCollide(false);
-		ChangeAIState(GetAi(), MON_STATE::DEAD);
 
-	}
 }
 
 void CChauncey::Render(HDC _dc)
