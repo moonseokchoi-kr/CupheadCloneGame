@@ -34,6 +34,7 @@ void CAttackBox::Update()
 
 void CAttackBox::Render(HDC _dc)
 {
+#ifdef _DEBUG
 	SelectGDI gdi(_dc, PEN_TYPE::BLUE_BOLD);
 	Vec2 renderPos = CCamera::GetInst()->GetRenderPos(m_offset);
 	Vec2 scale = GetScale();
@@ -44,6 +45,8 @@ void CAttackBox::Render(HDC _dc)
 		(int)(renderPos.x + scale.x / 2.f),
 		(int)(renderPos.y + scale.y / 2.f)
 	);
+#endif
+
 }
 
 void CAttackBox::AddBullet(CBullet* _bullet)

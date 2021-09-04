@@ -12,6 +12,7 @@
 #include "CMonsterHitBox.h"
 #include "CSceneManager.h"
 #include "CSound.h"
+#include "CVFXObject.h"
 CSlimAttackState::CSlimAttackState()
 	:m_accTime(0)
 	, m_jumpCount(0)
@@ -100,6 +101,7 @@ void CSlimAttackState::updateAnimation()
 					GetSFX()->SetPosition(50.f);
 					GetSFX()->SetVolume(80.f);
 					GetSFX()->Play(false);
+					
 				}
 			}
 				break;
@@ -307,6 +309,7 @@ void CSlimAttackState::updateAnimation()
 					GetSFX()->SetPosition(50.f);
 					GetSFX()->SetVolume(80.f);
 					GetSFX()->Play();
+					
 				}
 			}
 			break;
@@ -508,6 +511,7 @@ void CSlimAttackState::updateSubState()
 					GetSFX()->SetVolume(80.f);
 					GetSFX()->Play(false);
 					CCamera::GetInst()->SetCamEffect(0.1f, CAMERA_EFFECT::VIBRATION);
+
 					m_soundPlay = true;
 				}
 				else if (slime->GetCurrentPhase() == PHASE::PHASE2 && !m_soundPlay)
@@ -516,6 +520,8 @@ void CSlimAttackState::updateSubState()
 					GetSFX()->SetPosition(50.f);
 					GetSFX()->SetVolume(80.f);
 					GetSFX()->Play(false);
+					slime->GetVFX()->SetOffset(Vec2(0.f, 120.f));
+					slime->GetVFX()->SetType(VFX_TYPE::SLIME_JUMP_DUST);
 					CCamera::GetInst()->SetCamEffect(0.1f, CAMERA_EFFECT::VIBRATION);
 					m_soundPlay = true;
 				}

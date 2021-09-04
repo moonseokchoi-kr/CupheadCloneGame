@@ -25,19 +25,18 @@ CCarrotBossAttackBox::~CCarrotBossAttackBox()
 
 void CCarrotBossAttackBox::Update()
 {	
-	CAttackBox::Update();
 	Vec2 resolution = CCore::GetInst()->GetResolution();
 	if (ATTACK_PATT::PATT1 == m_currnetPatt)
 	{
 
-		SetPos(Vec2(0.f, -GetOwner()->GetPos().y - 100));
+		SetOffset(Vec2(0.f, -GetOwner()->GetPos().y - 100));
 
 	}
 	else
 	{;
-		SetPos(Vec2(0.f, -100.f));
+		SetOffset(Vec2(0.f, -100.f));
 	}
-	
+	CAttackBox::Update();
 }
 
 void CCarrotBossAttackBox::Fire()
@@ -68,7 +67,7 @@ void CCarrotBossAttackBox::Fire()
 		GetSFX()->SetPosition(50.f);
 		GetSFX()->SetVolume(80.f);
 		GetSFX()->Play(false);
-		beam->SetPos(GetOffset());
+		beam->SetPos(GetPos());
 		beam->SetName(L"BeamBullet");
 		beam->Start();
 		CreateObject(beam, GROUP_TYPE::MONSTER_BULLET);

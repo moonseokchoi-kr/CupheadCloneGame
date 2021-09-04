@@ -38,6 +38,7 @@ class CPlayerHpUI;
 class CPlayerAttackBox;
 class CPlayerHitBox;
 class CVFXObject;
+class CTextUI;
 class CPlayer :
     public CObject
 {
@@ -98,4 +99,6 @@ private:
     PLAYER_STATE m_prevState;
 
     CPlayerHpUI* m_hpUI;
+    
+    CTextUI* m_debugText;
 };

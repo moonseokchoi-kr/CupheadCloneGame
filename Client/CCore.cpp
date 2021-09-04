@@ -226,7 +226,7 @@ void CCore::loadResource()
 	CResourceManager::GetInst()->LoadTexture(L"PlayerDeathTex", L"texture\\cuphead\\player\\player_death.bmp");
 	CResourceManager::GetInst()->LoadTexture(L"PlayerRunTurnTex", L"texture\\cuphead\\player\\player_turn.bmp");
 	CResourceManager::GetInst()->LoadTexture(L"PlayerDucKTex", L"texture\\cuphead\\player\\player_duck.bmp");
-
+	CResourceManager::GetInst()->LoadTexture(L"PlayerSpawnTex", L"texture\\cuphead\\bullet\\bullet_spawn.bmp");
 	CResourceManager::GetInst()->LoadTexture(L"PlayerNormalRunTex", L"texture\\cuphead\\player\\player_run.bmp");
 
 	CResourceManager::GetInst()->LoadTexture(L"PlayerAimTex", L"texture\\cuphead\\player\\player_aim.bmp");

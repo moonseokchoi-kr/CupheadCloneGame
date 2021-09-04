@@ -8,6 +8,7 @@
 #include "CResourceManager.h"
 #include "CCore.h"
 #include "CSound.h"
+#include "CVFXObject.h"
 #include "CCamera.h"
 CStartScene::CStartScene()
 {

@@ -52,14 +52,11 @@ void CPlayerAttackState::Update()
 	if(m_subState != PLAYER_STATE::EX_ATTACK)
 		GetPlayer()->UpdateMove();
 	updateAnimation();
-	if (KEY_AWAY(KEY::Z) || KEY_NONE(KEY::Z))
-	{
-		GetPlayer()->GetAttackBox()->GetSFX()->Stop(true);
-		ChangePlayerState(GetAI(), GetAI()->GetPrevState()->GetState());
-	}
+
 	playerInfo info = GetPlayer()->GetInfo();
 	info.prevMoveDir = GetPlayer()->GetMoveDir();
 }
+
 
 void CPlayerAttackState::updateSubState()
 {
@@ -91,7 +88,12 @@ void CPlayerAttackState::updateSubState()
 	{
 		GetPlayer()->GetAttackBox()->Fire();
 	}
-
+	if (KEY_AWAY(KEY::Z) || KEY_NONE(KEY::Z))
+	{
+		GetPlayer()->GetAttackBox()->SetVisible(false);
+		GetPlayer()->GetAttackBox()->GetSFX()->Stop(true);
+		ChangePlayerState(GetAI(), GetAI()->GetPrevState()->GetState());
+	}
 	if (GetPlayer()->GetGravity()->IsGround())
 	{
 		if (KEY_TAP(KEY::X))

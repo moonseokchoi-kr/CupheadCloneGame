@@ -74,13 +74,13 @@ void CPlayerJumpState::updateSubState()
 	//방향전환
 	if (KEY_TAP(KEY::LEFT))
 	{
-		//GetPlayer()->SetMoveDir(-1, GetPlayer()->GetMoveDir().y);
+		GetPlayer()->SetMoveDir(-1, GetPlayer()->GetMoveDir().y);
 		//GetPlayer()->GetRigidBody()->AddForce(Vec2(-GetPlayer()->GetInfo().moveSpeed, 0.f));
 	}
 
 	if (KEY_TAP(KEY::RIGHT))
 	{
-		//GetPlayer()->SetMoveDir(1, GetPlayer()->GetMoveDir().y);
+		GetPlayer()->SetMoveDir(1, GetPlayer()->GetMoveDir().y);
 		//GetPlayer()->GetRigidBody()->AddForce(Vec2(-GetPlayer()->GetInfo().moveSpeed, 0.f));
 	}
 	
@@ -91,8 +91,13 @@ void CPlayerJumpState::updateSubState()
 	}
 	
 	//어택
-	if (KEY_HOLD(KEY::Z))
+	if (KEY_HOLD(KEY::Z) || KEY_TAP(KEY::Z))
 	{
 		GetPlayer()->GetAttackBox()->Fire();
+	}
+	if (KEY_AWAY(KEY::Z) || KEY_NONE(KEY::Z))
+	{
+		GetPlayer()->GetAttackBox()->SetVisible(false);
+		GetPlayer()->GetAttackBox()->GetSFX()->Stop(true);
 	}
 }

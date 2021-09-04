@@ -10,6 +10,7 @@
 #include "CResourceManager.h"
 #include "SelectGDI.h"
 #include "CSound.h"
+#include "CVFXObject.h"
 COllieBullb::COllieBullb()
 {
 	CreateCollider();
@@ -41,6 +42,13 @@ void COllieBullb::Start()
 	CMonster::Start();
 	GetHitBox()->SetScale(Vec2(400.f, 480.f));
 	GetHitBox()->Start();
+	CreateVFX();
+
+	m_bigTear = new CVFXObject;
+	m_bigTear->m_owner = this;
+
+	GetVFX()->SetOffset(Vec2(350.f, -160.f));//right
+	m_bigTear->SetOffset(Vec2(-350.f,-160.f));//light
 }
 
 void COllieBullb::Update()
@@ -66,7 +74,13 @@ void COllieBullb::Update()
 		GetAnimator()->Play(L"ONION_INTRO", false);
 	}
 	CMonster::Update();
+	m_bigTear->Update();
+}
 
+void COllieBullb::FinalUpdate()
+{
+	CMonster::FinalUpdate();
+	m_bigTear->FinalUpdate();
 }
 
 void COllieBullb::Render(HDC _dc)
@@ -88,7 +102,9 @@ void COllieBullb::Render(HDC _dc)
 	{
 		GetAnimator()->SetAlpha(255);
 	}
-	ComponentRender(_dc);
+	m_bigTear->Render(_dc);
+	CMonster::Render(_dc);
+
 }
 
 void COllieBullb::OnCollisionEnter(CCollider* _col)

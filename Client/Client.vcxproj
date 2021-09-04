@@ -170,6 +170,7 @@
     <ClInclude Include="CHomingBulletTraile.h" />
     <ClInclude Include="CMenuButtonUI.h" />
     <ClInclude Include="CMenuPanel.h" />
+    <ClInclude Include="CMonsterDebugPanel.h" />
     <ClInclude Include="CPlayerDuckState.h" />
     <ClInclude Include="CPlayerHpUI.h" />
     <ClInclude Include="CPlayerIntroState.h" />
@@ -277,6 +278,7 @@
     <ClCompile Include="CHomingBulletTraile.cpp" />
     <ClCompile Include="CMenuButtonUI.cpp" />
     <ClCompile Include="CMenuPanel.cpp" />
+    <ClCompile Include="CMonsterDebugPanel.cpp" />
     <ClCompile Include="CPlayerDuckState.cpp" />
     <ClCompile Include="CPlayerHpUI.cpp" />
     <ClCompile Include="CPlayerIntroState.cpp" />

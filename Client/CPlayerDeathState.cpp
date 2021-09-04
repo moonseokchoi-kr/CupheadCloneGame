@@ -22,7 +22,7 @@ void CPlayerDeathState::Enter()
 	GetPlayer()->GetAnimator()->Play(L"PLAYER_DEATH",false);
 
 	SetSFX(L"PLAYER_DEATH");
-	GetSFX()->Play(true);
+	GetSFX()->Play(false);
 	GetSFX()->SetPosition(50.f);
 	GetSFX()->SetVolume(100.f);
 }
@@ -33,10 +33,5 @@ void CPlayerDeathState::Exit()
 
 void CPlayerDeathState::Update()
 {
-	if (GetPlayer()->GetAnimator()->GetCurrentAnim()->IsFinish())
-	{
-		GetSFX()->Stop(true);
-		DeleteObject(GetPlayer());
-	}
-		
+
 }

@@ -27,6 +27,7 @@
 #include "CPlayerIntroState.h"
 #include "CPlayerStateMachine.h"
 #include "CPlayerHitBox.h"
+#include "CTextUI.h"
 #include "CCore.h"
 
 CPlayer::CPlayer()
@@ -165,7 +166,11 @@ void CPlayer::Start()
 	CreateAttackBox();
 	CreateHitBox();
 	CreateVFX();
-
+	m_debugText = new CTextUI(false);
+	m_debugText->SetPos(Vec2(640.f, 730.f));
+	m_debugText->SetText(L"[Infinite Mode]");
+	m_debugText->SetVisible(false);
+	CreateObject(m_debugText, GROUP_TYPE::UI);
 	if (nullptr != m_attackBox)
 	{
 		CBullet* bullet = new CPeaShootBullet;
@@ -221,9 +226,17 @@ void CPlayer::Update()
 		if (KEY_TAP(KEY::F5))
 		{
 			if (m_infinite)
+			{
 				m_infinite = false;
+				m_debugText->SetVisible(false);
+
+			}
 			else
+			{
 				m_infinite = true;
+				m_debugText->SetVisible(true);
+			}
+				
 		}
 	}
 
@@ -250,16 +263,13 @@ void CPlayer::Render(HDC _dc)
 	}
 	ComponentRender(_dc);
 	m_vfxObject->Render(_dc);
-#ifdef _DEBUG
 	m_attackBox->Render(_dc);
-#endif
+
 	
 }
 void CPlayer::OnCollisionEnter(CCollider* _col)
 {
 	CObject* obj = _col->GetOwner();
-
-	
 	if (obj->GetName() == L"Ground")
 	{
 		m_isAir = false;
@@ -285,6 +295,7 @@ void CPlayer::FinalUpdate()
 		return;
 	CObject::FinalUpdate();
 	m_vfxObject->FinalUpdate();
+	m_attackBox->FinalUpdate();
 }
 void CPlayer::SetAi(CPlayerStateMachine* _ai)
 {

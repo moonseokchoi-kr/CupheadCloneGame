@@ -4,6 +4,7 @@ enum class VFX_TYPE
 {
 	DASH_BOMB,
 	JUMP_DUST,
+    SLIME_JUMP_DUST,
     LEVEL_START,
     YOU_DIED,
     SCENE_CHANGE_INTRO,
@@ -29,6 +30,7 @@ public:
     void SetOffset(Vec2 _v) { m_offSet = _v; }
     Vec2 GetOffset() { return m_offSet; }
 public:
+    VFX_TYPE GetType() { return m_currentType; }
 	void SetType(VFX_TYPE _vfx);
 private:
     CObject* m_owner;
@@ -37,7 +39,7 @@ private:
     VFX_TYPE m_currentType;
     array<wstring, TYPE_NUMBER(VFX_TYPE::END)> m_arrayVFX;
     friend class CPlayer;
-    friend class COnion;
+    friend class COllieBullb;
     friend class CMonster;
 };
 

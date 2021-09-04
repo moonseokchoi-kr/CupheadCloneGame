@@ -8,6 +8,11 @@
 #include "CColliderManager.h"
 #include "CSpawnObject.h"
 #include "CSound.h"
+#include "CPlayerStateMachine.h"
+#include "CPlayerState.h"
+#include "CVFXObject.h"
+#include "CAnimation.h"
+#include "CAnimator.h"
 #include "CKeyManager.h"
 CStageScene_02::CStageScene_02()
 	:m_currentBoss(nullptr)
@@ -35,12 +40,12 @@ void CStageScene_02::Enter()
 	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::PLAYER_HITBOX, GROUP_TYPE::MONSTER_BULLET);
 	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::PLAYER_HITBOX, GROUP_TYPE::MONSTER_HITBOX);
 	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::MONSTER_BULLET, GROUP_TYPE::GROUND);
-
+	CreatePauseUI();
 	SetBGM(L"BGM_SLIME");
 	GetBGM()->PlayToBGM(true);
 	GetBGM()->SetPosition(50.f);
 	GetBGM()->SetVolume(20.f);
-
+	GetVFX()->SetType(VFX_TYPE::SCENE_CHANGE_INTRO);
 }
 
 void CStageScene_02::Update()
@@ -59,12 +64,26 @@ void CStageScene_02::Update()
 		m_currentBoss = salSpawn->GetSpawnObj();
 		m_prevBossName = m_currentBoss->GetName();
 		CCamera::GetInst()->SetTarget(playerSpawn->GetSpawnObj());
-		SetCurrnetState(SCENE_STATE::PLAY);
+		if (GetVFX()->GetAnimator()->GetCurrentAnim()->IsFinish())
+		{
+			if (GetVFX()->GetAnimator()->GetCurrentAnim()->GetName() == L"LEVEL_START_2")
+			{
+				SetCurrnetState(SCENE_STATE::PLAY);
+			}
+			if (GetVFX()->GetAnimator()->GetCurrentAnim()->GetName() != L"LEVEL_START_2")
+			{
+				GetVFX()->SetType(VFX_TYPE::LEVEL_START);
+			}
+		}
 		return;
 	}
 	if (KEY_TAP(KEY::F1))
 	{
 		SetDebug();
+	}
+	if (KEY_TAP(KEY::ESC))
+	{
+		ShowPauseUI();
 	}
 	if (CCore::GetInst()->IsDebug())
 	{
@@ -80,16 +99,41 @@ void CStageScene_02::Update()
 
 	if (m_currentBoss != nullptr && m_currentBoss->IsDead())
 	{
-		ChangeScene(SCENE_TYPE::START);
+		if (GetCurrentState() != SCENE_STATE::EXIT && GetVFX()->GetAnimator()->GetCurrentAnim()->IsFinish())
+		{
+			CCamera::GetInst()->SetCamEffect(1.f, CAMERA_EFFECT::VIBRATION);
+			GetVFX()->SetType(VFX_TYPE::SCENE_CHANGE_OUTRO);
+			SetCurrnetState(SCENE_STATE::EXIT);
+		}
+		else if (GetVFX()->GetAnimator()->GetCurrentAnim()->IsFinish())
+		{		
+			ChangeScene(SCENE_TYPE::START);
+		}
 	}
-	if (GetTarget(GROUP_TYPE::PLAYER, L"Player")->IsDead())
+	if (((CPlayer*)GetTarget(GROUP_TYPE::PLAYER, L"Player"))->GetAi()->GetCurrentState()->GetState() == PLAYER_STATE::DEAD)
 	{
-		SetCurrnetState(SCENE_STATE::GAMEOVER);
-		ChangeScene(SCENE_TYPE::START);
+		if (GetCurrentState() != SCENE_STATE::GAMEOVER && GetVFX()->GetAnimator()->GetCurrentAnim()->IsFinish())
+		{
+			GetVFX()->SetType(VFX_TYPE::YOU_DIED);
+			SetCurrnetState(SCENE_STATE::GAMEOVER);
+		}
+		if (GetCurrentState() == SCENE_STATE::GAMEOVER && GetVFX()->GetAnimator()->GetCurrentAnim()->IsFinish())
+		{
+			if (GetVFX()->GetType() == VFX_TYPE::SCENE_CHANGE_OUTRO)
+			{
+				ChangeScene(SCENE_TYPE::START);
+				return;
+			}
+			GetVFX()->SetType(VFX_TYPE::SCENE_CHANGE_OUTRO);
+
+		}
+
 	}
 }
+
 
 void CStageScene_02::Exit()
 {
 	DeleteAll();
+	GetBGM()->Stop();
 }

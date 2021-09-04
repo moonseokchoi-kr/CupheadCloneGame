@@ -5,6 +5,8 @@
 #include "CKeyManager.h"
 CTextUI::CTextUI(bool _cameraAffeted)
 	:CUI(_cameraAffeted)
+	, m_isVisible(true)
+	, isMouseAttached(false)
 {
 }
 
@@ -28,12 +30,16 @@ void CTextUI::Render(HDC _dc)
 		pos = CCamera::GetInst()->GetRenderPos(pos);
 	}
 	Vec2 scale = GetScale();
-	TextOutW(
-		_dc,
-		(int)pos.x,
-		(int)pos.y,
-		m_text.c_str(),
-		(int)m_text.length()
-	);
+	if (m_isVisible)
+	{
+		TextOutW(
+			_dc,
+			(int)pos.x,
+			(int)pos.y,
+			m_text.c_str(),
+			(int)m_text.length()
+		);
+	}
+
 
 }

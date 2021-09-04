@@ -16,9 +16,10 @@ public:
 public:
     void SetText(const wstring& _str) { m_text = _str; };
     void SetMouseFollow(bool _b) { isMouseAttached = _b; }
-
+    void SetVisible(bool _b) { m_isVisible = _b; }
 private:
    wstring m_text;
    bool isMouseAttached;
+   bool m_isVisible;
 };
 

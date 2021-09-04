@@ -22,7 +22,7 @@ void COnionBossAttackBox::Fire()
 
 void COnionBossAttackBox::Start()
 {
-	SetPos(Vec2(1280 / 2.f, -GetOwner()->GetPos().y - 100.f));
+	SetPos(Vec2(1280 / 2.f, -GetOwner()->GetScale().y/2.f - 100.f));
 }
 
 float COnionBossAttackBox::calRandomXPos()

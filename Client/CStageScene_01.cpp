@@ -5,7 +5,12 @@
 #include "CMonster.h"
 #include "CMonsterFactory.h"
 #include "CPlayer.h"
+#include "CVFXObject.h"
 #include "CColliderManager.h"
+#include "CAnimation.h"
+#include "CAnimator.h"
+#include "CPlayerStateMachine.h"
+#include "CPlayerState.h"
 #include "CSound.h"
 #include "CSpawnObject.h"
 #include "CKeyManager.h"
@@ -37,11 +42,12 @@ void CStageScene_01::Enter()
 	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::PLAYER_HITBOX, GROUP_TYPE::BOSS);
 	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::MONSTER_BULLET, GROUP_TYPE::GROUND);
 	CreatePauseUI();
+	CreateDebugPanel();
 	SetBGM(L"BGM_VEGGIE");
 	GetBGM()->PlayToBGM(true);
 	GetBGM()->SetPosition(50.f);
 	GetBGM()->SetVolume(20.f);
-
+	GetVFX()->SetType(VFX_TYPE::SCENE_CHANGE_INTRO);
 	
 }
 
@@ -58,7 +64,18 @@ void CStageScene_01::Update()
 		m_currentBoss = salSpawn->GetSpawnObj();
 		m_prevBossName = m_currentBoss->GetName();
 		CCamera::GetInst()->SetTarget(playerSpawn->GetSpawnObj());
-		SetCurrnetState(SCENE_STATE::PLAY);
+		if (GetVFX()->GetAnimator()->GetCurrentAnim()->IsFinish())
+		{
+			if (GetVFX()->GetAnimator()->GetCurrentAnim()->GetName() == L"LEVEL_START_2")
+			{
+				SetCurrnetState(SCENE_STATE::PLAY);
+			}
+			if (GetVFX()->GetAnimator()->GetCurrentAnim()->GetName() != L"LEVEL_START_2")
+			{
+				GetVFX()->SetType(VFX_TYPE::LEVEL_START);
+			}	
+		}
+		
 		return;
 	}
 	if (KEY_TAP(KEY::F1))
@@ -78,7 +95,7 @@ void CStageScene_01::Update()
 
 		if (KEY_TAP(KEY::F7))
 		{
-			SetCurrnetState(SCENE_STATE::START);
+			GetVFX()->SetType(VFX_TYPE::SCENE_CHANGE_OUTRO);
 			playerInfo info = ((CPlayer*)GetTarget(GROUP_TYPE::PLAYER, L"Player"))->GetInfo();
 			SetHp(info.health);
 			ChangeScene(SCENE_TYPE::STAGE_02);
@@ -97,7 +114,6 @@ void CStageScene_01::Update()
 		}
 		else if (m_prevBossName == L"Carrot")
 		{
-			SetCurrnetState(SCENE_STATE::START);
 			playerInfo info = ((CPlayer*)GetTarget(GROUP_TYPE::PLAYER, L"Player"))->GetInfo();
 			SetHp(info.health);
 			ChangeScene(SCENE_TYPE::STAGE_02);
@@ -110,10 +126,24 @@ void CStageScene_01::Update()
 			m_prevBossName = m_currentBoss->GetName();
 		}
 	}
-	if (GetTarget(GROUP_TYPE::PLAYER, L"Player")->IsDead())
+	if (((CPlayer*)GetTarget(GROUP_TYPE::PLAYER, L"Player"))->GetAi()->GetCurrentState()->GetState() == PLAYER_STATE::DEAD)
 	{
-		SetCurrnetState(SCENE_STATE::GAMEOVER);
-		ChangeScene(SCENE_TYPE::START);
+		if (GetCurrentState() != SCENE_STATE::GAMEOVER && GetVFX()->GetAnimator()->GetCurrentAnim()->IsFinish())
+		{
+			GetVFX()->SetType(VFX_TYPE::YOU_DIED);
+			SetCurrnetState(SCENE_STATE::GAMEOVER);
+		}
+		if (GetCurrentState()==SCENE_STATE::GAMEOVER && GetVFX()->GetAnimator()->GetCurrentAnim()->IsFinish())
+		{
+			if (GetVFX()->GetType() == VFX_TYPE::SCENE_CHANGE_OUTRO)
+			{
+				ChangeScene(SCENE_TYPE::START);
+				return;
+			}
+			GetVFX()->SetType(VFX_TYPE::SCENE_CHANGE_OUTRO);
+
+		}
+		
 	}
 }
 

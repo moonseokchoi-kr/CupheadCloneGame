@@ -16,14 +16,17 @@
 class CUI;
 class CPlayer;
 class CMenuPanel;
+class CTextUI;
 class CSound;
+class CVFXObject;
 enum class SCENE_STATE
 {
+	INTRO,
 	START,
 	PLAY,
 	PAUSE,
 	GAMEOVER,
-
+	EXIT,
 };
 
 class CScene
@@ -81,11 +84,12 @@ public:
 		return m_currentState;
 	}
 	SCENE_STATE GetPrevState() { return m_prevState; }
-
+	CVFXObject* GetVFX() { return m_changeVFX; }
 public:
 	//디버그용 함수
 	void SetDeadState(CMonster* _boss);
 	void SetDebug();
+
 public:
 	void DeleteAll();
 	void DeleteGroup(GROUP_TYPE _target);
@@ -98,16 +102,19 @@ public:
 	CSound* GetBGM() { return m_bgm; }
 	void ShowPauseUI();
 	void CreatePauseUI();
+	void CreateDebugPanel();
 private:
 	void render_tile(HDC _dc);
 	void offset_change();
 private:
 	array<vector<CObject*>, (UINT)GROUP_TYPE::END> m_arrObj;
 	wstring m_strName;
+	CTextUI* m_debugText;
 	CMenuPanel* m_pauseUI;
 	SCENE_STATE m_currentState;
 	SCENE_STATE m_prevState;
 	CSound* m_bgm;
+	CVFXObject* m_changeVFX;
 	UINT m_TileXCount;
 	UINT m_TileYCount;
 	static int m_playerhp;

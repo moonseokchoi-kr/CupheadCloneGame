@@ -9,6 +9,7 @@
 #include "CResourceManager.h"
 #include "CCore.h"
 #include "CCamera.h"
+#include "CTextUI.h"
 #include "CBackGround.h"
 #include "CSpawnObject.h"
 #include "CGround.h"
@@ -17,6 +18,7 @@
 #include "CMenuButtonUI.h"
 #include "CSceneManager.h"
 #include "CGameObjectManager.h"
+#include "CVFXObject.h"
 
 int  CScene::m_playerhp = 0;
 CScene::CScene()
@@ -24,8 +26,11 @@ CScene::CScene()
 	,m_TileYCount(0)
 	,m_currentState(SCENE_STATE::START)
 	,m_prevState(SCENE_STATE::START)
+	,m_debugText(nullptr)
+	,m_pauseUI(nullptr)
 {
-	
+	m_changeVFX = new CVFXObject;
+	m_changeVFX->SetPos(Vec2(640.f, 534.f));
 }
 
 CScene::~CScene()
@@ -57,7 +62,7 @@ void CScene::Start()
 /// </summary>
 void CScene::Update()
 {
-
+	m_changeVFX->Update();
 	for (int i = 0; i < m_arrObj.size(); ++i)
 	{
 		if (TYPE_NUMBER(GROUP_TYPE::BACK_GROUND) == i)
@@ -97,6 +102,7 @@ void CScene::Update()
 /// <param name="_dc">렌더링 데이터를 집어넣을 Device Context</param>
 void CScene::Render(HDC _dc)
 {
+
 	for (int i = 0; i < m_arrObj.size(); ++i)
 	{
 		vector<CObject*>::iterator iter = m_arrObj[i].begin();
@@ -115,10 +121,13 @@ void CScene::Render(HDC _dc)
 
 		
 	}
+	if(m_currentState != SCENE_STATE::PLAY )
+		m_changeVFX->Render(_dc);
 }
 
 void CScene::FinalUpdate()
 {
+	m_changeVFX->FinalUpdate();
 	for (int i = 0; i < m_arrObj.size(); ++i)
 	{
 	
@@ -158,10 +167,14 @@ void CScene::SetDebug()
 	if (CCore::GetInst()->IsDebug())
 	{
 		CCore::GetInst()->SetDebug(false);
+		if (nullptr != m_debugText)
+			m_debugText->SetVisible(false);
 		return;
 	}
 	else
 	{
+		if (nullptr != m_debugText)
+			m_debugText->SetVisible(true);
 		CCore::GetInst()->SetDebug(true);
 	}
 	
@@ -329,6 +342,14 @@ void CScene::CreatePauseUI()
 	m_pauseUI->AddChild(restartButton);
 	m_pauseUI->AddChild(returnButton);
 	CreateObject(m_pauseUI, GROUP_TYPE::UI);
+}
+
+void CScene::CreateDebugPanel()
+{
+	m_debugText = new CTextUI(false);
+	m_debugText->SetPos(Vec2(640.f, 700.f));
+	m_debugText->SetText(L"[ Debug Mode ]");
+	CreateObject(m_debugText, GROUP_TYPE::UI);
 }
 
 

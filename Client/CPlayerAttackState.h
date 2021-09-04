@@ -13,6 +13,8 @@ public:
     virtual void Exit() override;
 
     virtual void Update() override;
+public:
+
 protected:
     virtual void updateSubState();
     virtual void updateAnimation();

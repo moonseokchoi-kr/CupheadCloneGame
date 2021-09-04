@@ -300,6 +300,9 @@
     <Filter Include="Engine\Object\fx">
       <UniqueIdentifier>{0e80934b-3889-4625-bd72-5ab37a164b84}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Object\UI\PanelUI\MonsterDebugPanel">
+      <UniqueIdentifier>{26334c6a-44ad-4107-a4ab-7d30dfdb0d43}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -615,6 +618,9 @@
     <ClInclude Include="CVFXObject.h">
       <Filter>Engine\Object\fx</Filter>
     </ClInclude>
+    <ClInclude Include="CMonsterDebugPanel.h">
+      <Filter>Engine\Object\UI\PanelUI\MonsterDebugPanel</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -922,6 +928,9 @@
     </ClCompile>
     <ClCompile Include="CVFXObject.cpp">
       <Filter>Engine\Object\fx</Filter>
+    </ClCompile>
+    <ClCompile Include="CMonsterDebugPanel.cpp">
+      <Filter>Engine\Object\UI\PanelUI\MonsterDebugPanel</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

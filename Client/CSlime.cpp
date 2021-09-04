@@ -106,6 +106,7 @@ void CSlime::Start()
 	GetHitBox()->SetScale(Vec2(240.f, 200.f));
 	GetHitBox()->Start();
 	GetAttackBox()->Start();
+	CreateVFX();
 }
 
 void CSlime::Update()
@@ -183,7 +184,7 @@ void CSlime::Render(HDC _dc)
 	{
 		GetAnimator()->SetAlpha(255);
 	}
-	ComponentRender(_dc);
+	CMonster::Render(_dc);
 }
 
 void CSlime::CreateAttackBox()
