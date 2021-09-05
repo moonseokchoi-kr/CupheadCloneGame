@@ -23,8 +23,7 @@ void CStartScene::Enter()
 	Vec2 resolution = CCore::GetInst()->GetResolution();
 
 	SetCurrnetState(SCENE_STATE::START);
-	
-	CCore::GetInst()->SetDebug(true);
+
 	CBackGround* titleMenu = new CBackGround(false);
 	titleMenu->SetType(BACKGROUND_TYPE::TITLE);
 	titleMenu->SetPos(Vec2(resolution / 2.f));

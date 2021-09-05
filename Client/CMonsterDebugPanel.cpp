@@ -30,7 +30,7 @@ CMonsterDebugPanel::CMonsterDebugPanel()
 	AddChild(debugText);
 	CTextUI* clone = debugText->Clone();
 	clone->SetPos(Vec2(100.f, 130.f));
-	clone->SetText(L" F4: ChangePatt, F7: NextScene");
+	clone->SetText(L"F5:SetInfinite F4: ChangePatt, F7: NextScene");
 	AddChild(clone);
 	
 }

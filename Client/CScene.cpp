@@ -345,6 +345,7 @@ void CScene::CreateDebugPanel()
 	m_debugText = new CTextUI(false);
 	m_debugText->SetPos(Vec2(640.f, 700.f));
 	m_debugText->SetText(L"[ Debug Mode ]");
+	m_debugText->SetVisible(false);
 	CreateObject(m_debugText, GROUP_TYPE::UI);
 }
 
