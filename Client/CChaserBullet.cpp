@@ -15,6 +15,7 @@ CChaserBullet::CChaserBullet()
 	, m_target(nullptr)
 	, m_isDead(false)
 {
+	SetName(L"PlayerBullet");
 	CreateCollider();
 	CreateRigidBody();
 	CreateAnimator();

@@ -27,8 +27,6 @@ CMonster::~CMonster()
 		delete m_attackBox;
 	if (nullptr != m_fx)
 		delete m_fx;
-	if (CSceneManager::GetInst()->GetCurrentScene()->GetSceneName() == L"Tool Scene")
-		DeleteObject(m_hitBox);
 }
 
 void CMonster::Start()
@@ -79,15 +77,17 @@ void CMonster::FinalUpdate()
 
 void CMonster::Render(HDC _dc)
 {
+
+	ComponentRender(_dc);
 	if (m_fx != nullptr)
 	{
 		m_fx->Render(_dc);
 	}
-	ComponentRender(_dc);
 	if (m_attackBox != nullptr)
 	{
 		m_attackBox->Render(_dc);
 	}
+
 #ifdef _DEBUG
 	//m_hitBox->Render(_dc);
 #endif

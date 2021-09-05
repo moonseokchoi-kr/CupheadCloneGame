@@ -6,6 +6,7 @@ typedef void(*BTN_FUNC) (DWORD_PTR, DWORD_PTR);
 typedef void(CScene::* SCENE_MEM_FUNC_VOID)(void);
 typedef void(CScene::* SCENE_MEM_FUNC_INT)(int);
 typedef void(*SCENE_MEM_FUNC_SCENE_TYPE)(SCENE_TYPE);
+typedef void(*SCENE_MEM_FUNC_STATIC_VOID)(void);
 /// <summary>
 /// ui에서 버튼의 기능을 담당하는 ui
 /// 
@@ -57,6 +58,10 @@ public:
 		m_sceneTypeFunction = _pfunc;
 		m_param1 = _param1;
 	}
+	void SetClickedCallBack(SCENE_MEM_FUNC_STATIC_VOID _pfunc)
+	{
+		m_sceneVoidFunction = _pfunc;
+	}
 	void SetTex(CTexture* _tex) { m_tex = _tex; }
 
 	CLONE(CButtonUI);
@@ -65,6 +70,7 @@ private:
 	SCENE_MEM_FUNC_VOID m_sceneFunction;
 	SCENE_MEM_FUNC_INT m_sceneIntFunction;
 	SCENE_MEM_FUNC_SCENE_TYPE m_sceneTypeFunction;
+	SCENE_MEM_FUNC_STATIC_VOID m_sceneVoidFunction;
 	CSound* m_sfx;
 	CScene* m_sceneInst;
 	DWORD_PTR	m_param1;

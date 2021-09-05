@@ -12,6 +12,7 @@
 #include "CPlayerStateMachine.h"
 #include "CPlayerState.h"
 #include "CSound.h"
+#include "CMonsterDebugPanel.h"
 #include "CSpawnObject.h"
 #include "CKeyManager.h"
 CStageScene_01::CStageScene_01()
@@ -48,7 +49,9 @@ void CStageScene_01::Enter()
 	GetBGM()->SetPosition(50.f);
 	GetBGM()->SetVolume(20.f);
 	GetVFX()->SetType(VFX_TYPE::SCENE_CHANGE_INTRO);
-	
+	m_debugPanel = new CMonsterDebugPanel;
+	m_debugPanel->SetPos(Vec2(780.f, 50.f));
+	CreateObject(m_debugPanel, GROUP_TYPE::UI);
 }
 
 void CStageScene_01::Update()
@@ -63,6 +66,7 @@ void CStageScene_01::Update()
 		salSpawn->Spawn();
 		m_currentBoss = salSpawn->GetSpawnObj();
 		m_prevBossName = m_currentBoss->GetName();
+		m_debugPanel->SetOwner(((CMonster*)m_currentBoss));
 		CCamera::GetInst()->SetTarget(playerSpawn->GetSpawnObj());
 		if (GetVFX()->GetAnimator()->GetCurrentAnim()->IsFinish())
 		{
@@ -110,6 +114,7 @@ void CStageScene_01::Update()
 			onionSpawn->Spawn();
 			m_currentBoss = onionSpawn->GetSpawnObj();
 			m_prevBossName = m_currentBoss->GetName();
+			m_debugPanel->SetOwner(((CMonster*)m_currentBoss));
 			return;
 		}
 		else if (m_prevBossName == L"Carrot")
@@ -123,6 +128,7 @@ void CStageScene_01::Update()
 			CSpawnObject* carrotSpawn = ((CSpawnObject*)GetTarget(GROUP_TYPE::SPAWN_OBJ, L"Spawn_Carrot"));
 			carrotSpawn->Spawn();
 			m_currentBoss = carrotSpawn->GetSpawnObj();
+			m_debugPanel->SetOwner(((CMonster*)m_currentBoss));
 			m_prevBossName = m_currentBoss->GetName();
 		}
 	}

@@ -95,6 +95,10 @@ void CVFXObject::Render(HDC _dc)
 		);
 
 	}
+	if (m_currentType == VFX_TYPE::BIG_TEAR_LEFT || m_currentType == VFX_TYPE::BIG_TEAR_RIGHT)
+	{
+		GetAnimator()->SetAlpha(165);
+	}
 	ComponentRender(_dc);
 }
 

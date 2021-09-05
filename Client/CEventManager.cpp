@@ -71,6 +71,11 @@ void CEventManager::excute(const event& _event)
 
 	}
 		break;
+	case EVENT_TYPE::SCENE_RESTART:
+	{
+		CSceneManager::GetInst()->Restart();
+	}
+	break;
 	case EVENT_TYPE::STATE_CHANGE:
 	{
 		//1Param: ai

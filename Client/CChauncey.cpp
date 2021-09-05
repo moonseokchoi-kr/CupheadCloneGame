@@ -42,7 +42,7 @@ void CChauncey::Start()
 {
 	CMonster::Start();
 	CreateEyes();
-	m_eyes->m_offSet = Vec2(-5.f, -30.f);
+	m_eyes->m_offSet = Vec2(-5.f, -40.f);
 	GetHitBox()->SetScale(GetScale() - Vec2(200.f, 300.f));
 	GetHitBox()->GetCollider()->SetOffsetPos(Vec2(0.f, -40.f));
 	GetHitBox()->SetOffset(Vec2(0.f, 50.f));
@@ -51,7 +51,7 @@ void CChauncey::Start()
 
 void CChauncey::Update()
 {
-	if (GetInfo().hp <= 0)
+	if (GetInfo().hp <= 0 && GetAi()->GetCurrentState()->GetState() != MON_STATE::DEAD)
 	{
 		CSound* sfx = CResourceManager::GetInst()->FindSound(L"CARROT_DEATH");
 		sfx->Play(false);

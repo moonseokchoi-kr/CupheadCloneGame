@@ -151,11 +151,7 @@ void CScene::FinalUpdate()
 	}
 }
 
-void CScene::Restart()
-{
-	Exit();
-	Enter();
-}
+
 
 void CScene::SetDeadState(CMonster* _boss)
 {
@@ -332,7 +328,7 @@ void CScene::CreatePauseUI()
 	restartButton->SetScale(Vec2(320.f, 78.f));
 	restartButton->SetPos(Vec2(-170.f, -60.f));
 	restartButton->SetIndex(0);
-	restartButton->SetClickedCallBack(this, (SCENE_MEM_FUNC_VOID)&CScene::Restart);
+	restartButton->SetClickedCallBack((SCENE_MEM_FUNC_STATIC_VOID)&RestartScene);
 	CMenuButtonUI* returnButton = new CMenuButtonUI;
 	returnButton->SetScale(Vec2(320.f, 78.f));
 	returnButton->SetPos(Vec2(-170.f, 20.f));

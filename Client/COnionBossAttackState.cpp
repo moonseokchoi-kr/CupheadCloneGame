@@ -33,6 +33,7 @@ void COnionBossAttackState::Exit()
 {
 	m_accTime = 0;
 	m_attackCount = 0;
+	GetSFX()->Stop(true);
 }
 
 void COnionBossAttackState::Update()

@@ -75,6 +75,7 @@ public:
 		ef.currentTime = 0.f;
 		m_camEffects.push_back(ef);
 	}
+	void SetVibe(float _f) { m_vibe = _f; }
 private:
 	void defaultCameraMove();
 	void smoothCameraMove();
@@ -97,7 +98,7 @@ private:
 	float m_moveSpeed;
 	float m_accTime;
 	float m_minMoveSpeed;
-	
+	float m_vibe;//진동상수
 
 	float m_vibeDir;
 	bool m_cameramove;

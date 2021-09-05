@@ -35,20 +35,8 @@ void CScene_Test::Enter()
 {
 	CCore::GetInst()->SetDebug(true);
 	Vec2 resolution = CCore::GetInst()->GetResolution();
-	SetCurrnetState(SCENE_STATE::PLAY);
-	CScene::LoadMap(L"tile\\test_player.tile");
-/*	const vector<CObject*>& spawners = GetObjWithType(GROUP_TYPE::SPAWN_OBJ);*/
-	CObject* player = new CPlayer;
-	player->SetPos(Vec2(200.f, 100.f));
-	player->Start();
-	CreateObject(player, GROUP_TYPE::PLAYER);
-
-	CMonster* monster = CMonsterFactory::CreateMonster(MON_TYPE::CHAUNCEY, Vec2(resolution.x - 340.f, 300.f));
-	
-	CreateObject(monster, GROUP_TYPE::BOSS);
-
-	
-
+	SetCurrnetState(SCENE_STATE::START);
+	CScene::LoadMap(L"tile\\test.tile");
 	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::GROUND, GROUP_TYPE::PLAYER);
 	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::GROUND, GROUP_TYPE::MONSTER);
 	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::GROUND, GROUP_TYPE::BOSS);
@@ -62,10 +50,6 @@ void CScene_Test::Enter()
 	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::PLAYER_HITBOX, GROUP_TYPE::MONSTER_HITBOX);
 	CColliderManager::GetInst()->CheckGroup(GROUP_TYPE::MONSTER_BULLET, GROUP_TYPE::GROUND);
 	
-
-	
-	CCamera::GetInst()->SetTarget(player);
-	CCamera::GetInst()->SetLookAt(resolution / 2.f);
 }
 
 void CScene_Test::Exit()
@@ -76,8 +60,31 @@ void CScene_Test::Exit()
 
 void CScene_Test::Update()
 {
-
+	Vec2 resolution = CCore::GetInst()->GetResolution();
 	CScene::Update();
+	if (GetCurrentState() == SCENE_STATE::START)
+	{
+		const vector<CObject*>& spawnObjs = GetObjWithType(GROUP_TYPE::SPAWN_OBJ);
+		if (spawnObjs.empty())
+		{
+			SetCurrnetState(SCENE_STATE::PLAY);
+			return;
+		}
+		for (CObject* obj : spawnObjs)
+		{
+			((CSpawnObject*)obj)->Spawn();
+		}
+		CSpawnObject* playerSpawn = ((CSpawnObject*)GetTarget(GROUP_TYPE::SPAWN_OBJ, L"Spawn_Player"));
+		if (nullptr != playerSpawn)
+		{
+			CCamera::GetInst()->SetTarget(playerSpawn->GetSpawnObj());
+		}
+		else
+			CCamera::GetInst()->SetLookAt(resolution);
+		SetCurrnetState(SCENE_STATE::PLAY);
+		return;
+	}
+
 
 	if (KEY_TAP(KEY::T))
 	{
@@ -86,10 +93,6 @@ void CScene_Test::Update()
 	if (KEY_TAP(KEY::F1))
 	{
 		SetDebug();
-	}
-	if (KEY_TAP(KEY::F2))
-	{
-		SetDeadState(((CMonster*)GetTarget(GROUP_TYPE::BOSS, L"Carrot")));
 	}
 
 }

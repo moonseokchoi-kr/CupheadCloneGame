@@ -22,10 +22,6 @@ CSpawnObject::CSpawnObject()
 
 CSpawnObject::~CSpawnObject()
 {
-	if (CSceneManager::GetInst()->GetCurrentScene()->GetSceneName() == L"Tool Scene" && m_spawnObj != nullptr)
-	{
-		DeleteObject(m_spawnObj);
-	}
 }
 
 
@@ -87,6 +83,8 @@ void CSpawnObject::Update()
 
 void CSpawnObject::Render(HDC _dc)
 {
+	if (CSceneManager::GetInst()->GetCurrentScene()->GetSceneName() == L"Tool Scene" && m_spawnObj != nullptr)
+		m_spawnObj->Render(_dc);
 	Vec2 pos = CCamera::GetInst()->GetRenderPos(GetPos());
 	Vec2 scale = GetScale();
 	if (CSceneManager::GetInst()->GetCurrentScene()->GetSceneName() != L"Tool Scene")
@@ -129,14 +127,16 @@ void CSpawnObject::Spawn()
 			m_spawnObj->SetPos(pos);
 			m_spawnObj->Start();
 			m_spawned = true;
-			CreateObject(m_spawnObj, m_groupType);
+			if(CSceneManager::GetInst()->GetCurrentScene()->GetSceneName() != L"Tool Scene")
+				CreateObject(m_spawnObj, m_groupType);
 		}
 
 
 		if (MON_TYPE::NONE != m_monType && GROUP_TYPE::BOSS == m_groupType)
 		{
 			m_spawnObj->SetPos(pos);
-			CreateObject(m_spawnObj, m_groupType);
+			if (CSceneManager::GetInst()->GetCurrentScene()->GetSceneName() != L"Tool Scene")
+				CreateObject(m_spawnObj, m_groupType);
 			m_spawned = true;
 		}
 

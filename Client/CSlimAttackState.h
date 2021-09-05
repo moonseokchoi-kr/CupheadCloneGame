@@ -21,6 +21,13 @@ public:
     virtual void Exit() override;
 
     virtual void Update() override;
+public:
+    ATTACK_PATT GetCurrentPatt() { return m_currentPatt; }
+    void SetCurrentPatt(ATTACK_PATT _patt)
+    {
+        m_prevPatt = m_currentPatt;
+        m_currentPatt = _patt;
+    }
 private:
     void updateAnimation();
     void updateSubState();

@@ -49,9 +49,10 @@ void CSalSpudder::Start()
 }
 void CSalSpudder::Update()
 {
-	if (GetInfo().hp <= 0)
+	if (GetInfo().hp <= 0 && GetAi()->GetCurrentState()->GetState() != MON_STATE::DEAD)
 	{
 		ChangeAIState(GetAi(), MON_STATE::DEAD);
+		return;
 	}
 	if (GetAi()->GetCurrentState()->GetState() == MON_STATE::INTRO && GetAnimator()->GetCurrentAnim()== nullptr)
 	{

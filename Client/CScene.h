@@ -41,7 +41,6 @@ public:
 	virtual void FinalUpdate() final;
 	virtual void Enter() = 0;
 	virtual void Exit() = 0;
-	virtual void Restart();
 public:
 
 	void AddObject(CObject* _obj, GROUP_TYPE _state)

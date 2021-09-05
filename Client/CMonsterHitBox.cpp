@@ -49,6 +49,7 @@ void CMonsterHitBox::OnCollisionEnter(CCollider* _col)
 		monsterInfo info = m_owner->GetInfo();
 		info.hp -= ((CBullet*)obj)->GetInfo().damege;
 		m_owner->SetHit(true);
+		m_owner->SetInfo(info);
 		m_accTime = 0;
 	}
 }

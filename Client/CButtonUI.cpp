@@ -70,6 +70,10 @@ void CButtonUI::MouseLButtonUp()
 
 void CButtonUI::MouseLButtonClicked()
 {
+	if (nullptr != m_sceneVoidFunction)
+	{
+		m_sceneVoidFunction();
+	}
 	if (nullptr != m_callBackFuction)
 	{
 		m_callBackFuction(m_param1, m_param2);

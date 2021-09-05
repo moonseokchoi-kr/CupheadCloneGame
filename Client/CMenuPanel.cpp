@@ -26,22 +26,6 @@ void CMenuPanel::Render(HDC _dc)
 {
 	Vec2 pos = GetPos();
 	Vec2 scale = GetScale();
-	if (CCore::GetInst()->IsDebug())
-	{
-		Vec2 pos = GetPos();
-		Vec2 scale = GetScale();
-		SelectGDI gdi(_dc, BRUSH_TYPE::HOLLOW);
-
-		SelectGDI gdi1(_dc, PEN_TYPE::BLACK);
-		Rectangle(
-			_dc,
-			(int)(pos.x - scale.x / 2.f),
-			(int)(pos.y - scale.y / 2.f),
-			(int)(pos.x + scale.x / 2.f),
-			(int)(pos.y + scale.y / 2.f)
-		);
-
-	}
 	if (m_backGround != nullptr && m_isShow && MENU_TYPE::PAUSE == m_menuType)
 	{
 		BLENDFUNCTION bf = {};
@@ -49,8 +33,6 @@ void CMenuPanel::Render(HDC _dc)
 		bf.BlendFlags = 0;
 		bf.AlphaFormat = 0;
 		bf.SourceConstantAlpha = 255*0.35f;
-
-	
 		AlphaBlend(
 			_dc,
 			0,

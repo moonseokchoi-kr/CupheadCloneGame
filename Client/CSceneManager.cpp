@@ -4,6 +4,7 @@
 #include "CScene_Test.h"
 #include "CScene_Tool.h"
 #include "CUIManager.h"
+#include "CGameObjectManager.h"
 #include "CColliderManager.h"
 #include "CStageScene_01.h"
 #include "CStageScene_02.h"
@@ -62,8 +63,18 @@ void CSceneManager::Render(HDC _dc)
 void CSceneManager::ChangeScene(SCENE_TYPE _next)
 {
 	CUIManager::GetInst()->SetFocusedUI(nullptr);
+	CGameObjectManager::GetInst()->SetFocusedObj(nullptr);
 	CColliderManager::GetInst()->Reset();
 	m_currentScene->Exit();
 	m_currentScene = m_arrScene[TYPE_NUMBER(_next)];
+	m_currentScene->Enter();
+}
+
+void CSceneManager::Restart()
+{
+	CUIManager::GetInst()->SetFocusedUI(nullptr);
+	CGameObjectManager::GetInst()->SetFocusedObj(nullptr);
+	CColliderManager::GetInst()->Reset();
+	m_currentScene->Exit();
 	m_currentScene->Enter();
 }

@@ -22,6 +22,7 @@ public:
 	CScene* GetCurrentScene() { return m_currentScene; }
 private:
 	void ChangeScene(SCENE_TYPE _next);
+	void Restart();
 private:
 	array<CScene*, (UINT)SCENE_TYPE::END> m_arrScene;
 	CScene* m_currentScene;

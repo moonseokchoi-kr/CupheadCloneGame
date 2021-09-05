@@ -47,13 +47,13 @@ void COllieBullb::Start()
 	m_bigTear = new CVFXObject;
 	m_bigTear->m_owner = this;
 
-	GetVFX()->SetOffset(Vec2(350.f, -160.f));//right
-	m_bigTear->SetOffset(Vec2(-350.f,-160.f));//light
+	GetVFX()->SetOffset(Vec2(350.f, -220.f));//right
+	m_bigTear->SetOffset(Vec2(-350.f,-220.f));//light
 }
 
 void COllieBullb::Update()
 {
-	if (GetInfo().hp <= 0)
+	if (GetInfo().hp <= 0 && GetAi()->GetCurrentState()->GetState() != MON_STATE::DEAD)
 	{
 		CSound* sfx = CResourceManager::GetInst()->FindSound(L"ONION_DEATH");
 		sfx->Play(false);
@@ -102,8 +102,9 @@ void COllieBullb::Render(HDC _dc)
 	{
 		GetAnimator()->SetAlpha(255);
 	}
-	m_bigTear->Render(_dc);
 	CMonster::Render(_dc);
+	m_bigTear->Render(_dc);
+
 
 }
 

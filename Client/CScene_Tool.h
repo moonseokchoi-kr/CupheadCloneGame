@@ -51,7 +51,7 @@ public:
 private:
 
     int m_cilckedImageIdx;
-
+    bool m_isGoTest;
     CTextUI* m_focusPos;
     CTextUI* m_focusScale;
     CTextUI* m_focusObjText;

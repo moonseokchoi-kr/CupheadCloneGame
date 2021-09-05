@@ -35,6 +35,13 @@ void DeleteObject(CObject* _object)
 	CEventManager::GetInst()->AddEvent(evn);
 }
 
+void RestartScene()
+{
+	event evn = {};
+	evn.event_type = EVENT_TYPE::SCENE_RESTART;
+	CEventManager::GetInst()->AddEvent(evn);
+}
+
 void ChangeScene(SCENE_TYPE _type)
 {
 	event evn = {};

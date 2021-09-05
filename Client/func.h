@@ -11,7 +11,7 @@ class CPlayerStateMachine;
 void CreateObject(CObject* _object, GROUP_TYPE _group, Vec2 _pos, Vec2 _scale);
 void CreateObject(CObject* _object, GROUP_TYPE _group);
 void DeleteObject(CObject* _object);
-
+void RestartScene();
 void ChangeScene(SCENE_TYPE _type);
 
 void ChangeAIState(FSMAI* ai, MON_STATE _nextState);

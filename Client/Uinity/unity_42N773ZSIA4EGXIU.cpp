@@ -12,6 +12,9 @@
 #include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CMenuPanel.cpp"
 
 
+#include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CMonsterDebugPanel.cpp"
+
+
 #include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CPlayerDuckState.cpp"
 
 
@@ -19,7 +22,4 @@
 
 
 #include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CPlayerIntroState.cpp"
-
-
-#include "D:\Project\cpp\cppLesson\CupHeadCloneGame\Client\CPlayerWeaponUI.cpp"
 

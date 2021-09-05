@@ -137,8 +137,6 @@ CPlayer::CPlayer()
 CPlayer::~CPlayer()
 {
 	delete m_attackBox;
-	if(CSceneManager::GetInst()->GetCurrentScene()->GetSceneName() == L"Tool Scene")
-		DeleteObject(m_hitBox);
 }
 
 void CPlayer::Start()
@@ -261,11 +259,12 @@ void CPlayer::Render(HDC _dc)
 	{
 		GetAnimator()->SetAlpha(255);
 	}
+	
 	ComponentRender(_dc);
+	if (CSceneManager::GetInst()->GetCurrentScene()->GetSceneName() == L"Tool Scene")
+		return;
 	m_vfxObject->Render(_dc);
 	m_attackBox->Render(_dc);
-
-	
 }
 void CPlayer::OnCollisionEnter(CCollider* _col)
 {

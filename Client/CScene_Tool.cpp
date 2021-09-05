@@ -86,17 +86,34 @@ void CScene_Tool::Update()
 		{
 			LoadMapData();
 		}
-		
+		else if (KEY_TAP(KEY::R))
+		{
+			CGameObjectManager::GetInst()->SetFocusedObj(nullptr);
+			DeleteGroup(GROUP_TYPE::BACK_GROUND);
+			DeleteGroup(GROUP_TYPE::GAME_OBJ);
+			DeleteGroup(GROUP_TYPE::FORE_GROUND);
+		}
 	}
-	if (KEY_TAP(KEY::ENTER))
+	if (KEY_TAP(KEY::T))
 	{
+		wstring relativePath = CPathManager::GetInst()->GetContentPath();
+		relativePath += L"tile\\test.tile";
+		SaveMap(relativePath);
 		ChangeScene(SCENE_TYPE::TEST);
+		m_isGoTest = true;
+	}
+	
+	if (KEY_TAP(KEY::ESC))
+	{
+		ShowPauseUI();
 	}
 }
 	
 
 void CScene_Tool::Enter()
 {
+	if (m_isGoTest)
+		LoadMap(L"tile\\test.tile");
 	Vec2 resolution = Vec2(1600, 960);
 	CCore::GetInst()->DockMenu(resolution);
 	CCore::GetInst()->SetDebug(true);
@@ -134,7 +151,7 @@ void CScene_Tool::Enter()
 	//타일 UI설정
 	CTileButtonUI* tileUI = new CTileButtonUI(false);
 
-
+	CreatePauseUI();
 	
 	int row = 4;
 	int col = 4;
@@ -289,15 +306,12 @@ void CScene_Tool::LoadMapData()
 	ofn.nMaxFileTitle = 0;
 	ofn.lpstrInitialDir = strTileFolder.c_str();
 	ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST;
-
-	CGameObjectManager::GetInst()->SetFocusedObj(nullptr);
-
 	if (GetOpenFileName(&ofn))
 	{
 		wstring relativePath = CPathManager::GetInst()->GetRelativePath(szFile);
 		LoadMap(relativePath);
 	}
-	
+	CGameObjectManager::GetInst()->SetFocusedObj(nullptr);
 }
 
 void CScene_Tool::GetTileUIidx(int _idx)

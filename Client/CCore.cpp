@@ -75,7 +75,7 @@ void CCore::Progress()
 	CKeyManager::GetInst()->Update();
 	CCamera::GetInst()->Update();
 	CUIManager::GetInst()->Update();
-
+	CGameObjectManager::GetInst()->Update();
 
 	// ============
 	// Scene Update
@@ -88,8 +88,6 @@ void CCore::Progress()
 	CColliderManager::GetInst()->Update();
 
 	//이벤트 체크
-
-	CGameObjectManager::GetInst()->Update();
 
 	///	============
 	///	 Rendering	

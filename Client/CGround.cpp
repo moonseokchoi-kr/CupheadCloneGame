@@ -189,6 +189,8 @@ void CGround::OnCollisionEnter(CCollider* _col)
 			//플렝이어의 이전 위치가 땅의 상단위치보다 작고 현재 위치가 플랫폼 좌상단 우상단보다 클경우
 			if ((int)objRBPos.y >= (int)platLT.y && (int)objRBPrevPos.y <= (int)platLT.y)
 			{
+				if (obj->GetGravity() == nullptr)
+					return;
 				obj->GetGravity()->SetGround(true, GROUND_TYPE::GROUND);
 				m_currentCollide = COLLIDE_TYPE::COLLIDE_TOP;
 			}
@@ -280,7 +282,7 @@ void CGround::OnCollision(CCollider* _col)
 			break;
 		}
 	}
-	if (obj->GetName() == L"Onion" || obj->GetName() == L"Potato" || obj->GetName() == L"Carrot" || obj->GetName() == L"Slime")
+	if (obj->GetName() == L"Slime")
 	{
 		if (GetType() == GAMEOBJECT_TYPE::GROUND)
 		{
@@ -296,33 +298,26 @@ void CGround::OnCollision(CCollider* _col)
 			break;
 			case COLLIDE_TYPE::COLLIDE_LEFT:
 			{
+		
+
 				float fDiff = calColliderDiff(objColPos.x, objColScale.x, pos.x, scale.x);
 				objPos.x -= moveDir.x * fDiff;
-				if (obj->GetName() == L"Slime")
-				{
-					float fDiff = calColliderDiff(objColPos.x, objColScale.x, pos.x, scale.x);
-					objPos.x -= moveDir.x * fDiff;
-					obj->SetMoveDir(-1, moveDir.y);
-					obj->GetRigidBody()->SetVelocity(Vec2(-400.f, 0.f));
-					obj->GetRigidBody()->AddForce(Vec2(-400.f, 0.f));
-				}
-
-
+				obj->SetMoveDir(-1, moveDir.y);
+				obj->GetRigidBody()->SetVelocity(Vec2(-400.f, 0.f));
+				obj->GetRigidBody()->AddForce(Vec2(-400.f, 0.f));
 			}
 			break;
 			case COLLIDE_TYPE::COLLIDE_RIGHT:
 			{
 				float fDiff = calColliderDiff(objColPos.x, objColScale.x, pos.x, scale.x);
 				objPos.x += moveDir.x * fDiff;
-				
-				if (obj->GetName() == L"Slime")
-				{
-				
-					obj->SetMoveDir(1, moveDir.y);
-					obj->GetRigidBody()->SetVelocity(Vec2( 400.f, 0.f));
-					obj->GetRigidBody()->AddForce(Vec2( 400.f, 0.f));
-				}
-		
+
+
+				obj->SetMoveDir(1, moveDir.y);
+				obj->GetRigidBody()->SetVelocity(Vec2(400.f, 0.f));
+				obj->GetRigidBody()->AddForce(Vec2(400.f, 0.f));
+
+
 
 			}
 			break;

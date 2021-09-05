@@ -11,6 +11,7 @@
 #include "CPlayerStateMachine.h"
 #include "CPlayerState.h"
 #include "CVFXObject.h"
+#include "CMonsterDebugPanel.h"
 #include "CAnimation.h"
 #include "CAnimator.h"
 #include "CKeyManager.h"
@@ -46,6 +47,9 @@ void CStageScene_02::Enter()
 	GetBGM()->SetPosition(50.f);
 	GetBGM()->SetVolume(20.f);
 	GetVFX()->SetType(VFX_TYPE::SCENE_CHANGE_INTRO);
+	m_debugPanel = new CMonsterDebugPanel;
+	m_debugPanel->SetPos(Vec2(780.f, 50.f));
+	CreateObject(m_debugPanel, GROUP_TYPE::UI);
 }
 
 void CStageScene_02::Update()
@@ -62,6 +66,7 @@ void CStageScene_02::Update()
 		CSpawnObject* salSpawn = ((CSpawnObject*)GetTarget(GROUP_TYPE::SPAWN_OBJ, L"Spawn_Slime"));
 		salSpawn->Spawn();
 		m_currentBoss = salSpawn->GetSpawnObj();
+		m_debugPanel->SetOwner((CMonster*)m_currentBoss);
 		m_prevBossName = m_currentBoss->GetName();
 		CCamera::GetInst()->SetTarget(playerSpawn->GetSpawnObj());
 		if (GetVFX()->GetAnimator()->GetCurrentAnim()->IsFinish())

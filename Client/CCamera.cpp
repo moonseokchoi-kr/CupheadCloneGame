@@ -19,6 +19,7 @@ CCamera::CCamera()
 	, m_cameraType(CAMERA_TYPE::DEFALT)
 	, m_cameramove(false)
 	, m_veilTexture(nullptr)
+	,m_vibe(0.15f)
 {
 }
 
@@ -225,10 +226,10 @@ void CCamera::vibeCamera()
 	float t = (ef.duration - ef.currentTime) * 0.01f;
 	m_lookAt.y += dis(gen)*(sin(2.0f * 3.14159f * t * 3) * 30.0f +
 		sin(2.0f * 3.14159f * t * 7 + 0.2f) * 10.1f +
-		sin(2.0f * 3.14159f * t * 15 + 0.5f) * 1.1f)* (0.05f - t) / 0.15f;
+		sin(2.0f * 3.14159f * t * 15 + 0.5f) * 1.1f)* (0.05f - t) / m_vibe;
 	m_lookAt.x += dis(gen) * (sin(2.0f * 3.14159f * t * 3) * 30.0f +
 		sin(2.0f * 3.14159f * t * 7 + 0.2f) * 10.1f +
-		sin(2.0f * 3.14159f * t * 15 + 0.5f) * 1.1f) * (0.05f - t) / 0.15f;
+		sin(2.0f * 3.14159f * t * 15 + 0.5f) * 1.1f) * (0.05f - t) / m_vibe;
 	if (ef.duration < ef.currentTime)
 		m_camEffects.pop_front();
 

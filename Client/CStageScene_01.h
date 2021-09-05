@@ -2,7 +2,7 @@
 #include "CScene.h"
 
 class CObject;
-
+class CMonsterDebugPanel;
 class CStageScene_01 :
     public CScene
 {
@@ -19,6 +19,7 @@ public:
 
 private:
     CObject* m_currentBoss;
+    CMonsterDebugPanel* m_debugPanel;
     wstring m_prevBossName;
 };
 

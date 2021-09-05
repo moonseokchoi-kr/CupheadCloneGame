@@ -133,13 +133,14 @@ void CSlime::Update()
 
 		return;
 	}
-	if (GetInfo().hp <= 0)
+	if (GetInfo().hp <= 0 && GetAi()->GetCurrentState()->GetState() != MON_STATE::DEAD)
 	{
 		CSound* sfx = CResourceManager::GetInst()->FindSound(L"SLIME_DEATH");
 		sfx->Play(false);
 		sfx->SetPosition(30.f);
 		sfx->SetVolume(100.f);
 		ChangeAIState(GetAi(), MON_STATE::DEAD);
+		return;
 	}
 	if (GetAi()->GetCurrentState()->GetState() == MON_STATE::INTRO && GetAnimator()->GetCurrentAnim() == nullptr)
 	{
