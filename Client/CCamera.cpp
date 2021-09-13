@@ -240,12 +240,12 @@ void CCamera::calLookAt()
 	//맵 해상도 
 	//1450.960
 	m_mapResolution = Vec2(1450, 830);
+	
+	
 	//카메라 해상도
 	//1280,720
 	//타겟이 있으면 타겟의 현재위치로 카메라 m_lookAt계산
 	//현재 보는 위치에서 좌상단의 x좌표가 마이너스가 되거나 y좌표가 마이너스가 되면 카메라 이동 x
-
-
 
 	Vec2 resolution = CCore::GetInst()->GetResolution();
 	if (!m_targetObject)
